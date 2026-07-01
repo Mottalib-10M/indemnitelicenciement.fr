@@ -1,0 +1,234 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Ai-je droit à une indemnité de licenciement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, à condition d'avoir au moins 8 mois d'ancienneté ininterrompue chez le même employeur et de ne pas être licencié pour faute grave ou lourde."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'indemnité de licenciement est-elle imposable ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'indemnité légale ou conventionnelle est intégralement exonérée d'impôt sur le revenu. Seule la part supra-légale peut être imposable au-delà de certains seuils."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je toucher le chômage après un licenciement pour faute grave ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Le licenciement pour faute grave ou lourde ouvre droit à l'ARE. En revanche, le salarié ne perçoit pas d'indemnité de licenciement ni d'indemnité de préavis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps ai-je pour m'inscrire à France Travail ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vous disposez de 12 mois à compter de la fin de votre contrat de travail pour vous inscrire comme demandeur d'emploi. Il est recommandé de s'inscrire dès le lendemain de la fin du contrat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que le différé spécifique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le différé spécifique est un délai de carence supplémentaire qui s'applique lorsque le salarié a perçu des indemnités supra-légales. Il se calcule en divisant le montant des indemnités supra-légales par 102,4, et est plafonné à 150 jours."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="FAQ Licenciement 2026 — Questions Fréquentes | indemnite-licenciement.fr"
+  description="Réponses aux questions fréquentes sur le licenciement : indemnités, préavis, chômage, fiscalité, droits du salarié."
+  canonical="/faq/"
+  schema={faqSchema}
+>
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold">
+        Foire aux Questions — Licenciement et Indemnités
+      </h1>
+      <p class="mt-4 text-primary-100 text-lg">
+        Retrouvez les réponses aux questions les plus fréquentes sur le licenciement, les indemnités et l'allocation chômage.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="space-y-4">
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm" open>
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          Ai-je droit à une indemnité de licenciement ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            Oui, tout salarié en CDI licencié (hors faute grave ou lourde) a droit à une indemnité de licenciement, à condition de justifier d'au moins <strong>8 mois d'ancienneté ininterrompue</strong> chez le même employeur. Ce droit est garanti par l'article L1234-9 du Code du travail.
+          </p>
+          <p class="mt-2">
+            L'ancienneté s'apprécie à la date de notification du licenciement (envoi de la lettre recommandée). Les périodes de suspension du contrat (maladie, maternité, accident du travail) sont prises en compte dans le calcul de l'ancienneté.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          Comment se calcule le salaire de référence ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            Le salaire de référence correspond au montant le plus favorable pour le salarié entre :
+          </p>
+          <ul class="list-disc pl-6 mt-2 space-y-1">
+            <li>La <strong>moyenne mensuelle des 12 derniers mois</strong> de rémunération brute précédant le licenciement.</li>
+            <li>La <strong>moyenne mensuelle des 3 derniers mois</strong> de rémunération brute. Dans ce cas, les primes et gratifications annuelles sont prises en compte au prorata temporis.</li>
+          </ul>
+          <p class="mt-2">
+            Le salaire de référence inclut : salaire de base, heures supplémentaires, primes (ancienneté, 13e mois, objectifs), commissions, avantages en nature. Il exclut : les remboursements de frais professionnels et l'indemnité de licenciement elle-même.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          Quelle est la formule de calcul de l'indemnité légale ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            L'indemnité légale se calcule selon l'article R1234-2 du Code du travail :
+          </p>
+          <ul class="list-disc pl-6 mt-2 space-y-1">
+            <li><strong>1/4 de mois de salaire</strong> par année d'ancienneté pour les 10 premières années.</li>
+            <li><strong>1/3 de mois de salaire</strong> par année d'ancienneté au-delà de 10 ans.</li>
+          </ul>
+          <p class="mt-2">
+            Les années incomplètes sont prises en compte au prorata des mois travaillés. Exemple : pour 12 ans et 6 mois d'ancienneté avec un salaire de 3 000 €, l'indemnité est de (3 000 × 1/4 × 10) + (3 000 × 1/3 × 2,5) = 7 500 + 2 500 = <strong>10 000 €</strong>.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          L'indemnité de licenciement est-elle imposable ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            L'<strong>indemnité légale ou conventionnelle</strong> est intégralement exonérée d'impôt sur le revenu, quelle que soit son montant.
+          </p>
+          <p class="mt-2">
+            La part <strong>supra-légale</strong> est exonérée dans la limite du montant le plus élevé entre :
+          </p>
+          <ul class="list-disc pl-6 mt-2 space-y-1">
+            <li>2 fois la rémunération brute annuelle de l'année précédente</li>
+            <li>50 % de l'indemnité totale perçue</li>
+            <li>6 fois le plafond annuel de la Sécurité sociale (≈ 278 208 € en 2026)</li>
+          </ul>
+          <p class="mt-2">
+            Au-delà de ces limites, la part excédentaire est soumise à l'impôt sur le revenu et aux cotisations sociales.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          Puis-je toucher le chômage après un licenciement pour faute grave ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            <strong>Oui.</strong> Contrairement à une idée reçue très répandue, le licenciement pour faute grave ou lourde ouvre droit à l'ARE (allocation chômage). En effet, le critère d'éligibilité est d'être « involontairement privé d'emploi », ce qui est le cas de tout licenciement.
+          </p>
+          <p class="mt-2">
+            En revanche, en cas de faute grave ou lourde, le salarié <strong>ne perçoit pas</strong> d'indemnité de licenciement ni d'indemnité compensatrice de préavis. Il a uniquement droit à l'indemnité compensatrice de congés payés et à l'ARE.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          Qu'est-ce que le différé spécifique ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            Le <strong>différé spécifique</strong> est un délai de carence supplémentaire qui s'applique lorsque le salarié a perçu des indemnités de rupture supérieures à l'indemnité légale ou conventionnelle (indemnités supra-légales).
+          </p>
+          <p class="mt-2">
+            Il se calcule ainsi : <strong>montant des indemnités supra-légales / 102,4</strong> (valeur 2026). Le résultat, exprimé en jours, est plafonné à <strong>150 jours</strong>. Ce différé s'ajoute au délai d'attente de 7 jours.
+          </p>
+          <p class="mt-2">
+            Exemple : pour 20 000 € d'indemnité supra-légale, le différé est de 20 000 / 102,4 ≈ 196 jours, plafonné à 150 jours.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          Combien de temps ai-je pour m'inscrire à France Travail ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            Vous disposez de <strong>12 mois</strong> à compter de la fin de votre contrat de travail pour vous inscrire comme demandeur d'emploi auprès de France Travail. Au-delà de ce délai, vos droits à l'ARE sont définitivement perdus.
+          </p>
+          <p class="mt-2">
+            Il est vivement recommandé de s'inscrire <strong>dès le lendemain de la fin du contrat</strong> (ou dès la fin du préavis), même si un délai de carence s'applique avant le premier versement. L'inscription anticipée permet de déclencher les délais de carence et d'être indemnisé plus rapidement.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          L'employeur peut-il me dispenser de préavis ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            Oui. L'employeur peut dispenser le salarié d'exécuter tout ou partie de son préavis. Dans ce cas, il doit verser une <strong>indemnité compensatrice de préavis</strong> correspondant au salaire brut que le salarié aurait perçu s'il avait travaillé pendant la durée du préavis.
+          </p>
+          <p class="mt-2">
+            Cette indemnité est soumise aux cotisations sociales et à l'impôt sur le revenu (elle est traitée comme un salaire). La dispense de préavis ne modifie pas la date de fin du contrat de travail, qui reste fixée au terme du préavis.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          Ma convention collective prévoit une indemnité plus élevée : laquelle s'applique ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            L'employeur doit verser l'indemnité la plus favorable pour le salarié entre l'indemnité légale (Code du travail) et l'indemnité conventionnelle (convention collective). Les deux ne se cumulent pas : c'est le montant le plus élevé qui s'applique.
+          </p>
+          <p class="mt-2">
+            Pour connaître votre convention collective applicable, consultez votre bulletin de paie (le numéro IDCC y figure) ou le site <strong>legifrance.gouv.fr</strong>. Certaines conventions prévoient des barèmes significativement plus favorables, notamment pour les cadres et les salariés ayant une longue ancienneté.
+          </p>
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors text-lg">
+          Puis-je contester mon licenciement ?
+        </summary>
+        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+          <p>
+            Oui, tout salarié peut contester son licenciement devant le <strong>Conseil de prud'hommes</strong> s'il estime que celui-ci est dépourvu de cause réelle et sérieuse, ou entaché d'irrégularités de procédure. Le délai de prescription est de <strong>12 mois</strong> à compter de la notification du licenciement.
+          </p>
+          <p class="mt-2">
+            En cas de licenciement reconnu sans cause réelle et sérieuse, le salarié peut obtenir des <strong>dommages et intérêts</strong> encadrés par le barème Macron (art. L1235-3 du Code du travail), dont le montant varie selon l'ancienneté et la taille de l'entreprise. Il est recommandé de consulter un avocat en droit du travail ou de se rapprocher de son syndicat pour évaluer l'opportunité d'une action.
+          </p>
+        </div>
+      </details>
+
+    </div>
+  </section>
+</Layout>
