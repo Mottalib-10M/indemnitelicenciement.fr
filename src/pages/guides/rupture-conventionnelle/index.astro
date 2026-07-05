@@ -1,0 +1,215 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quel est le montant minimum de l'indemnité de rupture conventionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'indemnité spécifique de rupture conventionnelle ne peut pas être inférieure à l'indemnité légale de licenciement (1/4 de mois par année d'ancienneté pour les 10 premières années, puis 1/3 au-delà). Si la convention collective prévoit une indemnité de licenciement supérieure, c'est ce montant conventionnel qui sert de plancher."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "La rupture conventionnelle donne-t-elle droit au chômage ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. La rupture conventionnelle homologuée est assimilée à une perte involontaire d'emploi par France Travail. Le salarié a droit à l'ARE dans les mêmes conditions qu'un salarié licencié, sous réserve de remplir les conditions d'affiliation (130 jours ou 910 heures travaillées)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps dure la procédure de rupture conventionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La procédure complète dure au minimum environ 5 à 6 semaines : un ou plusieurs entretiens, la signature de la convention, un délai de rétractation de 15 jours calendaires, puis un délai d'instruction par la DREETS de 15 jours ouvrables. La date de rupture ne peut être fixée avant le lendemain du jour de l'homologation."
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://indemnite-licenciement.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://indemnite-licenciement.fr/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Rupture conventionnelle", "item": "https://indemnite-licenciement.fr/guides/rupture-conventionnelle/" }
+  ]
+};
+---
+
+<Layout
+  title="Rupture conventionnelle 2026 - Négociation, indemnité et procédure complète"
+  description="Guide complet de la rupture conventionnelle : négociation de l'indemnité, procédure d'homologation, délais de rétractation, fiscalité et droit au chômage."
+  canonical="/guides/rupture-conventionnelle/"
+  schema={schema}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-primary-200 text-sm mb-4">
+        <a href="/" class="hover:text-white transition-colors">Accueil</a>
+        <span class="mx-2">›</span>
+        <a href="/guides/" class="hover:text-white transition-colors">Guides</a>
+        <span class="mx-2">›</span>
+        <span class="text-white">Rupture conventionnelle</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-extrabold">
+        Rupture conventionnelle : négociation, indemnité minimum et procédure d'homologation
+      </h1>
+      <p class="mt-4 text-primary-100 text-lg">
+        Tout savoir sur la rupture conventionnelle du CDI : comment négocier, calculer l'indemnité minimale et mener la procédure à terme.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-slate max-w-none">
+
+      <p>
+        La <strong>rupture conventionnelle</strong>, créée par la loi du 25 juin 2008, est un mode de rupture amiable du contrat de travail à durée indéterminée (CDI). Elle permet à l'employeur et au salarié de convenir d'un commun accord des conditions de la fin du contrat de travail. Depuis sa création, la rupture conventionnelle a connu un succès considérable : plus de <strong>500 000 ruptures conventionnelles</strong> sont homologuées chaque année en France, ce qui en fait le deuxième mode de rupture du CDI après la démission. Ce guide détaille la procédure complète, le calcul de l'indemnité, les stratégies de négociation et le régime fiscal applicable en 2026.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Les conditions de la rupture conventionnelle</h2>
+
+      <p>
+        La rupture conventionnelle est réservée aux salariés en <strong>CDI</strong>. Elle ne peut pas être utilisée pour rompre un CDD, un contrat d'apprentissage ou un contrat de mission (intérim). Elle suppose un <strong>consentement libre et éclairé</strong> des deux parties : ni le salarié ni l'employeur ne peut imposer une rupture conventionnelle à l'autre. La jurisprudence a annulé des ruptures conventionnelles signées dans un contexte de harcèlement moral (Cass. soc., 30 janvier 2013, n° 11-22.332) ou sous la pression de l'employeur.
+      </p>
+
+      <p>
+        Il existe toutefois des situations dans lesquelles la rupture conventionnelle est possible mais soumise à des conditions particulières. Pour les <strong>salariés protégés</strong> (représentants du personnel, délégués syndicaux), la rupture conventionnelle nécessite l'autorisation préalable de l'inspecteur du travail au lieu de la simple homologation par la DREETS. Pour les <strong>salariés en arrêt maladie</strong>, la rupture conventionnelle est possible en principe, mais le consentement du salarié sera scruté avec attention par l'administration. Pour les <strong>femmes enceintes</strong>, la rupture conventionnelle est autorisée mais la DREETS vérifiera avec une vigilance particulière l'absence de pression.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La procédure étape par étape</h2>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 1 : L'entretien (ou les entretiens)</h3>
+      <p>
+        La loi impose au moins <strong>un entretien</strong> entre les parties (article L.1237-12 du Code du travail). Lors de cet entretien, l'employeur et le salarié discutent des conditions de la rupture : montant de l'indemnité, date de rupture envisagée, éventuels aménagements (clause de non-concurrence, solde de congés payés, etc.). Le salarié peut se faire assister par une personne de son choix appartenant au personnel de l'entreprise ou, en l'absence de représentants du personnel, par un conseiller du salarié inscrit sur la liste préfectorale. Si le salarié se fait assister, il doit en informer l'employeur au préalable, et ce dernier peut alors également se faire assister. Dans la pratique, plusieurs entretiens sont souvent nécessaires pour parvenir à un accord sur les conditions de la rupture.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 2 : La signature de la convention</h3>
+      <p>
+        Une fois les conditions négociées, les parties signent une <strong>convention de rupture</strong> en utilisant le formulaire Cerfa n° 14598 pour les salariés non protégés ou le Cerfa n° 14599 pour les salariés protégés. Ce formulaire est disponible sur le site <a href="https://www.telerc.travail.gouv.fr" class="text-primary-600 hover:underline" target="_blank" rel="noopener">TéléRC</a>, le service de télétransmission des ruptures conventionnelles. La convention doit mentionner le montant de l'indemnité spécifique de rupture conventionnelle (qui ne peut être inférieur au minimum légal ou conventionnel), la date de rupture envisagée et les conditions particulières éventuelles. Chaque partie conserve un exemplaire signé de la convention.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 3 : Le délai de rétractation</h3>
+      <p>
+        Après la signature, chaque partie dispose d'un <strong>délai de rétractation de 15 jours calendaires</strong> (article L.1237-13 du Code du travail). Ce délai court à compter du lendemain de la date de signature de la convention. Pendant ce délai, l'employeur ou le salarié peut se rétracter par lettre recommandée avec accusé de réception ou par tout autre moyen attestant de sa date de réception. La rétractation est un droit discrétionnaire : aucune motivation n'est requise et aucune sanction ne peut être prononcée contre la partie qui se rétracte. Si le 15e jour tombe un samedi, un dimanche ou un jour férié, le délai est prolongé jusqu'au premier jour ouvrable suivant.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 4 : La demande d'homologation</h3>
+      <p>
+        À l'expiration du délai de rétractation, si aucune partie ne s'est rétractée, l'une ou l'autre des parties (le plus souvent l'employeur) transmet la demande d'homologation à la <strong>DREETS</strong> (anciennement DIRECCTE). La transmission se fait de préférence en ligne via le portail TéléRC. La DREETS dispose d'un délai d'instruction de <strong>15 jours ouvrables</strong> à compter de la réception de la demande pour vérifier le respect de la procédure, le consentement des parties et le montant de l'indemnité. En l'absence de réponse dans ce délai, l'homologation est réputée acquise (homologation tacite). La DREETS peut refuser l'homologation si elle constate un vice de consentement, un montant d'indemnité inférieur au minimum ou un non-respect de la procédure.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 5 : La rupture effective du contrat</h3>
+      <p>
+        La date de rupture du contrat ne peut intervenir avant le lendemain du jour de l'homologation (ou de l'autorisation pour les salariés protégés). En pratique, il est recommandé de prévoir une date de rupture suffisamment éloignée pour tenir compte des délais de procédure (15 jours de rétractation + 15 jours d'instruction DREETS). Le salarié continue de travailler et d'être rémunéré jusqu'à la date de rupture effective, sauf si les parties conviennent d'une dispense d'activité rémunérée pendant la procédure.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le calcul de l'indemnité de rupture conventionnelle</h2>
+
+      <p>
+        L'indemnité spécifique de rupture conventionnelle ne peut pas être inférieure à l'indemnité légale de licenciement ou, si elle est plus avantageuse, à l'indemnité conventionnelle de licenciement prévue par la convention collective applicable. Ce plancher constitue le minimum incompressible en dessous duquel la DREETS refusera l'homologation.
+      </p>
+
+      <div class="bg-primary-50 border-2 border-primary-200 rounded-xl p-6 my-6 not-prose">
+        <p class="font-bold text-primary-800 text-lg mb-3">Indemnité minimum de rupture conventionnelle</p>
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border border-primary-100">
+            <p class="font-semibold text-gray-900">Plancher = le plus élevé entre :</p>
+            <ul class="mt-2 text-sm text-gray-700 space-y-1">
+              <li>Indemnité légale : 1/4 mois par année (&le; 10 ans) + 1/3 mois par année (&gt; 10 ans)</li>
+              <li>Indemnité conventionnelle de licenciement (si plus favorable)</li>
+            </ul>
+          </div>
+          <p class="text-sm text-gray-600">
+            En pratique, l'indemnité négociée est souvent supérieure au minimum. Les montants couramment obtenus se situent entre 1 et 3 mois de salaire supplémentaires par rapport au minimum, selon le pouvoir de négociation du salarié.
+          </p>
+        </div>
+      </div>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Stratégies de négociation de l'indemnité</h3>
+      <p>
+        La négociation de l'indemnité de rupture conventionnelle est un exercice délicat qui dépend du rapport de force entre les parties. Plusieurs facteurs jouent en faveur du salarié. Si la demande de rupture émane de l'employeur, le salarié est en position de force car l'employeur cherche à éviter un licenciement (plus coûteux et risqué juridiquement). Si le salarié dispose de preuves de manquements de l'employeur (heures supplémentaires non payées, harcèlement, conditions de travail dégradées), il peut les utiliser comme levier de négociation sans nécessairement engager une procédure judiciaire. L'ancienneté élevée, la difficulté de remplacement et le contexte économique de l'entreprise sont également des facteurs favorables au salarié.
+      </p>
+
+      <p>
+        En revanche, si la rupture est souhaitée par le salarié (pour un nouveau projet professionnel, par exemple), sa marge de négociation est plus limitée. L'employeur n'a aucune obligation d'accepter une rupture conventionnelle et peut simplement inviter le salarié à démissionner. Dans ce cas, le salarié peut néanmoins mettre en avant les coûts de recrutement que l'employeur devra supporter et la possibilité d'organiser une transition en douceur. Certains salariés obtiennent des indemnités significatives en combinant la rupture conventionnelle avec la renonciation à une clause de non-concurrence ou le maintien de certains avantages (mutuelle, véhicule de fonction) pendant une période transitoire.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Fiscalité de l'indemnité de rupture conventionnelle</h2>
+
+      <p>
+        Le régime fiscal de l'indemnité de rupture conventionnelle a été modifié à plusieurs reprises. En 2026, les règles applicables sont les suivantes. L'indemnité de rupture conventionnelle est exonérée d'impôt sur le revenu dans la limite du plus élevé des trois montants suivants : le montant de l'indemnité légale ou conventionnelle de licenciement, <strong>50 % du montant total de l'indemnité</strong>, ou <strong>deux fois la rémunération annuelle brute</strong> du salarié au cours de l'année civile précédant la rupture, dans la limite de <strong>6 fois le plafond annuel de la Sécurité sociale</strong> (PASS), soit environ 278 208 € en 2026.
+      </p>
+
+      <p>
+        En matière de cotisations sociales, l'indemnité est exonérée de cotisations de sécurité sociale dans la limite de <strong>2 PASS</strong> (environ 92 736 € en 2026) et dans la limite de la fraction exonérée d'impôt sur le revenu. La CSG et la CRDS sont dues sur la partie de l'indemnité excédant l'indemnité légale ou conventionnelle de licenciement. Depuis 2023, une <strong>contribution patronale</strong> spécifique de <strong>30 %</strong> (contre 20 % auparavant) s'applique sur la partie de l'indemnité exonérée de cotisations sociales, ce qui a rendu la rupture conventionnelle plus coûteuse pour l'employeur.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Rupture conventionnelle et droit au chômage</h2>
+
+      <p>
+        La rupture conventionnelle homologuée ouvre droit à l'<strong>Allocation de Retour à l'Emploi (ARE)</strong> dans les mêmes conditions qu'un licenciement. Le salarié doit s'inscrire à France Travail et remplir les conditions d'affiliation habituelles (130 jours ou 910 heures travaillées au cours des 24 ou 36 derniers mois). Le <strong>différé d'indemnisation</strong> spécifique est calculé en fonction de la partie de l'indemnité de rupture conventionnelle excédant l'indemnité légale de licenciement, divisée par 102,4 (le plafond journalier de la Sécurité sociale). Ce différé est plafonné à <strong>150 jours calendaires</strong> (environ 5 mois). Un différé d'attente de 7 jours s'applique en complément.
+      </p>
+
+      <p>
+        <strong>Exemple :</strong> Un salarié avec 10 ans d'ancienneté et un salaire de 3 500 € brut perçoit une indemnité de rupture conventionnelle de 15 000 €. L'indemnité légale de licenciement est de 1/4 × 3 500 × 10 = 8 750 €. L'excédent est de 15 000 - 8 750 = 6 250 €. Le différé spécifique est de 6 250 / 102,4 = 61 jours, auxquels s'ajoutent les 7 jours de délai d'attente. Le versement de l'ARE débutera donc environ 68 jours après l'inscription à France Travail.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La rupture conventionnelle collective</h2>
+
+      <p>
+        Depuis les ordonnances Macron de 2017, il existe également la <strong>rupture conventionnelle collective (RCC)</strong>, qui permet à l'employeur de proposer des départs volontaires dans le cadre d'un accord collectif validé par la DREETS. La RCC n'est pas subordonnée à l'existence d'un motif économique et ne nécessite pas la mise en oeuvre d'un PSE. Elle repose sur le volontariat des salariés et ne peut entraîner aucun licenciement économique pendant la durée de l'accord. Les indemnités de rupture prévues par la RCC sont au moins égales à l'indemnité légale de licenciement et bénéficient du même régime fiscal et social que la rupture conventionnelle individuelle.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Erreurs à éviter et points de vigilance</h2>
+
+      <p>
+        Plusieurs erreurs fréquentes peuvent compromettre la rupture conventionnelle ou défavoriser le salarié. La première est de <strong>signer trop rapidement</strong> sans avoir pris le temps de calculer ses droits et de négocier. La deuxième est de <strong>renoncer à des créances salariales</strong> (heures supplémentaires, primes, etc.) dans le cadre de la négociation sans obtenir de contrepartie suffisante. La troisième est de <strong>fixer une date de rupture trop proche</strong>, ne laissant pas assez de temps pour les délais de rétractation et d'homologation. La quatrième est de <strong>ne pas conserver d'exemplaire signé</strong> de la convention, ce qui peut poser des problèmes de preuve en cas de contestation. Enfin, il faut veiller à ce que l'indemnité soit au moins égale au minimum légal ou conventionnel, car la DREETS refusera l'homologation dans le cas contraire, retardant l'ensemble de la procédure.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Contester une rupture conventionnelle</h2>
+
+      <p>
+        Le salarié qui estime avoir signé une rupture conventionnelle sous la contrainte ou dans des conditions irrégulières peut la contester devant le conseil de prud'hommes dans un délai de <strong>12 mois</strong> à compter de la date d'homologation (article L.1237-14 du Code du travail). Les motifs de contestation incluent le vice de consentement (pression, harcèlement, fraude), le non-respect de la procédure (absence d'entretien, remise tardive de l'exemplaire), et l'indemnité inférieure au minimum. Si la rupture conventionnelle est annulée, elle produit les effets d'un licenciement sans cause réelle et sérieuse, ouvrant droit à l'indemnité de licenciement, au préavis et aux dommages et intérêts selon le barème Macron.
+      </p>
+
+    </div>
+
+    <!-- Outils associés -->
+    <div class="bg-accent-50 border border-accent-200 rounded-xl p-6 mt-10 not-prose">
+      <h2 class="text-lg font-bold text-accent-800 mb-3">Outils associés</h2>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="/" class="text-accent-700 hover:text-accent-900 font-medium underline">Calculateur d'indemnité de licenciement</a> - Calculez le minimum de votre indemnité de rupture conventionnelle.
+        </li>
+        <li>
+          <a href="/guide-are/" class="text-accent-700 hover:text-accent-900 font-medium underline">Guide ARE (allocation chômage)</a> - Estimez vos droits au chômage après une rupture conventionnelle.
+        </li>
+        <li>
+          <a href="/guides/indemnite-legale-vs-conventionnelle/" class="text-accent-700 hover:text-accent-900 font-medium underline">Indemnité légale vs conventionnelle</a> - Déterminez le plancher applicable à votre situation.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sources -->
+    <div class="mt-10 border-t border-gray-200 pt-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-3">Sources</h2>
+      <ul class="space-y-1 text-sm text-gray-600">
+        <li>Articles L.1237-11 à L.1237-16 du Code du travail - Rupture conventionnelle</li>
+        <li>Loi n° 2008-596 du 25 juin 2008 - Création de la rupture conventionnelle</li>
+        <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F19030" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Rupture conventionnelle</a></li>
+        <li>TéléRC - <a href="https://www.telerc.travail.gouv.fr" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Service de télétransmission</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

@@ -59,6 +59,47 @@ calculateARE(3000, 730, 40).dureeJours → 730  ✓
 
 ---
 
+## Build status
+
+- **Build:** 40 pages, 0 errors
+- **Tests:** 32/32 passed
+- **Sitemap:** auto-generated (sitemap-index.xml)
+
+## Page inventory (40 pages)
+
+| Category | Count | Details |
+|---|---|---|
+| Home + legal | 3 | index, mentions-legales, confidentialite |
+| Tool pages | 3 | index (calculateur), guide-are, faq |
+| Guides index | 1 | /guides/ |
+| Guide articles | 8 | indemnite-legale-vs-conventionnelle, licenciement-faute-grave, licenciement-economique, rupture-conventionnelle, preavis-licenciement, fiscalite-indemnites, licenciement-inaptitude, contestation-prud-hommes |
+| Seniority pages | 18 | indemnite-licenciement-1-ans through indemnite-licenciement-30-ans |
+| Salary pages | 8 | indemnite-licenciement-1802-euros through indemnite-licenciement-6000-euros |
+
+## Components
+
+- LicenciementCalculator.tsx (full calculator with timeline)
+
+## Data files
+
+- baremes-2026.ts — SMIC, severance rates, notice periods, ARE formulas
+- anciennete-data.ts — 18 seniority entries with pre-calculated examples
+- salaire-data.ts — 8 salary levels with comparison tables
+
+## Quality gates
+
+- [x] Build passes (40 pages, 0 errors)
+- [x] Tests pass (32/32)
+- [x] Sitemap generated
+- [x] Schema.org on every page (WebApplication, FAQPage, BreadcrumbList)
+- [x] Analytics: Plausible + GA4 placeholder
+- [x] robots.txt present
+- [x] llms.txt present
+- [x] All guide pages > 1500 words
+- [x] Disclaimer in footer
+- [x] Mobile-responsive navigation (hamburger menu)
+- [x] Internal cross-linking between tools and guides
+
 ## Sources juridiques
 
 | Référence | Objet |

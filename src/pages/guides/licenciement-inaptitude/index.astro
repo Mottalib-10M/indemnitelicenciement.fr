@@ -1,0 +1,243 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "L'indemnité de licenciement est-elle doublée en cas d'inaptitude professionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. L'article L.1226-14 du Code du travail prévoit que le salarié licencié pour inaptitude d'origine professionnelle (accident du travail ou maladie professionnelle) perçoit une indemnité spéciale de licenciement égale au double de l'indemnité légale de licenciement. Cette indemnité doublée ne s'applique pas à l'indemnité conventionnelle, sauf disposition contraire de la convention collective."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre inaptitude professionnelle et non professionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'inaptitude professionnelle résulte d'un accident du travail ou d'une maladie professionnelle. L'inaptitude non professionnelle résulte d'une maladie ou d'un accident sans lien avec le travail. La distinction est fondamentale car l'inaptitude professionnelle ouvre des droits renforcés : indemnité de licenciement doublée, indemnité compensatrice de préavis et maintien de la couverture mutuelle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'employeur peut-il licencier un salarié inapte sans rechercher un reclassement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En principe non, sauf si le médecin du travail a expressément mentionné dans son avis d'inaptitude que 'tout maintien du salarié dans un emploi serait gravement préjudiciable à sa santé' ou que 'l'état de santé du salarié fait obstacle à tout reclassement dans un emploi'. Dans ces cas, l'employeur est dispensé de recherche de reclassement."
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://indemnite-licenciement.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://indemnite-licenciement.fr/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Licenciement pour inaptitude", "item": "https://indemnite-licenciement.fr/guides/licenciement-inaptitude/" }
+  ]
+};
+---
+
+<Layout
+  title="Licenciement pour inaptitude 2026 - Indemnité doublée, procédure et droits"
+  description="Guide complet du licenciement pour inaptitude : distinction professionnelle/non professionnelle, indemnité doublée, obligation de reclassement, préavis et ARE."
+  canonical="/guides/licenciement-inaptitude/"
+  schema={schema}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-primary-200 text-sm mb-4">
+        <a href="/" class="hover:text-white transition-colors">Accueil</a>
+        <span class="mx-2">›</span>
+        <a href="/guides/" class="hover:text-white transition-colors">Guides</a>
+        <span class="mx-2">›</span>
+        <span class="text-white">Licenciement pour inaptitude</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-extrabold">
+        Licenciement pour inaptitude : indemnité doublée, reclassement et droits du salarié
+      </h1>
+      <p class="mt-4 text-primary-100 text-lg">
+        Tout savoir sur le licenciement pour inaptitude médicale : distinction entre origine professionnelle et non professionnelle, calcul de l'indemnité et procédure.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-slate max-w-none">
+
+      <p>
+        Le licenciement pour inaptitude intervient lorsqu'un salarié est déclaré inapte à son poste de travail par le <strong>médecin du travail</strong> et que l'employeur ne parvient pas à le reclasser sur un autre poste. Ce mode de rupture du contrat de travail obéit à des règles spécifiques qui varient considérablement selon que l'inaptitude est d'<strong>origine professionnelle</strong> (consécutive à un accident du travail ou une maladie professionnelle) ou d'<strong>origine non professionnelle</strong> (maladie ou accident de la vie courante). Cette distinction est fondamentale car elle détermine le montant de l'indemnité de licenciement, le droit au préavis et les obligations de l'employeur. Ce guide détaille la procédure complète et les droits du salarié inapte en 2026.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La constatation de l'inaptitude par le médecin du travail</h2>
+
+      <p>
+        L'inaptitude ne peut être constatée que par le <strong>médecin du travail</strong>, à l'exclusion de tout autre médecin (médecin traitant, médecin-conseil de la Sécurité sociale, etc.). Cette constatation intervient après la réalisation d'un <strong>examen médical</strong> au cours duquel le médecin du travail évalue la capacité du salarié à occuper son poste ou tout autre poste dans l'entreprise. Depuis la loi Travail du 8 août 2016, le médecin du travail peut déclarer l'inaptitude après <strong>un seul examen médical</strong> (auparavant, deux examens espacés de 15 jours étaient nécessaires). Un second examen reste possible si le médecin l'estime nécessaire.
+      </p>
+
+      <p>
+        Avant de rendre son avis d'inaptitude, le médecin du travail doit avoir réalisé une <strong>étude de poste</strong> et une <strong>étude des conditions de travail dans l'établissement</strong>. Il doit également avoir échangé avec l'employeur et le salarié sur les possibilités d'aménagement du poste ou de reclassement. L'avis d'inaptitude doit être formalisé par écrit et peut comporter des indications sur la capacité du salarié à bénéficier d'une formation ou sur les postes compatibles avec son état de santé. Deux mentions spécifiques peuvent dispenser l'employeur de l'obligation de reclassement : « tout maintien dans un emploi serait gravement préjudiciable à sa santé » ou « l'état de santé fait obstacle à tout reclassement dans un emploi ».
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">L'obligation de reclassement</h2>
+
+      <p>
+        Après la constatation de l'inaptitude, l'employeur est tenu de rechercher un <strong>reclassement</strong> pour le salarié déclaré inapte, sauf si l'avis du médecin du travail porte l'une des deux mentions de dispense. L'obligation de reclassement est prévue par les articles <strong>L.1226-2</strong> (inaptitude non professionnelle) et <strong>L.1226-10</strong> (inaptitude professionnelle) du Code du travail. Le reclassement doit être recherché parmi les emplois disponibles dans l'entreprise et, le cas échéant, dans les autres entreprises du groupe situées sur le territoire national. Les propositions de reclassement doivent être <strong>compatibles avec les conclusions du médecin du travail</strong> et aussi comparables que possible au poste précédemment occupé.
+      </p>
+
+      <p>
+        L'employeur doit consulter le <strong>Comité Social et Économique (CSE)</strong> avant de proposer un reclassement ou de procéder au licenciement. Cette consultation est obligatoire quelle que soit l'origine de l'inaptitude. L'absence de consultation du CSE rend le licenciement irrégulier et peut donner lieu à des dommages et intérêts. Si le salarié refuse un ou plusieurs postes de reclassement compatibles avec les préconisations du médecin du travail, l'employeur peut procéder au licenciement en justifiant de l'impossibilité de reclassement.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Inaptitude professionnelle vs non professionnelle : les différences majeures</h2>
+
+      <div class="overflow-x-auto my-6">
+        <table class="w-full border-collapse not-prose">
+          <thead>
+            <tr class="bg-primary-700 text-white">
+              <th class="p-3 text-left font-semibold">Critère</th>
+              <th class="p-3 text-left font-semibold">Inaptitude professionnelle</th>
+              <th class="p-3 text-left font-semibold">Inaptitude non professionnelle</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">Origine</td>
+              <td class="p-3 text-gray-700">Accident du travail ou maladie professionnelle</td>
+              <td class="p-3 text-gray-700">Maladie ou accident hors travail</td>
+            </tr>
+            <tr class="border-b border-gray-200 bg-gray-50">
+              <td class="p-3 font-medium text-gray-900">Indemnité de licenciement</td>
+              <td class="p-3 text-green-700 font-semibold">Doublée (2 × indemnité légale)</td>
+              <td class="p-3 text-gray-700">Indemnité légale ou conventionnelle normale</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">Indemnité compensatrice de préavis</td>
+              <td class="p-3 text-green-700 font-semibold">Due (art. L.1226-14)</td>
+              <td class="p-3 text-secondary-600 font-semibold">Non due</td>
+            </tr>
+            <tr class="border-b border-gray-200 bg-gray-50">
+              <td class="p-3 font-medium text-gray-900">Reclassement</td>
+              <td class="p-3 text-gray-700">Obligatoire (sauf dispense médicale)</td>
+              <td class="p-3 text-gray-700">Obligatoire (sauf dispense médicale)</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">Consultation du CSE</td>
+              <td class="p-3 text-gray-700">Obligatoire</td>
+              <td class="p-3 text-gray-700">Obligatoire</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-gray-900">Droit au chômage (ARE)</td>
+              <td class="p-3 text-green-700 font-semibold">Oui</td>
+              <td class="p-3 text-green-700 font-semibold">Oui</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">L'indemnité spéciale de licenciement pour inaptitude professionnelle</h2>
+
+      <p>
+        L'article <strong>L.1226-14 du Code du travail</strong> prévoit que le salarié licencié pour inaptitude d'origine professionnelle perçoit une <strong>indemnité spéciale de licenciement</strong> égale au <strong>double de l'indemnité légale de licenciement</strong>. Attention : c'est l'indemnité légale qui est doublée, et non l'indemnité conventionnelle. Si l'indemnité conventionnelle non doublée est supérieure au double de l'indemnité légale, c'est l'indemnité conventionnelle qui s'applique (principe de faveur). En revanche, si la convention collective prévoit expressément un doublement de l'indemnité conventionnelle en cas d'inaptitude professionnelle, c'est cette disposition plus favorable qui prévaut.
+      </p>
+
+      <div class="bg-primary-50 border-2 border-primary-200 rounded-xl p-6 my-6 not-prose">
+        <p class="font-bold text-primary-800 text-lg mb-3">Calcul de l'indemnité doublée - Inaptitude professionnelle</p>
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border border-primary-100">
+            <p class="font-semibold text-gray-900">Formule :</p>
+            <p class="text-primary-700 font-mono text-lg">2 × [(1/4 × salaire × années &le; 10) + (1/3 × salaire × années &gt; 10)]</p>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-primary-100">
+            <p class="font-semibold text-gray-900">Exemple : 12 ans d'ancienneté, 3 000 € brut/mois</p>
+            <p class="text-sm text-gray-600">Indemnité légale simple : (1/4 × 3 000 × 10) + (1/3 × 3 000 × 2) = 7 500 + 2 000 = 9 500 €</p>
+            <p class="text-primary-700 font-semibold mt-1">Indemnité doublée : 9 500 × 2 = <strong>19 000 €</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">L'indemnité compensatrice de préavis en cas d'inaptitude professionnelle</h3>
+      <p>
+        En cas d'inaptitude d'origine professionnelle, le salarié a droit à une <strong>indemnité compensatrice de préavis</strong> égale au montant du préavis qu'il aurait effectué s'il n'avait pas été inapte. Cette indemnité est spécifique car le salarié ne peut physiquement pas exécuter son préavis (il est inapte). L'article L.1226-14 impose néanmoins le versement de cette indemnité, qui s'ajoute à l'indemnité spéciale de licenciement doublée. En cas d'inaptitude d'<strong>origine non professionnelle</strong>, en revanche, le salarié n'a pas droit à l'indemnité compensatrice de préavis, sauf si la convention collective le prévoit expressément.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La procédure de licenciement pour inaptitude</h2>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Les délais à respecter</h3>
+      <p>
+        Après l'avis d'inaptitude du médecin du travail, l'employeur dispose d'un délai d'<strong>un mois</strong> pour reclasser le salarié ou le licencier. À l'expiration de ce délai d'un mois, si le salarié n'est ni reclassé ni licencié, l'employeur doit <strong>reprendre le versement du salaire</strong> (article L.1226-4 pour l'inaptitude non professionnelle, article L.1226-11 pour l'inaptitude professionnelle). Ce mécanisme vise à empêcher l'employeur de laisser traîner la situation au détriment du salarié, qui se trouverait sans revenus pendant une période prolongée.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Les étapes de la procédure</h3>
+      <p>
+        La procédure de licenciement pour inaptitude suit les étapes suivantes. Premièrement, l'avis d'inaptitude est rendu par le médecin du travail. Deuxièmement, l'employeur recherche un reclassement et consulte le CSE. Troisièmement, en cas d'impossibilité de reclassement ou de refus du salarié, l'employeur convoque le salarié à un <strong>entretien préalable</strong> (respect du délai de 5 jours ouvrables). Quatrièmement, l'entretien a lieu et l'employeur expose les motifs du licenciement (impossibilité de reclassement). Cinquièmement, la lettre de licenciement est envoyée en recommandé avec accusé de réception après un délai minimum de 2 jours ouvrables. La lettre doit mentionner l'inaptitude constatée par le médecin du travail et l'impossibilité de reclassement.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La contestation de l'avis d'inaptitude</h2>
+
+      <p>
+        Depuis la loi Travail de 2016, le salarié ou l'employeur peut contester l'avis d'inaptitude rendu par le médecin du travail devant le <strong>conseil de prud'hommes en référé</strong> dans un délai de <strong>15 jours</strong> à compter de la notification de l'avis. Le juge peut ordonner une expertise médicale confiée à un médecin inspecteur du travail ou à tout autre médecin expert. La décision du conseil de prud'hommes se substitue à l'avis du médecin du travail. Cette voie de recours est importante lorsque le salarié estime que l'avis d'inaptitude est injustifié ou que les possibilités d'aménagement du poste n'ont pas été suffisamment explorées.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le droit au chômage après un licenciement pour inaptitude</h2>
+
+      <p>
+        Le salarié licencié pour inaptitude, qu'elle soit professionnelle ou non professionnelle, a droit à l'<strong>Allocation de Retour à l'Emploi (ARE)</strong> dans les mêmes conditions que tout autre salarié licencié. Il doit s'inscrire à France Travail et remplir les conditions habituelles d'affiliation. Si le salarié est en arrêt de travail au moment de la fin du contrat (ce qui est fréquent en cas d'inaptitude), il percevra d'abord les indemnités journalières de la Sécurité sociale et ne s'inscrira à France Travail qu'à la fin de son arrêt. Les droits à l'ARE sont alors calculés en fonction des salaires perçus avant l'arrêt de travail, ce qui peut donner un montant plus élevé si le salarié avait un salaire supérieur à ses indemnités journalières.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Licenciement pour inaptitude et maintien de la couverture santé</h2>
+
+      <p>
+        Le salarié licencié pour inaptitude bénéficie du maintien de la couverture santé complémentaire (mutuelle d'entreprise) au titre de la <strong>portabilité</strong> prévue par l'article L.911-8 du Code de la sécurité sociale. La durée de la portabilité est égale à la durée du dernier contrat de travail, dans la limite de <strong>12 mois</strong>. Pendant cette période, le salarié continue de bénéficier des garanties de la mutuelle d'entreprise sans avoir à payer de cotisations, le coût étant mutualisé entre l'employeur et les salariés actifs. Ce droit à la portabilité est conditionné à l'ouverture de droits à l'assurance chômage.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Contester le licenciement pour inaptitude</h2>
+
+      <p>
+        Le salarié peut contester son licenciement pour inaptitude devant le conseil de prud'hommes dans un délai de <strong>12 mois</strong>. Les motifs de contestation les plus fréquents sont le manquement de l'employeur à son obligation de reclassement, l'absence de consultation du CSE, le lien entre l'inaptitude et un manquement de l'employeur à son obligation de sécurité (harcèlement, non-respect des règles de sécurité), et l'application erronée du régime indemnitaire (non-doublement de l'indemnité en cas d'inaptitude professionnelle). Si le juge établit que l'inaptitude résulte du manquement de l'employeur à son obligation de sécurité, le licenciement peut être jugé nul, ouvrant droit à une indemnité au moins égale à 6 mois de salaire sans application du barème Macron.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Synthèse : les points essentiels à retenir</h2>
+      <p>
+        Le licenciement pour inaptitude est un régime protecteur dont les droits varient significativement selon l'origine professionnelle ou non de l'inaptitude. L'inaptitude professionnelle donne droit au doublement de l'indemnité légale de licenciement et à l'indemnité compensatrice de préavis. L'inaptitude non professionnelle donne droit à l'indemnité normale sans préavis. L'obligation de reclassement est commune aux deux situations, sauf dispense du médecin du travail. Le salarié dispose de 15 jours pour contester l'avis d'inaptitude et de 12 mois pour contester le licenciement. Le droit au chômage est préservé dans tous les cas. Consultez un avocat spécialisé si vous estimez que votre inaptitude résulte d'un manquement de l'employeur à ses obligations de sécurité.
+      </p>
+
+    </div>
+
+    <!-- Outils associés -->
+    <div class="bg-accent-50 border border-accent-200 rounded-xl p-6 mt-10 not-prose">
+      <h2 class="text-lg font-bold text-accent-800 mb-3">Outils associés</h2>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="/" class="text-accent-700 hover:text-accent-900 font-medium underline">Calculateur d'indemnité de licenciement</a> - Estimez votre indemnité (simple ou doublée) pour inaptitude.
+        </li>
+        <li>
+          <a href="/guide-are/" class="text-accent-700 hover:text-accent-900 font-medium underline">Guide ARE (allocation chômage)</a> - Vos droits au chômage après un licenciement pour inaptitude.
+        </li>
+        <li>
+          <a href="/guides/preavis-licenciement/" class="text-accent-700 hover:text-accent-900 font-medium underline">Préavis de licenciement</a> - Comprendre le préavis en cas d'inaptitude.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sources -->
+    <div class="mt-10 border-t border-gray-200 pt-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-3">Sources</h2>
+      <ul class="space-y-1 text-sm text-gray-600">
+        <li>Articles L.1226-2 à L.1226-4-3 du Code du travail - Inaptitude non professionnelle</li>
+        <li>Articles L.1226-10 à L.1226-17 du Code du travail - Inaptitude professionnelle</li>
+        <li>Article L.1226-14 du Code du travail - Indemnité spéciale doublée</li>
+        <li>Loi n° 2016-1088 du 8 août 2016 (loi Travail) - Réforme de l'inaptitude</li>
+        <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F726" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Licenciement pour inaptitude</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

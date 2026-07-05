@@ -21,6 +21,7 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content="index, follow" />
+    <meta name="author" content="Mottalib Radif" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -48,10 +49,28 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     )}
 
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mottalib Radif",
+      "jobTitle": "Financial Technology Expert",
+      "url": "https://indemnite-licenciement.fr"
+    })} />
+
     <!-- Plausible Analytics -->
     <script defer data-domain="indemnite-licenciement.fr" src="https://plausible.io/js/script.js"></script>
+
+    <!-- TODO: Replace G-XXXXXXXXXX with your real GA4 Measurement ID from https://analytics.google.com -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
   </head>
   <body class="bg-gray-50 text-gray-900 antialiased">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-700 focus:rounded-lg focus:shadow-lg focus:ring-2 focus:ring-blue-500">Skip to content</a>
     <!-- Navigation -->
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,17 +79,49 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
             <span class="text-2xl">§</span>
             <span class="hidden sm:inline">Indemnité Licenciement</span>
           </a>
-          <div class="flex items-center gap-4 text-sm">
+
+          <!-- Desktop nav -->
+          <div class="hidden md:flex items-center gap-6 text-sm">
             <a href="/" class="text-gray-600 hover:text-primary-700 transition-colors font-medium">Calculateur</a>
             <a href="/guide-are/" class="text-gray-600 hover:text-primary-700 transition-colors font-medium">Guide ARE</a>
             <a href="/faq/" class="text-gray-600 hover:text-primary-700 transition-colors font-medium">FAQ</a>
+            <a href="/guides/" class="text-gray-600 hover:text-primary-700 transition-colors font-medium">Guides</a>
           </div>
+
+          <!-- Mobile hamburger button -->
+          <button
+            id="mobile-menu-btn"
+            type="button"
+            class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-primary-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Ouvrir le menu de navigation"
+          >
+            <!-- Hamburger icon -->
+            <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <!-- Close icon (hidden by default) -->
+            <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu (hidden by default) -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+        <div class="px-4 py-3 space-y-1">
+          <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">Calculateur</a>
+          <a href="/guide-are/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">Guide ARE</a>
+          <a href="/faq/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">FAQ</a>
+          <a href="/guides/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">Guides</a>
         </div>
       </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="min-h-screen">
+    <main id="main-content" class="min-h-screen">
       <slot />
     </main>
 
@@ -90,6 +141,7 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
               <li><a href="/" class="hover:text-white transition-colors">Calculateur</a></li>
               <li><a href="/guide-are/" class="hover:text-white transition-colors">Guide ARE</a></li>
               <li><a href="/faq/" class="hover:text-white transition-colors">Foire aux questions</a></li>
+              <li><a href="/guides/" class="hover:text-white transition-colors">Tous les guides</a></li>
             </ul>
           </div>
           <div>
@@ -105,5 +157,25 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
         </div>
       </div>
     </footer>
+
+    <!-- Mobile menu toggle script -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        if (btn && menu && iconOpen && iconClose) {
+          btn.addEventListener('click', function() {
+            const isOpen = !menu.classList.contains('hidden');
+            menu.classList.toggle('hidden');
+            iconOpen.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
+            btn.setAttribute('aria-expanded', String(!isOpen));
+          });
+        }
+      });
+    </script>
   </body>
 </html>

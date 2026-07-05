@@ -1,0 +1,280 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que le CSP (Contrat de Sécurisation Professionnelle) ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le CSP est un dispositif proposé aux salariés licenciés pour motif économique dans les entreprises de moins de 1 000 salariés. Il offre une allocation de sécurisation professionnelle (ASP) de 75 % du salaire brut pendant 12 mois, un accompagnement renforcé et des formations. Le salarié dispose de 21 jours pour accepter ou refuser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'indemnité de licenciement économique est-elle plus élevée que l'indemnité légale ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'indemnité légale de licenciement est identique quel que soit le motif (économique ou personnel). Toutefois, dans le cadre d'un Plan de Sauvegarde de l'Emploi (PSE), l'employeur peut proposer des indemnités supra-légales significativement plus élevées. Ces indemnités sont négociées avec les représentants du personnel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels sont les critères d'ordre de licenciement économique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'article L.1233-5 du Code du travail prévoit 4 critères : les charges de famille, l'ancienneté dans l'entreprise, les caractéristiques sociales rendant la réinsertion difficile (âge, handicap), et les qualités professionnelles. L'employeur peut privilégier certains critères mais doit tous les prendre en compte."
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://indemnite-licenciement.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://indemnite-licenciement.fr/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Licenciement économique", "item": "https://indemnite-licenciement.fr/guides/licenciement-economique/" }
+  ]
+};
+---
+
+<Layout
+  title="Licenciement économique 2026 - CSP, reclassement, indemnités | Guide complet"
+  description="Guide complet du licenciement économique : CSP, obligation de reclassement, PSE, indemnités supra-légales, critères d'ordre et droits des salariés en 2026."
+  canonical="/guides/licenciement-economique/"
+  schema={schema}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-primary-200 text-sm mb-4">
+        <a href="/" class="hover:text-white transition-colors">Accueil</a>
+        <span class="mx-2">›</span>
+        <a href="/guides/" class="hover:text-white transition-colors">Guides</a>
+        <span class="mx-2">›</span>
+        <span class="text-white">Licenciement économique</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-extrabold">
+        Licenciement économique : CSP, reclassement et indemnités supra-légales
+      </h1>
+      <p class="mt-4 text-primary-100 text-lg">
+        Tout ce qu'il faut savoir sur le licenciement pour motif économique : procédure, droits du salarié, CSP et Plan de Sauvegarde de l'Emploi.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-slate max-w-none">
+
+      <p>
+        Le licenciement économique est une forme de rupture du contrat de travail qui intervient pour des raisons étrangères à la personne du salarié. Il est motivé par des difficultés économiques, des mutations technologiques, une réorganisation nécessaire à la sauvegarde de la compétitivité de l'entreprise ou une cessation d'activité. Ce type de licenciement obéit à des règles procédurales particulièrement encadrées et ouvre des droits spécifiques au salarié, notamment le Contrat de Sécurisation Professionnelle (CSP) et, dans certains cas, des indemnités supra-légales négociées dans le cadre d'un Plan de Sauvegarde de l'Emploi (PSE). Ce guide détaille l'ensemble de la procédure et des droits applicables en 2026.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Définition légale du licenciement économique</h2>
+
+      <p>
+        L'article <strong>L.1233-3 du Code du travail</strong>, modifié par les ordonnances Macron de 2017, définit le licenciement pour motif économique comme un licenciement effectué par un employeur pour un ou plusieurs motifs non inhérents à la personne du salarié, résultant d'une suppression ou transformation d'emploi ou d'une modification, refusée par le salarié, d'un élément essentiel du contrat de travail. Ces motifs doivent être consécutifs à l'un des cas suivants :
+      </p>
+
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Difficultés économiques</strong> caractérisées soit par l'évolution significative d'au moins un indicateur économique (baisse des commandes ou du chiffre d'affaires, pertes d'exploitation, dégradation de la trésorerie ou de l'excédent brut d'exploitation), soit par tout autre élément de nature à justifier ces difficultés. La baisse significative des commandes ou du chiffre d'affaires est constituée dès lors que la durée de cette baisse est, en comparaison avec la même période de l'année précédente, au moins égale à <strong>un trimestre</strong> pour une entreprise de moins de 11 salariés, <strong>deux trimestres consécutifs</strong> pour une entreprise de 11 à 49 salariés, <strong>trois trimestres consécutifs</strong> pour une entreprise de 50 à 299 salariés, ou <strong>quatre trimestres consécutifs</strong> pour une entreprise de 300 salariés et plus.</li>
+        <li><strong>Mutations technologiques</strong> : l'introduction de nouvelles technologies qui rendent certains postes obsolètes ou nécessitent des compétences que les salariés en place ne possèdent pas, malgré les efforts de formation.</li>
+        <li><strong>Réorganisation de l'entreprise nécessaire à la sauvegarde de sa compétitivité</strong> : l'employeur doit démontrer que sans cette réorganisation, la compétitivité de l'entreprise serait menacée. Il ne s'agit pas simplement d'améliorer la rentabilité mais de prévenir une dégradation future.</li>
+        <li><strong>Cessation d'activité</strong> de l'entreprise, à condition qu'elle ne soit pas due à une faute ou à une légèreté blâmable de l'employeur.</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">L'obligation de reclassement</h2>
+
+      <p>
+        Avant de procéder à un licenciement économique, l'employeur a l'obligation de rechercher toutes les possibilités de <strong>reclassement</strong> du salarié. Cette obligation est prévue par l'article <strong>L.1233-4 du Code du travail</strong>. Le reclassement doit être recherché sur les emplois disponibles dans l'entreprise et dans les autres entreprises du groupe dont elle fait partie, situées sur le territoire national. L'employeur doit proposer au salarié des postes de même catégorie ou, à défaut, de catégorie inférieure avec l'accord exprès du salarié. Les offres de reclassement doivent être écrites, précises et personnalisées, mentionnant l'intitulé du poste, la rémunération, le lieu de travail et les conditions d'emploi.
+      </p>
+
+      <p>
+        Le non-respect de l'obligation de reclassement est l'un des motifs les plus fréquents d'annulation d'un licenciement économique par les prud'hommes. L'employeur doit pouvoir justifier des recherches effectuées et des raisons pour lesquelles aucun poste de reclassement n'était disponible. Une recherche de reclassement superficielle ou tardive prive le licenciement de cause réelle et sérieuse.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Les critères d'ordre de licenciement</h2>
+
+      <p>
+        Lorsque l'employeur doit supprimer des postes mais que le nombre de postes supprimés est inférieur au nombre de salariés occupant ces postes, il doit établir un <strong>ordre de licenciement</strong> en appliquant les critères définis par l'article <strong>L.1233-5 du Code du travail</strong>. Quatre critères légaux doivent obligatoirement être pris en compte :
+      </p>
+
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Les charges de famille</strong>, en particulier celles des parents isolés.</li>
+        <li><strong>L'ancienneté de service</strong> dans l'entreprise ou l'établissement.</li>
+        <li><strong>La situation des salariés</strong> qui présentent des caractéristiques sociales rendant leur réinsertion professionnelle particulièrement difficile, notamment les personnes handicapées et les salariés âgés.</li>
+        <li><strong>Les qualités professionnelles</strong> appréciées par catégorie.</li>
+      </ul>
+
+      <p>
+        L'employeur peut privilégier l'un de ces critères, à condition de tous les prendre en compte. Il peut également ajouter des critères supplémentaires, mais ne peut en supprimer aucun. Le non-respect des critères d'ordre constitue une irrégularité qui peut donner lieu à des dommages et intérêts au profit du salarié concerné, même si le licenciement économique est par ailleurs justifié sur le fond.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le Contrat de Sécurisation Professionnelle (CSP)</h2>
+
+      <p>
+        Le <strong>Contrat de Sécurisation Professionnelle</strong> est un dispositif d'accompagnement renforcé proposé aux salariés licenciés pour motif économique dans les entreprises de <strong>moins de 1 000 salariés</strong> et dans les entreprises en redressement ou liquidation judiciaire quelle que soit leur taille. L'employeur a l'obligation de proposer le CSP au salarié lors de l'entretien préalable ou, en cas de licenciement collectif, après la dernière réunion du CSE. Le salarié dispose d'un délai de <strong>21 jours</strong> pour accepter ou refuser.
+      </p>
+
+      <div class="bg-primary-50 border-2 border-primary-200 rounded-xl p-6 my-6 not-prose">
+        <p class="font-bold text-primary-800 text-lg mb-3">Avantages du CSP</p>
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border border-primary-100">
+            <p class="font-semibold text-gray-900">Allocation de Sécurisation Professionnelle (ASP)</p>
+            <p class="text-primary-700 font-mono text-lg">75 % du salaire journalier de référence brut</p>
+            <p class="text-sm text-gray-600 mt-1">Pendant 12 mois maximum, soit environ 86 % du net</p>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-primary-100">
+            <p class="font-semibold text-gray-900">Accompagnement personnalisé</p>
+            <p class="text-sm text-gray-600">Suivi individuel renforcé, bilan de compétences, formations certifiantes, périodes de travail en entreprise (jusqu'à 6 mois cumulés).</p>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-primary-100">
+            <p class="font-semibold text-gray-900">Prime de reclassement</p>
+            <p class="text-sm text-gray-600">Si le bénéficiaire retrouve un emploi durable avant la fin du 10e mois de CSP, il perçoit une prime de reclassement égale à 50 % des droits ASP restants.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">CSP : accepter ou refuser ?</h3>
+      <p>
+        La décision d'accepter ou de refuser le CSP mérite une réflexion approfondie. En acceptant le CSP, le salarié bénéficie d'une indemnisation plus élevée que l'ARE classique (75 % du brut contre 57 % du brut au maximum pour l'ARE) et d'un accompagnement renforcé. En contrepartie, il renonce à son préavis (dont le montant est versé à France Travail pour financer le CSP). L'acceptation du CSP emporte rupture du contrat de travail d'un commun accord, ce qui ne prive pas le salarié de son droit de contester le motif économique devant les prud'hommes dans un délai de 12 mois. En cas de refus, le salarié conserve son droit au préavis et bénéficie de l'ARE classique après son inscription à France Travail. Le refus peut être préférable pour les salariés proches de la retraite ou ceux qui anticipent un reclassement rapide.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le Plan de Sauvegarde de l'Emploi (PSE)</h2>
+
+      <p>
+        Le PSE est obligatoire dans les entreprises de <strong>50 salariés et plus</strong> lorsque le projet de licenciement concerne <strong>au moins 10 salariés</strong> sur une période de 30 jours. Le PSE a pour objectif de limiter le nombre de licenciements et de faciliter le reclassement des salariés. Il doit contenir un plan de reclassement interne, des mesures de reclassement externe (aide à la création d'entreprise, formation, mobilité géographique), des actions de validation des acquis de l'expérience (VAE) et des mesures d'accompagnement (cellule de reclassement, bilan de compétences).
+      </p>
+
+      <p>
+        Le PSE peut être élaboré par <strong>accord collectif majoritaire</strong> ou par <strong>document unilatéral de l'employeur</strong>. Dans les deux cas, il doit être soumis à la <strong>DREETS</strong> (Direction régionale de l'économie, de l'emploi, du travail et des solidarités) pour validation (accord collectif) ou homologation (document unilatéral). L'administration dispose de 15 jours pour valider un accord collectif et de 21 jours pour homologuer un document unilatéral. En l'absence de réponse dans ce délai, la décision est réputée acquise.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Les indemnités supra-légales dans le cadre du PSE</h3>
+      <p>
+        L'un des éléments centraux du PSE est souvent la négociation d'<strong>indemnités supra-légales</strong>, c'est-à-dire des indemnités de licenciement supérieures au minimum légal ou conventionnel. Ces indemnités varient considérablement d'un PSE à l'autre et dépendent de la situation financière de l'entreprise, de la force de négociation des représentants du personnel et de la jurisprudence applicable. Dans la pratique, les indemnités supra-légales sont souvent calculées selon une formule combinant un montant fixe et un montant variable en fonction de l'ancienneté et de l'âge du salarié. Par exemple, un PSE pourrait prévoir une indemnité supra-légale de 1 mois de salaire par année d'ancienneté, majorée de 20 % pour les salariés de plus de 50 ans, avec un plancher de 10 000 € et un plafond de 100 000 €.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La procédure de licenciement économique selon le nombre de salariés</h2>
+
+      <p>
+        La procédure de licenciement économique varie selon le nombre de salariés concernés et la taille de l'entreprise.
+      </p>
+
+      <div class="overflow-x-auto my-6">
+        <table class="w-full border-collapse not-prose">
+          <thead>
+            <tr class="bg-primary-700 text-white">
+              <th class="p-3 text-left font-semibold">Situation</th>
+              <th class="p-3 text-left font-semibold">Procédure</th>
+              <th class="p-3 text-left font-semibold">Consultation CSE</th>
+              <th class="p-3 text-left font-semibold">PSE</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">1 salarié</td>
+              <td class="p-3 text-gray-700">Entretien préalable + notification</td>
+              <td class="p-3 text-gray-700">Non</td>
+              <td class="p-3 text-gray-700">Non</td>
+            </tr>
+            <tr class="border-b border-gray-200 bg-gray-50">
+              <td class="p-3 font-medium text-gray-900">2-9 salariés sur 30 jours</td>
+              <td class="p-3 text-gray-700">Entretien préalable + notification</td>
+              <td class="p-3 text-gray-700">Oui (si &ge; 50 salariés)</td>
+              <td class="p-3 text-gray-700">Non</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">10+ salariés sur 30 jours (entreprise &lt; 50)</td>
+              <td class="p-3 text-gray-700">Réunions CSE + notification DREETS</td>
+              <td class="p-3 text-gray-700">Oui</td>
+              <td class="p-3 text-gray-700">Non</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-gray-900">10+ salariés sur 30 jours (entreprise &ge; 50)</td>
+              <td class="p-3 text-gray-700">Réunions CSE + PSE + DREETS</td>
+              <td class="p-3 text-gray-700">Oui (2 réunions min.)</td>
+              <td class="p-3 text-gray-700">Obligatoire</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Les indemnités de licenciement économique</h2>
+
+      <p>
+        Le salarié licencié pour motif économique a droit aux mêmes indemnités de base que tout salarié licencié pour un motif non disciplinaire :
+      </p>
+
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>L'indemnité légale ou conventionnelle de licenciement</strong>, calculée selon les barèmes du Code du travail ou de la convention collective applicable (la plus favorable s'applique).</li>
+        <li><strong>L'indemnité compensatrice de préavis</strong>, sauf en cas d'acceptation du CSP (dans ce cas, le montant du préavis est versé à France Travail).</li>
+        <li><strong>L'indemnité compensatrice de congés payés</strong> pour les jours de congés acquis et non pris.</li>
+        <li><strong>Les éventuelles indemnités supra-légales</strong> prévues par le PSE ou négociées individuellement.</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La priorité de réembauche</h2>
+
+      <p>
+        Le salarié licencié pour motif économique bénéficie d'une <strong>priorité de réembauche</strong> pendant une durée d'un an à compter de la date de rupture du contrat (article L.1233-45 du Code du travail). Pour en bénéficier, le salarié doit en faire la demande par écrit à l'employeur dans le même délai d'un an. L'employeur doit alors informer le salarié de tout emploi devenu disponible compatible avec sa qualification ou avec la nouvelle qualification acquise après le licenciement, sous réserve que le salarié ait informé l'employeur de cette nouvelle qualification. Le non-respect de la priorité de réembauche peut donner lieu au versement de dommages et intérêts au profit du salarié, d'un montant minimum de deux mois de salaire.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Contester un licenciement économique</h2>
+
+      <p>
+        Le salarié peut contester son licenciement économique devant le conseil de prud'hommes dans un délai de <strong>12 mois</strong> à compter de la dernière réunion du CSE (pour les licenciements collectifs avec PSE) ou de la notification du licenciement (pour les licenciements individuels). Les motifs de contestation sont nombreux : absence de motif économique réel (l'entreprise réalise des bénéfices), non-respect de l'obligation de reclassement, non-respect des critères d'ordre, irrégularité de procédure, insuffisance du PSE. En cas de PSE, la contestation de la validité de l'accord collectif ou de la décision d'homologation relève du <strong>tribunal administratif</strong> et non du conseil de prud'hommes.
+      </p>
+
+      <p>
+        Si le licenciement est jugé sans cause réelle et sérieuse, le salarié peut obtenir des dommages et intérêts selon le barème Macron (articles L.1235-3 du Code du travail), dont le montant est encadré entre un plancher et un plafond en fonction de l'ancienneté du salarié et de la taille de l'entreprise. En cas de nullité du PSE, la conséquence est encore plus favorable au salarié puisque le barème Macron ne s'applique pas et le juge peut ordonner la réintégration du salarié ou allouer une indemnité au moins égale à 6 mois de salaire.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le congé de reclassement</h2>
+
+      <p>
+        Dans les entreprises de <strong>1 000 salariés et plus</strong> (et les entreprises appartenant à un groupe de cette taille), l'employeur doit proposer un <strong>congé de reclassement</strong> au lieu du CSP. Ce congé, d'une durée de 4 à 12 mois (pouvant aller jusqu'à 24 mois en cas d'actions de formation ou de VAE), permet au salarié de bénéficier d'un accompagnement renforcé tout en restant salarié de l'entreprise. Pendant la période excédant le préavis, le salarié perçoit une rémunération au moins égale à <strong>65 % de la rémunération brute moyenne</strong> des 12 derniers mois, sans pouvoir être inférieure à 85 % du SMIC. Le congé de reclassement est exclusif du CSP : le salarié bénéficie de l'un ou de l'autre, jamais des deux.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Synthèse et conseils pratiques</h2>
+
+      <p>
+        Le licenciement économique offre des protections importantes aux salariés, à condition de bien connaître ses droits. Vérifiez toujours que le motif économique invoqué est réel et sérieux. Prenez le temps d'analyser l'offre de CSP avant de décider (21 jours de réflexion). En cas de PSE, participez activement aux négociations via vos représentants du personnel pour obtenir les meilleures conditions possibles. Conservez tous les documents (lettre de licenciement, propositions de reclassement, bulletins de paie) en vue d'une éventuelle contestation. Enfin, n'hésitez pas à faire valoir votre priorité de réembauche par écrit dans l'année suivant votre licenciement.
+      </p>
+
+    </div>
+
+    <!-- Outils associés -->
+    <div class="bg-accent-50 border border-accent-200 rounded-xl p-6 mt-10 not-prose">
+      <h2 class="text-lg font-bold text-accent-800 mb-3">Outils associés</h2>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="/" class="text-accent-700 hover:text-accent-900 font-medium underline">Calculateur d'indemnité de licenciement</a> - Estimez votre indemnité légale de licenciement économique.
+        </li>
+        <li>
+          <a href="/guide-are/" class="text-accent-700 hover:text-accent-900 font-medium underline">Guide ARE (allocation chômage)</a> - Calculez vos droits au chômage si vous refusez le CSP.
+        </li>
+        <li>
+          <a href="/guides/fiscalite-indemnites/" class="text-accent-700 hover:text-accent-900 font-medium underline">Fiscalité des indemnités</a> - Traitement fiscal des indemnités supra-légales du PSE.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sources -->
+    <div class="mt-10 border-t border-gray-200 pt-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-3">Sources</h2>
+      <ul class="space-y-1 text-sm text-gray-600">
+        <li>Articles L.1233-1 à L.1233-91 du Code du travail - Licenciement économique</li>
+        <li>Article L.1233-3 du Code du travail - Définition du motif économique</li>
+        <li>Articles L.1233-65 à L.1233-70 du Code du travail - Contrat de Sécurisation Professionnelle</li>
+        <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F2811" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Licenciement économique</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

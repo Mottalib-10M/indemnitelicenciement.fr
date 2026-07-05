@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+
+const guides = [
+  {
+    title: "Indemnité légale vs conventionnelle",
+    description: "Comprenez quand la convention collective s'applique et comment comparer les deux régimes d'indemnisation pour obtenir le montant le plus avantageux.",
+    href: "/guides/indemnite-legale-vs-conventionnelle/",
+    icon: "⚖️",
+  },
+  {
+    title: "Licenciement pour faute grave",
+    description: "Pas d'indemnité de licenciement, mais des droits ARE préservés. Découvrez la procédure, les recours et les conséquences financières.",
+    href: "/guides/licenciement-faute-grave/",
+    icon: "⚠️",
+  },
+  {
+    title: "Licenciement économique",
+    description: "CSP, reclassement, indemnité supra-légale : tout ce qu'il faut savoir pour défendre vos droits lors d'un licenciement économique.",
+    href: "/guides/licenciement-economique/",
+    icon: "📉",
+  },
+  {
+    title: "Rupture conventionnelle",
+    description: "Négociation, indemnité minimale, procédure d'homologation et fiscalité : le guide complet de la rupture conventionnelle.",
+    href: "/guides/rupture-conventionnelle/",
+    icon: "🤝",
+  },
+  {
+    title: "Préavis de licenciement",
+    description: "Durée selon l'ancienneté et le statut, dispense de préavis, indemnité compensatrice : maîtrisez toutes les règles du préavis.",
+    href: "/guides/preavis-licenciement/",
+    icon: "📅",
+  },
+  {
+    title: "Fiscalité des indemnités",
+    description: "Exonérations fiscales, CSG/CRDS, plafonds : comprenez le traitement fiscal de vos indemnités de licenciement et de rupture.",
+    href: "/guides/fiscalite-indemnites/",
+    icon: "🏛️",
+  },
+  {
+    title: "Licenciement pour inaptitude",
+    description: "Inaptitude professionnelle ou non professionnelle, indemnité doublée, obligation de reclassement : vos droits décryptés.",
+    href: "/guides/licenciement-inaptitude/",
+    icon: "🩺",
+  },
+  {
+    title: "Contestation aux prud'hommes",
+    description: "Délais de prescription, barème Macron, procédure devant le conseil de prud'hommes : comment contester votre licenciement.",
+    href: "/guides/contestation-prud-hommes/",
+    icon: "⚔️",
+  },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Guides licenciement - Tous nos articles",
+  "description": "Guides complets sur le licenciement en France : indemnités, préavis, fiscalité, prud'hommes, rupture conventionnelle et plus.",
+  "url": "https://indemnite-licenciement.fr/guides/",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": guides.map((g, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": g.title,
+      "url": `https://indemnite-licenciement.fr${g.href}`,
+    })),
+  },
+};
+---
+
+<Layout
+  title="Guides Licenciement 2026 - Indemnités, Préavis, Fiscalité, Prud'hommes"
+  description="Tous nos guides sur le licenciement en France : indemnité légale vs conventionnelle, faute grave, rupture conventionnelle, fiscalité, prud'hommes et plus."
+  canonical="/guides/"
+  schema={schema}
+>
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-primary-200 text-sm mb-4">
+        <a href="/" class="hover:text-white transition-colors">Accueil</a>
+        <span class="mx-2">›</span>
+        <span class="text-white">Guides</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-extrabold">
+        Guides pratiques : Licenciement en France
+      </h1>
+      <p class="mt-4 text-primary-100 text-lg max-w-3xl">
+        Retrouvez tous nos guides détaillés pour comprendre vos droits en cas de licenciement : calcul des indemnités, procédures, fiscalité et recours.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {guides.map((guide) => (
+        <a
+          href={guide.href}
+          class="group block bg-white rounded-xl border border-gray-200 p-6 hover:border-primary-300 hover:shadow-lg transition-all duration-200"
+        >
+          <div class="flex items-start gap-4">
+            <span class="text-3xl flex-shrink-0 mt-1">{guide.icon}</span>
+            <div>
+              <h2 class="text-lg font-bold text-gray-900 group-hover:text-primary-700 transition-colors">
+                {guide.title}
+              </h2>
+              <p class="mt-2 text-gray-600 text-sm leading-relaxed">
+                {guide.description}
+              </p>
+              <span class="inline-block mt-3 text-primary-600 text-sm font-medium group-hover:text-primary-800 transition-colors">
+                Lire le guide &rarr;
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div class="bg-accent-50 border border-accent-200 rounded-xl p-6">
+      <h2 class="text-lg font-bold text-accent-800 mb-2">Besoin d'un calcul rapide ?</h2>
+      <p class="text-accent-700 text-sm mb-4">
+        Utilisez notre calculateur gratuit pour estimer votre indemnité de licenciement, votre préavis et votre allocation chômage en quelques clics.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center px-5 py-2.5 bg-accent-600 text-white font-semibold rounded-lg hover:bg-accent-700 transition-colors text-sm"
+      >
+        Accéder au calculateur
+      </a>
+    </div>
+  </section>
+</Layout>

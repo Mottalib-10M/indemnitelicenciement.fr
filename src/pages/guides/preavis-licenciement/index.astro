@@ -1,0 +1,233 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelle est la durée du préavis de licenciement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La durée légale du préavis dépend de l'ancienneté : 1 mois pour une ancienneté de 6 mois à 2 ans, et 2 mois au-delà de 2 ans. La convention collective peut prévoir des durées plus longues, notamment pour les cadres (souvent 3 mois). Pour les salariés de moins de 6 mois d'ancienneté, la durée est fixée par la convention collective ou les usages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'employeur peut-il dispenser le salarié de préavis ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. L'employeur peut dispenser le salarié d'exécuter son préavis. Dans ce cas, il doit lui verser une indemnité compensatrice de préavis égale au salaire et avantages qu'il aurait perçus s'il avait travaillé pendant la durée du préavis. La dispense de préavis ne modifie pas la date de fin du contrat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le salarié en arrêt maladie pendant le préavis doit-il le prolonger ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Un arrêt maladie survenant pendant le préavis ne suspend pas ni ne prolonge la durée du préavis, sauf si l'arrêt résulte d'un accident du travail ou d'une maladie professionnelle. Le contrat prend fin à la date initialement prévue."
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://indemnite-licenciement.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://indemnite-licenciement.fr/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Préavis de licenciement", "item": "https://indemnite-licenciement.fr/guides/preavis-licenciement/" }
+  ]
+};
+---
+
+<Layout
+  title="Préavis de licenciement 2026 - Durée, dispense et indemnité compensatrice"
+  description="Tout savoir sur le préavis de licenciement : durée selon l'ancienneté et le statut, dispense par l'employeur, indemnité compensatrice et cas particuliers."
+  canonical="/guides/preavis-licenciement/"
+  schema={schema}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-primary-200 text-sm mb-4">
+        <a href="/" class="hover:text-white transition-colors">Accueil</a>
+        <span class="mx-2">›</span>
+        <a href="/guides/" class="hover:text-white transition-colors">Guides</a>
+        <span class="mx-2">›</span>
+        <span class="text-white">Préavis de licenciement</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-extrabold">
+        Préavis de licenciement : durée, dispense et indemnité compensatrice
+      </h1>
+      <p class="mt-4 text-primary-100 text-lg">
+        Maîtrisez toutes les règles du préavis de licenciement : calcul de la durée, dispense d'exécution, indemnité compensatrice et situations particulières.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-slate max-w-none">
+
+      <p>
+        Le préavis de licenciement est la période qui s'écoule entre la notification du licenciement et la fin effective du contrat de travail. Pendant cette période, le salarié continue de travailler et de percevoir sa rémunération normalement. Le préavis vise à permettre au salarié de rechercher un nouvel emploi tout en assurant à l'employeur une transition ordonnée. Les règles relatives au préavis sont définies par le Code du travail, les conventions collectives et, dans certains cas, le contrat de travail. Ce guide détaille l'ensemble des règles applicables en 2026 : durée du préavis, conditions de dispense, calcul de l'indemnité compensatrice et cas particuliers.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Durée du préavis légal</h2>
+
+      <p>
+        La durée du préavis de licenciement est fixée par l'article <strong>L.1234-1 du Code du travail</strong> en fonction de l'ancienneté du salarié dans l'entreprise. Le Code du travail prévoit trois tranches d'ancienneté avec des durées de préavis progressives. Toutefois, les conventions collectives, les accords d'entreprise ou le contrat de travail peuvent prévoir des durées de préavis plus longues, qui s'appliquent alors en vertu du principe de faveur.
+      </p>
+
+      <div class="overflow-x-auto my-6">
+        <table class="w-full border-collapse not-prose">
+          <thead>
+            <tr class="bg-primary-700 text-white">
+              <th class="p-3 text-left font-semibold">Ancienneté</th>
+              <th class="p-3 text-left font-semibold">Durée légale du préavis</th>
+              <th class="p-3 text-left font-semibold">Observations</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">Moins de 6 mois</td>
+              <td class="p-3 text-gray-700">Fixée par la CCN ou les usages</td>
+              <td class="p-3 text-gray-700">Pas de durée légale minimale</td>
+            </tr>
+            <tr class="border-b border-gray-200 bg-gray-50">
+              <td class="p-3 font-medium text-gray-900">6 mois à moins de 2 ans</td>
+              <td class="p-3 text-gray-700 font-semibold">1 mois</td>
+              <td class="p-3 text-gray-700">Sauf CCN plus favorable</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">2 ans et plus</td>
+              <td class="p-3 text-gray-700 font-semibold">2 mois</td>
+              <td class="p-3 text-gray-700">Sauf CCN plus favorable</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="p-3 font-medium text-gray-900">Cadres (selon CCN)</td>
+              <td class="p-3 text-gray-700 font-semibold">3 mois (fréquent)</td>
+              <td class="p-3 text-gray-700">Convention Syntec, Métallurgie, etc.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Pour les <strong>cadres</strong>, la plupart des conventions collectives prévoient un préavis de <strong>3 mois</strong> quelle que soit l'ancienneté. C'est notamment le cas de la Convention Syntec (IDCC 1486), de la Convention de la métallurgie (IDCC 3248) et de nombreuses autres conventions applicables aux cadres. Certaines conventions prévoient même des durées de 4 à 6 mois pour les cadres dirigeants ou les cadres supérieurs. Le contrat de travail peut également prévoir un préavis plus long que celui de la convention collective, mais jamais plus court.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le point de départ et le calcul du préavis</h2>
+
+      <p>
+        Le préavis commence à courir à compter de la <strong>première présentation de la lettre recommandée de licenciement</strong> au salarié, et non à compter de la date de rédaction ou d'envoi de la lettre (Cass. soc., 28 octobre 1997, n° 95-41.800). Si le salarié est absent le jour de la présentation du courrier et retire la lettre en bureau de poste ultérieurement, c'est la date de première présentation qui fait foi. Si le salarié ne retire jamais la lettre, le préavis court néanmoins à compter de la date de première présentation.
+      </p>
+
+      <p>
+        Le préavis se calcule de <strong>date à date</strong>. Un préavis de 2 mois notifié le 15 mars se terminera le 14 mai. Si la fin du préavis tombe un dimanche ou un jour férié, le contrat prend fin ce jour-là (pas de report au jour ouvrable suivant). Les mois se comptent de quantième à quantième. Ainsi, un préavis de 1 mois notifié le 31 janvier se terminera le 28 février (ou le 29 en année bissextile).
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La dispense de préavis</h2>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Dispense à l'initiative de l'employeur</h3>
+      <p>
+        L'employeur peut <strong>dispenser le salarié d'exécuter son préavis</strong>, soit dans la lettre de licenciement, soit ultérieurement. Dans ce cas, le salarié n'a pas à se présenter sur son lieu de travail pendant la durée du préavis, mais il perçoit une <strong>indemnité compensatrice de préavis</strong> égale à la rémunération qu'il aurait perçue s'il avait travaillé pendant toute la durée du préavis. Cette indemnité comprend le salaire de base, les primes habituelles, les avantages en nature et les éventuelles heures supplémentaires structurelles. La dispense de préavis par l'employeur ne modifie pas la date de fin du contrat de travail : l'ancienneté du salarié continue de courir jusqu'à cette date, et les droits à congés payés continuent de s'acquérir.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Dispense à la demande du salarié</h3>
+      <p>
+        Le salarié peut demander à être dispensé d'exécuter son préavis. L'employeur n'est pas obligé d'accepter cette demande. S'il l'accepte, le salarié quitte l'entreprise avant la fin du préavis mais <strong>ne perçoit pas d'indemnité compensatrice</strong> pour la période non travaillée, sauf accord contraire entre les parties. La date de fin du contrat est alors avancée au jour du départ effectif du salarié. Il est recommandé de formaliser cet accord par écrit pour éviter tout litige ultérieur.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Absence de préavis en cas de faute grave ou lourde</h3>
+      <p>
+        En cas de licenciement pour <strong>faute grave</strong> ou <strong>faute lourde</strong>, le salarié est privé de préavis. Le contrat de travail est rompu immédiatement, sans période de transition. Le salarié ne perçoit aucune indemnité compensatrice de préavis. Toutefois, si le conseil de prud'hommes requalifie ultérieurement la faute grave en cause réelle et sérieuse, le salarié pourra obtenir le paiement de l'indemnité compensatrice de préavis correspondante.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">L'indemnité compensatrice de préavis</h2>
+
+      <p>
+        L'indemnité compensatrice de préavis est due lorsque l'employeur dispense le salarié d'exécuter son préavis. Son montant est égal à la <strong>rémunération brute totale</strong> que le salarié aurait perçue s'il avait travaillé pendant toute la durée du préavis. Elle comprend le salaire de base, les primes à caractère régulier (prime d'ancienneté, 13e mois proratisé, etc.), les avantages en nature évalués à leur valeur contractuelle et les heures supplémentaires régulières. L'indemnité compensatrice de préavis a le caractère de salaire : elle est soumise aux cotisations sociales et à l'impôt sur le revenu et doit figurer sur le bulletin de paie du solde de tout compte.
+      </p>
+
+      <div class="bg-primary-50 border-2 border-primary-200 rounded-xl p-6 my-6 not-prose">
+        <p class="font-bold text-primary-800 text-lg mb-3">Calcul de l'indemnité compensatrice de préavis</p>
+        <div class="bg-white rounded-lg p-4 border border-primary-100">
+          <p class="font-semibold text-gray-900">Formule :</p>
+          <p class="text-primary-700 font-mono text-lg">Salaire mensuel brut complet × nombre de mois de préavis</p>
+          <p class="text-sm text-gray-600 mt-2">Exemple : Un cadre Syntec avec un salaire de 4 500 € brut et un préavis de 3 mois perçoit 4 500 × 3 = <strong>13 500 € brut</strong> d'indemnité compensatrice de préavis.</p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Les heures de recherche d'emploi pendant le préavis</h2>
+
+      <p>
+        De nombreuses conventions collectives prévoient que le salarié en préavis de licenciement bénéficie d'<strong>heures d'absence autorisées</strong> pour rechercher un emploi, généralement <strong>2 heures par jour</strong> ou un équivalent hebdomadaire. Ces heures sont rémunérées et n'entraînent aucune diminution de salaire. Le choix des horaires est fixé d'un commun accord entre l'employeur et le salarié ou, à défaut d'accord, alternativement par l'un et l'autre jour après jour. Certaines conventions permettent le cumul de ces heures en fin de préavis pour les utiliser en une ou plusieurs journées complètes. En l'absence de disposition conventionnelle, le Code du travail ne prévoit pas de droit automatique à des heures de recherche d'emploi, mais les usages locaux ou professionnels peuvent en établir.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Cas particuliers affectant le préavis</h2>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Arrêt maladie pendant le préavis</h3>
+      <p>
+        Lorsqu'un salarié tombe malade pendant la période de préavis, la règle est la suivante : l'arrêt maladie <strong>ne suspend pas et ne prolonge pas</strong> le préavis (Cass. soc., 13 décembre 2006, n° 05-42.116). Le contrat de travail prend fin à la date initialement prévue, que le salarié soit en arrêt maladie ou non. Le salarié perçoit les indemnités journalières de la Sécurité sociale pendant la durée de son arrêt, et l'employeur peut être tenu de verser un complément de salaire selon les dispositions de la convention collective. Toutefois, si l'arrêt maladie résulte d'un <strong>accident du travail ou d'une maladie professionnelle</strong>, la situation est différente : le préavis est suspendu pendant la durée de l'arrêt et reprend à compter de la date de reprise du travail ou de la visite de reprise.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Congés payés pendant le préavis</h3>
+      <p>
+        La question de la prise de congés payés pendant le préavis dépend de qui en est à l'initiative. Si les <strong>congés ont été fixés par l'employeur avant la notification du licenciement</strong>, le préavis est suspendu pendant la durée des congés et reprend ensuite (la date de fin de contrat est repoussée d'autant). Si les congés sont demandés par le salarié après la notification du licenciement, l'employeur peut les accorder ou les refuser. S'il les accorde, le préavis est normalement suspendu. Dans tous les cas, les congés payés acquis et non pris donnent lieu au versement d'une indemnité compensatrice de congés payés dans le solde de tout compte.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Nouveau contrat de travail pendant le préavis</h3>
+      <p>
+        Un salarié en préavis peut tout à fait <strong>rechercher et trouver un nouvel emploi</strong> pendant cette période. S'il souhaite commencer son nouveau travail avant la fin du préavis, il doit demander à l'employeur de l'en dispenser. Si l'employeur accepte, le préavis est écourté sans indemnité compensatrice pour la partie restante. Si l'employeur refuse, le salarié doit exécuter son préavis jusqu'au bout sous peine de devoir verser lui-même une indemnité compensatrice à l'employeur pour la partie non effectuée.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le préavis en cas de licenciement pour inaptitude</h2>
+      <p>
+        En cas de licenciement pour <strong>inaptitude d'origine non professionnelle</strong>, le salarié n'est pas tenu d'exécuter son préavis (puisqu'il est inapte à tout poste dans l'entreprise), mais il ne perçoit pas d'indemnité compensatrice de préavis. En cas de licenciement pour <strong>inaptitude d'origine professionnelle</strong> (consécutive à un accident du travail ou une maladie professionnelle), le salarié ne peut pas non plus exécuter son préavis, mais l'article <strong>L.1226-14 du Code du travail</strong> lui garantit le versement d'une <strong>indemnité compensatrice de préavis</strong> égale à l'indemnité qu'il aurait perçue s'il avait travaillé pendant la durée du préavis. Cette distinction entre inaptitude professionnelle et non professionnelle est fondamentale pour les droits financiers du salarié.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Impact du préavis sur les cotisations retraite et droits sociaux</h2>
+      <p>
+        La période de préavis, qu'elle soit exécutée ou non, est prise en compte pour le calcul des droits à la retraite et des droits sociaux. Les cotisations sociales (vieillesse, chômage, retraite complémentaire) sont prélevées normalement sur le salaire ou l'indemnité compensatrice de préavis. La période de préavis entre dans le calcul de l'ancienneté et des droits à congés payés. En cas de dispense de préavis par l'employeur, le salarié est considéré comme étant en cours de contrat de travail jusqu'à la fin du préavis : il bénéficie donc de la couverture maladie de l'entreprise et de la mutuelle collective pendant toute cette période.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Synthèse : les points clés du préavis de licenciement</h2>
+      <p>
+        Pour résumer les règles essentielles du préavis de licenciement : la durée dépend de l'ancienneté du salarié et de sa convention collective (les cadres ont généralement 3 mois). L'employeur peut dispenser le salarié d'exécuter son préavis, auquel cas il doit verser une indemnité compensatrice égale au salaire. Le salarié peut demander une dispense mais l'employeur n'est pas tenu d'accepter. En cas de faute grave ou lourde, il n'y a pas de préavis. L'arrêt maladie ordinaire ne prolonge pas le préavis, mais l'accident du travail ou la maladie professionnelle le suspend. L'indemnité compensatrice de préavis a le caractère de salaire et est soumise aux cotisations sociales et à l'impôt sur le revenu. Enfin, vérifiez toujours votre convention collective, qui peut prévoir des dispositions plus favorables que le Code du travail.
+      </p>
+
+    </div>
+
+    <!-- Outils associés -->
+    <div class="bg-accent-50 border border-accent-200 rounded-xl p-6 mt-10 not-prose">
+      <h2 class="text-lg font-bold text-accent-800 mb-3">Outils associés</h2>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="/" class="text-accent-700 hover:text-accent-900 font-medium underline">Calculateur d'indemnité de licenciement</a> - Estimez votre indemnité de licenciement et de préavis.
+        </li>
+        <li>
+          <a href="/guide-are/" class="text-accent-700 hover:text-accent-900 font-medium underline">Guide ARE (allocation chômage)</a> - Vos droits au chômage après la fin du préavis.
+        </li>
+        <li>
+          <a href="/guides/indemnite-legale-vs-conventionnelle/" class="text-accent-700 hover:text-accent-900 font-medium underline">Indemnité légale vs conventionnelle</a> - Comprenez la convention collective qui fixe votre préavis.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sources -->
+    <div class="mt-10 border-t border-gray-200 pt-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-3">Sources</h2>
+      <ul class="space-y-1 text-sm text-gray-600">
+        <li>Articles L.1234-1 à L.1234-8 du Code du travail - Préavis de licenciement</li>
+        <li>Cass. soc., 28 octobre 1997, n° 95-41.800 - Point de départ du préavis</li>
+        <li>Cass. soc., 13 décembre 2006, n° 05-42.116 - Maladie pendant le préavis</li>
+        <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F2883" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Préavis de licenciement</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

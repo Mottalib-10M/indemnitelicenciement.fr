@@ -1,0 +1,404 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LicenciementCalculator from '../components/LicenciementCalculator';
+import '../styles/global.css';
+import {
+  salaireData,
+  getTableauParAnciennete,
+  getAutresSalaires,
+  formatEuros,
+  type SalaireEntry,
+} from '../lib/salaire-data';
+import { SMIC_BRUT_MENSUEL, PLAFOND_SS_MENSUEL } from '../lib/baremes-2026';
+
+export function getStaticPaths() {
+  return salaireData.map((entry) => ({
+    params: { salaire: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: SalaireEntry;
+}
+
+const { entry } = Astro.props;
+const tableau = getTableauParAnciennete(entry.salaireBrut);
+const autresSalaires = getAutresSalaires(entry.salaireBrut);
+
+// Calcul du salaire net approximatif (environ 78% du brut)
+const salaireNetApprox = Math.round(entry.salaireBrut * 0.78);
+
+// Calcul de l'ARE approximative
+const sjr = Math.round((entry.salaireBrut * 12) / 365 * 100) / 100;
+const areFormule1 = Math.round((sjr * 0.404 + 12.95) * 100) / 100;
+const areFormule2 = Math.round(sjr * 0.57 * 100) / 100;
+const areJournaliere = Math.max(areFormule1, areFormule2);
+const areMensuelle = Math.round(areJournaliere * 30 * 100) / 100;
+
+// Position par rapport au SMIC et au plafond SS
+const rapportSmic = (entry.salaireBrut / SMIC_BRUT_MENSUEL).toFixed(1);
+const estSuperieurPlafondSS = entry.salaireBrut > PLAFOND_SS_MENSUEL;
+
+// FAQ schema
+const faq1Q = `Quelle indemnité de licenciement pour un salaire de ${entry.label} brut ?`;
+const faq1A = `L'indemnité légale de licenciement pour un salaire de ${entry.label} brut dépend de l'ancienneté du salarié. Le calcul est de 1/4 de mois de salaire par année d'ancienneté pour les 10 premières années, puis 1/3 de mois au-delà. Par exemple, après 10 ans : ${formatEuros(entry.salaireBrut * 10 / 4)}. Après 20 ans : ${formatEuros(entry.salaireBrut * 10 / 4 + entry.salaireBrut * 10 / 3)}.`;
+
+const faq2Q = `Quel chômage pour un salaire de ${entry.label} brut ?`;
+const faq2A = `Pour un salaire de ${entry.label} brut, l'Allocation de Retour à l'Emploi (ARE) est d'environ ${formatEuros(areJournaliere)} par jour, soit environ ${formatEuros(areMensuelle)} par mois. Ce montant est calculé à partir du Salaire Journalier de Référence (SJR) de ${formatEuros(sjr)}. La durée d'indemnisation est de 24 mois maximum (30 mois pour les plus de 53 ans).`;
+
+const faq3Q = `Combien de préavis pour un salaire de ${entry.label} ?`;
+const faq3A = `La durée du préavis ne dépend pas du salaire mais de l'ancienneté et du statut du salarié. Un non-cadre a droit à 1 mois de préavis (entre 6 mois et 2 ans d'ancienneté) ou 2 mois (2 ans et plus). Un cadre bénéficie généralement de 3 mois. Pour un salaire de ${entry.label}, l'indemnité compensatrice de préavis représente donc entre ${formatEuros(entry.salaireBrut)} et ${formatEuros(entry.salaireBrut * 3)}.`;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": faq1Q, "acceptedAnswer": { "@type": "Answer", "text": faq1A } },
+    { "@type": "Question", "name": faq2Q, "acceptedAnswer": { "@type": "Answer", "text": faq2A } },
+    { "@type": "Question", "name": faq3Q, "acceptedAnswer": { "@type": "Answer", "text": faq3A } },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Calculateur",
+      "item": "https://indemnite-licenciement.fr/",
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": `Indemnité pour ${entry.label} brut`,
+      "item": `https://indemnite-licenciement.fr/indemnite-licenciement-${entry.slug}-euros/`,
+    },
+  ],
+};
+
+const combinedSchema = [faqSchema, breadcrumbSchema];
+---
+
+<Layout
+  title={entry.titreSEO}
+  description={entry.metaDescription}
+  canonical={`/indemnite-licenciement-${entry.slug}-euros/`}
+  schema={combinedSchema}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-white border-b border-gray-100" aria-label="Fil d'Ariane">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <ol class="flex items-center gap-2 text-sm text-gray-500">
+        <li><a href="/" class="hover:text-primary-700 transition-colors">Calculateur</a></li>
+        <li class="text-gray-300">/</li>
+        <li class="text-gray-900 font-medium">Indemnité pour {entry.label} brut</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-10 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl md:text-4xl font-extrabold leading-tight">
+        Indemnité de licenciement pour {entry.label} brut
+      </h1>
+      <p class="mt-4 text-lg text-primary-100 max-w-2xl mx-auto">
+        Calcul 2026 - Tableau détaillé par ancienneté, préavis et allocation chômage
+        pour un salaire brut mensuel de {entry.label}.
+      </p>
+      {entry.isSmic && (
+        <span class="inline-block mt-4 bg-accent-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full">
+          SMIC 2026
+        </span>
+      )}
+    </div>
+  </section>
+
+  <!-- Key Figures -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-white rounded-xl border-2 border-primary-200 p-5 shadow-sm text-center">
+        <p class="text-sm text-gray-500">Salaire brut mensuel</p>
+        <p class="text-2xl font-bold text-primary-700 mt-1">{formatEuros(entry.salaireBrut)}</p>
+        <p class="text-xs text-gray-400 mt-1">{rapportSmic}× le SMIC</p>
+      </div>
+      <div class="bg-white rounded-xl border-2 border-gray-200 p-5 shadow-sm text-center">
+        <p class="text-sm text-gray-500">Salaire net estimé</p>
+        <p class="text-2xl font-bold text-gray-900 mt-1">~{formatEuros(salaireNetApprox)}</p>
+        <p class="text-xs text-gray-400 mt-1">Environ 78 % du brut</p>
+      </div>
+      <div class="bg-white rounded-xl border-2 border-gray-200 p-5 shadow-sm text-center">
+        <p class="text-sm text-gray-500">ARE mensuelle estimée</p>
+        <p class="text-2xl font-bold text-gray-900 mt-1">~{formatEuros(areMensuelle)}</p>
+        <p class="text-xs text-gray-400 mt-1">Allocation chômage</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Indemnity Table by Seniority -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+      Tableau des indemnités pour {entry.label} brut par ancienneté
+    </h2>
+    <p class="text-gray-600 mb-6">
+      Le tableau ci-dessous présente le montant de l'indemnité légale de licenciement pour un salaire de
+      {entry.label} brut, selon l'ancienneté du salarié. Le calcul est basé sur l'article R1234-2 du
+      Code du travail : 1/4 de mois par année pour les 10 premières années, 1/3 de mois au-delà.
+    </p>
+
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse bg-white rounded-xl shadow-sm border border-gray-200">
+        <thead>
+          <tr class="bg-primary-700 text-white">
+            <th class="px-4 py-3 text-left text-sm font-semibold rounded-tl-xl">Ancienneté</th>
+            <th class="px-4 py-3 text-right text-sm font-semibold">Indemnité légale</th>
+            <th class="px-4 py-3 text-right text-sm font-semibold">Préavis (non-cadre)</th>
+            <th class="px-4 py-3 text-right text-sm font-semibold rounded-tr-xl">Total estimé</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableau.map((row, i) => (
+            <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+              <td class="px-4 py-3 text-sm font-medium text-gray-900">
+                <a href={`/indemnite-licenciement-${row.annees}-ans/`} class="text-primary-700 hover:underline">
+                  {row.annees} {row.annees > 1 ? 'ans' : 'an'}
+                </a>
+              </td>
+              <td class="px-4 py-3 text-sm text-right text-gray-700 font-semibold">{formatEuros(row.indemniteLegale)}</td>
+              <td class="px-4 py-3 text-sm text-right text-gray-600">{row.preavisMois} mois ({formatEuros(row.indemnitePreavis)})</td>
+              <td class="px-4 py-3 text-sm text-right font-bold text-primary-700">{formatEuros(row.total)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-xs text-gray-500 mt-3">
+      * Indemnité légale + indemnité compensatrice de préavis (non-cadre). Hors congés payés et indemnité supra-légale.
+      Barème 2026, article R1234-2 du Code du travail.
+    </p>
+  </section>
+
+  <!-- Calculator -->
+  <section class="py-10 px-4 sm:px-6 lg:px-8 bg-gray-100">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+        Calculez votre indemnité pour {entry.label} brut
+      </h2>
+      <p class="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+        Affinez votre estimation en renseignant votre ancienneté exacte, votre statut cadre/non-cadre
+        et vos jours de congés acquis non pris.
+      </p>
+      <LicenciementCalculator client:idle />
+    </div>
+  </section>
+
+  <!-- Contextual Content -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-lg max-w-none">
+
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">
+        Comprendre l'indemnité de licenciement pour un salaire de {entry.label}
+      </h2>
+      <p>
+        L'indemnité de licenciement est un droit fondamental du salarié en CDI, prévu par les articles
+        <strong>L1234-9</strong> et <strong>R1234-2</strong> du Code du travail. Pour un salaire brut mensuel
+        de {entry.label}, le montant de l'indemnité dépend exclusivement de l'ancienneté du salarié dans
+        l'entreprise. Le salaire de référence retenu est le plus favorable entre la moyenne des 12 derniers
+        mois et la moyenne des 3 derniers mois de rémunération brute.
+      </p>
+      <p>
+        {entry.profilType} Ce niveau de rémunération correspond à environ {formatEuros(salaireNetApprox)} net
+        par mois, soit {rapportSmic} fois le SMIC brut.
+        {estSuperieurPlafondSS
+          ? ` Ce salaire étant supérieur au plafond de la Sécurité sociale (${formatEuros(PLAFOND_SS_MENSUEL)}), certaines cotisations sociales sont plafonnées, ce qui peut impacter le montant net de l'indemnité.`
+          : ` Ce salaire est inférieur au plafond de la Sécurité sociale (${formatEuros(PLAFOND_SS_MENSUEL)}), ce qui simplifie le calcul des cotisations.`
+        }
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Méthode de calcul détaillée
+      </h2>
+      <p>
+        Le calcul de l'indemnité légale de licenciement pour un salaire de {entry.label} brut suit la formule
+        fixée par l'article R1234-2 du Code du travail. Pour les <strong>10 premières années</strong>
+        d'ancienneté, le taux est de <strong>1/4 de mois de salaire par année</strong>, soit
+        {formatEuros(entry.salaireBrut / 4)} par année travaillée. Au-delà de 10 ans, le taux passe à
+        <strong>1/3 de mois de salaire par année</strong>, soit {formatEuros(entry.salaireBrut / 3)} par
+        année supplémentaire.
+      </p>
+      <p>
+        Prenons un exemple concret : un salarié percevant {entry.label} brut par mois avec 15 ans
+        d'ancienneté recevra une indemnité de : ({formatEuros(entry.salaireBrut)} × 1/4 × 10) +
+        ({formatEuros(entry.salaireBrut)} × 1/3 × 5) = {formatEuros(entry.salaireBrut * 10 / 4)} +
+        {formatEuros(entry.salaireBrut * 5 / 3)} = <strong>{formatEuros(entry.salaireBrut * 10 / 4 + entry.salaireBrut * 5 / 3)}</strong>.
+        Ce montant est le minimum légal ; la convention collective peut prévoir un montant supérieur.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        L'allocation chômage pour un salaire de {entry.label}
+      </h2>
+      <p>
+        Après un licenciement, le salarié percevant {entry.label} brut peut prétendre à une Allocation de
+        Retour à l'Emploi (ARE) d'environ <strong>{formatEuros(areJournaliere)}</strong> par jour, soit
+        environ <strong>{formatEuros(areMensuelle)}</strong> par mois. Ce montant est calculé à partir du
+        Salaire Journalier de Référence (SJR) de {formatEuros(sjr)}, en appliquant la formule la plus
+        avantageuse entre 57 % du SJR ({formatEuros(areFormule2)}/jour) et 40,4 % du SJR + 12,95 €
+        ({formatEuros(areFormule1)}/jour).
+      </p>
+      <p>
+        L'ARE représente environ {Math.round(areMensuelle / entry.salaireBrut * 100)} % du salaire brut
+        et environ {Math.round(areMensuelle / salaireNetApprox * 100)} % du salaire net estimé. Cette
+        allocation est versée pendant une durée maximale de 24 mois (30 mois pour les plus de 53 ans),
+        sous réserve de la recherche active d'emploi. Un délai de carence de 7 jours s'applique
+        systématiquement avant le premier versement.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Impact du statut cadre sur les indemnités
+      </h2>
+      <p>
+        Le statut de cadre n'a pas d'impact direct sur le montant de l'indemnité légale de licenciement,
+        qui dépend uniquement du salaire de référence et de l'ancienneté. En revanche, il influence
+        significativement le <strong>préavis</strong> : un cadre bénéficie généralement de 3 mois de
+        préavis au lieu de 2 mois pour un non-cadre. Pour un salaire de {entry.label} brut, cela représente
+        une différence de {formatEuros(entry.salaireBrut)} d'indemnité compensatrice de préavis.
+      </p>
+      <p>
+        De plus, les cadres bénéficient souvent de conventions collectives plus favorables (Syntec, métallurgie,
+        banque) qui prévoient des indemnités conventionnelles supérieures au minimum légal. Pour un salaire
+        de {entry.label} brut, il est donc essentiel de vérifier les dispositions de votre convention collective.
+        {entry.salaireBrut >= 4000
+          ? " À ce niveau de rémunération, les enjeux financiers sont suffisamment importants pour justifier la consultation d'un avocat spécialisé en droit du travail."
+          : ""
+        }
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Fiscalité de l'indemnité pour un salaire de {entry.label}
+      </h2>
+      <p>
+        L'indemnité légale de licenciement est <strong>intégralement exonérée d'impôt sur le revenu</strong>,
+        quel que soit le niveau de salaire. Pour un salaire de {entry.label} brut, même avec une ancienneté
+        importante, l'indemnité légale restera en dessous des plafonds d'exonération. En revanche, si vous
+        négociez une indemnité supra-légale (au-delà du minimum légal), la part excédentaire peut être
+        soumise à l'impôt au-delà de certains seuils : 2 fois la rémunération brute annuelle
+        ({formatEuros(entry.salaireBrut * 24)}), 50 % de l'indemnité totale, ou 6 fois le plafond annuel
+        de la Sécurité sociale (environ 278 208 € en 2026).
+      </p>
+      <p>
+        L'indemnité compensatrice de préavis ({formatEuros(entry.salaireBrut * 2)} pour 2 mois non-cadre)
+        est en revanche imposable comme un salaire classique. Elle est soumise aux cotisations sociales,
+        à la CSG et à la CRDS. L'indemnité de congés payés suit le même régime fiscal.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Négocier son départ avec un salaire de {entry.label}
+      </h2>
+      <p>
+        La négociation d'un package de départ est un élément clé du licenciement. Pour un salaire de
+        {entry.label} brut, les marges de négociation dépendent de plusieurs facteurs : la solidité du motif
+        de licenciement, votre ancienneté, la taille de l'entreprise et le contexte (licenciement individuel
+        ou économique). En pratique, les indemnités supra-légales négociées se situent généralement entre
+        1 et 3 mois de salaire supplémentaires par rapport au minimum légal.
+      </p>
+      <p>
+        Pour maximiser vos chances de négociation, rassemblez les éléments suivants : vos bulletins de paie
+        des 12 et 3 derniers mois, votre contrat de travail, votre convention collective, et tout élément
+        susceptible de démontrer l'absence de cause réelle et sérieuse du licenciement. La consultation
+        d'un avocat en droit du travail ou d'un délégué syndical est vivement recommandée pour évaluer
+        vos droits et préparer votre stratégie de négociation.
+      </p>
+
+      <!-- FAQ -->
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6" id="faq">
+        Questions fréquentes - Licenciement pour {entry.label} brut
+      </h2>
+    </div>
+
+    <div class="space-y-4 mt-6">
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+          {faq1Q}
+        </summary>
+        <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+          {faq1A}
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+          {faq2Q}
+        </summary>
+        <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+          {faq2A}
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+          {faq3Q}
+        </summary>
+        <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+          {faq3A}
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Cross-links to other salary pages -->
+  <section class="bg-gray-100 py-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Calculer pour un autre salaire</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        {autresSalaires.map((s) => (
+          <a
+            href={`/indemnite-licenciement-${s.slug}-euros/`}
+            class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all"
+          >
+            <span class="text-sm font-bold text-primary-700">{s.label}</span>
+            <span class="block text-xs text-gray-500">{s.isSmic ? 'SMIC 2026' : 'brut/mois'}</span>
+          </a>
+        ))}
+      </div>
+
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Calculer par ancienneté</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
+        {[1, 5, 10, 15, 20, 25, 30].map((a) => (
+          <a
+            href={`/indemnite-licenciement-${a}-ans/`}
+            class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all"
+          >
+            <span class="text-2xl font-bold text-primary-700">{a}</span>
+            <span class="block text-xs text-gray-500">ans</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Sources juridiques</h2>
+    <ul class="space-y-2 text-sm text-gray-600">
+      <li>
+        <strong>Article R1234-2 du Code du travail</strong> - Calcul de l'indemnité légale de licenciement.
+      </li>
+      <li>
+        <strong>Article L1234-1 du Code du travail</strong> - Durée du préavis de licenciement.
+      </li>
+      <li>
+        <strong>Article L1234-9 du Code du travail</strong> - Conditions d'éligibilité (8 mois d'ancienneté).
+      </li>
+      <li>
+        <strong>SMIC 2026</strong> - {formatEuros(SMIC_BRUT_MENSUEL)} brut mensuel (décret annuel de revalorisation).
+      </li>
+      <li>
+        <strong>Plafond Sécurité sociale 2026</strong> - {formatEuros(PLAFOND_SS_MENSUEL)} mensuel.
+      </li>
+    </ul>
+  </section>
+</Layout>

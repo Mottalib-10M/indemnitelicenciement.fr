@@ -1,0 +1,100 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://indemnite-licenciement.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Glossaire", "item": "https://indemnite-licenciement.fr/glossaire/" }
+  ]
+};
+
+const terms = [
+  {
+    term: "Anciennete",
+    definition: "L'anciennete correspond a la duree de presence du salarie dans l'entreprise, calculee a partir de la date d'embauche jusqu'a la date de notification du licenciement. Elle est determinante pour le calcul de l'indemnite de licenciement et la duree du preavis."
+  },
+  {
+    term: "Brut/net fiscal",
+    definition: "L'indemnite de licenciement peut etre exprimee en brut ou en net fiscal. La part exoneree d'impot sur le revenu et de cotisations sociales depend de plafonds fixes par la loi. Au-dela de ces plafonds, l'excedent est soumis a l'impot et aux prelevements sociaux."
+  },
+  {
+    term: "Convention collective",
+    definition: "La convention collective est un accord negocie entre les syndicats et les employeurs d'un secteur d'activite. Elle peut prevoir des indemnites de licenciement plus favorables que le minimum legal. Le salarie beneficie toujours du calcul le plus avantageux entre la loi et sa convention."
+  },
+  {
+    term: "CSP (Contrat de Securisation Professionnelle)",
+    definition: "Le CSP est un dispositif propose aux salaries licencies pour motif economique dans les entreprises de moins de 1 000 salaries. Il prevoit un accompagnement renforce vers le retour a l'emploi et une allocation specifique plus elevee que l'ARE pendant 12 mois."
+  },
+  {
+    term: "Faute grave",
+    definition: "La faute grave est un manquement du salarie a ses obligations contractuelles d'une gravite telle qu'il rend impossible le maintien du salarie dans l'entreprise, meme pendant la duree du preavis. Elle prive le salarie de l'indemnite de licenciement et de l'indemnite de preavis."
+  },
+  {
+    term: "Faute lourde",
+    definition: "La faute lourde est une faute d'une exceptionnelle gravite commise avec l'intention de nuire a l'employeur ou a l'entreprise. Comme la faute grave, elle prive le salarie des indemnites de licenciement et de preavis. Elle peut aussi engager la responsabilite civile du salarie."
+  },
+  {
+    term: "Indemnite conventionnelle",
+    definition: "L'indemnite conventionnelle est le montant de l'indemnite de licenciement prevu par la convention collective applicable au salarie. Si ce montant est superieur a l'indemnite legale, c'est l'indemnite conventionnelle qui s'applique."
+  },
+  {
+    term: "Indemnite legale de licenciement",
+    definition: "L'indemnite legale de licenciement est le montant minimum prevu par le Code du travail. Elle est calculee en fonction de l'anciennete et du salaire de reference : 1/4 de mois par annee pour les 10 premieres annees, puis 1/3 de mois par annee au-dela."
+  },
+  {
+    term: "Licenciement economique",
+    definition: "Le licenciement economique est un licenciement motive par des raisons non liees a la personne du salarie : difficultes economiques, mutations technologiques, reorganisation necessaire a la sauvegarde de la competitivite ou cessation d'activite. Il ouvre droit a des dispositifs specifiques (CSP, plan de sauvegarde)."
+  },
+  {
+    term: "Plafond de securite sociale (PASS)",
+    definition: "Le plafond annuel de securite sociale est un montant de reference utilise pour le calcul de certaines cotisations sociales et pour determiner les limites d'exoneration fiscale et sociale des indemnites de licenciement. Il est revalorise chaque annee."
+  },
+  {
+    term: "Plan de sauvegarde de l'emploi (PSE)",
+    definition: "Le PSE est un ensemble de mesures obligatoires dans les entreprises de 50 salaries ou plus qui envisagent de licencier au moins 10 salaries sur 30 jours pour motif economique. Il vise a eviter ou limiter les licenciements et a faciliter le reclassement des salaries concernes."
+  },
+  {
+    term: "Preavis",
+    definition: "Le preavis est la periode qui s'ecoule entre la notification du licenciement et la fin effective du contrat de travail. Sa duree depend de l'anciennete du salarie et de sa categorie professionnelle. Le salarie doit continuer a travailler pendant le preavis, sauf dispense de l'employeur."
+  },
+  {
+    term: "Rupture conventionnelle",
+    definition: "La rupture conventionnelle est un mode de rupture amiable du contrat de travail a duree indeterminee, negocie entre l'employeur et le salarie. Elle ouvre droit a une indemnite au moins egale a l'indemnite legale de licenciement et permet de percevoir l'allocation chomage."
+  },
+  {
+    term: "Salaire de reference",
+    definition: "Le salaire de reference est la base de calcul de l'indemnite de licenciement. Il correspond au montant le plus favorable entre la moyenne des 12 derniers mois de salaire brut et la moyenne des 3 derniers mois (avec prorata des primes annuelles)."
+  },
+  {
+    term: "Solde de tout compte",
+    definition: "Le solde de tout compte est un document remis au salarie a la fin de son contrat de travail. Il recapitule l'ensemble des sommes versees : dernier salaire, indemnite de licenciement, indemnite compensatrice de conges payes, indemnite de preavis et autres elements de remuneration."
+  }
+];
+---
+<Layout title="Glossaire du licenciement - Indemnite Licenciement" description="Definitions des termes cles du licenciement : indemnite legale, preavis, faute grave, rupture conventionnelle, CSP et plus encore.">
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <nav class="text-sm text-gray-500 mb-8">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-gray-700">Accueil</a></li>
+        <li>/</li>
+        <li class="text-gray-800 font-medium">Glossaire</li>
+      </ol>
+    </nav>
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">Glossaire du licenciement</h1>
+    <p class="text-gray-600 mb-8">Retrouvez les definitions des termes essentiels du droit du licenciement en France. Ce glossaire vous aide a comprendre les notions cles pour evaluer vos droits et vos indemnites.</p>
+
+    <div class="space-y-6">
+      {terms.map((item) => (
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h2 class="text-lg font-semibold text-blue-700 mb-2">{item.term}</h2>
+          <p class="text-gray-600">{item.definition}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

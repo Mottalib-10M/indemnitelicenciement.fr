@@ -1,0 +1,251 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Un salarié licencié pour faute grave a-t-il droit aux allocations chômage ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Le licenciement pour faute grave constitue une perte involontaire d'emploi. Le salarié licencié pour faute grave a donc droit à l'ARE (Allocation de Retour à l'Emploi) dans les mêmes conditions que tout autre salarié licencié, sous réserve de remplir les conditions d'affiliation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre faute grave et faute lourde ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La faute grave rend impossible le maintien du salarié dans l'entreprise et prive celui-ci de l'indemnité de licenciement et de l'indemnité de préavis. La faute lourde suppose en plus une intention de nuire à l'employeur. Depuis un arrêt de 2016, la faute lourde ne prive plus le salarié de ses indemnités de congés payés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on contester un licenciement pour faute grave ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Le salarié dispose d'un délai de 12 mois pour saisir le conseil de prud'hommes afin de contester la qualification de faute grave. Si le juge requalifie la faute en cause réelle et sérieuse, le salarié peut récupérer son indemnité de licenciement et son indemnité de préavis."
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://indemnite-licenciement.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://indemnite-licenciement.fr/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Licenciement pour faute grave", "item": "https://indemnite-licenciement.fr/guides/licenciement-faute-grave/" }
+  ]
+};
+---
+
+<Layout
+  title="Licenciement pour faute grave 2026 - Droits, procédure et indemnités"
+  description="Licenciement pour faute grave : pas d'indemnité de licenciement mais droit au chômage. Procédure disciplinaire, conséquences financières et recours possibles."
+  canonical="/guides/licenciement-faute-grave/"
+  schema={schema}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-primary-200 text-sm mb-4">
+        <a href="/" class="hover:text-white transition-colors">Accueil</a>
+        <span class="mx-2">›</span>
+        <a href="/guides/" class="hover:text-white transition-colors">Guides</a>
+        <span class="mx-2">›</span>
+        <span class="text-white">Licenciement pour faute grave</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-extrabold">
+        Licenciement pour faute grave : droits, procédure et conséquences financières
+      </h1>
+      <p class="mt-4 text-primary-100 text-lg">
+        Comprendre les conséquences d'un licenciement pour faute grave sur vos indemnités, vos droits au chômage et les voies de recours disponibles.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-slate max-w-none">
+
+      <p>
+        Le licenciement pour faute grave est l'une des formes les plus lourdes de rupture du contrat de travail à l'initiative de l'employeur. Il implique que le comportement du salarié rend impossible son maintien dans l'entreprise, même pendant la durée du préavis. Les conséquences financières sont significatives puisque le salarié est privé de son indemnité de licenciement et de son indemnité compensatrice de préavis. Toutefois, contrairement à une idée reçue très répandue, le licenciement pour faute grave n'empêche pas le salarié de bénéficier de l'allocation chômage (ARE). Ce guide détaille la procédure applicable, les droits préservés et les moyens de contestation.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Qu'est-ce que la faute grave ?</h2>
+
+      <p>
+        La faute grave est définie par la jurisprudence comme un fait ou un ensemble de faits imputables au salarié qui constitue une violation des obligations résultant du contrat de travail ou des relations de travail d'une importance telle qu'elle rend impossible le maintien du salarié dans l'entreprise pendant la durée du préavis. Cette définition, posée par la Cour de cassation (Cass. soc., 27 septembre 2007, n° 06-43.867), met l'accent sur deux éléments cumulatifs : la gravité du comportement et l'impossibilité de maintenir la relation de travail, même temporairement.
+      </p>
+
+      <p>
+        La charge de la preuve incombe à l'employeur. C'est à lui de démontrer devant le conseil de prud'hommes que les faits reprochés au salarié sont d'une gravité suffisante pour justifier un licenciement immédiat, sans préavis ni indemnité. Le juge apprécie souverainement la gravité de la faute en tenant compte de l'ensemble des circonstances : l'ancienneté du salarié, ses antécédents disciplinaires, le contexte dans lequel les faits se sont produits, la taille de l'entreprise et les usages de la profession.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Exemples de fautes reconnues comme graves par la jurisprudence</h3>
+      <p>
+        La jurisprudence a qualifié de faute grave un grand nombre de comportements. Parmi les plus fréquemment retenus par les tribunaux, on trouve le <strong>vol ou le détournement de biens de l'entreprise</strong>, même pour de faibles montants lorsque le salarié occupe un poste de confiance. Les <strong>absences injustifiées et répétées</strong> constituent également une faute grave lorsque le salarié ne fournit aucune justification malgré les mises en demeure de l'employeur. L'<strong>insubordination caractérisée</strong>, c'est-à-dire le refus réitéré d'exécuter des tâches relevant du contrat de travail, peut justifier un licenciement pour faute grave. Le <strong>harcèlement moral ou sexuel</strong> commis par un salarié envers ses collègues ou subordonnés est systématiquement qualifié de faute grave. La <strong>consommation d'alcool ou de stupéfiants sur le lieu de travail</strong>, lorsqu'elle met en danger la sécurité des personnes, est également reconnue. Enfin, la <strong>concurrence déloyale</strong> exercée pendant l'exécution du contrat, notamment en détournant la clientèle au profit d'une structure personnelle, constitue une faute grave voire lourde.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">La distinction avec la faute simple et la faute lourde</h3>
+      <p>
+        Le droit du travail français distingue trois degrés de faute dans le cadre du licenciement disciplinaire. La <strong>faute simple</strong> (ou « cause réelle et sérieuse ») est un manquement du salarié qui justifie le licenciement mais ne présente pas un caractère de gravité suffisant pour priver le salarié de ses indemnités. Le salarié licencié pour faute simple conserve son droit à l'indemnité de licenciement, à l'indemnité compensatrice de préavis et à l'indemnité de congés payés. La <strong>faute grave</strong>, comme nous l'avons vu, prive le salarié de l'indemnité de licenciement et du préavis, mais il conserve son droit aux congés payés acquis. La <strong>faute lourde</strong> est le degré le plus élevé : elle suppose une intention de nuire à l'employeur ou à l'entreprise. Depuis l'arrêt du Conseil constitutionnel du 2 mars 2016 (QPC n° 2015-523), la faute lourde ne prive plus le salarié de son indemnité compensatrice de congés payés, ce qui réduit considérablement la différence pratique avec la faute grave.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La procédure de licenciement pour faute grave</h2>
+
+      <p>
+        Le licenciement pour faute grave obéit à une procédure disciplinaire stricte définie par les articles L.1232-1 à L.1232-6 du Code du travail. Le non-respect de cette procédure peut entraîner la requalification du licenciement en licenciement sans cause réelle et sérieuse, voire en licenciement nul dans certains cas. L'employeur dispose d'un délai de <strong>2 mois</strong> à compter du jour où il a connaissance des faits fautifs pour engager la procédure disciplinaire (article L.1332-4 du Code du travail). Au-delà de ce délai, les faits sont prescrits et ne peuvent plus fonder un licenciement.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 1 : La mise à pied conservatoire</h3>
+      <p>
+        En cas de faute grave, l'employeur peut prononcer une <strong>mise à pied conservatoire</strong> qui suspend immédiatement le contrat de travail dans l'attente de la décision de licenciement. Contrairement à la mise à pied disciplinaire (qui est une sanction à durée déterminée), la mise à pied conservatoire n'est pas une sanction mais une mesure provisoire. Elle n'est pas obligatoire mais fortement recommandée car elle démontre l'incompatibilité du maintien du salarié dans l'entreprise, ce qui conforte la qualification de faute grave. Si le licenciement est finalement prononcé pour faute grave, la période de mise à pied conservatoire n'est pas rémunérée. Si le licenciement n'est pas retenu ou si la faute est requalifiée en faute simple, l'employeur devra payer les salaires correspondant à cette période.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 2 : La convocation à l'entretien préalable</h3>
+      <p>
+        L'employeur doit convoquer le salarié à un <strong>entretien préalable</strong> par lettre recommandée avec accusé de réception ou remise en main propre contre décharge. Cette convocation doit mentionner l'objet de l'entretien (sans avoir à détailler les griefs), la date, l'heure et le lieu de l'entretien, ainsi que la possibilité pour le salarié de se faire assister par une personne de son choix appartenant au personnel de l'entreprise ou, en l'absence de représentants du personnel, par un conseiller du salarié inscrit sur la liste préfectorale. Un délai minimum de <strong>5 jours ouvrables</strong> doit séparer la réception de la convocation et la date de l'entretien (article L.1232-2 du Code du travail).
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 3 : L'entretien préalable</h3>
+      <p>
+        Lors de l'entretien préalable, l'employeur expose les motifs de la décision envisagée et recueille les explications du salarié. L'entretien a un caractère contradictoire : le salarié doit pouvoir s'exprimer et présenter sa défense. L'absence du salarié à l'entretien ne bloque pas la procédure ; l'employeur peut poursuivre le processus de licenciement. Toutefois, il est généralement dans l'intérêt du salarié de se présenter à l'entretien, accompagné si possible, afin de contester les griefs et de faire consigner ses observations.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Étape 4 : La notification du licenciement</h3>
+      <p>
+        Après l'entretien préalable, l'employeur doit respecter un délai de réflexion de <strong>2 jours ouvrables minimum</strong> avant d'envoyer la lettre de licenciement. Le licenciement est notifié par <strong>lettre recommandée avec accusé de réception</strong>. La lettre doit énoncer de manière précise et détaillée les motifs du licenciement. Depuis les ordonnances Macron de 2017, l'employeur peut préciser les motifs de la lettre de licenciement dans un délai de 15 jours, soit de sa propre initiative, soit à la demande du salarié (article L.1235-2 du Code du travail). La date de notification fixe le point de départ du délai de prescription pour contester le licenciement devant les prud'hommes.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Conséquences financières du licenciement pour faute grave</h2>
+
+      <p>
+        Le licenciement pour faute grave a des conséquences financières importantes pour le salarié. Il est privé de deux indemnités majeures mais conserve certains droits.
+      </p>
+
+      <div class="overflow-x-auto my-6">
+        <table class="w-full border-collapse not-prose">
+          <thead>
+            <tr class="bg-secondary-600 text-white">
+              <th class="p-3 text-left font-semibold">Indemnité</th>
+              <th class="p-3 text-center font-semibold">Faute simple</th>
+              <th class="p-3 text-center font-semibold">Faute grave</th>
+              <th class="p-3 text-center font-semibold">Faute lourde</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">Indemnité de licenciement</td>
+              <td class="p-3 text-center text-green-600 font-semibold">Oui</td>
+              <td class="p-3 text-center text-secondary-600 font-semibold">Non</td>
+              <td class="p-3 text-center text-secondary-600 font-semibold">Non</td>
+            </tr>
+            <tr class="border-b border-gray-200 bg-gray-50">
+              <td class="p-3 font-medium text-gray-900">Indemnité compensatrice de préavis</td>
+              <td class="p-3 text-center text-green-600 font-semibold">Oui</td>
+              <td class="p-3 text-center text-secondary-600 font-semibold">Non</td>
+              <td class="p-3 text-center text-secondary-600 font-semibold">Non</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">Indemnité de congés payés</td>
+              <td class="p-3 text-center text-green-600 font-semibold">Oui</td>
+              <td class="p-3 text-center text-green-600 font-semibold">Oui</td>
+              <td class="p-3 text-center text-green-600 font-semibold">Oui (depuis 2016)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-gray-900">Allocation chômage (ARE)</td>
+              <td class="p-3 text-center text-green-600 font-semibold">Oui</td>
+              <td class="p-3 text-center text-green-600 font-semibold">Oui</td>
+              <td class="p-3 text-center text-green-600 font-semibold">Oui</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Droit au chômage préservé : une réalité méconnue</h3>
+      <p>
+        Contrairement à ce que beaucoup de salariés croient, le licenciement pour faute grave <strong>ouvre droit à l'allocation chômage</strong>. En effet, l'ARE est versée à tout salarié « involontairement privé d'emploi », ce qui inclut tous les cas de licenciement, quelle qu'en soit la cause (motif personnel, faute grave, faute lourde, motif économique). Le seul mode de rupture qui exclut en principe le droit à l'ARE est la démission (sauf cas de démission légitime). Le salarié licencié pour faute grave doit s'inscrire à France Travail dans les 12 mois suivant la fin de son contrat et remplir les conditions habituelles d'affiliation (130 jours ou 910 heures travaillées au cours des 24 ou 36 derniers mois selon l'âge).
+      </p>
+
+      <p>
+        Il faut toutefois noter une spécificité concernant le <strong>différé d'indemnisation</strong>. En cas de licenciement pour faute grave, le salarié ne perçoit pas d'indemnité compensatrice de préavis, ce qui signifie qu'il n'y a pas de différé spécifique lié à cette indemnité. Le versement de l'ARE peut donc commencer plus rapidement qu'en cas de licenciement avec préavis et indemnité supra-légale. Le différé d'attente de 7 jours reste applicable dans tous les cas, de même qu'un éventuel différé lié aux congés payés versés.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Contester un licenciement pour faute grave</h2>
+
+      <p>
+        Le salarié qui estime que son licenciement pour faute grave est injustifié dispose de <strong>12 mois</strong> à compter de la notification du licenciement pour saisir le conseil de prud'hommes (article L.1471-1 du Code du travail). L'enjeu de la contestation est double : obtenir la requalification de la faute (de grave en simple) et percevoir les indemnités dont il a été privé, ainsi qu'éventuellement des dommages et intérêts pour licenciement sans cause réelle et sérieuse.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Les issues possibles de la contestation</h3>
+      <p>
+        Le conseil de prud'hommes peut statuer de plusieurs façons. Si le juge considère que les faits reprochés ne constituent pas une faute grave mais une <strong>cause réelle et sérieuse</strong>, le licenciement est confirmé mais le salarié récupère son indemnité de licenciement et son indemnité compensatrice de préavis. Si le juge estime que le licenciement est <strong>sans cause réelle et sérieuse</strong> (les faits ne sont pas établis ou ne justifient pas un licenciement), le salarié perçoit en plus une indemnité pour licenciement abusif, dont le montant est encadré par le barème Macron (articles L.1235-3 du Code du travail). Si la procédure n'a pas été respectée (convocation irrégulière, absence d'entretien, etc.), le salarié peut obtenir une indemnité supplémentaire pour irrégularité de procédure, dans la limite d'un mois de salaire.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Les éléments de preuve importants</h3>
+      <p>
+        Pour contester efficacement un licenciement pour faute grave, le salarié doit rassembler plusieurs éléments. Les <strong>bulletins de paie</strong> et le <strong>contrat de travail</strong> permettent d'établir l'ancienneté et la rémunération. La <strong>lettre de licenciement</strong> est le document central car elle fixe le cadre du litige : le juge ne peut examiner que les motifs qui y figurent. Les <strong>échanges de courriels</strong>, les <strong>témoignages de collègues</strong> et les <strong>comptes rendus d'entretien</strong> peuvent aider à contextualiser les faits et à démontrer leur absence de gravité. Les <strong>avertissements antérieurs</strong> (ou leur absence) sont également pertinents : un salarié licencié pour faute grave pour un premier manquement isolé après 15 ans de service sans incident a de bonnes chances d'obtenir une requalification.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La mise à pied conservatoire : rémunérée ou non ?</h2>
+      <p>
+        La question de la rémunération pendant la mise à pied conservatoire dépend de l'issue de la procédure disciplinaire. Si le licenciement pour faute grave est effectivement prononcé, la période de mise à pied conservatoire <strong>n'est pas rémunérée</strong> car elle est considérée comme le début de la rupture. En revanche, si l'employeur décide finalement de prononcer un licenciement pour faute simple (sans faute grave) ou si le conseil de prud'hommes requalifie la faute, la période de mise à pied conservatoire doit être <strong>intégralement rémunérée</strong>. C'est un point très important que beaucoup de salariés ignorent : la requalification d'une faute grave en faute simple permet non seulement de récupérer l'indemnité de licenciement et le préavis, mais aussi les salaires de la période de mise à pied conservatoire.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le cas particulier des salariés protégés</h2>
+      <p>
+        Les salariés protégés (représentants du personnel, délégués syndicaux, membres du CSE, etc.) bénéficient d'une protection spéciale contre le licenciement. En cas de faute grave, l'employeur ne peut pas licencier un salarié protégé sans obtenir au préalable une <strong>autorisation de l'inspecteur du travail</strong>. L'inspecteur du travail vérifie la réalité de la faute, l'absence de lien avec le mandat du salarié et le respect de la procédure. Un refus d'autorisation empêche le licenciement. Si l'employeur licencie un salarié protégé sans autorisation ou malgré un refus, le licenciement est <strong>nul de plein droit</strong> et le salarié a droit à sa réintégration ainsi qu'au paiement des salaires perdus.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Conseils pratiques pour le salarié licencié pour faute grave</h2>
+      <p>
+        Face à un licenciement pour faute grave, voici les réflexes essentiels. <strong>Premier réflexe :</strong> inscrivez-vous immédiatement à France Travail pour faire valoir vos droits à l'ARE. N'attendez pas, le différé est calculé à partir de la fin du contrat. <strong>Deuxième réflexe :</strong> conservez précieusement tous vos documents (lettre de licenciement, bulletins de paie, contrat de travail, courriels, attestations de collègues). <strong>Troisième réflexe :</strong> demandez votre certificat de travail, votre attestation France Travail et votre solde de tout compte à l'employeur, qui a l'obligation de les remettre. <strong>Quatrième réflexe :</strong> consultez un avocat spécialisé en droit du travail ou un syndicat pour évaluer vos chances de contestation. La consultation initiale est souvent gratuite ou peu coûteuse, et l'aide juridictionnelle peut prendre en charge les frais en cas de revenus insuffisants. <strong>Cinquième réflexe :</strong> respectez le délai de 12 mois pour saisir les prud'hommes si vous souhaitez contester.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Chiffres clés et statistiques</h2>
+      <p>
+        Selon les données du ministère du Travail et des études de la DARES, environ <strong>15 % des licenciements pour motif personnel</strong> sont prononcés pour faute grave ou lourde. Le taux de requalification par les conseils de prud'hommes est significatif : on estime qu'environ <strong>30 à 40 % des licenciements pour faute grave</strong> contestés devant les prud'hommes font l'objet d'une requalification (en cause réelle et sérieuse ou en licenciement sans cause). Ce taux élevé de requalification s'explique par le fait que certains employeurs abusent de la qualification de faute grave pour éviter de payer l'indemnité de licenciement et le préavis, alors que les faits reprochés ne justifient pas objectivement cette qualification.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Synthèse : les points essentiels à retenir</h2>
+      <p>
+        Le licenciement pour faute grave prive le salarié de l'indemnité de licenciement et de l'indemnité de préavis, mais il conserve ses droits aux congés payés acquis et à l'allocation chômage. La procédure disciplinaire doit être scrupuleusement respectée par l'employeur sous peine de requalification. Le salarié dispose de 12 mois pour contester devant les prud'hommes et les chances de requalification sont significatives. L'inscription à France Travail doit être faite rapidement pour activer les droits à l'ARE. En cas de doute sur la régularité de la procédure ou la qualification de la faute, la consultation d'un avocat spécialisé est vivement recommandée.
+      </p>
+
+    </div>
+
+    <!-- Outils associés -->
+    <div class="bg-accent-50 border border-accent-200 rounded-xl p-6 mt-10 not-prose">
+      <h2 class="text-lg font-bold text-accent-800 mb-3">Outils associés</h2>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="/" class="text-accent-700 hover:text-accent-900 font-medium underline">Calculateur d'indemnité de licenciement</a> - Vérifiez le montant théorique de votre indemnité en cas de requalification.
+        </li>
+        <li>
+          <a href="/guide-are/" class="text-accent-700 hover:text-accent-900 font-medium underline">Guide ARE (allocation chômage)</a> - Calculez vos droits au chômage après un licenciement pour faute grave.
+        </li>
+        <li>
+          <a href="/guides/contestation-prud-hommes/" class="text-accent-700 hover:text-accent-900 font-medium underline">Contestation aux prud'hommes</a> - Comment contester votre licenciement devant le juge.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sources -->
+    <div class="mt-10 border-t border-gray-200 pt-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-3">Sources</h2>
+      <ul class="space-y-1 text-sm text-gray-600">
+        <li>Articles L.1232-1 à L.1232-6 du Code du travail - Procédure de licenciement pour motif personnel</li>
+        <li>Article L.1332-4 du Code du travail - Prescription des fautes disciplinaires</li>
+        <li>Cass. soc., 27 septembre 2007, n° 06-43.867 - Définition de la faute grave</li>
+        <li>Conseil constitutionnel, QPC n° 2015-523, 2 mars 2016 - Congés payés et faute lourde</li>
+        <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F2855" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Licenciement pour faute grave</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

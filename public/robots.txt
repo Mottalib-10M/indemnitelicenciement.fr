@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://indemnite-licenciement.fr/sitemap.xml
+
+Disallow: /*?*

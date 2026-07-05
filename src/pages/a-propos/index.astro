@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://indemnite-licenciement.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "A propos", "item": "https://indemnite-licenciement.fr/a-propos/" }
+  ]
+};
+---
+<Layout title="A propos - Indemnite Licenciement" description="Decouvrez l'equipe derriere le calculateur d'indemnite de licenciement. Mottalib Radif, expert en technologie financiere.">
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <nav class="text-sm text-gray-500 mb-8">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-gray-700">Accueil</a></li>
+        <li>/</li>
+        <li class="text-gray-800 font-medium">A propos</li>
+      </ol>
+    </nav>
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">A propos d'Indemnite Licenciement</h1>
+
+    <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Qui sommes-nous ?</h2>
+      <div class="flex flex-col sm:flex-row gap-6">
+        <div class="flex-shrink-0">
+          <div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 text-3xl font-bold">MR</div>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">Mottalib Radif</h3>
+          <p class="text-sm text-blue-600 font-medium mb-3">Fondateur et expert en technologie financiere</p>
+          <p class="text-gray-600 mb-3">
+            Mottalib Radif est un developpeur specialise dans la creation d'outils numeriques au service de la finance personnelle et du droit du travail. Son expertise couvre le developpement d'applications web, la modelisation de calculs complexes et la vulgarisation juridique. Il concoit des calculateurs precis qui traduisent les articles du Code du travail en formules comprehensibles par tous.
+          </p>
+          <p class="text-gray-600">
+            Fort de son experience dans la conception de simulateurs financiers, Mottalib met ses competences techniques au service des salaries en leur offrant un acces simple et gratuit aux informations essentielles sur leurs droits en cas de licenciement.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Pourquoi ce calculateur ?</h2>
+      <p class="text-gray-600 mb-4">
+        Lorsqu'un salarie est confronte a un licenciement, il se retrouve souvent demuni face a la complexite des calculs d'indemnites. Le montant de l'indemnite legale de licenciement depend de l'anciennete, du salaire de reference et du motif de rupture du contrat. A cela s'ajoutent les indemnites conventionnelles, le calcul du preavis et l'estimation de l'allocation chomage (ARE).
+      </p>
+      <p class="text-gray-600 mb-4">
+        Ce calculateur a ete cree pour permettre a chaque salarie d'obtenir une estimation rapide et fiable de ses droits. En quelques clics, vous renseignez votre anciennete, votre salaire et le type de licenciement, et l'outil calcule automatiquement le montant minimum de votre indemnite legale, la duree de votre preavis et une estimation de votre allocation chomage.
+      </p>
+      <p class="text-gray-600">
+        Les formules utilisees sont celles prevues par les articles L1234-9 et R1234-2 du Code du travail. Pour les indemnites conventionnelles, il convient de se reporter a votre convention collective, qui peut prevoir des montants plus favorables. Notre outil fournit le minimum legal et vous invite a verifier les dispositions specifiques a votre branche professionnelle.
+      </p>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Notre engagement</h2>
+      <ul class="space-y-3 text-gray-600">
+        <li class="flex items-start gap-3">
+          <span class="text-blue-500 mt-1 font-bold">1.</span>
+          <span><strong>Gratuite et independance</strong> : ce calculateur est entierement gratuit, sans publicite ni collecte de donnees personnelles. Nous ne sommes affilies a aucun cabinet d'avocats ni organisme de formation.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-blue-500 mt-1 font-bold">2.</span>
+          <span><strong>Conformite au Code du travail</strong> : nos formules sont strictement basees sur les dispositions legales en vigueur, telles que publiees sur Legifrance et Service-public.fr.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-blue-500 mt-1 font-bold">3.</span>
+          <span><strong>Information, pas conseil juridique</strong> : les resultats sont indicatifs. Pour une situation complexe (faute grave, plan de sauvegarde, convention collective specifique), nous vous recommandons de consulter un avocat en droit du travail ou un representant syndical.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Sources et references</h2>
+      <p class="text-gray-600 mb-4">
+        Les calculs de ce site s'appuient sur le Code du travail francais, accessible sur Legifrance (legifrance.gouv.fr), ainsi que sur les fiches pratiques du site Service-public.fr. Les baremes de l'allocation chomage (ARE) sont bases sur les regles fixees par l'Unedic et France Travail.
+      </p>
+      <p class="text-gray-600">
+        Ce calculateur ne remplace ni un conseil juridique personnalise, ni un entretien avec votre employeur ou les services de France Travail. Il constitue un premier outil d'information pour vous aider a comprendre vos droits fondamentaux en matiere d'indemnites de licenciement.
+      </p>
+    </section>
+  </div>
+</Layout>

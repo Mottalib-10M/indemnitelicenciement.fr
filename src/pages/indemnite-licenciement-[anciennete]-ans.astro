@@ -1,0 +1,416 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LicenciementCalculator from '../components/LicenciementCalculator';
+import '../styles/global.css';
+import {
+  ancienneteData,
+  getExemplesCalcul,
+  getPagesAdjacentes,
+  getPagesJalons,
+  formatEuros,
+  type AncienneteEntry,
+} from '../lib/anciennete-data';
+import { INDEMNITE_LEGALE, PREAVIS, SMIC_BRUT_MENSUEL } from '../lib/baremes-2026';
+
+export function getStaticPaths() {
+  return ancienneteData.map((entry) => ({
+    params: { anciennete: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: AncienneteEntry;
+}
+
+const { entry } = Astro.props;
+const exemples = getExemplesCalcul(entry.annees);
+const { precedent, suivant } = getPagesAdjacentes(entry.annees);
+const jalons = getPagesJalons(entry.annees);
+
+// Calcul du taux applicable
+const tauxInfo = entry.annees <= 10
+  ? `1/4 de mois de salaire par année (taux unique)`
+  : `1/4 de mois pour les 10 premières années + 1/3 de mois au-delà`;
+
+// FAQ spécifique à l'ancienneté
+const faq1Question = `Combien touche-t-on d'indemnité de licenciement après ${entry.annees} ans ?`;
+const faq1Answer = entry.annees <= 10
+  ? `Après ${entry.annees} ans d'ancienneté, l'indemnité légale de licenciement est de ${entry.annees}/4 = ${(entry.annees / 4).toFixed(2)} mois de salaire brut de référence. Par exemple, pour un salaire de 2 500 € brut, l'indemnité s'élève à ${formatEuros(2500 * entry.annees / 4)}. Ce montant est le minimum légal prévu par l'article R1234-2 du Code du travail. Votre convention collective peut prévoir un montant plus favorable.`
+  : `Après ${entry.annees} ans d'ancienneté, l'indemnité légale de licenciement se décompose ainsi : 1/4 de mois de salaire × 10 premières années + 1/3 de mois de salaire × ${entry.annees - 10} années au-delà. Pour un salaire de 2 500 €, cela donne ${formatEuros(2500 * 10 / 4 + 2500 * (entry.annees - 10) / 3)}. Ce montant est le minimum légal (article R1234-2 du Code du travail). Votre convention collective peut prévoir un montant plus élevé.`;
+
+const faq2Question = `Quelle est la durée du préavis après ${entry.annees} ans d'ancienneté ?`;
+const faq2Answer = entry.annees < 2
+  ? `Avec ${entry.annees} an(s) d'ancienneté, le préavis de licenciement est de 1 mois pour les salariés non-cadres (article L1234-1 du Code du travail). Les cadres bénéficient généralement d'un préavis de 3 mois selon leur convention collective. L'employeur peut dispenser le salarié d'exécuter le préavis moyennant le versement d'une indemnité compensatrice égale au salaire brut.`
+  : `Avec ${entry.annees} ans d'ancienneté, le préavis de licenciement est de 2 mois pour les salariés non-cadres et de 3 mois pour les cadres (article L1234-1 du Code du travail). L'indemnité compensatrice de préavis représente donc 2 à 3 mois de salaire brut supplémentaires, qui s'ajoutent à l'indemnité légale de licenciement.`;
+
+const faq3Question = `L'indemnité de licenciement après ${entry.annees} ans est-elle imposable ?`;
+const faq3Answer = `L'indemnité légale de licenciement après ${entry.annees} ans est intégralement exonérée d'impôt sur le revenu et de cotisations sociales. Seule la part supra-légale (montant négocié au-delà du minimum légal) peut être soumise à l'impôt, dans la limite du plus élevé entre : 2 fois la rémunération brute annuelle, 50 % de l'indemnité totale, ou 6 fois le plafond annuel de la Sécurité sociale (environ 278 208 € en 2026). L'indemnité compensatrice de préavis est en revanche imposable comme un salaire.`;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": faq1Question,
+      "acceptedAnswer": { "@type": "Answer", "text": faq1Answer },
+    },
+    {
+      "@type": "Question",
+      "name": faq2Question,
+      "acceptedAnswer": { "@type": "Answer", "text": faq2Answer },
+    },
+    {
+      "@type": "Question",
+      "name": faq3Question,
+      "acceptedAnswer": { "@type": "Answer", "text": faq3Answer },
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Calculateur",
+      "item": "https://indemnite-licenciement.fr/",
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": `Indemnité après ${entry.annees} ans`,
+      "item": `https://indemnite-licenciement.fr/indemnite-licenciement-${entry.slug}-ans/`,
+    },
+  ],
+};
+
+const combinedSchema = [faqSchema, breadcrumbSchema];
+---
+
+<Layout
+  title={entry.titreSEO}
+  description={entry.metaDescription}
+  canonical={`/indemnite-licenciement-${entry.slug}-ans/`}
+  schema={combinedSchema}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-white border-b border-gray-100" aria-label="Fil d'Ariane">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <ol class="flex items-center gap-2 text-sm text-gray-500">
+        <li><a href="/" class="hover:text-primary-700 transition-colors">Calculateur</a></li>
+        <li class="text-gray-300">/</li>
+        <li class="text-gray-900 font-medium">Indemnité après {entry.annees} ans</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-10 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl md:text-4xl font-extrabold leading-tight">
+        Indemnité de licenciement après {entry.annees} ans
+      </h1>
+      <p class="mt-4 text-lg text-primary-100 max-w-2xl mx-auto">
+        Calcul 2026 - Montant légal, préavis, exemples chiffrés et droits du salarié
+        après {entry.annees} {entry.annees > 1 ? 'années' : 'an'} d'ancienneté.
+      </p>
+    </div>
+  </section>
+
+  <!-- Calculation Examples Table -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+      Exemples de calcul - {entry.annees} ans d'ancienneté
+    </h2>
+    <p class="text-gray-600 mb-6">
+      Le tableau ci-dessous présente le montant de l'indemnité légale de licenciement après
+      {entry.annees} {entry.annees > 1 ? 'années' : 'an'} d'ancienneté pour trois niveaux de salaire,
+      en application de l'article R1234-2 du Code du travail. Le taux applicable est :
+      <strong>{tauxInfo}</strong>.
+    </p>
+
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse bg-white rounded-xl shadow-sm border border-gray-200">
+        <thead>
+          <tr class="bg-primary-700 text-white">
+            <th class="px-4 py-3 text-left text-sm font-semibold rounded-tl-xl">Salaire brut mensuel</th>
+            <th class="px-4 py-3 text-right text-sm font-semibold">Indemnité légale</th>
+            <th class="px-4 py-3 text-right text-sm font-semibold">Préavis</th>
+            <th class="px-4 py-3 text-right text-sm font-semibold rounded-tr-xl">Total estimé</th>
+          </tr>
+        </thead>
+        <tbody>
+          {exemples.map((ex, i) => (
+            <tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+              <td class="px-4 py-3 text-sm font-medium text-gray-900">{ex.salaireLabel}</td>
+              <td class="px-4 py-3 text-sm text-right text-gray-700 font-semibold">{formatEuros(ex.indemniteLegale)}</td>
+              <td class="px-4 py-3 text-sm text-right text-gray-600">{ex.preavisMois} mois ({formatEuros(ex.indemnitePreavis)})</td>
+              <td class="px-4 py-3 text-sm text-right font-bold text-primary-700">{formatEuros(ex.total)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-xs text-gray-500 mt-3">
+      * Indemnité légale + indemnité compensatrice de préavis (non-cadre). Hors congés payés et indemnité supra-légale.
+      Barème 2026, article R1234-2 du Code du travail.
+    </p>
+  </section>
+
+  <!-- Calculator -->
+  <section class="py-10 px-4 sm:px-6 lg:px-8 bg-gray-100">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+        Simulez votre indemnité après {entry.annees} ans
+      </h2>
+      <p class="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+        Utilisez notre calculateur pour obtenir une estimation personnalisée de vos indemnités
+        de licenciement, incluant le préavis, les congés payés et l'allocation chômage (ARE).
+      </p>
+      <LicenciementCalculator client:idle />
+    </div>
+  </section>
+
+  <!-- Contextual Content -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-lg max-w-none">
+
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">
+        Comment est calculée l'indemnité de licenciement après {entry.annees} ans ?
+      </h2>
+      <p>
+        L'indemnité légale de licenciement après {entry.annees} {entry.annees > 1 ? 'années' : 'an'} d'ancienneté
+        est encadrée par l'article <strong>R1234-2 du Code du travail</strong>. Son calcul repose sur deux éléments :
+        le salaire de référence du salarié et son ancienneté dans l'entreprise. Le salaire de référence est le montant
+        le plus favorable entre la moyenne des 12 derniers mois et la moyenne des 3 derniers mois de rémunération brute,
+        incluant les primes et gratifications au prorata.
+      </p>
+      {entry.annees <= 10 ? (
+        <p>
+          Pour une ancienneté de {entry.annees} {entry.annees > 1 ? 'ans' : 'an'}, le taux applicable est de
+          <strong>1/4 de mois de salaire par année</strong>, soit {(entry.annees / 4).toFixed(2)} mois de salaire brut.
+          Ce taux unique s'applique à toutes les années d'ancienneté jusqu'à 10 ans. Par exemple, un salarié percevant
+          3 000 € brut par mois avec {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} d'ancienneté recevra une indemnité
+          légale de 3 000 × 1/4 × {entry.annees} = <strong>{formatEuros(3000 * entry.annees / 4)}</strong>.
+        </p>
+      ) : (
+        <p>
+          Pour une ancienneté de {entry.annees} ans, le calcul se décompose en deux tranches.
+          Les <strong>10 premières années</strong> sont indemnisées au taux de 1/4 de mois de salaire par année,
+          et les <strong>{entry.annees - 10} années au-delà</strong> bénéficient du taux majoré de 1/3 de mois par année.
+          Concrètement, pour un salaire de 3 000 € brut : (3 000 × 1/4 × 10) + (3 000 × 1/3 × {entry.annees - 10}) =
+          {formatEuros(3000 * 10 / 4)} + {formatEuros(3000 * (entry.annees - 10) / 3)} = <strong>{formatEuros(3000 * 10 / 4 + 3000 * (entry.annees - 10) / 3)}</strong>.
+        </p>
+      )}
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Profil type du salarié avec {entry.annees} ans d'ancienneté
+      </h2>
+      <p>
+        {entry.profilType} Cette ancienneté de {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} reflète
+        {entry.annees <= 3
+          ? "un engagement récent dans l'entreprise, avec des droits encore modestes mais réels. Le salarié est en phase de construction de sa carrière et peut rebondir rapidement sur le marché de l'emploi grâce à son profil dynamique et sa capacité d'adaptation."
+          : entry.annees <= 10
+            ? "un engagement significatif dans l'entreprise, avec des droits accumulés non négligeables. Le salarié a développé une expertise et un réseau interne qui facilitent la négociation d'un départ dans de bonnes conditions."
+            : "un engagement de longue durée dans l'entreprise, avec des droits substantiels. Le salarié est un pilier de l'organisation dont le départ nécessite une planification rigoureuse, tant pour l'employeur que pour le salarié lui-même."
+        }
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Le préavis de licenciement après {entry.annees} ans
+      </h2>
+      <p>
+        {entry.annees < 2 ? (
+          `Avec ${entry.annees} an d'ancienneté, le préavis légal de licenciement est de 1 mois pour les salariés non-cadres,
+          conformément à l'article L1234-1 du Code du travail. Pour les cadres, la durée est généralement de 3 mois
+          en application de la convention collective. L'indemnité compensatrice de préavis, versée en cas de dispense
+          d'exécution, correspond au salaire brut que le salarié aurait perçu pendant la durée du préavis.`
+        ) : (
+          `Avec ${entry.annees} ans d'ancienneté, le préavis légal de licenciement est de 2 mois pour les salariés non-cadres
+          et de 3 mois pour les cadres (article L1234-1 du Code du travail). Cette indemnité compensatrice de préavis,
+          versée en cas de dispense d'exécution par l'employeur, s'ajoute à l'indemnité légale de licenciement et
+          constitue souvent un complément financier significatif. Elle est soumise aux cotisations sociales et à
+          l'impôt sur le revenu, comme un salaire classique.`
+        )}
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Conseils pratiques pour un licenciement après {entry.annees} ans
+      </h2>
+      <ul class="list-disc pl-6 space-y-3">
+        {entry.conseils.map((conseil) => (
+          <li class="text-gray-700">{conseil}</li>
+        ))}
+      </ul>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Allocation chômage (ARE) après {entry.annees} ans de travail
+      </h2>
+      <p>
+        Après un licenciement avec {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} d'ancienneté, le salarié
+        peut bénéficier de l'Allocation de Retour à l'Emploi (ARE) versée par France Travail. Le montant de l'ARE
+        dépend du Salaire Journalier de Référence (SJR) et se calcule selon deux formules : <strong>57 % du SJR</strong>
+        ou <strong>40,4 % du SJR + 12,95 €</strong> par jour. France Travail retient automatiquement la formule la
+        plus avantageuse pour le demandeur d'emploi. L'ARE ne peut être inférieure à 31,59 € par jour ni supérieure
+        à 75 % du SJR.
+      </p>
+      <p>
+        La durée d'indemnisation dépend de la durée d'affiliation dans la période de référence.
+        Avec {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} de travail continu, le salarié bénéficiera
+        de la durée maximale de <strong>730 jours</strong> (24 mois) s'il a moins de 53 ans, ou de
+        <strong>913 jours</strong> (30 mois) s'il a 53 ans ou plus. Un délai de carence de 7 jours
+        incompressibles s'applique avant le premier versement, auquel peut s'ajouter un différé spécifique
+        lié aux éventuelles indemnités supra-légales.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+        Convention collective et indemnité après {entry.annees} ans
+      </h2>
+      <p>
+        L'indemnité légale de licenciement constitue le <strong>minimum garanti</strong> par le Code du travail.
+        Toutefois, la convention collective applicable à votre entreprise peut prévoir des dispositions plus favorables.
+        Par exemple, certaines conventions (métallurgie, banque, chimie, Syntec) appliquent des taux supérieurs
+        dès la première année ou prévoient des majorations pour les salariés de plus de 50 ans. Avec {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} d'ancienneté,
+        il est essentiel de vérifier votre convention collective pour connaître le montant exact de votre indemnité.
+        L'employeur est tenu de verser le montant le plus élevé entre l'indemnité légale et l'indemnité conventionnelle.
+      </p>
+      <p>
+        Pour identifier votre convention collective, consultez votre bulletin de paie (numéro IDCC) ou le site
+        du ministère du Travail. En cas de doute, votre représentant syndical ou un avocat en droit du travail
+        pourra vous aider à déterminer le montant exact de vos droits.
+      </p>
+
+      <!-- FAQ -->
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6" id="faq">
+        Questions fréquentes - Licenciement après {entry.annees} ans
+      </h2>
+    </div>
+
+    <div class="space-y-4 mt-6">
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+          {faq1Question}
+        </summary>
+        <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+          {faq1Answer}
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+          {faq2Question}
+        </summary>
+        <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+          {faq2Answer}
+        </div>
+      </details>
+
+      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+          {faq3Question}
+        </summary>
+        <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+          {faq3Answer}
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Cross-links -->
+  <section class="bg-gray-100 py-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Adjacent Pages -->
+      <div class="flex flex-col sm:flex-row gap-4 mb-8">
+        {precedent && (
+          <a
+            href={`/indemnite-licenciement-${precedent.slug}-ans/`}
+            class="flex-1 bg-white rounded-xl border border-gray-200 p-4 hover:border-primary-300 hover:shadow-md transition-all"
+          >
+            <span class="text-xs text-gray-500">Page précédente</span>
+            <p class="text-primary-700 font-semibold mt-1">
+              Indemnité après {precedent.annees} {precedent.annees > 1 ? 'ans' : 'an'}
+            </p>
+          </a>
+        )}
+        {suivant && (
+          <a
+            href={`/indemnite-licenciement-${suivant.slug}-ans/`}
+            class="flex-1 bg-white rounded-xl border border-gray-200 p-4 hover:border-primary-300 hover:shadow-md transition-all text-right"
+          >
+            <span class="text-xs text-gray-500">Page suivante</span>
+            <p class="text-primary-700 font-semibold mt-1">
+              Indemnité après {suivant.annees} ans
+            </p>
+          </a>
+        )}
+      </div>
+
+      <!-- Milestone Pages -->
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Calculer pour une autre ancienneté</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {jalons.map((jalon) => (
+          <a
+            href={`/indemnite-licenciement-${jalon.slug}-ans/`}
+            class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all"
+          >
+            <span class="text-2xl font-bold text-primary-700">{jalon.annees}</span>
+            <span class="block text-xs text-gray-500 mt-1">ans d'ancienneté</span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Link to salary pages -->
+      <h3 class="text-lg font-bold text-gray-900 mt-8 mb-4">Calculer par niveau de salaire</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <a href="/indemnite-licenciement-1802-euros/" class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all">
+          <span class="text-sm font-bold text-primary-700">SMIC</span>
+          <span class="block text-xs text-gray-500">1 802 €</span>
+        </a>
+        <a href="/indemnite-licenciement-2500-euros/" class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all">
+          <span class="text-sm font-bold text-primary-700">2 500 €</span>
+          <span class="block text-xs text-gray-500">brut/mois</span>
+        </a>
+        <a href="/indemnite-licenciement-4000-euros/" class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all">
+          <span class="text-sm font-bold text-primary-700">4 000 €</span>
+          <span class="block text-xs text-gray-500">brut/mois</span>
+        </a>
+        <a href="/indemnite-licenciement-6000-euros/" class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all">
+          <span class="text-sm font-bold text-primary-700">6 000 €</span>
+          <span class="block text-xs text-gray-500">brut/mois</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Sources juridiques</h2>
+    <ul class="space-y-2 text-sm text-gray-600">
+      <li>
+        <strong>Article R1234-2 du Code du travail</strong> - Calcul de l'indemnité légale de licenciement
+        (taux de 1/4 et 1/3 de mois de salaire par année d'ancienneté).
+      </li>
+      <li>
+        <strong>Article L1234-1 du Code du travail</strong> - Durée du préavis de licenciement
+        selon l'ancienneté du salarié.
+      </li>
+      <li>
+        <strong>Article L1234-9 du Code du travail</strong> - Conditions d'ouverture du droit
+        à l'indemnité de licenciement (ancienneté minimale de 8 mois).
+      </li>
+      <li>
+        <strong>Articles L1235-3 et suivants du Code du travail</strong> - Barème des indemnités
+        prud'homales en cas de licenciement sans cause réelle et sérieuse (barème Macron).
+      </li>
+      <li>
+        <strong>Articles L5422-1 et suivants du Code du travail</strong> - Allocation de Retour
+        à l'Emploi (ARE) et conditions d'indemnisation par France Travail.
+      </li>
+    </ul>
+  </section>
+</Layout>
