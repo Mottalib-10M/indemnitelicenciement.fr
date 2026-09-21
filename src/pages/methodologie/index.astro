@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Méthodologie : le calcul de l’indemnité de licenciement, étape par étape" description="L’ordre exact du calcul : salaire de référence, barème légal par tranche d’ancienneté, comparaison avec la convention collective, régime social et fiscal de l’indemnité.">
+  <div class="max-w-3xl mx-auto">
+    <nav class="text-sm text-gray-500 mb-6">
+      <a href="/" class="hover:text-primary">Accueil</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800">Méthodologie</span>
+    </nav>
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Comment l’indemnité de licenciement est calculée sur ce site</h1>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Le salaire de référence, d’abord</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">Tout part du salaire de référence, et c’est là que se joue l’essentiel de l’écart entre deux simulateurs. Le Code du travail retient la formule la plus favorable au salarié entre deux méthodes&nbsp;: la moyenne des douze derniers mois précédant le licenciement, ou le tiers des trois derniers mois.</p>
+      <p class="text-gray-700 leading-relaxed mb-3">Quand la seconde méthode est retenue, les primes annuelles ou exceptionnelles versées pendant ces trois mois ne comptent qu’au prorata de la période — sans quoi un treizième mois tombé en décembre gonflerait artificiellement la référence. Le calculateur applique cette règle et retient toujours le montant le plus élevé des deux.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Le barème légal, par tranche</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">L’indemnité légale n’est pas un pourcentage unique. Elle vaut un quart de mois de salaire par année d’ancienneté pour les dix premières années, puis un tiers de mois par année au-delà. Les deux tranches se cumulent&nbsp;: un salarié à quinze ans d’ancienneté perçoit dix quarts plus cinq tiers, pas quinze tiers.</p>
+      <p class="text-gray-700 leading-relaxed mb-3">Les années incomplètes comptent au prorata du nombre de mois. L’ancienneté s’apprécie à la date de fin du préavis, même lorsque celui-ci n’est pas exécuté&nbsp;: c’est un point souvent négligé, et il peut faire basculer une année entière.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">La convention collective l’emporte si elle est plus favorable</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">Le montant légal est un plancher. La plupart des conventions collectives prévoient un barème supérieur, parfois très supérieur, et c’est celui-là qui s’applique. Le calculateur donne le montant légal et rappelle systématiquement de vérifier la convention applicable, dont le numéro IDCC figure sur le bulletin de paie.</p>
+      <p class="text-gray-700 leading-relaxed mb-3">En cas de rupture conventionnelle, l’indemnité spécifique ne peut pas être inférieure à l’indemnité légale de licenciement — la même base de calcul s’applique donc.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Ce que le calculateur ne fait pas</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">Il ne traite ni le licenciement pour faute grave ou lourde (qui supprime l’indemnité), ni les indemnités prud’homales, ni le préavis, ni les congés payés non pris, ni l’indemnité de non-concurrence. Il ne tient pas compte des périodes à temps partiel, qui se calculent au prorata.</p>
+      <p class="text-gray-700 leading-relaxed mb-3">Le résultat est une estimation documentée. Il ne remplace ni la décision de l’employeur, ni celle du conseil de prud’hommes, ni l’avis d’un avocat en droit du travail.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Quand les règles sont revues</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">Le barème légal est fixé par le Code du travail et bouge rarement&nbsp;; le régime social et fiscal de l’indemnité, lui, évolue chaque année avec la loi de financement de la Sécurité sociale. Nous reprenons les seuils dès leur publication au Journal officiel, jamais d’après un communiqué. Chaque page porte sa date de dernière révision, issue de l’historique du site.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">D’où viennent les chiffres</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">Chaque règle et chaque seuil provient des publications officielles suivantes&nbsp;:</p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li><a class="underline" href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000018537512/" rel="nofollow noopener" target="_blank">Légifrance &mdash; Code du travail, articles R1234-1 à R1234-4</a></li>
+        <li><a class="underline" href="https://www.service-public.fr/particuliers/vosdroits/F987" rel="nofollow noopener" target="_blank">Service-public.fr &mdash; Indemnité de licenciement</a></li>
+        <li><a class="underline" href="https://boss.gouv.fr/portail/accueil/indemnites-de-rupture.html" rel="nofollow noopener" target="_blank">Bulletin officiel de la Sécurité sociale &mdash; Indemnités de rupture</a></li>
+        <li><a class="underline" href="https://www.telerc.travail.gouv.fr/" rel="nofollow noopener" target="_blank">Ministère du Travail &mdash; TéléRC, rupture conventionnelle</a></li>
+      </ul>
+    </section>
+  </div>
+</Layout>
