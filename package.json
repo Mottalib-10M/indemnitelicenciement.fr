@@ -5,7 +5,7 @@
   "description": "Calculateur d'indemnité de licenciement en France — simulez vos droits",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/typo-nbsp.mjs dist",
     "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",
