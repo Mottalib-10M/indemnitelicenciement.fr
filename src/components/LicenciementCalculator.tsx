@@ -157,7 +157,7 @@ export default function LicenciementCalculator() {
               help="Si different de la moyenne 12 mois"
             />
             <InputField
-              label="Anciennete (annees)"
+              label="Ancienneté (années)"
               id="anciennete-annees"
               value={ancienneteAnnees}
               onChange={setAncienneteAnnees}
@@ -167,7 +167,7 @@ export default function LicenciementCalculator() {
               suffix="ans"
             />
             <InputField
-              label="Anciennete (mois supplementaires)"
+              label="Ancienneté (mois supplementaires)"
               id="anciennete-mois"
               value={ancienneteMois}
               onChange={setAncienneteMois}
@@ -187,7 +187,7 @@ export default function LicenciementCalculator() {
               suffix="ans"
             />
             <InputField
-              label="Jours de conges acquis non pris"
+              label="Jours de congés acquis non pris"
               id="jours-conges"
               value={joursConges}
               onChange={setJoursConges}
@@ -197,7 +197,7 @@ export default function LicenciementCalculator() {
               suffix="jours"
             />
             <InputField
-              label="Indemnite supra-legale (optionnel)"
+              label="Indemnité supra-legale (optionnel)"
               id="supra-legale"
               value={supraLegale}
               onChange={setSupraLegale}
@@ -229,7 +229,7 @@ export default function LicenciementCalculator() {
                   />
                 </button>
                 <p className="mt-1 text-xs text-gray-500">
-                  {cadre ? 'Cadre — preavis 3 mois' : 'Non-cadre'}
+                  {cadre ? 'Cadre — préavis 3 mois' : 'Non-cadre'}
                 </p>
               </div>
             </div>
@@ -279,24 +279,24 @@ export default function LicenciementCalculator() {
                 {/* Detailed Results */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                   <ResultCard
-                    title="Indemnite legale de licenciement"
+                    title="Indemnité légale de licenciement"
                     amount={result.indemniteLegale}
                     subtitle="Art. R1234-2 Code du travail"
                     highlight
                   />
                   <ResultCard
-                    title="Indemnite compensatrice de preavis"
+                    title="Indemnité compensatrice de préavis"
                     amount={result.indemniteCompensatricePreavis}
-                    subtitle={`${result.preavisMois} mois de preavis`}
+                    subtitle={`${result.preavisMois} mois de préavis`}
                   />
                   <ResultCard
-                    title="Indemnite de conges payes"
+                    title="Indemnité de congés payes"
                     amount={result.indemniteCongesPayes}
-                    subtitle="Methode du 1/10e"
+                    subtitle="Méthode du 1/10e"
                   />
                   {result.indemniteSupraLegale > 0 && (
                     <ResultCard
-                      title="Indemnite supra-legale"
+                      title="Indemnité supra-legale"
                       amount={result.indemniteSupraLegale}
                       subtitle="Montant negocie"
                     />
@@ -322,7 +322,7 @@ export default function LicenciementCalculator() {
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Duree d'indemnisation</p>
+                      <p className="text-sm text-gray-500">Durée d'indemnisation</p>
                       <p className="text-xl font-bold text-gray-900">
                         {result.are.dureeJours} jours ({result.are.dureeMois} mois)
                       </p>
