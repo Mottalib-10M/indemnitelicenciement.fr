@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://indemnitelicenciement.fr/sitemap.xml
+Sitemap: https://indemnitelicenciement.fr/sitemap-index.xml
 
 Disallow: /*?*
