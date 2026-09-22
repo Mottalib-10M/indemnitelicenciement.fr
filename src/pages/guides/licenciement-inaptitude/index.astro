@@ -42,10 +42,11 @@ const breadcrumbSchema = {
     { "@type": "ListItem", "position": 3, "name": "Licenciement pour inaptitude", "item": "https://indemnite-licenciement.fr/guides/licenciement-inaptitude/" }
   ]
 };
+import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Licenciement pour inaptitude 2026 - Indemnité doublée, procédure et droits"
+  title="Licenciement pour inaptitude : indemnité doublée en 2026"
   description="Guide complet du licenciement pour inaptitude : distinction professionnelle/non professionnelle, indemnité doublée, obligation de reclassement, préavis et ARE."
   canonical="/guides/licenciement-inaptitude/"
   schema={schema}
@@ -61,7 +62,7 @@ const breadcrumbSchema = {
         <span class="mx-2">›</span>
         <span class="text-white">Licenciement pour inaptitude</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-extrabold">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">
         Licenciement pour inaptitude : indemnité doublée, reclassement et droits du salarié
       </h1>
       <p class="mt-4 text-primary-100 text-lg">
@@ -239,5 +240,22 @@ const breadcrumbSchema = {
         <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F726" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Licenciement pour inaptitude</a></li>
       </ul>
     </div>
-  </section>
+  
+    <div class="mt-12 border-t border-gray-200 pt-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+      <div class="space-y-4">
+        {schema.mainEntity.map((q) => (
+          <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+            <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+              {q.name}
+            </summary>
+            <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+              {q.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+</section>
+  <SourcesOfficielles />
 </Layout>

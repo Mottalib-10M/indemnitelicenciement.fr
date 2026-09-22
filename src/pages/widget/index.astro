@@ -10,9 +10,10 @@ const breadcrumbSchema = {
   ]
 };
 
-const embedCode = `<iframe src="https://indemnite-licenciement.fr/" width="100%" height="700" frameborder="0" style="border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);" title="Calculateur indemnité de licenciement"></iframe>`;
+const embedCode = `<iframe src="https://indemnite-licenciement.fr/embed/" width="100%" height="700" frameborder="0" style="border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);" title="Widget d’indemnité de licenciement à intégrer gratuitement"></iframe>`;
+import SourcesOfficielles from '../../components/SourcesOfficielles.astro';
 ---
-<Layout title="Integrer le calculateur d'indemnité de licenciement - Widget" description="Integrez notre calculateur d'indemnité de licenciement sur votre site web gratuitement avec un simple code iframe.">
+<Layout title="Widget d’indemnité de licenciement à intégrer gratuitement" description="Intégrez gratuitement le simulateur d'indemnité de licenciement à votre site par une simple iframe, sans publicité, avec les barèmes officiels tenus à jour.">
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <div class="max-w-4xl mx-auto px-4 py-8">
@@ -31,7 +32,7 @@ const embedCode = `<iframe src="https://indemnite-licenciement.fr/" width="100%"
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Code d'integration</h2>
       <p class="text-gray-600 mb-4">Copiez le code HTML suivant et collez-le dans votre page web à l'endroit ou vous souhaitez afficher le calculateur :</p>
       <div class="relative">
-        <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm overflow-x-auto"><code>{embedCode}</code></pre>
+        <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm overflow-x-auto whitespace-pre-wrap break-words max-w-full" style="white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;max-width:100%"><code class="break-words">{embedCode}</code></pre>
         <button
           onclick="navigator.clipboard.writeText(this.closest('.relative').querySelector('code').textContent);this.textContent='Copie !';setTimeout(()=>this.textContent='Copier',2000)"
           class="absolute top-3 right-3 px-3 py-1 bg-gray-700 text-white text-xs rounded hover:bg-gray-600 transition-colors"
@@ -40,7 +41,7 @@ const embedCode = `<iframe src="https://indemnite-licenciement.fr/" width="100%"
     </section>
 
     <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Comment l'integrer</h2>
+      <h2 class="text-xl font-semibold text-gray-800 mb-4 text-white">Comment l'integrer</h2>
       <ol class="space-y-4 text-gray-600">
         <li class="flex items-start gap-3">
           <span class="flex-shrink-0 w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold text-sm">1</span>
@@ -63,7 +64,7 @@ const embedCode = `<iframe src="https://indemnite-licenciement.fr/" width="100%"
 
     <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Options de personnalisation</h2>
-      <div class="overflow-x-auto">
+      <div class="overflow-x-auto max-w-full">
         <table class="w-full text-sm text-left">
           <thead class="bg-gray-50">
             <tr>
@@ -96,9 +97,10 @@ const embedCode = `<iframe src="https://indemnite-licenciement.fr/" width="100%"
     <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Apercu du widget</h2>
       <p class="text-gray-600 mb-4">Voici un apercu du calculateur tel qu'il apparaitra sur votre site :</p>
-      <div class="border border-gray-200 rounded-lg overflow-hidden">
-        <iframe src="/" width="100%" height="700" frameborder="0" style="border:none;border-radius:8px;" title="Apercu du calculateur indemnité de licenciement"></iframe>
+      <div class="border border-gray-200 rounded-lg overflow-hidden max-w-full">
+        <iframe src="/embed/" width="100%" height="700" frameborder="0" loading="lazy" style="border:none;border-radius:8px;display:block;max-width:100%" title="Apercu du calculateur indemnité de licenciement"></iframe>
       </div>
     </section>
   </div>
+  <SourcesOfficielles />
 </Layout>

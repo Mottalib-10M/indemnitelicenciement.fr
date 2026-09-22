@@ -27,7 +27,7 @@ const schema = {
       "name": "Le salarié en arrêt maladie pendant le préavis doit-il le prolonger ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non. Un arrêt maladie survenant pendant le préavis ne suspend pas ni ne prolonge la durée du préavis, sauf si l'arrêt résulte d'un accident du travail ou d'une maladie professionnelle. Le contrat prend fin à la date initialement prévue."
+        "text": "Non. Un arrêt maladie survenant pendant le préavis ne le suspend ni ne le prolonge, sauf s'il résulte d'un accident du travail ou d'une maladie professionnelle. Le contrat prend fin à la date initialement prévue, même si le salarié est encore arrêté ce jour-là. L'employeur verse alors le salaire correspondant au préavis non exécuté, sous déduction des indemnités journalières perçues sur la même période, et remet le solde de tout compte à l'échéance."
       }
     }
   ]
@@ -42,10 +42,11 @@ const breadcrumbSchema = {
     { "@type": "ListItem", "position": 3, "name": "Préavis de licenciement", "item": "https://indemnite-licenciement.fr/guides/preavis-licenciement/" }
   ]
 };
+import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Préavis de licenciement 2026 - Durée, dispense et indemnité compensatrice"
+  title="Préavis de licenciement : durée, dispense et paiement"
   description="Tout savoir sur le préavis de licenciement : durée selon l'ancienneté et le statut, dispense par l'employeur, indemnité compensatrice et cas particuliers."
   canonical="/guides/preavis-licenciement/"
   schema={schema}
@@ -61,8 +62,8 @@ const breadcrumbSchema = {
         <span class="mx-2">›</span>
         <span class="text-white">Préavis de licenciement</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-extrabold">
-        Préavis de licenciement : durée, dispense et indemnité compensatrice
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">
+        PREAVIS de licenciement : durée, dispense et indemnité compensatrice
       </h1>
       <p class="mt-4 text-primary-100 text-lg">
         Maîtrisez toutes les règles du préavis de licenciement : calcul de la durée, dispense d'exécution, indemnité compensatrice et situations particulières.
@@ -223,11 +224,28 @@ const breadcrumbSchema = {
     <div class="mt-10 border-t border-gray-200 pt-8">
       <h2 class="text-lg font-bold text-gray-900 mb-3">Sources</h2>
       <ul class="space-y-1 text-sm text-gray-600">
-        <li>Articles L.1234-1 à L.1234-8 du Code du travail - Préavis de licenciement</li>
+        <li>Articles L.1234-1 à L.1234-8 du Code du travail - PREAVIS de licenciement</li>
         <li>Cass. soc., 28 octobre 1997, n° 95-41.800 - Point de départ du préavis</li>
         <li>Cass. soc., 13 décembre 2006, n° 05-42.116 - Maladie pendant le préavis</li>
         <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F2883" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Préavis de licenciement</a></li>
       </ul>
     </div>
-  </section>
+  
+    <div class="mt-12 border-t border-gray-200 pt-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+      <div class="space-y-4">
+        {schema.mainEntity.map((q) => (
+          <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+            <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+              {q.name}
+            </summary>
+            <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+              {q.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+</section>
+  <SourcesOfficielles />
 </Layout>

@@ -1,16 +1,71 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
+const faqSchemaPilier = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien de temps faut-il avoir travaillé pour toucher l'ARE ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Il faut justifier de six mois de travail, soit cent trente jours travaillés ou neuf cent dix heures, au cours des vingt-quatre mois précédant la fin du contrat. Ce seuil passe à trente-six mois pour les personnes de cinquante-trois ans et plus. Les périodes de plusieurs employeurs s'additionnent, et un contrat court entre deux emplois ne fait pas perdre les droits déjà acquis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment se calcule le salaire journalier de référence ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On divise le total des salaires bruts perçus sur la période de référence par le nombre de jours calendaires travaillés, majoré des jours non travaillés dans une certaine limite. Les primes annuelles y entrent, les indemnités de licenciement non. Le résultat sert de base à l'allocation, qui vaut ensuite le plus élevé de deux formules, avec un plancher et un plafond exprimés en valeur absolue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'indemnité de licenciement réduit-elle mes allocations ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Elle ne réduit pas le montant de l'allocation, mais elle peut en retarder le versement. Seule la part qui dépasse le minimum légal déclenche un différé spécifique, plafonné à cent cinquante jours. Une indemnité strictement légale n'entraîne donc aucun différé à ce titre. Les congés payés non pris génèrent, eux, un différé distinct, calculé sur le nombre de jours indemnisés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je travailler tout en percevant l'ARE ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, le cumul est prévu. France Travail retient soixante-dix pour cent du salaire brut de l'activité reprise et déduit ce montant de l'allocation mensuelle. Les jours non indemnisés sont reportés à la fin des droits, si bien que rien n'est perdu. Le cumul ne peut toutefois pas porter le total au-dessus du salaire de référence, et l'activité doit être déclarée chaque mois."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que se passe-t-il si je refuse une offre d'emploi ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le refus de deux offres raisonnables d'emploi peut entraîner une radiation temporaire et la suspension du versement. Le caractère raisonnable s'apprécie au regard du salaire antérieur, de la qualification et du temps de trajet, selon le projet personnalisé d'accès à l'emploi signé à l'inscription. Ce projet peut être révisé, et la décision de radiation se conteste devant le médiateur puis le tribunal administratif."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps dure l'indemnisation ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La durée d'indemnisation est égale au nombre de jours travaillés sur la période de référence, dans la limite de dix-huit mois pour les moins de cinquante-trois ans, vingt-deux mois et demi entre cinquante-trois et cinquante-quatre ans, et vingt-sept mois au-delà. Ces plafonds varient selon la conjoncture, une modulation s'appliquant lorsque le taux de chômage national passe sous un seuil fixé par décret."
+      }
+    }
+  ]
+};
+import SourcesOfficielles from '../../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Guide ARE 2026 - Allocation Chômage après Licenciement | indemnite-licenciement.fr"
-  description="Guide complet sur l'Allocation de Retour à l'Emploi (ARE) en 2026 : conditions d'éligibilité, calcul du montant, durée d'indemnisation, démarches France Travail."
+  title="Allocation chômage 2026 : montant, durée et différés"
+  description="Comment France Travail calcule l’allocation de retour à l’emploi après un licenciement : conditions, salaire de référence, durée d’indemnisation et différés."
   canonical="/guide-are/"
 >
   <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl md:text-4xl font-extrabold">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">
         Guide complet : l'Allocation Chômage (ARE) en 2026
       </h1>
       <p class="mt-4 text-primary-100 text-lg">
@@ -22,7 +77,7 @@ import '../../styles/global.css';
   <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="prose prose-lg max-w-none">
 
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">Qu'est-ce que l'ARE ?</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-4 text-white">Qu'est-ce que l'ARE ?</h2>
       <p>
         L'<strong>Allocation de Retour à l'Emploi (ARE)</strong> est le principal dispositif d'assurance chômage en France. Gérée par <strong>France Travail</strong> (anciennement Pôle emploi), elle vise à garantir un revenu de remplacement aux salariés involontairement privés d'emploi, tout en les accompagnant dans leur recherche d'un nouvel emploi. Depuis la réforme de l'assurance chômage de 2023, les règles de calcul et d'attribution ont été significativement modifiées, avec une logique de contracyclicité qui adapte les droits à la conjoncture économique.
       </p>
@@ -102,7 +157,7 @@ import '../../styles/global.css';
         La durée effective d'indemnisation peut être réduite par un <strong>coefficient de dégressivité</strong> qui s'applique après 6 mois d'indemnisation pour les demandeurs d'emploi dont le SJR dépasse un certain seuil (environ 4 837 € brut/mois). Ce coefficient réduit l'allocation de 30 %, avec un plancher fixé à environ 91,02 € net par jour. Les demandeurs de 57 ans et plus sont exemptés de cette dégressivité.
       </p>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Les délais de carence</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4 text-white">Les délais de carence</h2>
       <p>
         Avant le premier versement de l'ARE, plusieurs délais de carence peuvent s'appliquer de manière cumulative :
       </p>
@@ -156,4 +211,46 @@ import '../../styles/global.css';
 
     </div>
   </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+    <div class="space-y-4">
+      {faqSchemaPilier.mainEntity.map((q) => (
+        <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+            {q.name}
+          </summary>
+          <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+            {q.acceptedAnswer.text}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchemaPilier)} />
+  
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Ce qui suspend ou décale l'indemnisation</h2>
+    <p class="text-gray-700 leading-relaxed">
+      Trois délais s'ajoutent avant le premier versement, et ils se cumulent. Le délai d'attente de
+      sept jours s'applique à tout le monde, une fois par période d'indemnisation. Le différé de
+      congés payés correspond au nombre de jours payés au titre des congés non pris. Le différé
+      spécifique, enfin, ne concerne que la part d'indemnité supérieure au minimum légal, et il est
+      plafonné à cent cinquante jours, soixante-quinze en cas de licenciement économique.
+    </p>
+    <p class="text-gray-700 leading-relaxed mt-3">
+      Un salarié qui négocie une part supra-légale importante doit donc intégrer ce décalage dans sa
+      trésorerie : la somme est perçue au solde de tout compte, mais l'allocation ne démarre que
+      plusieurs mois plus tard. À l'inverse, une indemnité strictement légale ne déclenche aucun
+      différé spécifique, et le versement commence après le seul délai d'attente et le différé de
+      congés payés.
+    </p>
+    <p class="text-gray-700 leading-relaxed mt-3">
+      L'inscription peut se faire dès la notification du licenciement, sans attendre la fin du
+      préavis, et c'est ce qu'il faut faire : les droits ne courent qu'à partir de l'inscription,
+      jamais rétroactivement. Une inscription tardive décale tout le calendrier d'autant, sans que
+      la durée d'indemnisation en soit allongée pour autant.
+    </p>
+  </section>
+  <SourcesOfficielles />
 </Layout>

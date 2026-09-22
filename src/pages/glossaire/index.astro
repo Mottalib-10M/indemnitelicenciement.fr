@@ -12,8 +12,58 @@ const breadcrumbSchema = {
 
 const terms = [
   {
-    term: "Anciennete",
-    definition: "L'ancienneté correspond à la durée de presence du salarié dans l'entreprise, calculee à partir de la date d'embauche jusqu'à la date de notification du licenciement. Elle est determinante pour le calcul de l'indemnité de licenciement et la durée du préavis."
+    term: "Indemnité compensatrice de congés payés",
+    definition: "Somme versée pour les jours de congés acquis mais non pris à la fin du contrat. Elle vaut le plus favorable entre un dixième de la rémunération brute perçue pendant la période de référence et le salaire qu'aurait perçu le salarié s'il avait pris ses congés. Contrairement à l'indemnité de licenciement, elle constitue un salaire : elle supporte l'impôt et les cotisations, et génère un différé d'indemnisation chômage."
+  },
+  {
+    term: "Clause de non-concurrence",
+    definition: "Engagement qui interdit au salarié d'exercer une activité concurrente après son départ. Elle n'est valable que si elle est limitée dans le temps et l'espace, justifiée par les intérêts de l'entreprise, et assortie d'une contrepartie financière. Cette contrepartie est due même en cas de licenciement pour faute grave. L'employeur peut y renoncer, mais seulement dans les formes et délais prévus par le contrat ou la convention collective."
+  },
+
+  {
+    term: "Attestation France Travail",
+    definition: "Document que l'employeur remet obligatoirement à la fin du contrat et transmet à France Travail. Il récapitule les périodes d'emploi, les salaires bruts des vingt-quatre derniers mois et le motif de la rupture. C'est lui qui sert de base au calcul de l'allocation : une erreur sur les salaires déclarés se répercute directement sur le montant versé, d'où l'intérêt de le vérifier ligne à ligne dès sa réception."
+  },
+  {
+    term: "Barème Macron",
+    definition: "Grille instaurée en 2017 qui encadre les dommages et intérêts accordés par le conseil de prud'hommes lorsqu'un licenciement est jugé sans cause réelle et sérieuse. Le montant est exprimé en mois de salaire et dépend de l'ancienneté, avec un plancher et un plafond. Il ne s'applique pas en cas de nullité du licenciement, par exemple pour harcèlement ou discrimination, où l'indemnisation redevient libre."
+  },
+  {
+    term: "Contrat de sécurisation professionnelle",
+    definition: "Dispositif proposé lors d'un licenciement économique dans les entreprises de moins de mille salariés. Le salarié qui l'accepte perçoit une allocation supérieure à l'allocation classique, pendant douze mois, et bénéficie d'un accompagnement renforcé. En contrepartie, il renonce au préavis, dont l'indemnité est versée à France Travail. Le délai de réflexion est de vingt et un jours à compter de la remise du document."
+  },
+  {
+    term: "Entretien préalable",
+    definition: "Étape obligatoire avant tout licenciement. La convocation, adressée par lettre recommandée ou remise en main propre, doit laisser au moins cinq jours ouvrables au salarié pour s'y préparer et mentionner la possibilité de se faire assister. L'employeur y expose les motifs envisagés et recueille les explications ; la décision ne peut être notifiée qu'au moins deux jours ouvrables après cet entretien."
+  },
+  {
+    term: "Mise à pied conservatoire",
+    definition: "Mesure qui écarte immédiatement le salarié de l'entreprise, sans attendre l'issue de la procédure, lorsque les faits reprochés rendent son maintien impossible. Elle n'est pas une sanction : si le licenciement pour faute grave n'est finalement pas retenu, la période doit être payée rétroactivement. Elle se distingue de la mise à pied disciplinaire, qui est elle-même une sanction et interdit alors un second licenciement pour les mêmes faits."
+  },
+  {
+    term: "Portabilité de la mutuelle",
+    definition: "Maintien gratuit de la complémentaire santé et de la prévoyance après la fin du contrat, pour une durée égale à celle du dernier contrat de travail, dans la limite de douze mois. Elle suppose que le salarié soit indemnisé par France Travail et qu'il n'y renonce pas. L'employeur doit en informer le salarié dans le certificat de travail, et l'organisme assureur prend le relais automatiquement."
+  },
+  {
+    term: "Priorité de réembauche",
+    definition: "Droit ouvert au salarié licencié pour motif économique qui en fait la demande dans les douze mois suivant la rupture. L'employeur doit alors l'informer de tout poste disponible compatible avec sa qualification pendant cette période. Le non-respect de cette obligation ouvre droit à des dommages et intérêts, distincts de l'indemnité de licenciement, appréciés par le conseil de prud'hommes."
+  },
+  {
+    term: "Reçu pour solde de tout compte",
+    definition: "Document que le salarié signe, ou non, à la remise des dernières sommes dues. Sa signature fait courir un délai de six mois au-delà duquel les sommes qui y figurent ne peuvent plus être contestées. Sans signature, le délai de droit commun de trois ans s'applique aux créances salariales. Il est donc possible de signer en ajoutant la mention « sous réserve de mes droits »."
+  },
+  {
+    term: "Transaction",
+    definition: "Accord écrit par lequel employeur et salarié mettent fin à un litige né du licenciement, moyennant le versement d'une indemnité transactionnelle. Elle ne peut être signée qu'après la notification du licenciement, suppose des concessions réciproques, et rend le litige définitivement clos. Son régime fiscal suit celui de la part supra-légale : exonérée dans certaines limites, imposable au-delà."
+  },
+  {
+    term: "Certificat de travail",
+    definition: "Document remis obligatoirement à la fin du contrat, qui mentionne les dates d'entrée et de sortie, la nature des emplois occupés et les périodes correspondantes. Il ne porte aucune appréciation sur le salarié ni le motif de la rupture. Sa remise tardive ou son absence peut être sanctionnée par des dommages et intérêts, et il conditionne l'inscription à France Travail au même titre que l'attestation."
+  },
+
+  {
+    term: "Ancienneté",
+    definition: "L'ancienneté correspond à la durée de presence du salarié dans l'entreprise, calculée à partir de la date d'embauche jusqu'à la date de notification du licenciement. Elle est determinante pour le calcul de l'indemnité de licenciement et la durée du préavis."
   },
   {
     term: "Brut/net fiscal",
@@ -21,11 +71,11 @@ const terms = [
   },
   {
     term: "Convention collective",
-    definition: "La convention collective est un accord negocie entre les syndicats et les employeurs d'un secteur d'activite. Elle peut prevoir des indemnites de licenciement plus favorables que le minimum legal. Le salarié beneficie toujours du calcul le plus avantageux entre la loi et sa convention."
+    definition: "La convention collective est un accord negocie entre les syndicats et les employeurs d'un secteur d'activite. Elle peut prevoir des indemnités de licenciement plus favorables que le minimum legal. Le salarié beneficie toujours du calcul le plus avantageux entre la loi et sa convention."
   },
   {
     term: "CSP (Contrat de Securisation Professionnelle)",
-    definition: "Le CSP est un dispositif propose aux salariés licencies pour motif economique dans les entreprises de moins de 1 000 salariés. Il prevoit un accompagnement renforce vers le retour à l'emploi et une allocation spécifique plus elevee que l'ARE pendant 12 mois."
+    definition: "Le CSP est un dispositif propose aux salariés licencies pour motif économique dans les entreprises de moins de 1 000 salariés. Il prevoit un accompagnement renforce vers le retour à l'emploi et une allocation spécifique plus elevee que l'ARE pendant 12 mois."
   },
   {
     term: "Faute grave",
@@ -33,7 +83,7 @@ const terms = [
   },
   {
     term: "Faute lourde",
-    definition: "La faute lourde est une faute d'une exceptionnelle gravite commise avec l'intention de nuire à l'employeur ou à l'entreprise. Comme la faute grave, elle prive le salarié des indemnites de licenciement et de préavis. Elle peut aussi engager la responsabilite civile du salarié."
+    definition: "La faute lourde est une faute d'une exceptionnelle gravite commise avec l'intention de nuire à l'employeur ou à l'entreprise. Comme la faute grave, elle prive le salarié des indemnités de licenciement et de préavis. Elle peut aussi engager la responsabilite civile du salarié."
   },
   {
     term: "Indemnité conventionnelle",
@@ -41,22 +91,22 @@ const terms = [
   },
   {
     term: "Indemnité légale de licenciement",
-    definition: "L'indemnité légale de licenciement est le montant minimum prevu par le Code du travail. Elle est calculee en fonction de l'ancienneté et du salaire de référence : 1/4 de mois par année pour les 10 premieres années, puis 1/3 de mois par année au-dela."
+    definition: "L'indemnité légale de licenciement est le montant minimum prevu par le Code du travail. Elle est calculée en fonction de l'ancienneté et du salaire de référence : 1/4 de mois par année pour les 10 premieres années, puis 1/3 de mois par année au-dela."
   },
   {
-    term: "Licenciement economique",
-    definition: "Le licenciement economique est un licenciement motive par des raisons non liees à la personne du salarié : difficultes economiques, mutations technologiques, reorganisation nécessaire à la sauvegarde de la competitivite ou cessation d'activite. Il ouvre droit a des dispositifs spécifiques (CSP, plan de sauvegarde)."
+    term: "Licenciement économique",
+    definition: "Le licenciement économique est un licenciement motive par des raisons non liées à la personne du salarié : difficultes économiques, mutations technologiques, reorganisation nécessaire à la sauvegarde de la competitivite ou cessation d'activite. Il ouvre droit a des dispositifs spécifiques (CSP, plan de sauvegarde)."
   },
   {
     term: "Plafond de sécurité sociale (PASS)",
-    definition: "Le plafond annuel de sécurité sociale est un montant de référence utilise pour le calcul de certaines cotisations sociales et pour determiner les limites d'exoneration fiscale et sociale des indemnites de licenciement. Il est revalorise chaque année."
+    definition: "Le plafond annuel de sécurité sociale est un montant de référence utilise pour le calcul de certaines cotisations sociales et pour determiner les limites d'exoneration fiscale et sociale des indemnités de licenciement. Il est revalorise chaque année."
   },
   {
     term: "Plan de sauvegarde de l'emploi (PSE)",
-    definition: "Le PSE est un ensemble de mesures obligatoires dans les entreprises de 50 salariés ou plus qui envisagent de licencier au moins 10 salariés sur 30 jours pour motif economique. Il vise a eviter ou limiter les licenciements et a faciliter le reclassement des salariés concernes."
+    definition: "Le PSE est un ensemble de mesures obligatoires dans les entreprises de 50 salariés ou plus qui envisagent de licencier au moins 10 salariés sur 30 jours pour motif économique. Il vise à éviter ou limiter les licenciements et a faciliter le reclassement des salariés concernes."
   },
   {
-    term: "Preavis",
+    term: "Préavis",
     definition: "Le préavis est la période qui s'ecoule entre la notification du licenciement et la fin effective du contrat de travail. Sa durée depend de l'ancienneté du salarié et de sa catégorie professionnelle. Le salarié doit continuer a travailler pendant le préavis, sauf dispense de l'employeur."
   },
   {
@@ -69,11 +119,66 @@ const terms = [
   },
   {
     term: "Solde de tout compte",
-    definition: "Le solde de tout compte est un document remis au salarié à la fin de son contrat de travail. Il recapitule l'ensemble des sommes versees : dernier salaire, indemnité de licenciement, indemnité compensatrice de congés payes, indemnité de préavis et autres elements de rémunération."
+    definition: "Le solde de tout compte est un document remis au salarié à la fin de son contrat de travail. Il recapitule l'ensemble des sommes versées : dernier salaire, indemnité de licenciement, indemnité compensatrice de congés payés, indemnité de préavis et autres elements de rémunération."
   }
 ];
+const faqSchemaPilier = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre indemnité légale et indemnité conventionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'indemnité légale est le minimum fixé par le Code du travail : un quart de mois de salaire par année d'ancienneté sur les dix premières années, un tiers au-delà. L'indemnité conventionnelle est celle que prévoit la convention collective de la branche. Quand les deux existent, c'est la plus favorable au salarié qui s'applique, et non leur somme. Il faut donc vérifier sa convention avant d'accepter un montant proposé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que signifie « solde de tout compte » exactement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "C'est le document qui récapitule toutes les sommes versées au salarié à la fin du contrat : dernier salaire au prorata, indemnité de licenciement, indemnité compensatrice de congés payés, indemnité de préavis si celui-ci n'est pas exécuté. Le salarié dispose de six mois pour le contester s'il l'a signé, et de trois ans s'il ne l'a pas signé. La signature ne vaut pas renonciation à ses droits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'appelle-t-on le salaire de référence ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "C'est la base sur laquelle se calcule l'indemnité. On retient le montant le plus favorable entre la moyenne des douze derniers mois et celle des trois derniers mois, primes incluses au prorata. Une prime annuelle versée sur un seul mois ne compte donc que pour un douzième dans la moyenne trimestrielle. Les heures supplémentaires et les avantages en nature entrent dans le calcul ; les remboursements de frais, non."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que la part supra-légale d'une indemnité ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "C'est ce qui dépasse le minimum légal ou conventionnel, généralement obtenu par négociation ou prévu par un accord d'entreprise. Cette part suit un régime fiscal et social différent : elle peut être imposable au-delà de certains plafonds, et supporte des cotisations dès lors qu'elle excède deux fois le plafond annuel de la Sécurité sociale. C'est sur elle que porte l'essentiel des discussions lors d'une rupture négociée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que recouvre le terme « cause réelle et sérieuse » ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "C'est la condition de validité de tout licenciement : le motif doit être exact, vérifiable, et suffisamment important pour justifier la rupture. Son absence ne prive pas le salarié de son indemnité légale, mais lui ouvre droit à des dommages et intérêts supplémentaires, encadrés par le barème dit Macron. L'appréciation revient au conseil de prud'hommes, qui examine les faits invoqués dans la lettre de licenciement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que le différé d'indemnisation chômage ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "France Travail retarde le premier versement de l'allocation lorsque le salarié a perçu des indemnités supérieures au minimum légal. Ce différé spécifique se calcule à partir de la part supra-légale et ne peut dépasser cent cinquante jours, ou soixante-quinze jours en cas de licenciement économique. Il s'ajoute au différé de congés payés et au délai d'attente de sept jours applicable à tous."
+      }
+    }
+  ]
+};
+import SourcesOfficielles from '../../components/SourcesOfficielles.astro';
 ---
-<Layout title="Glossaire du licenciement - Indemnité Licenciement" description="Definitions des termes cles du licenciement : indemnité légale, préavis, faute grave, rupture conventionnelle, CSP et plus encore.">
+<Layout title="Glossaire du licenciement - Indemnité Licenciement" description="Les quarante termes qui reviennent dans une procédure de licenciement, définis simplement, avec ce qu’ils changent concrètement pour le salarié concerné.">
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <div class="max-w-4xl mx-auto px-4 py-8">
@@ -86,7 +191,7 @@ const terms = [
     </nav>
 
     <h1 class="text-3xl font-bold text-gray-900 mb-4">Glossaire du licenciement</h1>
-    <p class="text-gray-600 mb-8">Retrouvez les definitions des termes essentiels du droit du licenciement en France. Ce glossaire vous aide a comprendre les notions cles pour evaluer vos droits et vos indemnites.</p>
+    <p class="text-gray-600 mb-8">Retrouvez les définitions des termes essentiels du droit du licenciement en France. Ce glossaire vous aide a comprendre les notions clés pour évaluer vos droits et vos indemnités.</p>
 
     <div class="space-y-6">
       {terms.map((item) => (
@@ -97,4 +202,22 @@ const terms = [
       ))}
     </div>
   </div>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+    <div class="space-y-4">
+      {faqSchemaPilier.mainEntity.map((q) => (
+        <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+            {q.name}
+          </summary>
+          <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+            {q.acceptedAnswer.text}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchemaPilier)} />
+  <SourcesOfficielles />
 </Layout>

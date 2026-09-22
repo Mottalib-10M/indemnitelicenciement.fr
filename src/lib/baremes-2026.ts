@@ -24,7 +24,7 @@ export const INDEMNITE_LEGALE = {
 } as const;
 
 // =============================================================================
-// Préavis de licenciement (Code du travail art. L1234-1)
+// PREAVIS de licenciement (Code du travail art. L1234-1)
 // =============================================================================
 export const PREAVIS = {
   /** Moins de 6 mois d'ancienneté : selon convention collective ou usage */

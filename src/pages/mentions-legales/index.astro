@@ -1,11 +1,14 @@
 ---
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { LEGAL, CONTACT_EMAIL } from '../../data/site-config';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
+import SourcesOfficielles from '../../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Mentions Légales | indemnite-licenciement.fr"
-  description="Mentions légales du site indemnite-licenciement.fr - Informations sur l'éditeur, l'hébergement et les conditions d'utilisation."
+  title="Mentions légales du calculateur d’indemnité 2026 en France"
+  description="Éditeur, hébergeur, responsabilité éditoriale et conditions d'utilisation du simulateur d'indemnité de licenciement, ainsi que les voies de réclamation."
   canonical="/mentions-legales/"
 >
   <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -17,10 +20,11 @@ import '../../styles/global.css';
         Le site <strong>indemnite-licenciement.fr</strong> est un site d'information à caractère indicatif, proposant des outils de simulation relatifs au droit du travail français (indemnités de licenciement, allocation chômage, préavis). Les informations et calculs fournis ne constituent en aucun cas un conseil juridique et ne sauraient engager la responsabilité de l'éditeur.
       </p>
 
+      <h2>Éditeur et directeur de la publication</h2>
+      <LegalIdentity mode="publisher" lang="fr" />
+
       <h2>Hébergement</h2>
-      <p>
-        Ce site est hébergé par des services d'hébergement web conformes à la réglementation européenne en matière de protection des données personnelles.
-      </p>
+      <LegalIdentity mode="hosting" lang="fr" />
 
       <h2>Propriété intellectuelle</h2>
       <p>
@@ -47,8 +51,9 @@ import '../../styles/global.css';
 
       <h2>Contact</h2>
       <p>
-        Pour toute question relative au site ou aux présentes mentions légales, vous pouvez nous contacter via les coordonnées indiquées sur le site.
+        Pour toute question relative au site ou aux présentes mentions légales, écrivez à <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Si vous estimez que vos données personnelles n'ont pas été traitées correctement, vous pouvez saisir la {LEGAL.supervisoryAuthority}, dont le formulaire de plainte se trouve à l'adresse <a href={LEGAL.supervisoryAuthorityUrl} rel="nofollow noopener" target="_blank">{LEGAL.supervisoryAuthorityUrl}</a>.
       </p>
     </div>
   </section>
+  <SourcesOfficielles />
 </Layout>

@@ -69,10 +69,65 @@ const schema = {
     })),
   },
 };
+const faqSchemaPilier = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Par quel guide commencer après un licenciement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Commencez par le calcul de l'indemnité légale, qui donne le plancher de ce à quoi vous avez droit, puis par le guide du préavis, qui fixe la date de fin réelle du contrat. Ces deux repères suffisent à vérifier le solde de tout compte proposé. Les guides sur la fiscalité et sur la contestation ne servent qu'ensuite, une fois le montant connu et les délais identifiés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ces guides remplacent-ils l'avis d'un avocat ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Ils expliquent les règles générales et permettent de vérifier un calcul ou un délai, ce qui suffit dans la majorité des situations. Dès lors qu'il y a contestation du motif, harcèlement, inaptitude ou négociation d'une part supra-légale importante, l'accompagnement d'un avocat en droit du travail ou d'un défenseur syndical change l'issue. Le conseil de prud'hommes propose aussi une information gratuite."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Les montants indiqués tiennent-ils compte des conventions collectives ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les calculs partent du minimum légal du Code du travail, applicable à tous. Une convention collective peut prévoir davantage, et c'est alors elle qui s'applique. Comme il existe plusieurs centaines de conventions, chacune avec ses propres formules, aucun simulateur généraliste ne peut toutes les intégrer. Le numéro IDCC figurant sur le bulletin de paie permet de retrouver le texte applicable et de comparer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "À quelle fréquence ces guides sont-ils mis à jour ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chaque page porte sa date de dernière mise à jour, en haut et en bas. Les montants dépendant du plafond de la Sécurité sociale et du SMIC changent au premier janvier ; les barèmes d'indemnisation chômage évoluent au fil des conventions d'assurance chômage. Les sources officielles citées en bas de chaque guide permettent de vérifier qu'aucune réforme n'est intervenue depuis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Un licenciement économique suit-il les mêmes règles ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le calcul de l'indemnité légale est identique, quel que soit le motif. Ce qui change, c'est la procédure, avec consultation du comité social et économique, critères d'ordre des licenciements et priorité de réembauche, ainsi que les dispositifs d'accompagnement, en particulier le contrat de sécurisation professionnelle. Le différé d'indemnisation chômage y est également plafonné plus bas, à soixante-quinze jours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que faire si l'employeur ne verse pas l'indemnité ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Adressez d'abord une mise en demeure par lettre recommandée, en rappelant le montant dû et son fondement. Sans réponse, le conseil de prud'hommes peut être saisi, le cas échéant en référé lorsque la créance n'est pas sérieusement contestable. Le délai est de douze mois à compter de la notification pour contester la rupture, et de trois ans pour réclamer des sommes salariales impayées."
+      }
+    }
+  ]
+};
+import SourcesOfficielles from '../../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Guides Licenciement 2026 - Indemnités, Préavis, Fiscalité, Prud'hommes"
+  title="Guides du licenciement : indemnités, préavis, recours"
   description="Tous nos guides sur le licenciement en France : indemnité légale vs conventionnelle, faute grave, rupture conventionnelle, fiscalité, prud'hommes et plus."
   canonical="/guides/"
   schema={schema}
@@ -84,7 +139,7 @@ const schema = {
         <span class="mx-2">›</span>
         <span class="text-white">Guides</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-extrabold">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">
         Guides pratiques : Licenciement en France
       </h1>
       <p class="mt-4 text-primary-100 text-lg max-w-3xl">
@@ -103,7 +158,7 @@ const schema = {
           <div class="flex items-start gap-4">
             <span class="text-3xl flex-shrink-0 mt-1">{guide.icon}</span>
             <div>
-              <h2 class="text-lg font-bold text-gray-900 group-hover:text-primary-700 transition-colors">
+              <h2 class="text-lg font-bold text-gray-900 group-hover:text-primary-700 transition-colors text-white">
                 {guide.title}
               </h2>
               <p class="mt-2 text-gray-600 text-sm leading-relaxed">
@@ -133,4 +188,32 @@ const schema = {
       </a>
     </div>
   </section>
+
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-2">
+    <p class="text-gray-700 leading-relaxed">
+      Ces guides s’adressent au salarié qui vient de recevoir sa convocation ou sa lettre de
+      licenciement, et qui cherche un point précis plutôt qu’un exposé général. Chacun traite
+      une situation et une seule, indique les articles du Code du travail sur lesquels il
+      s’appuie, et donne les délais à respecter. Les montants cités reprennent les barèmes
+      applicables en 2026, revus à chaque changement de réglementation.
+    </p>
+  </section>
+
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+    <div class="space-y-4">
+      {faqSchemaPilier.mainEntity.map((q) => (
+        <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+            {q.name}
+          </summary>
+          <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+            {q.acceptedAnswer.text}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchemaPilier)} />
+  <SourcesOfficielles />
 </Layout>

@@ -1,0 +1,193 @@
+---
+/**
+ * Analyse propre a une anciennete donnee.
+ *
+ * Les pages generees par anciennete se ressemblaient a un chiffre pres : le
+ * controle d'unicite relevait plus d'une centaine de paires trop proches, et
+ * chacune restait sous le plancher de 2 000 mots de la recette. Le probleme
+ * n'etait pas la longueur mais l'absence de contenu PROPRE a la page.
+ *
+ * Ce bloc ne delaye pas le texte existant : il traite ce qui change
+ * reellement d'une anciennete a l'autre, le seuil de huit mois, le passage du
+ * quart au tiers de mois a dix ans, la duree du preavis, le differe
+ * d'indemnisation, et il le montre sur un calcul mene jusqu'au bout.
+ *
+ * Les montants viennent du meme bareme que le calculateur, jamais ecrits a la
+ * main : un tableau fige finirait par contredire le simulateur au premier
+ * changement de reglementation.
+ */
+import { PLAFOND_SS_MENSUEL } from '../lib/baremes-2026';
+
+interface Props {
+  annees: number;
+}
+const { annees } = Astro.props;
+
+const euros = (v: number) =>
+  Math.round(v).toLocaleString('fr-FR') + ' €';
+
+/** Indemnite legale pour un salaire de reference donne, a cette anciennete. */
+const indemnite = (salaire: number) =>
+  annees <= 10
+    ? salaire * annees / 4
+    : salaire * 10 / 4 + salaire * (annees - 10) / 3;
+
+const salairesTypes = [1800, 2500, 3500, 5000];
+const auDela = annees > 10;
+const moisIndemnite = annees <= 10 ? annees / 4 : 10 / 4 + (annees - 10) / 3;
+const preavisMois = annees < 2 ? 1 : 2;
+const exemple = 2500;
+
+const fmtMois = (v: number) =>
+  v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+---
+
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+  <h2 class="text-2xl font-bold text-gray-900 mb-4">
+    Ce que {annees} ans d’ancienneté changent concrètement
+  </h2>
+
+  <p class="text-gray-700 leading-relaxed">
+    L’ancienneté n’agit pas de façon linéaire sur le montant dû. Elle intervient à trois
+    endroits distincts du calcul, et {annees} ans se situent de part et d’autre de deux
+    seuils qui pèsent lourd&nbsp;: les huit mois qui ouvrent le droit, et les dix ans à
+    partir desquels chaque année vaut un tiers de mois au lieu d’un quart.
+  </p>
+
+  <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">Le barème appliqué à {annees} ans</h3>
+  <p class="text-gray-700 leading-relaxed">
+    {auDela
+      ? `Au-delà de dix ans, la formule se dédouble. Les dix premières années restent rémunérées à un quart de mois de salaire chacune, soit 2,50 mois au total, et les ${annees - 10} années suivantes à un tiers de mois. L’indemnité représente donc ${fmtMois(moisIndemnite)} mois de salaire de référence.`
+      : `Jusqu’à dix ans d’ancienneté, chaque année vaut un quart de mois de salaire de référence. Après ${annees} ans, l’indemnité représente donc ${fmtMois(moisIndemnite)} mois de salaire, sans qu’aucun palier ne soit encore franchi.`}
+    {' '}Les mois incomplets comptent au prorata&nbsp;: une ancienneté de {annees} ans et six mois
+    donne droit à la moitié d’une année supplémentaire, et non à un arrondi à l’année
+    inférieure, ce que beaucoup de soldes de tout compte oublient.
+  </p>
+
+  <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">
+    Le calcul mené jusqu’au bout, sur {euros(exemple)} de salaire
+  </h3>
+  <p class="text-gray-700 leading-relaxed mb-4">
+    L’ordre des opérations compte. On établit d’abord le salaire de référence, puis on lui
+    applique le barème, et enfin on ajoute ce qui n’est pas l’indemnité elle-même&nbsp;:
+    préavis et congés payés, qui suivent des règles différentes.
+  </p>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <tbody>
+        <tr class="border-b border-gray-200">
+          <td class="py-2 pr-3 text-gray-700">
+            Salaire de référence retenu
+            <span class="block text-xs text-gray-500">le plus favorable des deux moyennes, 12 ou 3 mois</span>
+          </td>
+          <td class="py-2 text-right font-semibold tabular-nums whitespace-nowrap">{euros(exemple)}</td>
+        </tr>
+        <tr class="border-b border-gray-200">
+          <td class="py-2 pr-3 text-gray-700">
+            Indemnité légale après {annees} ans
+            <span class="block text-xs text-gray-500">{fmtMois(moisIndemnite)} mois de salaire</span>
+          </td>
+          <td class="py-2 text-right font-semibold tabular-nums whitespace-nowrap">{euros(indemnite(exemple))}</td>
+        </tr>
+        <tr class="border-b border-gray-200">
+          <td class="py-2 pr-3 text-gray-700">
+            Indemnité compensatrice de préavis
+            <span class="block text-xs text-gray-500">{preavisMois} mois pour un non-cadre, si dispense</span>
+          </td>
+          <td class="py-2 text-right font-semibold tabular-nums whitespace-nowrap">{euros(exemple * preavisMois)}</td>
+        </tr>
+        <tr>
+          <td class="py-2 pr-3 text-gray-900 font-semibold">Total hors congés payés</td>
+          <td class="py-2 text-right font-bold tabular-nums whitespace-nowrap">
+            {euros(indemnite(exemple) + exemple * preavisMois)}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="text-gray-700 leading-relaxed mt-4">
+    S’y ajoute l’indemnité compensatrice de congés payés, égale à un dixième de la
+    rémunération perçue pendant la période de référence pour les jours non pris. Elle est,
+    elle, imposable et soumise à cotisations, contrairement à l’indemnité de licenciement.
+  </p>
+
+  <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">Selon le niveau de salaire</h3>
+  <p class="text-gray-700 leading-relaxed mb-4">
+    À ancienneté constante, l’indemnité est strictement proportionnelle au salaire de
+    référence&nbsp;: il n’existe ni plancher ni plafond légal sur ce montant. Voici ce que
+    donnent {annees} ans d’ancienneté à différents niveaux de rémunération.
+  </p>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b-2 border-gray-300">
+          <th class="py-2 pr-3 text-left font-semibold text-gray-900">Salaire de référence</th>
+          <th class="py-2 text-right font-semibold text-gray-900">Indemnité après {annees} ans</th>
+        </tr>
+      </thead>
+      <tbody>
+        {salairesTypes.map((s) => (
+          <tr class="border-b border-gray-200 last:border-0">
+            <td class="py-2 pr-3 text-gray-700 tabular-nums">{euros(s)}</td>
+            <td class="py-2 text-right font-semibold tabular-nums whitespace-nowrap">{euros(indemnite(s))}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">
+    Ce que la convention collective peut ajouter
+  </h3>
+  <p class="text-gray-700 leading-relaxed">
+    Le barème légal est un plancher. Des centaines de conventions collectives prévoient
+    davantage, souvent sous la forme d’un nombre de mois par année d’ancienneté plus
+    élevé, parfois d’une majoration liée à l’âge. À {annees} ans de présence, l’écart entre
+    le minimum légal et une convention favorable se chiffre couramment en milliers
+    d’euros. Le numéro IDCC figurant sur le bulletin de paie permet de retrouver le texte
+    applicable&nbsp;; quand les deux régimes se recoupent, c’est le plus favorable au
+    salarié qui s’applique, et non leur addition.
+  </p>
+
+  <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">
+    Les erreurs fréquentes à {annees} ans d’ancienneté
+  </h3>
+  <ul class="space-y-2 text-gray-700 leading-relaxed list-disc pl-6">
+    <li>
+      Arrêter le décompte de l’ancienneté à la date de la lettre de licenciement&nbsp;: elle
+      court jusqu’au terme du préavis, exécuté ou non, ce qui ajoute ici {preavisMois} mois.
+    </li>
+    <li>
+      {auDela
+        ? `Appliquer le taux d’un tiers à la totalité des ${annees} années. Il ne vaut que pour les ${annees - 10} années au-delà de dix ans ; les dix premières restent au quart de mois.`
+        : `Croire que le taux d’un tiers de mois s’applique déjà. À ${annees} ans, on reste au quart de mois pour chaque année.`}
+    </li>
+    <li>
+      Retenir le seul salaire de base. Les primes, les heures supplémentaires et les
+      avantages en nature entrent dans le salaire de référence, au prorata pour une prime
+      annuelle.
+    </li>
+    <li>
+      Signer le solde de tout compte sans vérifier&nbsp;: la signature ouvre un délai de
+      contestation de six mois seulement, contre trois ans sans elle.
+    </li>
+  </ul>
+
+  <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">Le calendrier après la notification</h3>
+  <p class="text-gray-700 leading-relaxed">
+    La lettre recommandée fait courir le préavis, soit {preavisMois} mois ici pour un
+    non-cadre, trois mois en règle générale pour un cadre. Le contrat prend fin à son
+    terme, et c’est à cette date que sont versés l’indemnité, le solde de tout compte et
+    les documents de fin de contrat. L’inscription à France&nbsp;Travail peut se faire dès
+    la notification, mais l’indemnisation ne démarre qu’après la fin du contrat, augmentée
+    du délai d’attente de sept jours et des éventuels différés. Le recours devant le conseil
+    de prud’hommes se prescrit par douze mois à compter de la notification&nbsp;; les
+    réclamations portant sur des sommes salariales, par trois ans.
+  </p>
+  <p class="text-gray-700 leading-relaxed mt-3">
+    Enfin, le plafond mensuel de la Sécurité sociale, fixé à {euros(PLAFOND_SS_MENSUEL)} en
+    2026, n’intervient pas dans le calcul de l’indemnité légale. Il ne sert qu’à déterminer
+    l’exonération de cotisations sur une éventuelle part supra-légale, et le calcul de
+    l’allocation chômage.
+  </p>
+</section>

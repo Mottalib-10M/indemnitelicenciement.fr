@@ -117,18 +117,18 @@ export function calculateIndemniteLegale(
     return 0;
   }
 
-  let indemnite = 0;
+  let indemnité = 0;
 
   if (ancienneteTotale <= 10) {
-    indemnite = salaireMensuel * INDEMNITE_LEGALE.tauxJusque10Ans * ancienneteTotale;
+    indemnité = salaireMensuel * INDEMNITE_LEGALE.tauxJusque10Ans * ancienneteTotale;
   } else {
     // 10 premières années à 1/4
-    indemnite = salaireMensuel * INDEMNITE_LEGALE.tauxJusque10Ans * 10;
+    indemnité = salaireMensuel * INDEMNITE_LEGALE.tauxJusque10Ans * 10;
     // Au-delà de 10 ans à 1/3
-    indemnite += salaireMensuel * INDEMNITE_LEGALE.tauxAuDela10Ans * (ancienneteTotale - 10);
+    indemnité += salaireMensuel * INDEMNITE_LEGALE.tauxAuDela10Ans * (ancienneteTotale - 10);
   }
 
-  return Math.round(indemnite * 100) / 100;
+  return Math.round(indemnité * 100) / 100;
 }
 
 /**
@@ -202,10 +202,10 @@ export function calculateARE(
 
   if (formule1 >= formule2) {
     allocationJournaliere = formule1;
-    formuleRetenue = `40,4% du SJR (${sjr.toFixed(2)}€) + 12,95€ = ${formule1.toFixed(2)}€`;
+    formuleRetenue = `40,4% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€) + 12,95€ = ${formule1.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€`;
   } else {
     allocationJournaliere = formule2;
-    formuleRetenue = `57% du SJR (${sjr.toFixed(2)}€) = ${formule2.toFixed(2)}€`;
+    formuleRetenue = `57% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€) = ${formule2.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€`;
   }
 
   // Plancher
@@ -316,7 +316,7 @@ export function simulerLicenciement(
     input.ancienneteMois
   );
 
-  // Préavis
+  // PREAVIS
   const preavisMois = calculatePreavis(input.ancienneteAnnees, input.cadre);
   const indemniteCompensatricePreavis =
     Math.round(salaireReference * preavisMois * 100) / 100;

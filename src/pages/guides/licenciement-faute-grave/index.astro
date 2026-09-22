@@ -42,10 +42,11 @@ const breadcrumbSchema = {
     { "@type": "ListItem", "position": 3, "name": "Licenciement pour faute grave", "item": "https://indemnite-licenciement.fr/guides/licenciement-faute-grave/" }
   ]
 };
+import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Licenciement pour faute grave 2026 - Droits, procédure et indemnités"
+  title="Licenciement pour faute grave : droits, chômage, recours"
   description="Licenciement pour faute grave : pas d'indemnité de licenciement mais droit au chômage. Procédure disciplinaire, conséquences financières et recours possibles."
   canonical="/guides/licenciement-faute-grave/"
   schema={schema}
@@ -61,7 +62,7 @@ const breadcrumbSchema = {
         <span class="mx-2">›</span>
         <span class="text-white">Licenciement pour faute grave</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-extrabold">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">
         Licenciement pour faute grave : droits, procédure et conséquences financières
       </h1>
       <p class="mt-4 text-primary-100 text-lg">
@@ -247,5 +248,22 @@ const breadcrumbSchema = {
         <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F2855" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Licenciement pour faute grave</a></li>
       </ul>
     </div>
-  </section>
+  
+    <div class="mt-12 border-t border-gray-200 pt-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+      <div class="space-y-4">
+        {schema.mainEntity.map((q) => (
+          <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+            <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+              {q.name}
+            </summary>
+            <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+              {q.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+</section>
+  <SourcesOfficielles />
 </Layout>

@@ -42,11 +42,12 @@ const breadcrumbSchema = {
     { "@type": "ListItem", "position": 3, "name": "Fiscalité des indemnités", "item": "https://indemnite-licenciement.fr/guides/fiscalite-indemnites/" }
   ]
 };
+import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Fiscalité des indemnités de licenciement 2026 - Exonérations, CSG/CRDS, impôt"
-  description="Guide fiscal complet des indemnités de licenciement : exonérations d'impôt, CSG/CRDS, cotisations sociales, plafonds et système du quotient en 2026."
+  title="Fiscalité des indemnités de licenciement : ce qui est dû"
+  description="Ce qui est exonéré d’impôt dans une indemnité de licenciement, ce qui ne l’est pas, et les trois plafonds qui décident du sort de la part supra-légale."
   canonical="/guides/fiscalite-indemnites/"
   schema={schema}
 >
@@ -61,7 +62,7 @@ const breadcrumbSchema = {
         <span class="mx-2">›</span>
         <span class="text-white">Fiscalité des indemnités</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-extrabold">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">
         Fiscalité des indemnités de licenciement : exonérations, CSG/CRDS et plafonds
       </h1>
       <p class="mt-4 text-primary-100 text-lg">
@@ -248,8 +249,25 @@ const breadcrumbSchema = {
         <li>Article 163-0 A du Code général des impôts - Système du quotient</li>
         <li>Article L.136-1-1 du Code de la sécurité sociale - CSG sur les indemnités de rupture</li>
         <li>BOSS (Bulletin Officiel de la Sécurité Sociale) - <a href="https://boss.gouv.fr" class="text-primary-600 hover:underline" target="_blank" rel="noopener">boss.gouv.fr</a></li>
-        <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F988" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Impôt sur les indemnités de licenciement</a></li>
+        <li>Service-public.fr - <a href="https://www.service-public.fr/particuliers/vosdroits/F987" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Impôt sur les indemnités de licenciement</a></li>
       </ul>
     </div>
-  </section>
+  
+    <div class="mt-12 border-t border-gray-200 pt-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+      <div class="space-y-4">
+        {schema.mainEntity.map((q) => (
+          <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+            <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+              {q.name}
+            </summary>
+            <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+              {q.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+</section>
+  <SourcesOfficielles />
 </Layout>

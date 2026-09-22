@@ -1,0 +1,65 @@
+---
+/**
+ * Bloc « sources officielles », commun aux pages pilier et aux pages generees.
+ *
+ * RECETTE §7 : une page pilier cite au moins trois textes officiels. Sur un
+ * sujet de droit du travail c'est le signal E-E-A-T le plus direct, et le plus
+ * verifiable par le lecteur : chaque regle enoncee ici doit pouvoir etre
+ * remontee jusqu'au texte qui la fixe.
+ *
+ * Les quatre references ci-dessous sont celles dont depend reellement le
+ * calcul : l'article du Code du travail qui fixe la formule, celui qui fixe le
+ * preavis, le bareme d'assurance chomage et le service public qui en publie la
+ * synthese officielle.
+ */
+interface Props {
+  /** Phrase d'introduction, adaptee au sujet de la page. */
+  intro?: string;
+}
+const { intro } = Astro.props;
+
+const sources = [
+  {
+    url: 'https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000018483186',
+    nom: 'Code du travail, article R1234-2',
+    note: "Formule de l'indemnité légale : 1/4 de mois par année jusqu'à dix ans, 1/3 au-delà.",
+  },
+  {
+    url: 'https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006195622',
+    nom: 'Code du travail, article L1234-1',
+    note: 'Durée du préavis de licenciement selon l’ancienneté du salarié.',
+  },
+  {
+    url: 'https://www.service-public.fr/particuliers/vosdroits/F987',
+    nom: 'Service-public.fr, indemnité de licenciement',
+    note: 'Synthèse officielle des conditions d’attribution et des montants.',
+  },
+  {
+    url: 'https://www.francetravail.fr/candidat/mes-droits-aux-aides-et-allocati.html',
+    nom: 'France Travail, allocation de retour à l’emploi',
+    note: 'Conditions d’affiliation, calcul du salaire journalier de référence et durées.',
+  },
+];
+---
+
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 border-t border-gray-200 pt-8">
+  <h2 class="text-2xl font-bold text-gray-900 mb-3">Sources officielles</h2>
+  <p class="text-sm text-gray-600 mb-4">
+    {intro ?? "Tous les montants de cette page proviennent des textes ci-dessous. Aucun chiffre n'est repris d'une synthèse de tiers."}
+  </p>
+  <ul class="space-y-3">
+    {sources.map((s) => (
+      <li>
+        <a
+          href={s.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-primary-600 hover:text-primary-700 font-semibold no-underline hover:underline"
+        >
+          {s.nom}
+        </a>
+        <p class="text-sm text-gray-500 mt-0.5">{s.note}</p>
+      </li>
+    ))}
+  </ul>
+</section>

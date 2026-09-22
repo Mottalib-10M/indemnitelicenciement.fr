@@ -1,61 +1,276 @@
 @import "tailwindcss";
 
+/*
+ * Identite visuelle : les couleurs de la Republique francaise.
+ *
+ * Le site portait le bleu et le rouge generiques de Tailwind, ceux de
+ * n'importe quel gabarit. Sur un sujet de droit du travail francais, la
+ * reference naturelle est la charte de l'Etat : bleu France #000091 et rouge
+ * Marianne #E1000F, les deux teintes du systeme de design de l'Etat.
+ *
+ * Emploi : le bleu porte l'identite et les montants dus au salarie ; le rouge
+ * ne sert qu'aux retenues et aux avertissements, par petites touches ; l'or
+ * souligne, et n'ecrit jamais sur fond clair, son contraste y etant trop bas.
+ *
+ * Contrastes mesures, pas estimes : bleu 600 sur blanc 14,91:1, rouge 500 sur
+ * blanc 4,99:1, rouge 600 6,42:1. Le rouge Marianne passe donc tout juste le
+ * seuil AA : le texte rouge utilise malgre tout le 600, qui garde une marge.
+ */
 @theme {
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1e40af;
-  --color-primary-800: #1e3a8a;
-  --color-primary-900: #1e3057;
+  /* Bleu France : identite, liens, montants percus */
+  --color-primary-50: #f0f0fb;
+  --color-primary-100: #dcdcf5;
+  --color-primary-200: #b8b8eb;
+  --color-primary-300: #8a8ade;
+  --color-primary-400: #4e4ec9;
+  --color-primary-500: #2323ad;
+  --color-primary-600: #000091;
+  --color-primary-700: #000077;
+  --color-primary-800: #00005e;
+  --color-primary-900: #000047;
 
+  /* Rouge Marianne : retenues, avertissements, petites surfaces */
   --color-secondary-50: #fef2f2;
-  --color-secondary-100: #fee2e2;
-  --color-secondary-200: #fecaca;
-  --color-secondary-300: #fca5a5;
-  --color-secondary-400: #f87171;
-  --color-secondary-500: #ef4444;
-  --color-secondary-600: #dc2626;
-  --color-secondary-700: #b91c1c;
-  --color-secondary-800: #991b1b;
-  --color-secondary-900: #7f1d1d;
+  --color-secondary-100: #ffdedf;
+  --color-secondary-200: #ffb3b6;
+  --color-secondary-300: #f9787e;
+  --color-secondary-400: #f1444c;
+  --color-secondary-500: #e1000f;
+  --color-secondary-600: #c1000d;
+  --color-secondary-700: #9e000b;
+  --color-secondary-800: #7c0009;
+  --color-secondary-900: #5c0007;
 
+  /*
+   * Or : soulignements et aplats. Les teintes claires ne servent jamais de
+   * couleur de texte sur fond blanc, ou elles tombent sous 3:1 ; sur le bleu
+   * France, en revanche, l'or 300 tient 10,53:1.
+   */
   --color-accent-50: #fffbeb;
   --color-accent-100: #fef3c7;
-  --color-accent-200: #fde68a;
-  --color-accent-300: #fcd34d;
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
-  --color-accent-700: #b45309;
-  --color-accent-800: #92400e;
-  --color-accent-900: #78350f;
+  --color-accent-200: #ffe9ad;
+  --color-accent-300: #ffd45e;
+  --color-accent-400: #f5c400;
+  --color-accent-500: #d4a800;
+  --color-accent-600: #a88500;
+  --color-accent-700: #856900;
+  --color-accent-800: #6b5400;
+  --color-accent-900: #4f3e00;
+
+  /* Gris neutres, legerement froids pour accompagner le bleu */
+  --color-neutral-50: #f8f9fb;
+  --color-neutral-100: #f1f3f7;
+  --color-neutral-200: #e3e6ed;
+  --color-neutral-300: #cbd0db;
+  --color-neutral-400: #9aa1b1;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4d5462;
+  --color-neutral-700: #383e49;
+  --color-neutral-800: #252932;
+  --color-neutral-900: #14171d;
+
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
-/* Dark mode */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-neutral-50 text-neutral-700 font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-neutral-900;
+    text-wrap: balance;
+  }
+
+  h1 { letter-spacing: -0.025em; }
+  h2, h3 { letter-spacing: -0.015em; }
+
+  p { text-wrap: pretty; }
+
+  a {
+    @apply text-primary-600 hover:text-primary-700 underline-offset-2;
+  }
+
+  /* Les montants s'alignent d'une ligne a l'autre. */
+  table, .tabular-nums, td, th {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Liens du pied de page : le bloc de confiance injecte au build (mentions,
+ * methodologie, auteur) pose des liens sans classe. Ils prenaient donc le bleu
+ * France, illisible sur le fond presque noir du pied. Les liens qui portent
+ * deja une classe Tailwind gardent la leur, une classe l'emportant ici.
+ */
+footer a { color: var(--color-accent-300); }
+footer a:hover { color: #ffffff; }
+
+/*
+ * Signature graphique : les trois bandes du drapeau, reduites a un filet.
+ * La bande blanche est rendue par un gris tres clair, sans quoi elle
+ * disparaitrait sur un fond blanc.
+ */
+.filet-tricolore {
+  background: linear-gradient(
+    to right,
+    var(--color-primary-600) 0 33.33%,
+    #f1f3f7 33.33% 66.66%,
+    var(--color-secondary-500) 66.66% 100%
+  );
+}
+
+/* Le meme filet, vertical, pour ouvrir un encadre. */
+.bord-tricolore {
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary-600) 0 40%,
+    #f1f3f7 40% 60%,
+    var(--color-secondary-500) 60% 100%
+  );
+}
+
+@layer components {
+  /*
+   * Mise en forme des pages de texte.
+   *
+   * Quatorze fichiers portent les classes `prose` du plugin
+   * @tailwindcss/typography, qui n'est pas installe : elles ne correspondaient
+   * donc a aucune regle. On ecrit ici le necessaire, dans la palette du site.
+   */
+  :where(.prose) {
+    color: var(--color-neutral-700);
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+
+  :where(.prose) > * + * { margin-top: 1.25em; }
+
+  :where(.prose) h2 {
+    font-size: 1.6em;
+    line-height: 1.25;
+    margin-top: 2.25em;
+    margin-bottom: 0.6em;
+  }
+
+  :where(.prose) h3 {
+    font-size: 1.25em;
+    line-height: 1.35;
+    margin-top: 1.9em;
+    margin-bottom: 0.5em;
+  }
+
+  :where(.prose) h2:first-child,
+  .prose h3:first-child { margin-top: 0; }
+
+  :where(.prose) ul, .prose ol { padding-left: 1.5em; margin-top: 1em; }
+  :where(.prose) ul { list-style: disc; }
+  :where(.prose) ol { list-style: decimal; }
+  :where(.prose) li { margin-top: 0.5em; }
+  :where(.prose) li::marker { color: var(--color-primary-600); }
+
+  :where(.prose) strong { color: var(--color-neutral-900); font-weight: 600; }
+
+  :where(.prose) a {
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary-300);
+    text-underline-offset: 2px;
+  }
+
+  :where(.prose) a:hover { text-decoration-color: currentColor; }
+
+  :where(.prose) blockquote {
+    border-left: 3px solid var(--color-primary-600);
+    padding-left: 1.1em;
+    font-style: italic;
+    color: var(--color-neutral-600);
+  }
+
+  :where(.prose) table {
+    width: 100%;
+    font-size: 0.925em;
+    border-collapse: collapse;
+  }
+
+  :where(.prose) th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--color-neutral-900);
+    border-bottom: 2px solid var(--color-neutral-300);
+    padding: 0.5em 0.75em 0.5em 0;
+  }
+
+  :where(.prose) td {
+    border-bottom: 1px solid var(--color-neutral-200);
+    padding: 0.5em 0.75em 0.5em 0;
+  }
+
+  :where(.prose-lg) { font-size: 1.0625rem; }
+}
+
+
+/*
+ * Mode sombre.
+ *
+ * La version precedente empilait des `!important` sur des classes Tailwind et
+ * repassait les liens en bleu ciel generique. On redefinit ici les memes
+ * jetons de gris, eclaircis, et les liens passent a l'or, seule couleur de la
+ * charte qui reste lisible sur fond sombre : le bleu France y devient noir.
+ */
 @media (prefers-color-scheme: dark) {
-  body { background-color: #0f172a; color: #e2e8f0; }
-  nav, header { background-color: #1e293b; }
-  footer { background-color: #1e293b; color: #94a3b8; }
-  main { background-color: #0f172a; }
-  h1, h2, h3, h4, h5, h6 { color: #f1f5f9; }
-  a { color: #60a5fa; }
-  a:hover { color: #93bbfd; }
-  input, select, textarea { background-color: #1e293b; color: #e2e8f0; border-color: #475569; }
-  table { border-color: #334155; }
-  th { background-color: #1e293b; color: #e2e8f0; }
-  td { border-color: #334155; }
-  .bg-white { background-color: #1e293b !important; }
-  .bg-gray-50, .bg-gray-100 { background-color: #0f172a !important; }
-  .bg-gray-800, .bg-gray-900 { background-color: #0f172a !important; }
-  .text-gray-900 { color: #e2e8f0 !important; }
-  .text-gray-800 { color: #e2e8f0 !important; }
-  .text-gray-700 { color: #cbd5e1 !important; }
-  .text-gray-600 { color: #94a3b8 !important; }
-  .text-gray-500 { color: #94a3b8 !important; }
-  .border-gray-200, .border-gray-300 { border-color: #334155 !important; }
-  .shadow-lg, .shadow-md, .shadow { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3) !important; }
+  :root {
+    --color-neutral-50: #14171d;
+    --color-neutral-100: #1c2027;
+    --color-neutral-200: #2a2f38;
+    --color-neutral-300: #3b414c;
+    --color-neutral-400: #69707e;
+    --color-neutral-500: #98a0af;
+    --color-neutral-600: #bcc3d0;
+    --color-neutral-700: #d8dde6;
+    --color-neutral-800: #eceff4;
+    --color-neutral-900: #f7f9fc;
+  }
+
+  body {
+    background-color: #111419;
+    color: #d8dde6;
+  }
+
+  a { color: var(--color-accent-300); }
+  a:hover { color: var(--color-accent-200); }
+
+  .bg-white { background-color: #1c2027; }
+
+  /* Blocs deja sombres en mode clair : ils se rattachent au fond, en plus profond. */
+  footer.bg-neutral-900,
+  .bloc-code { background-color: #0b0d11; }
+
+  footer .text-neutral-400 { color: #98a0af; }
+
+  input, select, textarea {
+    background-color: #1c2027;
+    color: #eceff4;
+    border-color: #3b414c;
+  }
+
+  :where(.prose) a { color: var(--color-accent-300); }
+  :where(.prose) li::marker { color: var(--color-accent-400); }
+  :where(.prose) blockquote { border-left-color: var(--color-accent-400); }
+
+  :focus-visible { outline-color: var(--color-accent-300); }
+}
+
+@media print {
+  header, footer, nav, .ne-pas-imprimer { display: none !important; }
+  body { background: #fff; color: #000; }
 }

@@ -293,6 +293,21 @@ const exempleSalaires = [
 // Pages jalons pour le maillage interne
 // =============================================================================
 
+/**
+ * Anciennetes conservant une page dediee.
+ *
+ * 1 an : sous le seuil de deux ans, preavis d'un mois.
+ * 5 ans : milieu de la premiere tranche, cas le plus frequent.
+ * 10 ans : derniere annee au quart de mois, juste avant la bascule.
+ * 15 et 20 ans : au-dela du seuil, ou le calcul se dedouble.
+ * 25 et 30 ans : carrieres longues, ou l'ecart avec le minimum legal est le
+ * plus grand et la convention collective la plus determinante.
+ *
+ * Retirer une anciennete d'ici demande une redirection dans
+ * `astro.config.mjs`, faute de quoi son URL retournerait une 404.
+ */
+export const ANCIENNETES_AVEC_PAGE = [1, 5, 10, 15, 20, 25, 30];
+
 export const pagesJalons = [1, 5, 10, 15, 20, 25, 30];
 
 // =============================================================================

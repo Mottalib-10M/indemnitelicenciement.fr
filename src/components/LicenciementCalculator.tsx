@@ -126,10 +126,10 @@ export default function LicenciementCalculator() {
         {/* Header */}
         <div className="bg-gradient-to-r from-primary-700 to-primary-600 px-6 py-8 text-white">
           <h2 className="text-2xl md:text-3xl font-bold">
-            Calculateur d'indemnite de licenciement 2026
+            Calculateur d'indemnité de licenciement 2026
           </h2>
           <p className="mt-2 text-primary-100 text-sm md:text-base">
-            Estimez vos droits : indemnite legale, preavis, conges payes et allocation chomage (ARE)
+            Estimez vos droits : indemnité légale, préavis, congés payés et allocation chomage (ARE)
           </p>
         </div>
 
@@ -240,7 +240,7 @@ export default function LicenciementCalculator() {
             onClick={handleCalcul}
             className="w-full mt-4 bg-primary-700 hover:bg-primary-800 text-white font-bold py-3.5 px-6 rounded-xl transition-colors text-lg shadow-lg hover:shadow-xl cursor-pointer"
           >
-            Calculer mes indemnites
+            Calculer mes indemnités
           </button>
         </div>
 
@@ -250,7 +250,7 @@ export default function LicenciementCalculator() {
             {!result.eligible ? (
               <div className="bg-accent-50 border-2 border-accent-400 rounded-xl p-6 text-center">
                 <p className="text-accent-800 font-semibold text-lg">
-                  Non eligible a l'indemnite legale
+                  Non eligible a l'indemnité légale
                 </p>
                 <p className="text-accent-700 mt-2 text-sm">
                   {result.motifNonEligible}
@@ -265,14 +265,14 @@ export default function LicenciementCalculator() {
                 {/* Summary Card */}
                 <div className="bg-gradient-to-r from-primary-700 to-primary-600 rounded-xl p-6 text-white mb-6 shadow-lg">
                   <p className="text-primary-100 text-sm font-medium">
-                    Total estimatif des indemnites
+                    Total estimatif des indemnités
                   </p>
                   <p className="text-4xl font-bold mt-2">
                     {formatEuros(result.totalIndemnites)}
                   </p>
                   <p className="text-primary-200 text-sm mt-2">
-                    Salaire de reference retenu : {formatEuros(result.salaireReference)}/mois
-                    {' · '}Anciennete : {result.ancienneteTotale.toFixed(1)} ans
+                    Salaire de référence retenu : {formatEuros(result.salaireReference)}/mois
+                    {' · '}Ancienneté : {result.ancienneteTotale.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ans
                   </p>
                 </div>
 
@@ -290,7 +290,7 @@ export default function LicenciementCalculator() {
                     subtitle={`${result.preavisMois} mois de préavis`}
                   />
                   <ResultCard
-                    title="Indemnité de congés payes"
+                    title="Indemnité de congés payés"
                     amount={result.indemniteCongesPayes}
                     subtitle="Méthode du 1/10e"
                   />
@@ -350,7 +350,7 @@ export default function LicenciementCalculator() {
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 rounded-full bg-accent-500 shrink-0" />
                       <p className="text-sm text-gray-700">
-                        <strong>Mois 1-{result.preavisMois} :</strong> Preavis ({result.preavisMois} mois)
+                        <strong>Mois 1-{result.preavisMois} :</strong> PREAVIS ({result.preavisMois} mois)
                       </p>
                     </div>
                     <div className="flex items-center gap-3">
@@ -363,7 +363,7 @@ export default function LicenciementCalculator() {
                       <div className="flex items-center gap-3">
                         <div className="w-3 h-3 rounded-full bg-accent-600 shrink-0" />
                         <p className="text-sm text-gray-700">
-                          <strong>+{result.differeSpecifiqueJours} jours :</strong> Differe specifique (indemnite supra-legale)
+                          <strong>+{result.differeSpecifiqueJours} jours :</strong> Differe specifique (indemnité supra-legale)
                         </p>
                       </div>
                     )}

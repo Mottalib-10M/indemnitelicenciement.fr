@@ -25,10 +25,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "L'indemnité de licenciement est-elle imposable ?",
+      "name": "Dois-je déclarer mon indemnité de licenciement aux impôts ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "L'indemnité légale ou conventionnelle de licenciement est intégralement exonérée d'impôt sur le revenu. La part supra-légale est exonérée dans certaines limites (2 fois la rémunération brute annuelle, 50% de l'indemnité totale, ou 6 fois le PASS)."
+        "text": "Vous n'avez aucune démarche à faire pour la part exonérée : l'employeur ne la fait pas figurer dans le net imposable de la déclaration sociale nominative, et elle n'apparaît donc pas sur votre déclaration préremplie. Seule une éventuelle fraction imposable y est reportée, et c'est elle qu'il faut vérifier ligne 1AJ avant de valider la déclaration."
       }
     },
     {
@@ -57,18 +57,19 @@ const faqSchema = {
     }
   ]
 };
+import SourcesOfficielles from '../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Calculateur Indemnité de Licenciement 2026 - Simulation Gratuite"
-  description="Calculez gratuitement votre indemnité de licenciement 2026 : indemnité légale, préavis, congés payés et allocation chômage (ARE). Conforme au Code du travail."
+  title="Indemnité de licenciement 2026 : calcul et simulation"
+  description="Calculez votre indemnité de licenciement 2026 : indemnité légale, préavis, congés payés et allocation chômage, selon les barèmes du Code du travail en vigueur."
   canonical="/"
   schema={faqSchema}
 >
   <!-- Hero -->
   <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12 md:py-20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+      <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-white">
         Calculateur d'Indemnité de Licenciement 2026
       </h1>
       <p class="mt-4 text-lg md:text-xl text-primary-100 max-w-2xl mx-auto">
@@ -93,7 +94,7 @@ const faqSchema = {
   <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="prose prose-lg max-w-none">
 
-      <h2 class="text-2xl font-bold text-gray-900 mb-4" id="comment-calculer">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4 text-white" id="comment-calculer">
         Comment calculer l'indemnité de licenciement en 2026 ?
       </h2>
       <p>
@@ -122,7 +123,7 @@ const faqSchema = {
         Au-delà des indemnités légales et conventionnelles, le salarié peut négocier une <strong>indemnité supra-légale</strong> dans le cadre d'une transaction ou d'une rupture conventionnelle. Cette indemnité supplémentaire fait l'objet d'un régime fiscal et social spécifique et peut entraîner un <em>différé spécifique</em> pour le versement de l'allocation chômage.
       </p>
 
-      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4" id="preavis">
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4" id="préavis">
         Le préavis de licenciement
       </h2>
       <p>
@@ -205,10 +206,10 @@ const faqSchema = {
 
         <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
-            L'indemnité de licenciement est-elle imposable ?
+            Dois-je déclarer mon indemnité de licenciement aux impôts ?
           </summary>
           <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
-            L'indemnité légale ou conventionnelle est intégralement exonérée d'impôt sur le revenu. La part supra-légale bénéficie d'une exonération dans certaines limites : 2 fois la rémunération brute annuelle, 50 % de l'indemnité totale, ou 6 fois le PASS (environ 278 208 € en 2026).
+            Vous n'avez aucune démarche à faire pour la part exonérée : l'employeur ne la fait pas figurer dans le net imposable de la déclaration sociale nominative, et elle n'apparaît donc pas sur votre déclaration préremplie. Seule une éventuelle fraction imposable y est reportée, et c'est elle qu'il faut vérifier ligne 1AJ avant de valider la déclaration.
           </div>
         </details>
 
@@ -242,4 +243,44 @@ const faqSchema = {
 
     </div>
   </section>
+  
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Ce que le calculateur ne peut pas deviner</h2>
+    <p class="text-gray-700 leading-relaxed">
+      Un simulateur travaille sur le régime légal, celui qui s’applique à défaut d’autre
+      chose. Trois éléments lui échappent par construction, et ce sont précisément ceux qui
+      font varier le montant réel d’un dossier à l’autre.
+    </p>
+    <p class="text-gray-700 leading-relaxed mt-3">
+      La convention collective, d’abord. Plusieurs centaines de textes de branche prévoient
+      une indemnité supérieure au minimum légal, souvent sous la forme d’un nombre de mois
+      par année d’ancienneté plus élevé, parfois d’une majoration liée à l’âge du salarié.
+      Quand les deux régimes se recoupent, c’est le plus favorable qui s’applique, jamais
+      leur addition. Le numéro IDCC porté sur le bulletin de paie permet de retrouver le
+      texte applicable en quelques secondes.
+    </p>
+    <p class="text-gray-700 leading-relaxed mt-3">
+      La composition exacte du salaire de référence, ensuite. La règle retient le montant le
+      plus favorable entre la moyenne des douze derniers mois et celle des trois derniers,
+      primes comprises au prorata. Une prime annuelle versée sur un seul mois ne compte donc
+      que pour un douzième dans la moyenne trimestrielle, et les périodes d’arrêt maladie
+      sont reconstituées au salaire qu’aurait perçu le salarié s’il avait travaillé.
+    </p>
+    <p class="text-gray-700 leading-relaxed mt-3">
+      La part négociée, enfin. Rien n’interdit à l’employeur d’accorder davantage que le
+      minimum, et c’est fréquent lorsqu’il souhaite sécuriser la rupture. Cette part
+      supra-légale suit un régime fiscal et social distinct : exonérée d’impôt dans la limite
+      du plus élevé de trois plafonds, elle supporte des cotisations dès lors qu’elle dépasse
+      deux fois le plafond annuel de la Sécurité sociale, et elle déclenche un différé
+      d’indemnisation chômage pouvant atteindre cent cinquante jours.
+    </p>
+    <p class="text-gray-700 leading-relaxed mt-3">
+      Le résultat affiché ci-dessus constitue donc un plancher fiable, à vérifier ensuite
+      contre sa convention collective et son bulletin de paie. C’est aussi le chiffre qui
+      sert de référence en cas de discussion : l’employeur ne peut pas descendre en dessous,
+      quelle que soit la formulation retenue dans le solde de tout compte.
+    </p>
+  </section>
+
+<SourcesOfficielles />
 </Layout>

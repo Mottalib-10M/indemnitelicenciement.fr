@@ -42,10 +42,11 @@ const breadcrumbSchema = {
     { "@type": "ListItem", "position": 3, "name": "Rupture conventionnelle", "item": "https://indemnite-licenciement.fr/guides/rupture-conventionnelle/" }
   ]
 };
+import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
 ---
 
 <Layout
-  title="Rupture conventionnelle 2026 - Négociation, indemnité et procédure complète"
+  title="Rupture conventionnelle : indemnité, délais et démarches"
   description="Guide complet de la rupture conventionnelle : négociation de l'indemnité, procédure d'homologation, délais de rétractation, fiscalité et droit au chômage."
   canonical="/guides/rupture-conventionnelle/"
   schema={schema}
@@ -61,7 +62,7 @@ const breadcrumbSchema = {
         <span class="mx-2">›</span>
         <span class="text-white">Rupture conventionnelle</span>
       </nav>
-      <h1 class="text-3xl md:text-4xl font-extrabold">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">
         Rupture conventionnelle : négociation, indemnité minimum et procédure d'homologation
       </h1>
       <p class="mt-4 text-primary-100 text-lg">
@@ -211,5 +212,22 @@ const breadcrumbSchema = {
         <li>TéléRC - <a href="https://www.telerc.travail.gouv.fr" class="text-primary-600 hover:underline" target="_blank" rel="noopener">Service de télétransmission</a></li>
       </ul>
     </div>
-  </section>
+  
+    <div class="mt-12 border-t border-gray-200 pt-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+      <div class="space-y-4">
+        {schema.mainEntity.map((q) => (
+          <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+            <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+              {q.name}
+            </summary>
+            <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+              {q.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+</section>
+  <SourcesOfficielles />
 </Layout>
