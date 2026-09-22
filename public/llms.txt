@@ -1,12 +1,12 @@
-# indemnite-licenciement.fr
+# indemnitelicenciement.fr
 
 > Calculateur gratuit d'indemnité de licenciement en France (barèmes 2026).
 
 ## Pages
 
-- [Calculateur d'Indemnité de Licenciement](https://indemnite-licenciement.fr/): Simulez votre indemnité légale, préavis, congés payés et allocation chômage (ARE). Conforme au Code du travail.
-- [Guide ARE](https://indemnite-licenciement.fr/guide-are/): Guide complet sur l'Allocation de Retour à l'Emploi : conditions, calcul, durée, démarches France Travail.
-- [FAQ](https://indemnite-licenciement.fr/faq/): Questions fréquentes sur le licenciement, les indemnités et les droits du salarié.
+- [Calculateur d'Indemnité de Licenciement](https://indemnitelicenciement.fr/): Simulez votre indemnité légale, préavis, congés payés et allocation chômage (ARE). Conforme au Code du travail.
+- [Guide ARE](https://indemnitelicenciement.fr/guide-are/): Guide complet sur l'Allocation de Retour à l'Emploi : conditions, calcul, durée, démarches France Travail.
+- [FAQ](https://indemnitelicenciement.fr/faq/): Questions fréquentes sur le licenciement, les indemnités et les droits du salarié.
 
 ## Fonctionnalités
 

@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   trailingSlash: 'always',
-  site: 'https://indemnite-licenciement.fr',
+  site: 'https://indemnitelicenciement.fr',
 
   /*
    * Pages consolidees le 2026-09-22.
@@ -39,7 +39,7 @@ export default defineConfig({
   },
 
   integrations: [
-    trustKit({ lang: 'fr', siteUrl: 'https://indemnite-licenciement.fr', siteName: 'Indemnité Licenciement', founded: '2026-06-27', about: '/a-propos/', method: '/methodologie/' }), react(), sitemap()],
+    trustKit({ lang: 'fr', siteUrl: 'https://indemnitelicenciement.fr', siteName: 'Indemnité Licenciement', founded: '2026-06-27', about: '/a-propos/', method: '/methodologie/' }), react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },

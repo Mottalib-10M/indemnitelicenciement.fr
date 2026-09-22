@@ -1,5 +1,5 @@
 
-export const CONTACT_EMAIL = 'contact@indemnite-licenciement.fr';
+export const CONTACT_EMAIL = 'contact@indemnitelicenciement.fr';
 
 /*
  * Identite legale de l'editeur (RECETTE-SITE.md, controle check-legal).

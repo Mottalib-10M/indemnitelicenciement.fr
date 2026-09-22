@@ -58,14 +58,14 @@ const schema = {
   "@type": "CollectionPage",
   "name": "Guides licenciement - Tous nos articles",
   "description": "Guides complets sur le licenciement en France : indemnités, préavis, fiscalité, prud'hommes, rupture conventionnelle et plus.",
-  "url": "https://indemnite-licenciement.fr/guides/",
+  "url": "https://indemnitelicenciement.fr/guides/",
   "mainEntity": {
     "@type": "ItemList",
     "itemListElement": guides.map((g, i) => ({
       "@type": "ListItem",
       "position": i + 1,
       "name": g.title,
-      "url": `https://indemnite-licenciement.fr${g.href}`,
+      "url": `https://indemnitelicenciement.fr${g.href}`,
     })),
   },
 };
