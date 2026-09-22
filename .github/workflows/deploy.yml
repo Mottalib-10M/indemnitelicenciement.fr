@@ -13,11 +13,6 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      # Active Pages (source « GitHub Actions ») si ce n'est pas deja fait :
-      # sans cela, deploy-pages echoue sur un depot neuf.
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/setup-node@v4
         with:
           node-version: 20
