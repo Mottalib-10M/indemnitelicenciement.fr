@@ -49,7 +49,7 @@ function InputField({
           className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-gray-900 bg-white"
         />
         {suffix && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 text-sm pointer-events-none">
             {suffix}
           </span>
         )}
@@ -125,7 +125,7 @@ export default function LicenciementCalculator() {
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-primary-700 to-primary-600 px-6 py-8 text-white">
-          <h2 className="text-2xl md:text-3xl font-bold">
+          <h2 className="text-2xl md:text-3xl font-bold text-white">
             Calculateur d'indemnité de licenciement 2026
           </h2>
           <p className="mt-2 text-primary-100 text-sm md:text-base">
