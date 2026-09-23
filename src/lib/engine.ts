@@ -202,10 +202,10 @@ export function calculateARE(
 
   if (formule1 >= formule2) {
     allocationJournaliere = formule1;
-    formuleRetenue = `40,4% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€) + 12,95€ = ${formule1.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€`;
+    formuleRetenue = `40,4% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€) + 12,95€ = ${formule1.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€`;
   } else {
     allocationJournaliere = formule2;
-    formuleRetenue = `57% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€) = ${formule2.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€`;
+    formuleRetenue = `57% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€) = ${formule2.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€`;
   }
 
   // Plancher

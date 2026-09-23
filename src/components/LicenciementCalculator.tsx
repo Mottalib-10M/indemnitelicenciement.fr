@@ -5,7 +5,7 @@ function formatEuros(amount: number): string {
   return new Intl.NumberFormat('fr-FR', {
     style: 'currency',
     currency: 'EUR',
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 0,
   }).format(amount);
 }
 
@@ -32,6 +32,15 @@ function InputField({
   suffix?: string;
   help?: string;
 }) {
+  // Le champ qu'on remplit garde son texte brut ; sinon on montre les milliers
+  // separes. Mettre en forme pendant la frappe reecrirait la saisie.
+  const [actif, setActif] = useState(false);
+  const formateFr = (v: string | number) => {
+    const s = String(v ?? "");
+    if (s === "") return s;
+    const n = parseFloat(s.replace(/[\s\u00a0\u202f]/g, "").replace(",", "."));
+    return Number.isFinite(n) ? Math.round(n).toLocaleString("fr-FR") : s;
+  };
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block text-sm font-semibold text-gray-700 mb-1">
@@ -39,13 +48,17 @@ function InputField({
       </label>
       <div className="relative">
         <input
-          type={type}
+          type={type === "number" ? "text" : type}
+          inputMode={type === "number" ? "decimal" : undefined}
           id={id}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          value={type === "number" && !actif ? formateFr(value) : value}
+          onChange={(e) => onChange(
+            type === "number" ? e.target.value.replace(/[^\d.,]/g, "") : e.target.value
+          )}
+          onFocus={() => setActif(true)}
+          onBlur={() => setActif(false)}
           min={min}
           max={max}
-          step={step}
           className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-gray-900 bg-white"
         />
         {suffix && (
@@ -272,7 +285,7 @@ export default function LicenciementCalculator() {
                   </p>
                   <p className="text-primary-200 text-sm mt-2">
                     Salaire de référence retenu : {formatEuros(result.salaireReference)}/mois
-                    {' · '}Ancienneté : {result.ancienneteTotale.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ans
+                    {' · '}Ancienneté : {result.ancienneteTotale.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ans
                   </p>
                 </div>
 

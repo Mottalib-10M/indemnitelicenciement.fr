@@ -39,7 +39,7 @@ const preavisMois = annees < 2 ? 1 : 2;
 const exemple = 2500;
 
 const fmtMois = (v: number) =>
-  v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  v.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 ---
 
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
