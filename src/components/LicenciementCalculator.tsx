@@ -121,7 +121,7 @@ export default function LicenciementCalculator() {
   }, [salaireBrut, salaire3Mois, ancienneteAnnees, ancienneteMois, cadre, age, supraLegale, joursConges]);
 
   return (
-    <div className="max-w-4xl mx-auto" id="calculateur">
+    <div className="max-w-6xl mx-auto" id="calculateur">
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-primary-700 to-primary-600 px-6 py-8 text-white">
