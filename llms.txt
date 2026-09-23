@@ -1,0 +1,24 @@
+# indemnitelicenciement.fr
+
+> Calculateur gratuit d'indemnité de licenciement en France (barèmes 2026).
+
+## Pages
+
+- [Calculateur d'Indemnité de Licenciement](https://indemnitelicenciement.fr/): Simulez votre indemnité légale, préavis, congés payés et allocation chômage (ARE). Conforme au Code du travail.
+- [Guide ARE](https://indemnitelicenciement.fr/guide-are/): Guide complet sur l'Allocation de Retour à l'Emploi : conditions, calcul, durée, démarches France Travail.
+- [FAQ](https://indemnitelicenciement.fr/faq/): Questions fréquentes sur le licenciement, les indemnités et les droits du salarié.
+
+## Fonctionnalités
+
+- Calcul de l'indemnité légale de licenciement (art. R1234-2 Code du travail)
+- Calcul du préavis (art. L1234-1)
+- Calcul de l'indemnité compensatrice de congés payés
+- Estimation de l'ARE (allocation chômage)
+- Calcul du différé spécifique
+- Simulation complète avec calendrier prévisionnel
+
+## Sources juridiques
+
+- Code du travail : articles L1234-1, L1234-9, R1234-2
+- Convention d'assurance chômage (France Travail)
+- Barèmes SMIC et plafond Sécurité sociale 2026
