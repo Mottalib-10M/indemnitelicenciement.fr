@@ -142,7 +142,7 @@ export default function LicenciementCalculator() {
               value={salaireBrut}
               onChange={setSalaireBrut}
               min={0}
-              step={100}
+              step="any"
               suffix="EUR/mois"
               help="Moyenne des 12 derniers mois"
             />
@@ -152,7 +152,7 @@ export default function LicenciementCalculator() {
               value={salaire3Mois}
               onChange={setSalaire3Mois}
               min={0}
-              step={100}
+              step="any"
               suffix="EUR/mois"
               help="Si different de la moyenne 12 mois"
             />
@@ -202,7 +202,7 @@ export default function LicenciementCalculator() {
               value={supraLegale}
               onChange={setSupraLegale}
               min={0}
-              step={100}
+              step="any"
               suffix="EUR"
               help="Montant negocie au-dela du legal"
             />
