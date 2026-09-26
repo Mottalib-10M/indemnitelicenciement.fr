@@ -242,7 +242,7 @@ export default function LicenciementCalculator() {
                   />
                 </button>
                 <p className="mt-1 text-xs text-gray-500">
-                  {cadre ? 'Cadre — préavis 3 mois' : 'Non-cadre'}
+                  {cadre ? 'Cadre, préavis 3 mois' : 'Non-cadre'}
                 </p>
               </div>
             </div>

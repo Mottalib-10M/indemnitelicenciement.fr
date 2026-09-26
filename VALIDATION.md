@@ -1,4 +1,4 @@
-# Validation — Indemnité de Licenciement
+# Validation, Indemnité de Licenciement
 
 ## Cas de test avec sources juridiques
 
@@ -82,9 +82,9 @@ calculateARE(3000, 730, 40).dureeJours → 730  ✓
 
 ## Data files
 
-- baremes-2026.ts — SMIC, severance rates, notice periods, ARE formulas
-- anciennete-data.ts — 18 seniority entries with pre-calculated examples
-- salaire-data.ts — 8 salary levels with comparison tables
+- baremes-2026.ts, SMIC, severance rates, notice periods, ARE formulas
+- anciennete-data.ts, 18 seniority entries with pre-calculated examples
+- salaire-data.ts, 8 salary levels with comparison tables
 
 ## Quality gates
 

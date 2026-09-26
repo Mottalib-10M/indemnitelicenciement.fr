@@ -42,7 +42,10 @@ const fmtMois = (v: number) =>
   v.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 ---
 
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+<!-- §6.4 : ce bloc est le meme sur les sept pages a un nombre pres, et
+     check-unique neutralise les nombres. Il reste utile au lecteur, mais il
+     ne fait pas l'unicite de la page : celle-ci vient de ANGLES. -->
+<section data-chrome class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
   <h2 class="text-2xl font-bold text-gray-900 mb-4">
     Ce que {annees} ans d’ancienneté changent concrètement
   </h2>

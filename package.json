@@ -2,7 +2,7 @@
   "name": "indemnite-licenciement-fr",
   "type": "module",
   "version": "1.0.0",
-  "description": "Calculateur d'indemnité de licenciement en France — simulez vos droits",
+  "description": "Calculateur d'indemnité de licenciement en France, simulez vos droits",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/typo-nbsp.mjs dist",

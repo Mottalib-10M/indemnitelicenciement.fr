@@ -1,4 +1,6 @@
 ---
+import { CITABLE_ANCIENNETE } from '../lib/blocs-citables';
+import { ANGLES } from '../lib/angles-anciennete';
 import Layout from '../layouts/Layout.astro';
 import LicenciementCalculator from '../components/LicenciementCalculator';
 import '../styles/global.css';
@@ -133,7 +135,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
   schema={combinedSchema}
 >
   <!-- Breadcrumb -->
-  <nav class="bg-white border-b border-gray-100" aria-label="Fil d'Ariane">
+  <nav data-chrome class="bg-white border-b border-gray-100" aria-label="Fil d'Ariane">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
       <ol class="flex items-center gap-2 text-sm text-gray-500">
         <li><a href="/" class="hover:text-primary-700 transition-colors">Calculateur</a></li>
@@ -155,6 +157,13 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       </p>
     </div>
   </section>
+
+  <!-- §21 : le paragraphe qu'un moteur de réponse peut reprendre, avant tout
+       le reste du corps. Le héros ne fait qu'une phrase : il ne s'extrait pas. -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <p class="text-gray-700 leading-relaxed">{CITABLE_ANCIENNETE[entry.annees]}</p>
+  </section>
+
 
   <!-- Calculation Examples Table -->
   <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -198,7 +207,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
   </section>
 
   <!-- Calculator -->
-  <section class="py-10 px-4 sm:px-6 lg:px-8 bg-gray-100">
+  <section data-chrome class="py-10 px-4 sm:px-6 lg:px-8 bg-gray-100">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
         Simulez votre indemnité après {entry.annees} ans
@@ -212,8 +221,20 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
   </section>
 
   <!-- Contextual Content -->
+    <!-- §6 : ce que cette ancienneté change, et rien qui vaille pour une autre.
+       Les sept pages partageaient 89 % de leur texte, les chiffres étant
+       neutralisés avant comparaison. -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    {(ANGLES[entry.annees] ?? []).map((a) => (
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">{a.titre}</h2>
+        {a.paragraphes.map((p) => <p class="text-gray-700 leading-relaxed mb-4">{p}</p>)}
+      </div>
+    ))}
+  </section>
+
   <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="prose prose-lg max-w-none">
+    <div data-chrome class="prose prose-lg max-w-none">
 
       <h2 class="text-2xl font-bold text-gray-900 mb-4">
         Comment est calculée l'indemnité de licenciement après {entry.annees} ans ?
@@ -329,7 +350,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       </h2>
     </div>
 
-    <div class="space-y-4 mt-6">
+    <div data-chrome class="space-y-4 mt-6">
       <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
         <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
           {faq1Question}
@@ -396,7 +417,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
   </section>
 
   <!-- Cross-links -->
-  <section class="bg-gray-100 py-10">
+  <section data-chrome class="bg-gray-100 py-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Adjacent Pages -->
       <div class="flex flex-col sm:flex-row gap-4 mb-8">
@@ -462,7 +483,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
   </section>
 
   <!-- Sources -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <section data-chrome class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <h2 class="text-lg font-bold text-gray-900 mb-4">Sources juridiques</h2>
     <ul class="space-y-2 text-sm text-gray-600">
       <li>

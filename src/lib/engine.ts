@@ -1,5 +1,5 @@
 /**
- * Moteur de calcul — Indemnité de licenciement et droits du salarié
+ * Moteur de calcul, Indemnité de licenciement et droits du salarié
  * Conforme au Code du travail français (barèmes 2026)
  */
 

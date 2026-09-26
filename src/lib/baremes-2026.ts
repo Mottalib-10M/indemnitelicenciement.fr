@@ -1,5 +1,5 @@
 /**
- * Barèmes 2026 — Indemnité de licenciement et droits du salarié
+ * Barèmes 2026, Indemnité de licenciement et droits du salarié
  * Sources : Code du travail, Sécurité sociale, France Travail
  */
 
@@ -50,7 +50,7 @@ export const CONGES_PAYES = {
 } as const;
 
 // =============================================================================
-// Allocation de Retour à l'Emploi (ARE) — France Travail
+// Allocation de Retour à l'Emploi (ARE), France Travail
 // =============================================================================
 export const ARE = {
   /** Formule 1 : 40.4% du SJR + partie fixe */
@@ -62,14 +62,14 @@ export const ARE = {
   /** Plancher : ARE ne peut pas être < 57% du SJR */
   plancher: 0.57,
   /** Plafond SJR : 4 fois le plafond SS journalier */
-  plafondSJR: (PLAFOND_SS_MENSUEL * 4 * 12) / 365, // ~approx 508€/j — ou valeur fixe
+  plafondSJR: (PLAFOND_SS_MENSUEL * 4 * 12) / 365, // ~approx 508€/j, ou valeur fixe
   /** Plafond SJR fixe arrondi */
   plafondSJRFixe: 943,
   /** Minimum ARE journalier */
   minimumJournalier: 31.59,
-  /** Durée max standard (jours) — 24 mois */
+  /** Durée max standard (jours), 24 mois */
   dureeMaxStandard: 730,
-  /** Durée max senior >53 ans (jours) — 30 mois (913 jours) */
+  /** Durée max senior >53 ans (jours), 30 mois (913 jours) */
   dureeMaxSenior: 913,
   /** Âge seuil senior */
   ageSenior: 53,
@@ -81,7 +81,7 @@ export const ARE = {
   plafondDiffereSpecifique: 150,
   /** Période de référence affiliation (mois) */
   periodeReferenceAffiliation: 24,
-  /** Durée minimale affiliation (jours) — 130 jours ou 910 heures */
+  /** Durée minimale affiliation (jours), 130 jours ou 910 heures */
   dureeMinimaleAffiliation: 130,
 } as const;
 

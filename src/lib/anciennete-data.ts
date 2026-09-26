@@ -1,5 +1,5 @@
 /**
- * Données programmatiques — Pages par ancienneté
+ * Données programmatiques, Pages par ancienneté
  * Génère des pages /indemnite-licenciement-[X]-ans/ pour le SEO
  */
 
@@ -53,7 +53,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Pensez à vérifier votre convention collective : certaines prévoient des indemnités plus favorables que le minimum légal dès la première année.",
     ],
     profilType: "Salarié en début de parcours dans l'entreprise, souvent en phase d'intégration ou de validation de poste. Profil fréquent chez les jeunes actifs ou les salariés ayant récemment changé d'employeur.",
-    titreSEO: "Indemnité de licenciement après 1 an — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 1 an, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 1 an d'ancienneté en 2026. Montant légal, préavis, exemples chiffrés et droits du salarié.",
   },
   {
@@ -66,7 +66,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Vérifiez vos droits à la portabilité de la mutuelle : vous bénéficiez d'un maintien gratuit pouvant aller jusqu'à 12 mois.",
     ],
     profilType: "Salarié ayant passé la période d'essai et acquis une première expérience significative dans l'entreprise. Souvent un profil en consolidation de compétences.",
-    titreSEO: "Indemnité de licenciement après 2 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 2 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 2 ans d'ancienneté. Exemples de calcul, préavis de 2 mois et droits aux prud'hommes.",
   },
   {
@@ -79,7 +79,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Pensez à demander un bilan de compétences dans le cadre de votre CPF pour préparer votre reconversion éventuelle.",
     ],
     profilType: "Salarié opérationnel et autonome sur son poste, ayant développé des compétences spécifiques à l'entreprise. Profil courant chez les 25-35 ans en début de carrière.",
-    titreSEO: "Indemnité de licenciement après 3 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 3 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 3 ans d'ancienneté en 2026. Exemples chiffrés, droits au CSP et allocation chômage.",
   },
   {
@@ -92,7 +92,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Faites le point sur votre compte personnel de formation (CPF) : vous avez accumulé des droits à la formation qui restent acquis après le licenciement.",
     ],
     profilType: "Salarié expérimenté dans l'entreprise, souvent en charge de missions à responsabilité croissante. Peut avoir évolué en interne.",
-    titreSEO: "Indemnité de licenciement après 4 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 4 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 4 ans. Montant légal d'un mois de salaire, barème prud'homal et conseils de négociation.",
   },
   {
@@ -105,7 +105,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Pensez à négocier : avec 5 ans d'ancienneté, l'employeur a intérêt à trouver un accord amiable pour éviter un contentieux prud'homal.",
     ],
     profilType: "Salarié confirmé avec une bonne connaissance de l'entreprise et de son secteur. Profil fréquent pour les premiers licenciements économiques ou les réorganisations.",
-    titreSEO: "Indemnité de licenciement après 5 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 5 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 5 ans d'ancienneté. 1,25 mois de salaire minimum, préavis, chômage et barème prud'homal.",
   },
   {
@@ -118,7 +118,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "N'oubliez pas de vérifier vos droits à la portabilité de la prévoyance (décès, invalidité, incapacité) en plus de la mutuelle.",
     ],
     profilType: "Salarié fidèle à l'entreprise, ayant potentiellement connu une ou plusieurs évolutions de poste. Souvent en milieu de carrière.",
-    titreSEO: "Indemnité de licenciement après 6 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 6 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 6 ans d'ancienneté en 2026. 1,5 mois de salaire, droits prud'homaux et priorité de réembauche.",
   },
   {
@@ -131,7 +131,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Pensez à demander une lettre de recommandation à votre employeur : après 7 ans, votre expérience dans l'entreprise est un atout sur le marché.",
     ],
     profilType: "Salarié senior dans l'entreprise, avec une expertise reconnue et des responsabilités établies. Profil courant dans les restructurations.",
-    titreSEO: "Indemnité de licenciement après 7 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 7 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 7 ans d'ancienneté. 1,75 mois de salaire, négociation et droits prud'homaux jusqu'à 7 mois.",
   },
   {
@@ -144,7 +144,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Demandez un accompagnement par un conseiller en évolution professionnelle (CEP) : ce service est gratuit et peut vous aider à rebondir.",
     ],
     profilType: "Salarié durablement installé dans l'entreprise, avec une ancienneté qui témoigne d'un engagement mutuel. Souvent en poste à responsabilité.",
-    titreSEO: "Indemnité de licenciement après 8 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 8 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 8 ans. 2 mois de salaire brut, barème Macron et conseils pour contester un licenciement.",
   },
   {
@@ -157,7 +157,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Conservez précieusement vos bulletins de salaire des 12 derniers mois et des 3 derniers mois : ils sont essentiels pour le calcul du salaire de référence.",
     ],
     profilType: "Salarié très expérimenté, à l'approche du seuil des 10 ans. Souvent dans une position de cadre intermédiaire ou de technicien spécialisé.",
-    titreSEO: "Indemnité de licenciement après 9 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 9 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 9 ans d'ancienneté. 2,25 mois de salaire, seuil des 10 ans et stratégie de négociation.",
   },
   {
@@ -170,7 +170,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Faites-vous accompagner par un avocat en droit du travail : avec 10 ans d'ancienneté, les enjeux financiers justifient pleinement les honoraires.",
     ],
     profilType: "Salarié de longue date, profondément ancré dans la culture et les processus de l'entreprise. Souvent cadre, manager ou expert technique reconnu.",
-    titreSEO: "Indemnité de licenciement après 10 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 10 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 10 ans. 2,5 mois de salaire minimum, seuil du taux majoré (1/3) et barème prud'homal.",
   },
   {
@@ -183,7 +183,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Envisagez une rupture conventionnelle plutôt qu'un licenciement : les conditions financières peuvent être plus avantageuses et le processus moins conflictuel.",
     ],
     profilType: "Salarié de longue ancienneté, ayant souvent connu plusieurs réorganisations de l'entreprise. Profil managérial ou expert métier avec une forte valeur ajoutée.",
-    titreSEO: "Indemnité de licenciement après 12 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 12 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 12 ans d'ancienneté. Taux majoré 1/3 au-delà de 10 ans, PSE et rupture conventionnelle.",
   },
   {
@@ -196,7 +196,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Avec 15 ans dans la même entreprise, une validation des acquis de l'expérience (VAE) peut vous permettre d'obtenir un diplôme reconnu.",
     ],
     profilType: "Salarié très fidèle, ayant construit une partie importante de sa carrière dans l'entreprise. Souvent cadre supérieur, directeur de service ou expert incontournable.",
-    titreSEO: "Indemnité de licenciement après 15 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 15 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 15 ans. 4,17 mois de salaire minimum, barème Macron, ARE majorée pour les seniors.",
   },
   {
@@ -209,7 +209,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Préparez votre projet de reconversion dès l'annonce du licenciement : à ce stade, une transition professionnelle nécessite un accompagnement structuré.",
     ],
     profilType: "Salarié emblématique de l'entreprise, porteur de la mémoire institutionnelle et des savoir-faire critiques. Souvent en fin de carrière ou en reconversion.",
-    titreSEO: "Indemnité de licenciement après 18 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 18 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 18 ans d'ancienneté. 5,17 mois de salaire, négociation supra-légale et transition professionnelle.",
   },
   {
@@ -222,7 +222,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Après 20 ans dans une entreprise, la portabilité de vos droits (mutuelle, prévoyance, CPF) est essentielle. Faites un audit complet de vos avantages.",
     ],
     profilType: "Salarié ayant consacré deux décennies à l'entreprise, souvent à un poste stratégique. Son départ représente une perte de compétences significative pour l'employeur.",
-    titreSEO: "Indemnité de licenciement après 20 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 20 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 20 ans. 5,83 mois de salaire minimum, négociation supra-légale et droits du salarié senior.",
   },
   {
@@ -235,7 +235,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Le barème Macron plafonne à 16,5 mois de salaire les dommages et intérêts : une information essentielle pour la négociation.",
     ],
     profilType: "Salarié de très longue ancienneté, souvent dans les dernières étapes de sa carrière. Profil fréquent dans les grandes entreprises et les administrations.",
-    titreSEO: "Indemnité de licenciement après 22 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 22 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 22 ans d'ancienneté. 6,5 mois de salaire, PSE, retraite progressive et droits du salarié.",
   },
   {
@@ -248,7 +248,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Si vous êtes proche de la retraite, vérifiez si un maintien en emploi jusqu'à l'âge de départ ne serait pas plus avantageux qu'un licenciement.",
     ],
     profilType: "Salarié emblématique, véritable pilier de l'entreprise. Son départ nécessite souvent un plan de succession structuré. Profil de direction ou d'expertise rare.",
-    titreSEO: "Indemnité de licenciement après 25 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 25 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 25 ans. 7,5 mois de salaire minimum, barème Macron 17,5 mois et préparation retraite.",
   },
   {
@@ -261,7 +261,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Évaluez l'impact fiscal de votre indemnité : au-delà de l'exonération légale, la partie supra-légale peut être soumise à l'impôt sur le revenu.",
     ],
     profilType: "Salarié en fin de carrière, ayant traversé toutes les transformations de l'entreprise. Son départ s'inscrit souvent dans une stratégie de pré-retraite.",
-    titreSEO: "Indemnité de licenciement après 28 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 28 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 28 ans d'ancienneté. 8,5 mois de salaire, package de départ et optimisation fiscale.",
   },
   {
@@ -274,7 +274,7 @@ export const ancienneteData: AncienneteEntry[] = [
       "Faites réaliser un audit complet de votre situation par un avocat spécialisé : indemnité conventionnelle, droits à la retraite, fiscalité, protection sociale.",
     ],
     profilType: "Salarié historique de l'entreprise, ayant consacré l'essentiel de sa carrière à un même employeur. Son départ est un événement majeur, souvent lié à la retraite.",
-    titreSEO: "Indemnité de licenciement après 30 ans — Calcul 2026",
+    titreSEO: "Indemnité de licenciement après 30 ans, Calcul 2026",
     metaDescription: "Calculez votre indemnité de licenciement après 30 ans. 9,17 mois de salaire minimum, plafond Macron 20 mois et droits à la retraite.",
   },
 ];
