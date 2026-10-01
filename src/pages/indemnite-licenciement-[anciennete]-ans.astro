@@ -48,7 +48,7 @@ const faq2Answer = entry.annees < 2
   : `Avec ${entry.annees} ans d'ancienneté, le préavis de licenciement est de 2 mois pour les salariés non-cadres et de 3 mois pour les cadres (article L1234-1 du Code du travail). L'indemnité compensatrice de préavis représente donc 2 à 3 mois de salaire brut supplémentaires, qui s'ajoutent à l'indemnité légale de licenciement.`;
 
 const faq3Question = `L'indemnité de licenciement après ${entry.annees} ans est-elle imposable ?`;
-const faq3Answer = `L'indemnité légale de licenciement après ${entry.annees} ans est intégralement exonérée d'impôt sur le revenu et de cotisations sociales. Seule la part supra-légale (montant négocié au-delà du minimum légal) peut être soumise à l'impôt, dans la limite du plus élevé entre : 2 fois la rémunération brute annuelle, 50 % de l'indemnité totale, ou 6 fois le plafond annuel de la Sécurité sociale (environ 278 208 € en 2026). L'indemnité compensatrice de préavis est en revanche imposable comme un salaire.`;
+const faq3Answer = `L'indemnité légale de licenciement après ${entry.annees} ans est intégralement exonérée d'impôt sur le revenu et de cotisations sociales. Seule la part supra-légale (montant négocié au-delà du minimum légal) peut être soumise à l'impôt, dans la limite du plus élevé entre : 2 fois la rémunération brute annuelle, 50 % de l'indemnité totale, ou 6 fois le plafond annuel de la Sécurité sociale (environ 288 360 € en 2026). L'indemnité compensatrice de préavis est en revanche imposable comme un salaire.`;
 
 const faq4Question = `Le solde de tout compte après ${entry.annees} ans comprend-il autre chose ?`;
 const faq4Answer = `Au-delà de l'indemnité légale, le solde de tout compte réunit le salaire du mois en cours au prorata, l'indemnité compensatrice de congés payés pour les jours non pris, l'indemnité compensatrice de préavis si l'employeur en dispense le salarié, et le cas échéant la contrepartie financière d'une clause de non-concurrence. Après ${entry.annees} ans, la part de congés payés est souvent le deuxième poste après l'indemnité elle-même.`;
@@ -57,7 +57,7 @@ const faq5Question = `Faut-il ${entry.annees} ans d'ancienneté continue pour y 
 const faq5Answer = `L'ancienneté se compte à partir de l'entrée dans l'entreprise, sans exiger une présence sans interruption. Les congés payés, les arrêts maladie liés à un accident du travail et les congés maternité comptent intégralement. Un congé parental ne compte que pour moitié, et un congé sans solde ne compte pas. Une reprise par un nouvel employeur avec transfert du contrat conserve l'ancienneté acquise.`;
 
 const faq6Question = `L'indemnité après ${entry.annees} ans est-elle la même en rupture conventionnelle ?`;
-const faq6Answer = `L'indemnité de rupture conventionnelle ne peut pas être inférieure à l'indemnité légale de licenciement : après ${entry.annees} ans, le plancher est donc identique. La différence tient à la négociation, puisque rien n'empêche de convenir d'un montant supérieur, et au régime social, la rupture conventionnelle étant soumise au forfait social sur la part exonérée de cotisations.`;
+const faq6Answer = `L'indemnité de rupture conventionnelle ne peut pas être inférieure à l'indemnité légale de licenciement : après ${entry.annees} ans, le plancher est donc identique. La différence tient à la négociation, puisque rien n'empêche de convenir d'un montant supérieur, et au régime social, la rupture conventionnelle étant soumise à une contribution patronale de 40 % sur la part exonérée de cotisations.`;
 
 const faq7Question = `Quand l'indemnité est-elle versée après ${entry.annees} ans de présence ?`;
 const faq7Answer = `Le versement intervient au terme du contrat, en même temps que le solde de tout compte, que le préavis soit exécuté ou non. L'employeur remet alors le certificat de travail et l'attestation destinée à France Travail. Un retard de paiement ouvre droit à des intérêts et peut être porté devant le conseil de prud'hommes, qui apprécie aussi le préjudice subi.`;
@@ -311,15 +311,14 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
         Après un licenciement avec {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} d'ancienneté, le salarié
         peut bénéficier de l'Allocation de Retour à l'Emploi (ARE) versée par France Travail. Le montant de l'ARE
         dépend du Salaire Journalier de Référence (SJR) et se calcule selon deux formules : <strong>57 % du SJR</strong>
-        ou <strong>40,4 % du SJR + 12,95 €</strong> par jour. France Travail retient automatiquement la formule la
-        plus avantageuse pour le demandeur d'emploi. L'ARE ne peut être inférieure à 31,59 € par jour ni supérieure
+        ou <strong>40,4 % du SJR + 13,18 €</strong> par jour. France Travail retient automatiquement la formule la
+        plus avantageuse pour le demandeur d'emploi. L'ARE ne peut être inférieure à 32,13 € par jour ni supérieure
         à 75 % du SJR.
       </p>
       <p>
         La durée d'indemnisation dépend de la durée d'affiliation dans la période de référence.
         Avec {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} de travail continu, le salarié bénéficiera
-        de la durée maximale de <strong>730 jours</strong> (24 mois) s'il a moins de 53 ans, ou de
-        <strong>913 jours</strong> (30 mois) s'il a 53 ans ou plus. Un délai de carence de 7 jours
+        de la durée maximale de <strong>548 jours</strong> (18 mois) avant 55 ans, de 685 jours (22,5 mois) à 55 et 56 ans, ou de <strong>822 jours</strong> (27 mois) à partir de 57 ans. Un délai de carence de 7 jours
         incompressibles s'applique avant le premier versement, auquel peut s'ajouter un différé spécifique
         lié aux éventuelles indemnités supra-légales.
       </p>
@@ -464,7 +463,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <a href="/indemnite-licenciement-1802-euros/" class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all">
           <span class="text-sm font-bold text-primary-700">SMIC</span>
-          <span class="block text-xs text-gray-500">1 802 €</span>
+          <span class="block text-xs text-gray-500">1 823 €</span>
         </a>
         <a href="/indemnite-licenciement-2500-euros/" class="bg-white rounded-lg border border-gray-200 p-3 text-center hover:border-primary-400 hover:shadow-md transition-all">
           <span class="text-sm font-bold text-primary-700">2 500 €</span>

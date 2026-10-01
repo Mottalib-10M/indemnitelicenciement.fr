@@ -44,6 +44,7 @@ const breadcrumbSchema = {
   ]
 };
 import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -69,6 +70,8 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
       <p class="mt-4 text-primary-100 text-lg">
         Maîtrisez toutes les règles du préavis de licenciement : calcul de la durée, dispense d'exécution, indemnité compensatrice et situations particulières.
       </p>
+<MiniSimAutonome client:visible kind="preavis" lang="fr" locale="fr-FR" href="/" />
+
     </div>
   </section>
 

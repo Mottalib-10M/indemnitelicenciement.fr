@@ -42,6 +42,7 @@ const breadcrumbSchema = {
     { "@type": "ListItem", "position": 3, "name": "Indemnité légale vs conventionnelle", "item": "https://indemnitelicenciement.fr/guides/indemnite-legale-vs-conventionnelle/" }
   ]
 };
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -67,6 +68,8 @@ const breadcrumbSchema = {
       <p class="mt-4 text-primary-100 text-lg">
         Comprendre les deux régimes d'indemnisation, savoir lequel s'applique à votre situation et calculer le montant le plus avantageux.
       </p>
+<MiniSimAutonome client:visible kind="legale" lang="fr" locale="fr-FR" href="/" />
+
     </div>
   </section>
 

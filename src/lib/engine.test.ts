@@ -111,17 +111,17 @@ describe('calculateARE', () => {
     expect(result.sjr).toBeGreaterThan(0);
     expect(result.allocationJournaliere).toBeGreaterThan(0);
     expect(result.allocationMensuelle).toBeGreaterThan(0);
-    expect(result.dureeJours).toBe(730);
+    expect(result.dureeJours).toBe(548); // 730 jours × 0,75, soit 18 mois
   });
 
-  it('applique la durée max standard pour moins de 53 ans', () => {
+  it('applique la durée max standard avant 55 ans (548 jours)', () => {
     const result = calculateARE(3000, 800, 40);
-    expect(result.dureeJours).toBe(730); // plafonné
+    expect(result.dureeJours).toBe(548); // plafonné
   });
 
-  it('applique la durée max senior pour 53 ans et plus', () => {
-    const result = calculateARE(3000, 1000, 55);
-    expect(result.dureeJours).toBe(913); // plafonné senior
+  it('applique les durées allongées à 55 et à 57 ans', () => {
+    expect(calculateARE(3000, 1000, 55).dureeJours).toBe(685); // 22,5 mois
+    expect(calculateARE(3000, 1200, 58).dureeJours).toBe(822); // 27 mois
   });
 
   it('retourne 0 jours si affiliation insuffisante', () => {
@@ -143,8 +143,8 @@ describe('calculateARE', () => {
 
 describe('calculateDiffereSpecifique', () => {
   it('calcule le différé spécifique', () => {
-    // 10240€ / 102.4 = 100 jours
-    expect(calculateDiffereSpecifique(10240)).toBe(100);
+    // 11 180 € / 111,8 = 100 jours (diviseur 2026)
+    expect(calculateDiffereSpecifique(11180)).toBe(100);
   });
 
   it('plafonne à 150 jours', () => {

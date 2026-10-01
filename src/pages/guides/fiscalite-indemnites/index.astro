@@ -12,7 +12,7 @@ const schema = {
       "name": "L'indemnité de licenciement est-elle imposable ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "L'indemnité légale ou conventionnelle de licenciement est intégralement exonérée d'impôt sur le revenu. La fraction excédant le minimum légal ou conventionnel (indemnité supra-légale) est exonérée dans la limite du plus élevé des montants suivants : 50 % de l'indemnité totale ou 2 fois la rémunération annuelle brute, sans excéder 6 PASS (environ 278 208 € en 2026)."
+        "text": "L'indemnité légale ou conventionnelle de licenciement est intégralement exonérée d'impôt sur le revenu. La fraction excédant le minimum légal ou conventionnel (indemnité supra-légale) est exonérée dans la limite du plus élevé des montants suivants : 50 % de l'indemnité totale ou 2 fois la rémunération annuelle brute, sans excéder 6 PASS (environ 288 360 € en 2026)."
       }
     },
     {
@@ -44,6 +44,7 @@ const breadcrumbSchema = {
   ]
 };
 import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -69,6 +70,8 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
       <p class="mt-4 text-primary-100 text-lg">
         Comprendre le traitement fiscal et social de vos indemnités de licenciement, de rupture conventionnelle et transactionnelles.
       </p>
+<MiniSimAutonome client:visible kind="total" lang="fr" locale="fr-FR" href="/" />
+
     </div>
   </section>
 
@@ -119,7 +122,7 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
           </div>
           <div class="bg-secondary-50 rounded-lg p-4 border border-secondary-200">
             <p class="font-semibold text-secondary-800">Plafond absolu :</p>
-            <p class="text-secondary-700 font-mono">6 × PASS = environ 278 208 € en 2026</p>
+            <p class="text-secondary-700 font-mono">6 × PASS = environ 288 360 € en 2026</p>
           </div>
         </div>
       </div>
@@ -129,13 +132,13 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
       </p>
 
       <p>
-        <strong>Deuxième exemple :</strong> Un directeur perçoit une indemnité de 350 000 €. Son indemnité conventionnelle est de 50 000 €. Sa rémunération annuelle brute était de 150 000 €. Les trois options : (1) 50 000 €, (2) 175 000 €, (3) 300 000 €. Le plafond absolu de 6 PASS (278 208 €) est inférieur à l'option 3 et s'applique donc. L'exonération est de 278 208 € et la fraction imposable est de 350 000 - 278 208 = <strong>71 792 €</strong>.
+        <strong>Deuxième exemple :</strong> Un directeur perçoit une indemnité de 350 000 €. Son indemnité conventionnelle est de 50 000 €. Sa rémunération annuelle brute était de 150 000 €. Les trois options : (1) 50 000 €, (2) 175 000 €, (3) 300 000 €. Le plafond absolu de 6 PASS (288 360 €) est inférieur à l'option 3 et s'applique donc. L'exonération est de 288 360 € et la fraction imposable est de 350 000 - 288 360 = <strong>61 640 €</strong>.
       </p>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Le régime des cotisations sociales</h2>
 
       <p>
-        Le régime des cotisations sociales sur les indemnités de rupture est distinct du régime fiscal. L'indemnité de licenciement (légale, conventionnelle ou supra-légale) est exonérée de cotisations de sécurité sociale dans la limite de <strong>2 PASS</strong> (Plafond Annuel de la Sécurité Sociale), soit environ <strong>92 736 €</strong> en 2026. Au-delà de ce seuil, la totalité de l'indemnité est assujettie aux cotisations sociales dès le premier euro. Il est important de noter que cette limite de 2 PASS est un seuil de déclenchement global : si l'indemnité dépasse 2 PASS, c'est l'intégralité de l'indemnité qui est soumise aux cotisations, et non seulement la fraction excédentaire.
+        Le régime des cotisations sociales sur les indemnités de rupture est distinct du régime fiscal. L'indemnité de licenciement (légale, conventionnelle ou supra-légale) est exonérée de cotisations de sécurité sociale dans la limite de <strong>2 PASS</strong> (Plafond Annuel de la Sécurité Sociale), soit environ <strong>96 120 €</strong> en 2026. Au-delà de ce seuil, la totalité de l'indemnité est assujettie aux cotisations sociales dès le premier euro. Il est important de noter que cette limite de 2 PASS est un seuil de déclenchement global : si l'indemnité dépasse 2 PASS, c'est l'intégralité de l'indemnité qui est soumise aux cotisations, et non seulement la fraction excédentaire.
       </p>
 
       <p>
@@ -196,7 +199,7 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
 
       <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Rupture conventionnelle</h3>
       <p>
-        L'indemnité de rupture conventionnelle bénéficie du même régime fiscal que l'indemnité de licenciement. Toutefois, depuis la loi de financement de la Sécurité sociale pour 2013, une <strong>contribution patronale spécifique</strong> (forfait social) de <strong>30 %</strong> est due par l'employeur sur la fraction de l'indemnité exonérée de cotisations sociales. Cette contribution a été portée de 20 % à 30 % par la loi du 14 avril 2023 portant réforme des retraites, dans le but d'harmoniser le coût de la rupture conventionnelle avec celui de la mise à la retraite. Pour le salarié, le régime fiscal reste identique à celui du licenciement.
+        L'indemnité de rupture conventionnelle bénéficie du même régime fiscal que l'indemnité de licenciement. Toutefois, une <strong>contribution patronale spécifique de 40 %</strong> est due par l'employeur sur la fraction de l'indemnité exonérée de cotisations sociales. Cette contribution unique, qui a remplacé le forfait social en septembre 2023 au taux de 30 %, a été portée à 40 % par la loi de financement de la Sécurité sociale pour 2026, pour les contrats qui prennent fin à compter du 1er janvier 2026. Elle s'applique aussi à la mise à la retraite. Pour le salarié, le régime fiscal reste identique à celui du licenciement.
       </p>
 
       <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-3">Indemnités transactionnelles</h3>
@@ -228,7 +231,7 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Synthèse : optimiser la fiscalité de ses indemnités</h2>
 
       <p>
-        Pour optimiser le traitement fiscal de vos indemnités de licenciement, retenez ces points essentiels. L'indemnité légale ou conventionnelle est totalement exonérée de tout prélèvement. La fraction supra-légale est exonérée d'impôt dans des limites généreuses (50 % de l'indemnité totale ou 2 fois la rémunération annuelle). La CSG/CRDS est due sur toute somme excédant l'indemnité légale ou conventionnelle. Au-delà de 2 PASS (environ 92 736 €), les cotisations sociales s'appliquent sur l'intégralité. Le système du quotient permet de lisser l'impôt sur la fraction imposable. Les indemnités dans le cadre d'un PSE sont intégralement exonérées d'impôt. Enfin, faites-vous accompagner par un expert-comptable ou un conseiller fiscal pour optimiser la rédaction de votre protocole transactionnel ou les conditions de votre rupture conventionnelle.
+        Pour optimiser le traitement fiscal de vos indemnités de licenciement, retenez ces points essentiels. L'indemnité légale ou conventionnelle est totalement exonérée de tout prélèvement. La fraction supra-légale est exonérée d'impôt dans des limites généreuses (50 % de l'indemnité totale ou 2 fois la rémunération annuelle). La CSG/CRDS est due sur toute somme excédant l'indemnité légale ou conventionnelle. Au-delà de 2 PASS (environ 96 120 €), les cotisations sociales s'appliquent sur l'intégralité. Le système du quotient permet de lisser l'impôt sur la fraction imposable. Les indemnités dans le cadre d'un PSE sont intégralement exonérées d'impôt. Enfin, faites-vous accompagner par un expert-comptable ou un conseiller fiscal pour optimiser la rédaction de votre protocole transactionnel ou les conditions de votre rupture conventionnelle.
       </p>
 
     </div>

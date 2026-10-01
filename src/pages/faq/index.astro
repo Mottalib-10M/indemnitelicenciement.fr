@@ -35,7 +35,7 @@ const faqSchema = {
       "name": "Quelle partie de mon solde de tout compte sera imposée ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "L' indemnité légale ou conventionnelle est intégralement exonérée d'impôt sur le revenu, quelle que soit son montant. La part supra-légale est exonérée dans la limite du montant le plus élevé entre : 2 fois la rémunération brute annuelle de l'année précédente 50 % de l'indemnité totale perçue 6 fois le plafond annuel de la Sécurité sociale (≈ 278 208 € en 2026) Au-delà de ces limites, la part excédentaire est soumise à l'impôt sur le revenu et aux cotisations sociales."
+        "text": "L' indemnité légale ou conventionnelle est intégralement exonérée d'impôt sur le revenu, quelle que soit son montant. La part supra-légale est exonérée dans la limite du montant le plus élevé entre : 2 fois la rémunération brute annuelle de l'année précédente 50 % de l'indemnité totale perçue 6 fois le plafond annuel de la Sécurité sociale (≈ 288 360 € en 2026) Au-delà de ces limites, la part excédentaire est soumise à l'impôt sur le revenu et aux cotisations sociales."
       }
     },
     {
@@ -51,7 +51,7 @@ const faqSchema = {
       "name": "Qu'est-ce que le différé spécifique ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Le différé spécifique est un délai de carence supplémentaire qui s'applique lorsque le salarié a perçu des indemnités de rupture supérieures à l'indemnité légale ou conventionnelle (indemnités supra-légales). Il se calcule ainsi : montant des indemnités supra-légales / 102,4 (valeur 2026). Le résultat, exprimé en jours, est plafonné à 150 jours . Ce différé s'ajoute au délai d'attente de 7 jours. Exemple : pour 20 000 € d'indemnité supra-légale, le différé est de 20 000 / 102,4 ≈ 196 jours, plafonné à 150 jours."
+        "text": "Le différé spécifique est un délai de carence supplémentaire qui s'applique lorsque le salarié a perçu des indemnités de rupture supérieures à l'indemnité légale ou conventionnelle (indemnités supra-légales). Il se calcule ainsi : montant des indemnités supra-légales / 111,8 (valeur 2026). Le résultat, exprimé en jours, est plafonné à 150 jours . Ce différé s'ajoute au délai d'attente de 7 jours. Exemple : pour 20 000 € d'indemnité supra-légale, le différé est de 20 000 / 111,8 ≈ 178 jours, plafonné à 150 jours."
       }
     },
     {
@@ -88,6 +88,7 @@ const faqSchema = {
     }
   ]
 };
+import MiniSimAutonome from '../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -104,6 +105,8 @@ const faqSchema = {
       <p class="mt-4 text-primary-100 text-lg">
         Retrouvez les réponses aux questions les plus fréquentes sur le licenciement, les indemnités et l'allocation chômage.
       </p>
+<MiniSimAutonome client:visible kind="legale" lang="fr" locale="fr-FR" href="/" />
+
     </div>
   </section>
 
@@ -174,7 +177,7 @@ const faqSchema = {
           <ul class="list-disc pl-6 mt-2 space-y-1">
             <li>2 fois la rémunération brute annuelle de l'année précédente</li>
             <li>50 % de l'indemnité totale perçue</li>
-            <li>6 fois le plafond annuel de la Sécurité sociale (≈ 278 208 € en 2026)</li>
+            <li>6 fois le plafond annuel de la Sécurité sociale (≈ 288 360 € en 2026)</li>
           </ul>
           <p class="mt-2">
             Au-delà de ces limites, la part excédentaire est soumise à l'impôt sur le revenu et aux cotisations sociales.
@@ -205,10 +208,10 @@ const faqSchema = {
             Le <strong>différé spécifique</strong> est un délai de carence supplémentaire qui s'applique lorsque le salarié a perçu des indemnités de rupture supérieures à l'indemnité légale ou conventionnelle (indemnités supra-légales).
           </p>
           <p class="mt-2">
-            Il se calcule ainsi : <strong>montant des indemnités supra-légales / 102,4</strong> (valeur 2026). Le résultat, exprimé en jours, est plafonné à <strong>150 jours</strong>. Ce différé s'ajoute au délai d'attente de 7 jours.
+            Il se calcule ainsi : <strong>montant des indemnités supra-légales / 111,8</strong> (valeur 2026). Le résultat, exprimé en jours, est plafonné à <strong>150 jours</strong>. Ce différé s'ajoute au délai d'attente de 7 jours.
           </p>
           <p class="mt-2">
-            Exemple : pour 20 000 € d'indemnité supra-légale, le différé est de 20 000 / 102,4 ≈ 196 jours, plafonné à 150 jours.
+            Exemple : pour 20 000 € d'indemnité supra-légale, le différé est de 20 000 / 111,8 ≈ 178 jours, plafonné à 150 jours.
           </p>
         </div>
       </details>

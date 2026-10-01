@@ -75,7 +75,7 @@ export const ancienneteData: AncienneteEntry[] = [
     conseils: [
       "Avec 3 ans d'ancienneté, votre indemnité légale représente 3/4 de mois de salaire. C'est le moment de bien vérifier votre convention collective.",
       "En cas de licenciement économique, vous pouvez bénéficier du contrat de sécurisation professionnelle (CSP) qui offre une indemnisation plus avantageuse.",
-      "Votre durée d'indemnisation chômage sera conséquente : jusqu'à 24 mois si vous avez travaillé en continu.",
+      "Votre durée d'indemnisation chômage sera conséquente : jusqu'à 18 mois avant 55 ans si vous avez travaillé en continu.",
       "Pensez à demander un bilan de compétences dans le cadre de votre CPF pour préparer votre reconversion éventuelle.",
     ],
     profilType: "Salarié opérationnel et autonome sur son poste, ayant développé des compétences spécifiques à l'entreprise. Profil courant chez les 25-35 ans en début de carrière.",
@@ -179,7 +179,7 @@ export const ancienneteData: AncienneteEntry[] = [
     conseils: [
       "Avec 12 ans d'ancienneté, votre indemnité légale bénéficie du taux majoré : 2,5 mois (10 premières années) + 0,67 mois (2 ans à 1/3) = 3,17 mois de salaire.",
       "En cas de plan social (PSE), les indemnités supra-légales proposées sont souvent bien supérieures au minimum légal pour cette ancienneté.",
-      "Votre durée d'indemnisation chômage (ARE) sera de 24 mois maximum. Préparez votre budget de transition en conséquence.",
+      "Votre durée d'indemnisation chômage (ARE) sera de 18 mois maximum avant 55 ans. Préparez votre budget de transition en conséquence.",
       "Envisagez une rupture conventionnelle plutôt qu'un licenciement : les conditions financières peuvent être plus avantageuses et le processus moins conflictuel.",
     ],
     profilType: "Salarié de longue ancienneté, ayant souvent connu plusieurs réorganisations de l'entreprise. Profil managérial ou expert métier avec une forte valeur ajoutée.",
@@ -192,7 +192,7 @@ export const ancienneteData: AncienneteEntry[] = [
     conseils: [
       "15 ans d'ancienneté : votre indemnité légale atteint environ 4,17 mois de salaire. C'est un montant conséquent qui mérite une attention particulière.",
       "Le barème Macron plafonne les dommages et intérêts à 13 mois de salaire pour 15 ans d'ancienneté. Un argument puissant en négociation.",
-      "Si vous avez plus de 53 ans, votre durée d'indemnisation chômage peut aller jusqu'à 30 mois au lieu de 24 mois.",
+      "À partir de 55 ans, votre durée d'indemnisation chômage peut aller jusqu'à 22,5 mois, et jusqu'à 27 mois à partir de 57 ans, au lieu de 18 mois.",
       "Avec 15 ans dans la même entreprise, une validation des acquis de l'expérience (VAE) peut vous permettre d'obtenir un diplôme reconnu.",
     ],
     profilType: "Salarié très fidèle, ayant construit une partie importante de sa carrière dans l'entreprise. Souvent cadre supérieur, directeur de service ou expert incontournable.",
@@ -284,7 +284,7 @@ export const ancienneteData: AncienneteEntry[] = [
 // =============================================================================
 
 const exempleSalaires = [
-  { salaireBrut: 1802, salaireLabel: 'SMIC (~1 802 €)' },
+  { salaireBrut: 1823, salaireLabel: 'SMIC (~1 823 €)' },
   { salaireBrut: 2500, salaireLabel: '2 500 €' },
   { salaireBrut: 4000, salaireLabel: '4 000 €' },
 ];

@@ -43,6 +43,7 @@ const breadcrumbSchema = {
   ]
 };
 import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -68,6 +69,8 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
       <p class="mt-4 text-primary-100 text-lg">
         Tout savoir sur la rupture conventionnelle du CDI : comment négocier, calculer l'indemnité minimale et mener la procédure à terme.
       </p>
+<MiniSimAutonome client:visible kind="rupture" lang="fr" locale="fr-FR" href="/" />
+
     </div>
   </section>
 
@@ -149,21 +152,21 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Fiscalité de l'indemnité de rupture conventionnelle</h2>
 
       <p>
-        Le régime fiscal de l'indemnité de rupture conventionnelle a été modifié à plusieurs reprises. En 2026, les règles applicables sont les suivantes. L'indemnité de rupture conventionnelle est exonérée d'impôt sur le revenu dans la limite du plus élevé des trois montants suivants : le montant de l'indemnité légale ou conventionnelle de licenciement, <strong>50 % du montant total de l'indemnité</strong>, ou <strong>deux fois la rémunération annuelle brute</strong> du salarié au cours de l'année civile précédant la rupture, dans la limite de <strong>6 fois le plafond annuel de la Sécurité sociale</strong> (PASS), soit environ 278 208 € en 2026.
+        Le régime fiscal de l'indemnité de rupture conventionnelle a été modifié à plusieurs reprises. En 2026, les règles applicables sont les suivantes. L'indemnité de rupture conventionnelle est exonérée d'impôt sur le revenu dans la limite du plus élevé des trois montants suivants : le montant de l'indemnité légale ou conventionnelle de licenciement, <strong>50 % du montant total de l'indemnité</strong>, ou <strong>deux fois la rémunération annuelle brute</strong> du salarié au cours de l'année civile précédant la rupture, dans la limite de <strong>6 fois le plafond annuel de la Sécurité sociale</strong> (PASS), soit environ 288 360 € en 2026.
       </p>
 
       <p>
-        En matière de cotisations sociales, l'indemnité est exonérée de cotisations de sécurité sociale dans la limite de <strong>2 PASS</strong> (environ 92 736 € en 2026) et dans la limite de la fraction exonérée d'impôt sur le revenu. La CSG et la CRDS sont dues sur la partie de l'indemnité excédant l'indemnité légale ou conventionnelle de licenciement. Depuis 2023, une <strong>contribution patronale</strong> spécifique de <strong>30 %</strong> (contre 20 % auparavant) s'applique sur la partie de l'indemnité exonérée de cotisations sociales, ce qui a rendu la rupture conventionnelle plus coûteuse pour l'employeur.
+        En matière de cotisations sociales, l'indemnité est exonérée de cotisations de sécurité sociale dans la limite de <strong>2 PASS</strong> (environ 96 120 € en 2026) et dans la limite de la fraction exonérée d'impôt sur le revenu. La CSG et la CRDS sont dues sur la partie de l'indemnité excédant l'indemnité légale ou conventionnelle de licenciement. Depuis le 1er janvier 2026, une contribution patronale spécifique de 40 % (30 % depuis septembre 2023) s'applique sur la partie de l'indemnité exonérée de cotisations sociales, ce qui a rendu la rupture conventionnelle plus coûteuse pour l'employeur.
       </p>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Rupture conventionnelle et droit au chômage</h2>
 
       <p>
-        La rupture conventionnelle homologuée ouvre droit à l'<strong>Allocation de Retour à l'Emploi (ARE)</strong> dans les mêmes conditions qu'un licenciement. Le salarié doit s'inscrire à France Travail et remplir les conditions d'affiliation habituelles (130 jours ou 910 heures travaillées au cours des 24 ou 36 derniers mois). Le <strong>différé d'indemnisation</strong> spécifique est calculé en fonction de la partie de l'indemnité de rupture conventionnelle excédant l'indemnité légale de licenciement, divisée par 102,4 (le plafond journalier de la Sécurité sociale). Ce différé est plafonné à <strong>150 jours calendaires</strong> (environ 5 mois). Un différé d'attente de 7 jours s'applique en complément.
+        La rupture conventionnelle homologuée ouvre droit à l'<strong>Allocation de Retour à l'Emploi (ARE)</strong> dans les mêmes conditions qu'un licenciement. Le salarié doit s'inscrire à France Travail et remplir les conditions d'affiliation habituelles (130 jours ou 910 heures travaillées au cours des 24 ou 36 derniers mois). Le <strong>différé d'indemnisation</strong> spécifique est calculé en fonction de la partie de l'indemnité de rupture conventionnelle excédant l'indemnité légale de licenciement, divisée par 111,8 (diviseur fixé par l'Unédic pour 2026). Ce différé est plafonné à <strong>150 jours calendaires</strong> (environ 5 mois). Un différé d'attente de 7 jours s'applique en complément.
       </p>
 
       <p>
-        <strong>Exemple :</strong> Un salarié avec 10 ans d'ancienneté et un salaire de 3 500 € brut perçoit une indemnité de rupture conventionnelle de 15 000 €. L'indemnité légale de licenciement est de 1/4 × 3 500 × 10 = 8 750 €. L'excédent est de 15 000 - 8 750 = 6 250 €. Le différé spécifique est de 6 250 / 102,4 = 61 jours, auxquels s'ajoutent les 7 jours de délai d'attente. Le versement de l'ARE débutera donc environ 68 jours après l'inscription à France Travail.
+        <strong>Exemple :</strong> Un salarié avec 10 ans d'ancienneté et un salaire de 3 500 € brut perçoit une indemnité de rupture conventionnelle de 15 000 €. L'indemnité légale de licenciement est de 1/4 × 3 500 × 10 = 8 750 €. L'excédent est de 15 000 - 8 750 = 6 250 €. Le différé spécifique est de 6 250 / 111,8 = 55 jours, auxquels s'ajoutent les 7 jours de délai d'attente. Le versement de l'ARE débutera donc environ 62 jours après l'inscription à France Travail.
       </p>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">La rupture conventionnelle collective</h2>

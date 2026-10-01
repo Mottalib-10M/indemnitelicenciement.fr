@@ -43,6 +43,7 @@ const breadcrumbSchema = {
   ]
 };
 import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
 ---
 
 <Layout
@@ -68,6 +69,8 @@ import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
       <p class="mt-4 text-primary-100 text-lg">
         Comprendre les conséquences d'un licenciement pour faute grave sur vos indemnités, vos droits au chômage et les voies de recours disponibles.
       </p>
+<MiniSimAutonome client:visible kind="fauteGrave" lang="fr" locale="fr-FR" href="/" />
+
     </div>
   </section>
 

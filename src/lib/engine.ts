@@ -190,7 +190,7 @@ export function calculateARE(
     sjr = ARE.plafondSJRFixe;
   }
 
-  // Formule 1 : 40.4% du SJR + 12.95€
+  // Formule 1 : 40,4 % du SJR + partie fixe
   const formule1 = sjr * ARE.tauxFormule1 + ARE.partieFixeJournaliere;
 
   // Formule 2 : 57% du SJR
@@ -202,7 +202,7 @@ export function calculateARE(
 
   if (formule1 >= formule2) {
     allocationJournaliere = formule1;
-    formuleRetenue = `40,4% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€) + 12,95€ = ${formule1.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€`;
+    formuleRetenue = `40,4% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€) + ${ARE.partieFixeJournaliere.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€ = ${formule1.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€`;
   } else {
     allocationJournaliere = formule2;
     formuleRetenue = `57% du SJR (${sjr.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€) = ${formule2.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}€`;
@@ -223,10 +223,14 @@ export function calculateARE(
 
   // Durée d'indemnisation
   const dureeMax =
-    age >= ARE.ageSenior ? ARE.dureeMaxSenior : ARE.dureeMaxStandard;
+    age >= ARE.ageSenior ? ARE.dureeMaxSenior : age >= ARE.ageIntermediaire ? ARE.dureeMaxIntermediaire : ARE.dureeMaxStandard;
 
-  // Durée = jours travaillés dans la période de référence, plafonnée
-  let dureeJours = Math.min(ancienneteJours, dureeMax);
+  // Durée = jours de la période de référence (24 mois, 36 à partir de 55 ans) × 0,75, entre 182 jours et le maximum de l'âge
+  const periodeReference = age >= ARE.ageIntermediaire ? 1095 : 730;
+  let dureeJours = Math.min(
+    Math.max(Math.ceil(Math.min(ancienneteJours, periodeReference) * ARE.coefficientDuree), ARE.dureeMinimale),
+    dureeMax,
+  );
 
   // Minimum 130 jours d'affiliation
   if (ancienneteJours < ARE.dureeMinimaleAffiliation) {
@@ -247,16 +251,15 @@ export function calculateARE(
 
 /**
  * Calcule le différé spécifique d'indemnisation.
- * = Indemnités supra-légales / 102.4, plafonné à 150 jours.
+ * = Indemnités supra-légales / 111,8 (diviseur 2026), plafonné à 150 jours.
  */
 export function calculateDiffereSpecifique(
   indemniteSupraLegale: number
 ): number {
   if (indemniteSupraLegale <= 0) return 0;
 
-  const differe = Math.ceil(
-    indemniteSupraLegale / ARE.diviseurDiffereSpecifique
-  );
+  // Nombre entier de jours : la partie décimale n'est pas comptée
+  const differe = Math.floor(indemniteSupraLegale / ARE.diviseurDiffereSpecifique);
 
   return Math.min(differe, ARE.plafondDiffereSpecifique);
 }
