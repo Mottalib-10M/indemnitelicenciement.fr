@@ -1,7 +1,7 @@
 /**
  * Barèmes 2026, Indemnité de licenciement et droits du salarié
  * Sources (vérifiées le 2026-10-02) : Code du travail ; arrêté fixant le plafond de la Sécurité sociale
- * pour 2026 (4 005 € par mois, 48 060 € par an) ; décret portant relèvement du SMIC au 1er janvier 2026
+ * pour 2026 (4 005 € par mois, 48 060 € par an) ; relèvement du SMIC au 1er janvier 2026 puis revalorisation automatique du 1er juin 2026 (12,31 €)
  * (12,02 € l'heure) ; Unédic pour l'ARE (montants en vigueur depuis le 1er juillet 2025, non revalorisés
  * au 1er juillet 2026 ; durées issues de la convention du 15 novembre 2024, applicables depuis le 1er avril 2025).
  * Jusqu'au 2026-10-01 ce fichier portait le plafond de 2024, le SMIC de novembre 2024 et les durées d'avant 2023.
@@ -10,8 +10,8 @@
 // =============================================================================
 // SMIC et plafonds 2026
 // =============================================================================
-export const SMIC_BRUT_MENSUEL = 1823.03;
-export const SMIC_BRUT_HORAIRE = 12.02;
+export const SMIC_BRUT_MENSUEL = 1867.02; // 12,31 EUR x 151,67 h, depuis le 1er juin 2026 (1 823,03 EUR de janvier à mai)
+export const SMIC_BRUT_HORAIRE = 12.31;
 export const PLAFOND_SS_MENSUEL = 4005;
 export const PLAFOND_SS_ANNUEL = PLAFOND_SS_MENSUEL * 12;
 

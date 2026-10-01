@@ -284,7 +284,7 @@ export const ancienneteData: AncienneteEntry[] = [
 // =============================================================================
 
 const exempleSalaires = [
-  { salaireBrut: 1823, salaireLabel: 'SMIC (~1 823 €)' },
+  { salaireBrut: 1867, salaireLabel: 'SMIC (~1 867 €)' },
   { salaireBrut: 2500, salaireLabel: '2 500 €' },
   { salaireBrut: 4000, salaireLabel: '4 000 €' },
 ];

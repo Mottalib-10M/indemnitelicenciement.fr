@@ -41,13 +41,13 @@ export interface ExempleParAnciennete {
 
 export const salaireData: SalaireEntry[] = [
   {
-    salaireBrut: 1802,
+    salaireBrut: 1867,
     slug: '1802',
-    label: '1 802 € (SMIC)',
+    label: '1 867 € (SMIC)',
     profilType: "Salarié rémunéré au SMIC, profil fréquent dans la restauration, le commerce, le nettoyage, la logistique ou l'aide à la personne. Représente environ 17 % des salariés en France.",
     isSmic: true,
-    titreSEO: "Indemnité de licenciement au SMIC (1 802 €), Calcul 2026",
-    metaDescription: "Calculez votre indemnité de licenciement au SMIC (1 802 € brut). Tableau par ancienneté, préavis, allocation chômage et droits du salarié.",
+    titreSEO: "Indemnité de licenciement au SMIC (1 867 €), Calcul 2026",
+    metaDescription: "Calculez votre indemnité de licenciement au SMIC (1 867 € brut). Tableau par ancienneté, préavis, allocation chômage et droits du salarié.",
   },
   {
     salaireBrut: 2000,
