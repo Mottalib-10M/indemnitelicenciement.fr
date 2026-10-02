@@ -41,4 +41,4 @@ export const LEGAL_REQUIRED: Array<keyof LegalIdentity> = ['entityName', 'street
 export const CLARITY_ID = 'yrbpl3tluo';
 /** Régime de consentement : 'opt-in' = rien avant l'accord ; 'notice' = mesure active
  *  avec information préalable et retrait possible. */
-export const CONSENT_MODE: 'opt-in' | 'notice' = 'opt-in';
+export const CONSENT_MODE: 'opt-in' | 'notice' | 'none' = 'none';
