@@ -39,7 +39,9 @@ export default defineConfig({
   },
 
   integrations: [
-    trustKit({ lang: 'fr', siteUrl: 'https://indemnitelicenciement.fr', siteName: 'Indemnité Licenciement', founded: '2026-06-27', about: '/a-propos/', method: '/methodologie/' }), react(), sitemap()],
+    trustKit({ lang: 'fr', siteUrl: 'https://indemnitelicenciement.fr', siteName: 'Indemnité Licenciement', founded: '2026-06-27', about: '/a-propos/', method: '/methodologie/' }), react(),
+    // /embed/ : page d'iframe en noindex, hors sitemap
+    sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/embed/') })],
   vite: {
     plugins: [tailwindcss()],
   },
