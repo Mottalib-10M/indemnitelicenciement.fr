@@ -36,3 +36,9 @@ export const LEGAL: LegalIdentity = {
   },
 };
 export const LEGAL_REQUIRED: Array<keyof LegalIdentity> = ['entityName', 'street', 'postalCode', 'city'];
+
+/** Projet Microsoft Clarity (compte amradif). Vide = aucun traceur ni bandeau. */
+export const CLARITY_ID = 'yrbpl3tluo';
+/** Régime de consentement : 'opt-in' = rien avant l'accord ; 'notice' = mesure active
+ *  avec information préalable et retrait possible. */
+export const CONSENT_MODE: 'opt-in' | 'notice' = 'opt-in';
