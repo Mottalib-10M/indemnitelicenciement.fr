@@ -339,10 +339,12 @@ export function getExemplesCalcul(annees: number): ExempleCalcul[] {
  * Retourne les pages adjacentes pour le maillage interne
  */
 export function getPagesAdjacentes(annees: number): { precedent?: AncienneteEntry; suivant?: AncienneteEntry } {
-  const index = ancienneteData.findIndex((e) => e.annees === annees);
+  // Parmi les seules anciennetes qui ont une page : les autres sont redirigees.
+  const avecPage = ancienneteData.filter((e) => ANCIENNETES_AVEC_PAGE.includes(e.annees));
+  const index = avecPage.findIndex((e) => e.annees === annees);
   return {
-    precedent: index > 0 ? ancienneteData[index - 1] : undefined,
-    suivant: index < ancienneteData.length - 1 ? ancienneteData[index + 1] : undefined,
+    precedent: index > 0 ? avecPage[index - 1] : undefined,
+    suivant: index >= 0 && index < avecPage.length - 1 ? avecPage[index + 1] : undefined,
   };
 }
 
@@ -351,7 +353,7 @@ export function getPagesAdjacentes(annees: number): { precedent?: AncienneteEntr
  */
 export function getPagesJalons(anneesCourante: number): AncienneteEntry[] {
   return ancienneteData.filter(
-    (e) => pagesJalons.includes(e.annees) && e.annees !== anneesCourante
+    (e) => pagesJalons.includes(e.annees) && ANCIENNETES_AVEC_PAGE.includes(e.annees) && e.annees !== anneesCourante
   );
 }
 
