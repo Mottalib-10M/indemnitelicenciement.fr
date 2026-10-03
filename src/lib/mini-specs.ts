@@ -1,6 +1,7 @@
 /** Mini-simulateurs des guides (RECETTE §9.3), calculés par le moteur de l'indemnité de licenciement. */
 import { simulerLicenciement, calculatePreavis, calculateIndemniteLegale, calculateCongesPayes } from './engine';
 import type { MiniSpec } from './mini-types';
+import { getAreSpec } from './mini-specs-are';
 
 const eur = (x: number) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Math.round(x));
 const dec = (x: number) => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(x);
@@ -33,6 +34,7 @@ const SPECS: Record<string, MiniSpec> = {
   } },
 };
 
-export function getSpec(kind: string, _lang?: string): MiniSpec {
+export function getSpec(kind: string, lang?: string): MiniSpec {
+  const a = getAreSpec(kind, lang); if (a) return a;
   const s = SPECS[kind]; if (!s) throw new Error(`Mini-simulateur inconnu : ${kind}`); return s;
 }

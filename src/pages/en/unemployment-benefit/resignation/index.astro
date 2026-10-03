@@ -1,0 +1,46 @@
+---
+import ChomagePage from '../../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../../components/calc/MiniSimAutonome';
+import { V } from '../../../../lib/are-txt';
+const v = V.en;
+const faq = [
+  { q: 'I am resigning to follow my partner who has been transferred. Can I claim?', a: `Yes, it is a legitimate resignation. It covers a spouse, civil partner (PACS) or cohabiting partner who moves for work: a transfer, a new job, a return to work after unemployment or starting a business. It does not apply if your partner is retiring or training as a jobseeker. Benefit is then calculated exactly as after a dismissal, with the same deferrals.` },
+  { q: 'My employer has stopped paying me. Can I resign and get benefit?', a: `Yes, if you produce a decision of the employment tribunal (conseil de prud’hommes) ordering the employer to pay the wages owed; the resignation then counts as legitimate. Without a court decision, France Travail treats it as an ordinary resignation. Another route is to take formal note of the breach (prise d’acte) or ask the court to end the contract, which opens benefit if the judge rules it a dismissal.` },
+  { q: 'What exactly happens after 121 days?', a: `If your resignation was not legitimate, you can ask, after ${v.dem121} days of unpaid unemployment, for the regional joint committee of France Travail to review your situation. It looks at your job search over those four months: applications, interviews, training. A positive decision opens benefit from day ${v.dem122}, without backdating. The period is extended by sick leave of 21 days or more.` },
+  { q: 'How do I get a career-change project approved before resigning?', a: `Before resigning, you must get career advice (conseil en évolution professionnelle) from an approved provider such as Apec or Cap emploi, then have your project recognised as genuine and serious by the Transitions Pro committee of your region. You also need ${v.projetJours} days of continuous work in the last ${v.projetMois} months. Resigning before these steps closes this route.` },
+  { q: 'I quit a job I had taken after being dismissed. Am I covered?', a: `Yes, if the new job lasted less than ${v.dem65} days and you had not registered with France Travail after the dismissal. Leaving a short job does not wipe out the right opened by the earlier involuntary loss. The same logic applies if you were already claiming and the new job lasted less than 88 days or 610 hours.` },
+  { q: 'Is ending my probation period myself a resignation?', a: `For unemployment insurance, yes: ending a trial period on your own initiative is a voluntary departure. It does not remove your rights if the job lasted less than ${v.dem65} days and followed an involuntary job loss. When the employer ends the trial period, it is an involuntary loss, which opens benefit if you have worked enough.` },
+];
+---
+<ChomagePage lang="en" path="/en/unemployment-benefit/resignation/" alt="/simulateur-chomage/demission/"
+  title="Resigning and Benefit in France 2026: When ARE Is Still Paid"
+  description={`Can you get unemployment benefit after resigning in France? Legitimate reasons, approved career-change projects and the ${v.dem121}-day review, explained in full.`}
+  h1="Resigning in France: when unemployment benefit is still paid"
+  lede="A resignation normally closes the door to French unemployment benefit. Around twenty situations are exceptions, and a second door opens after four months."
+  crumb="Resignation"
+  citable={`An employee who resigns in France is not entitled to unemployment benefit, because the scheme only covers involuntary job loss. Three routes still lead to benefit. The first is a legitimate resignation: following a partner who moves for work, leaving an employer who has stopped paying wages once the employment tribunal has ruled, leaving after violence at work or domestic violence reported to the police, or quitting a job taken less than ${v.dem65} days earlier. The second is resigning for a career-change or business project recognised as genuine and serious by the regional Transitions Pro committee, after ${v.projetJours} days of continuous work over ${v.projetMois} months and career advice taken before resigning. The third is a review: after ${v.dem121} days of unpaid unemployment, a joint committee can grant benefit from day ${v.dem122} in view of your job search. In each case the amount is calculated as after a dismissal.`}
+  faq={faq}
+  sources={['unedic_demission', 'unedic_projet', 'sp_demission', 'unedic_are']}>
+  <MiniSimAutonome slot="sim" client:visible kind="demission" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+
+  <h2>Legitimate resignations, grouped by situation</h2>
+  <p>Article 2 of the unemployment insurance regulations lists the cases. They are easier to read by family than in the order of the text.</p>
+  <h3>Moving home</h3>
+  <p>Following a spouse, civil partner or cohabiting partner who moves for work, including to another EU country; marrying or entering a PACS and moving too far from work, with the resignation no later than two months after; following your parents as a minor; accompanying a disabled child admitted to a distant care facility. The link between the resignation and the move must be direct, though the resignation can come a little after the move.</p>
+  <h3>Leaving because of the employer or someone else</h3>
+  <p>Unpaid wages, with a tribunal decision; physical violence, sexual harassment or other offences at work, with proof of a police complaint; domestic violence, with the same proof. A journalist invoking the conscience clause, or a childminder whose employing parents refuse compulsory vaccinations for the child, are also on the list.</p>
+  <h3>Changing jobs</h3>
+  <p>Leaving a job taken after a dismissal, a fixed-term contract or a mutual termination without having registered, when that job lasted no more than {v.dem65} days; leaving a subsidised contract for a permanent job or a fixed-term contract of at least six months; resigning for a new permanent job that the new employer ends within {v.dem65} days, after at least three years of continuous work. These rules stop an unlucky job change from wiping out rights already earned.</p>
+
+  <h2>The career-change project: the most structured route</h2>
+  <p>Since 2019, an employee on a permanent contract can resign for a professional project and be paid benefit. The conditions are cumulative and come in order. First, {v.projetJours} days of continuous work in the {v.projetMois} months before resigning, roughly five unbroken years; sick leave and similar absences do not break the run. Second, career advice from an approved provider such as Apec, Cap emploi or the regional operator, never France Travail. Third, a certificate from the regional Transitions Pro committee that the project is genuine and serious.</p>
+  <p>For retraining, the file includes the ROME job description, the course programme and cost, and three recent job offers in the target region. For starting or buying a business, a market study and a three-year financing plan. It is wise to wait for the decision before resigning: a refusal means no benefit, with two months to appeal. Once certified, you have six months from the certificate date to register and apply. France Travail checks within six months of the claim opening that the project is under way; without a valid reason, the sanction is four months’ removal from the register with benefit stopped.</p>
+
+  <h2>The review after 121 days: what makes the difference</h2>
+  <p>For every other resignation, the door is not shut for good. After {v.dem121} days of unpaid unemployment, you can ask the regional joint committee of France Travail to examine your case. It decides on the effort you made to find work: applications, interviews, training, and having registered as a jobseeker from the start. Staying registered throughout those four months and keeping evidence of each step is the practical key.</p>
+  <p>If the answer is yes, benefit starts on day {v.dem122} after the contract ended, without backdating, and is calculated on the work done before the resignation. The {v.dem121} days are not lost benefit days: the full length of the claim remains, it simply starts later. For someone who can manage four months on savings, this makes resigning much less risky than it sounds.</p>
+
+  <h2>Resignation, mutual termination, formal breach: compare before acting</h2>
+  <p>When your employer is willing to part ways, a <a href="/en/unemployment-benefit/rupture-conventionnelle/">mutual termination</a> opens benefit with no condition on the reason, and a payout at least equal to statutory severance, but the claim is capped at {v.rc55} days under {v.age55} since 1 September 2026. A prise d’acte, reserved for serious breaches by the employer, only gives benefit if the tribunal rules it a dismissal, often a year or more later. Resigning remains the fastest way to leave and the slowest way to be paid, unless the reason is legitimate.</p>
+  <p class="encadre">Once your right is open, the <a href="/en/unemployment-benefit/">ARE calculator</a> works out the amount and length: choose “Resignation for a legitimate reason” as the way the job ended.</p>
+</ChomagePage>

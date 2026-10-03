@@ -1,0 +1,56 @@
+---
+import ChomagePage from '../../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../../lib/are-txt';
+import { arce } from '../../../../lib/are';
+const v = V.en;
+const cas = [2200, 3200, 4500].map((s) => { const r = exemple(s, 42); const a = arce({ brute: r.brute, joursRestants: r.duree.jours }); return { s, r, a }; });
+const rc = exemple(3200, 42, 24, { motif: 'rupture_conventionnelle' });
+const arceRc = arce({ brute: rc.brute, joursRestants: rc.duree.jours });
+const faq = [
+  { q: 'Do I need ACRE to apply for ARCE?', a: `Yes. Unédic requires proof of ACRE, the reduction in social contributions granted by Urssaf when you start or take over a business. Micro-entrepreneurs must apply for it explicitly and send the certificate to France Travail. You also need a Kbis extract, an INPI summary or an equivalent document, and you must not already be combining benefit with pay.` },
+  { q: 'Can I get ARCE if I set up my company during my notice period?', a: `Yes, if you only began the paperwork during your notice, redeployment leave or mobility leave, and the business is created after the contract ends. A business already created before the contract ended rules ARCE out; you can then combine your benefit with the business income, up to ${v.createur} of your remaining entitlement.` },
+  { q: 'When is ARCE paid, and is the second payment guaranteed?', a: `The first half is paid when the business starts, or when your claim opens if that is later, after any deferrals and the waiting period. The second half comes ${v.arceDelai} months later, if you are still running the business and do not hold a full-time permanent job. Since 1 September 2026, founders of a Scop cooperative are exempt from that last condition.` },
+  { q: 'If the business fails, can I go back on benefit after ARCE?', a: `Partly. The lump sum is ${v.arceTaux} of your remaining entitlement; the other 40% is not lost. If the business stops, you can ask for benefit to resume on that remaining part, within the expiry period of your rights, three years plus their length. You then get a monthly benefit calculated as before, over fewer days.` },
+  { q: 'Can someone who resigned for an approved business project get ARCE?', a: `Yes. An employee who resigns for a business creation or takeover project recognised as genuine and serious by the Transitions Pro committee is paid under the ordinary rules, ARCE included. They also need ACRE and proof of registration. Their remaining entitlement comes from the claim opened by their ${v.projetJours} days of continuous work, often the full ${v.cap55} days under ${v.age55}.` },
+  { q: 'Should I take ARCE or keep the monthly benefit?', a: `Keeping the benefit pays more overall: you can receive up to all of your remaining entitlement while the business earns little, until ${v.createur} of it has been used. ARCE suits projects that need cash at the start, or businesses that will quickly pay their founder enough to cut the monthly benefit sharply. The calculator above shows both figures for your entitlement.` },
+];
+---
+<ChomagePage lang="en" path="/en/unemployment-benefit/arce-starting-a-business/" alt="/simulateur-chomage/arce-creation-entreprise/"
+  title={`ARCE France 2026: Lump Sum of ${v.arceTaux} to Start a Business`}
+  description={`ARCE in France, 2026: ${v.arceTaux} of your remaining unemployment benefit paid as a lump sum in two halves to start a business, minus ${v.arceRet}. Simulate it in English.`}
+  h1="ARCE: turning French unemployment benefit into start-up capital"
+  lede="A jobseeker who starts or takes over a business in France can take part of their entitlement as a lump sum instead of monthly payments. How much, when, and at what cost."
+  crumb="ARCE: starting a business"
+  citable={`ARCE, the aide à la reprise ou à la création d’entreprise, pays as a lump sum ${v.arceTaux} of the unemployment benefit still due on the day your business starts: your gross daily benefit times the days left, times ${v.n(0.6)}. ${v.arceRet} is then deducted for the supplementary pension scheme. The money comes in two halves: the first when the business starts, the second ${v.arceDelai} months later if the business is still running and you do not hold a full-time permanent job. Unédic’s example: 518 days left at €40 give €12,432, then €12,059 after the deduction, so two payments of about €6,030. You need ACRE, proof that the business exists, and you must not already be combining benefit with pay. Choosing ARCE ends the monthly combination of benefit and income; the 40% not paid out remains available if the business stops.`}
+  faq={faq}
+  sources={['unedic_arce', 'sp_arce', 'unedic_cumul', 'unedic_sept']}>
+  <MiniSimAutonome slot="sim" client:visible kind="arce" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+
+  <h2>What ARCE is worth on three salaries</h2>
+  <p>The table assumes a 42-year-old founder, dismissed after two years of continuous work, who starts the business as soon as the claim opens, so with the full {v.cap55} days left. It is computed by the calculator’s engine from each daily benefit.</p>
+  <table>
+    <thead><tr><th scope="col" class="n">Former gross salary</th><th scope="col" class="n">Gross benefit / day</th><th scope="col" class="n">Entitlement in euros</th><th scope="col" class="n">Net ARCE</th><th scope="col" class="n">Each payment</th></tr></thead>
+    <tbody>
+      {cas.map(({ s, r, a }) => <tr><td class="n">{v.eur0(s)}</td><td class="n">{v.eur0(r.brute)}</td><td class="n">{v.eur0(a.reliquat)}</td><td class="n">{v.eur0(a.net)}</td><td class="n">{v.eur0(a.versement)}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Every month of benefit used before the business starts reduces the entitlement, and with it the lump sum. A founder who waits six months before registering the company loses about a third of the potential ARCE. Starting on day one gives the maximum, but only after the deferrals and waiting period, which also govern the first ARCE payment.</p>
+
+  <h2>After a mutual termination, a smaller lump sum</h2>
+  <p>Many business projects start with a mutual termination. Since 1 September 2026, that route caps the claim at {v.rc55} days under {v.age55}, and the entitlement ARCE is based on shrinks accordingly. For a former salary of {v.eur0(3200)}, net ARCE drops from {v.eur0(cas[1].a.net)} after a dismissal to {v.eur0(arceRc.net)} after a mutual termination, all else equal. It is not a reason to avoid the mutual termination, but it is a figure for the financing plan, and an argument when negotiating the payout. The <a href="/en/unemployment-benefit/rupture-conventionnelle/">mutual termination page</a> explains the cap.</p>
+
+  <h2>ARCE or keeping the benefit: the real comparison</h2>
+  <p>The alternative is to keep the monthly benefit and combine it with the business income. Each month France Travail deducts {v.cumulTaux} of the earnings declared for social insurance; for a micro-entrepreneur, of turnover after the flat-rate allowance. Young businesses rarely pay their founder much at first, so the benefit is then paid almost in full. It stops once {v.createur} of the entitlement left at the start has been used, with an exceptional extension possible from the joint committee if the business has paid no income at all, dividends included.</p>
+  <p>Keeping the benefit therefore pays more in total, up to the whole remaining entitlement. ARCE pays less, but at once: equity that can unlock a bank loan, fund stock or a lease. The right choice depends on how much cash the business needs at the start and how much it will pay you in year one. A company whose president takes no salary leaves the benefit intact; a sole trader who is profitable from the start sees it cut sharply.</p>
+
+  <h2>The steps, in order</h2>
+  <ol>
+    <li>Register with France Travail and have your claim opened: ARCE is calculated on an open claim.</li>
+    <li>Apply for ACRE with Urssaf when you create the business, and keep the certificate.</li>
+    <li>Register the business and obtain the Kbis extract, INPI summary or one-stop-shop document.</li>
+    <li>Send the ARCE application to France Travail with these documents; the first payment follows the start of trading.</li>
+    <li>Six months later, declare on your honour that the business continues and that you hold no full-time permanent job, to receive the second payment.</li>
+  </ol>
+  <p class="encadre">Your daily benefit and the length of your claim set the ARCE amount: start with the <a href="/en/unemployment-benefit/">ARE calculator</a>.</p>
+</ChomagePage>

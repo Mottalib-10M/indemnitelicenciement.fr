@@ -1,0 +1,51 @@
+---
+import ChomagePage from '../../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../../lib/are-txt';
+const v = V.en;
+const comp = [30, 45, 56, 59].map((g) => ({ g, rc: exemple(3000, g, 36, { motif: 'rupture_conventionnelle' }), li: exemple(3000, g, 36, { motif: 'licenciement' }) }));
+const faq = [
+  { q: 'What is a rupture conventionnelle, in plain English?', a: `It is a mutual termination of a permanent contract (CDI) agreed by employer and employee, then approved by the regional labour authority, the Dreets. There is no dismissal procedure and no resignation: both sides sign a form setting the end date and a termination payment at least equal to the statutory severance. It gives access to unemployment benefit, which is why it is so widely used in France.` },
+  { q: 'My agreement was signed in August but my contract ends in September 2026. Which rules apply?', a: `The new ones. Only the contract end date written in the agreement counts, not the signature date nor the approval date. An agreement signed on 20 August with an end date of 15 September 2026 falls under the ${v.rc55}-day cap if you are under ${v.age55}. An end date of 31 August 2026 or earlier keeps the ordinary caps, even if you register with France Travail in September.` },
+  { q: 'Does the 15-month cap apply to collective mutual terminations too?', a: `No. The amendment signed on 10 April 2026 only targets individual mutual terminations approved by the Dreets. Leaving under a collective agreement, the rupture conventionnelle collective, keeps the ordinary length, up to ${v.cap55} days under ${v.age55}. Public sector mutual terminations open ARE under their own conditions, which this calculator does not cover.` },
+  { q: 'I am 57. Is the extension after a mutual termination automatic?', a: `No, you have to ask for it. France Travail writes to you sixty days before you reach the ${v.rc55p}-day cap, and you can apply until thirty days after it. The decision depends on your job search or career project. If granted, your claim goes back to the length it would have had without the cap: up to ${v.rcExt57} more days from age ${v.age57}, ${v.rcExt5556} at ${v.age55} or 56.` },
+  { q: 'Should I negotiate a bigger payout or a quicker start to benefit?', a: `Both can be measured. Every ${v.div} euros above the legal minimum delays your first payment by one day, without shortening the claim. A payout €10,000 above the statutory amount therefore pushes benefit back by about three months, but you get the money at once, and the statutory part is free of income tax. The calculator above shows the exact delay for your figure.` },
+  { q: 'Can I start a business after a mutual termination?', a: `Yes. A mutual termination opens ARE like a dismissal, so you can choose ARCE, the lump sum for business creators, or keep the monthly benefit alongside your business income. The ${v.rc55}-day cap does, however, shrink the remaining entitlement ARCE is based on: ${v.arceTaux} of a shorter claim gives a smaller lump sum than after a dismissal.` },
+];
+---
+<ChomagePage lang="en" path="/en/unemployment-benefit/rupture-conventionnelle/" alt="/simulateur-chomage/rupture-conventionnelle/"
+  title="Rupture Conventionnelle and Benefit 2026: 15-Month ARE Cap"
+  description="Mutual termination (rupture conventionnelle) and unemployment benefit since 1 September 2026: ARE capped at 15 months under 55, payout deferral, extension."
+  h1="Mutual termination and unemployment benefit: the rules since 1 September 2026"
+  lede="A rupture conventionnelle still opens French unemployment benefit, but its length is capped since 1 September 2026. See what you keep, and what the cap costs you."
+  crumb="Mutual termination"
+  citable={`An individual mutual termination, the rupture conventionnelle, gives the same right to French unemployment benefit (ARE) as a dismissal: ${v.affM} months of work in the last ${v.ref}, or ${v.refS} from age ${v.age55}, and registration with France Travail. The amount is calculated in exactly the same way. What changed on 1 September 2026 is the maximum length: ${v.rc55} days, 15 months, under ${v.age55}, instead of ${v.cap55}; and ${v.rc55p} days, 20.5 months, from ${v.age55}, instead of ${v.cap5556} or ${v.cap57}. In the overseas departments other than Mayotte, the caps are ${v.rcDrom} and ${v.rcDromP} days. The rule depends only on the contract end date set in the agreement. Claimants aged ${v.age55} and over can ask for an extension, granted after a review of their job search. Separately, the part of the payout above statutory severance delays the first payment by one day per ${v.div} euros, up to ${v.dsMax} days.`}
+  faq={faq}
+  sources={['unedic_rc', 'unedic_sept', 'unedic_differe', 'sp_rupture', 'unedic_are']}>
+  <MiniSimAutonome slot="sim" client:visible kind="rcChomage" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+
+  <h2>The cap, age by age</h2>
+  <p>The rule comes from amendment no. 2 to the unemployment insurance agreement of 15 November 2024, signed by unions and employers on 10 April 2026 and approved by order on 19 June 2026. It leaves the daily reference wage, the benefit amount and the {v.minDuree}-day minimum untouched: it only adds a lower ceiling on top of the age-based one. Someone who had worked ten months before the mutual termination is not affected, because their claim stays below the cap anyway.</p>
+  <p>The table compares, for a {v.eur0(3000)} salary and a full working period, the claim length and the total net benefit depending on how the job ended. It is produced by the calculator’s engine.</p>
+  <table>
+    <thead><tr><th scope="col">Age at contract end</th><th scope="col" class="n">Dismissal</th><th scope="col" class="n">Mutual termination</th><th scope="col" class="n">Net difference</th><th scope="col" class="n">Possible extension</th></tr></thead>
+    <tbody>
+      {comp.map(({ g, rc, li }) => <tr><td>{g}</td><td class="n">{li.duree.jours} d</td><td class="n">{rc.duree.jours} d</td><td class="n">{v.eur0(li.totalNet - rc.totalNet)}</td><td class="n">{rc.duree.prolongationSenior ? `${rc.duree.prolongationSenior} d` : 'none'}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Under {v.age55}, the loss is three months of benefit, with no way back. At {v.age55} or 56, the cap removes {v.rcExt5556} days that an extension can restore; from {v.age57}, it removes {v.rcExt57}, also recoverable on request. The extension is never automatic: you must show a real job search or project.</p>
+
+  <h2>Mutual termination or dismissal: the sum to do before signing</h2>
+  <p>The choice is no longer just about the payout. A mutual termination often brings more than the legal minimum, a chosen leaving date and no procedure; a dismissal keeps the full benefit length. The calculator below puts both side by side for your salary, age and months worked.</p>
+  <MiniSimAutonome client:visible kind="rcVsLicenciement" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+  <p>If the difference shown exceeds what the negotiation adds on top of statutory severance, the mutual termination costs you money as soon as your job search lasts longer than fifteen months. If you expect to find work within a few months, the cap will never bite: only the days you actually use count, and the rest stays available for three years plus the claim length.</p>
+
+  <h2>The termination payment and the deferral</h2>
+  <p>The indemnité spécifique de rupture conventionnelle can never be lower than statutory severance on the same reference salary; an agreement below it is not approved. For benefit, only the part above that minimum matters: divided by {v.div}, it gives the days of specific deferral, up to {v.dsMax}. The shorter {v.dsMaxEco}-day ceiling only applies to economic redundancy, never to a mutual termination.</p>
+  <p>Example: a 38-year-old on {v.eur0(3000)} gross with six years of service signs for {v.eur0(12000)}. Statutory severance is €4,500; the remaining €7,500 gives 67 days of deferral, plus the {v.attente}-day wait and any holiday pay deferral. Benefit of {v.eur0(exemple(3000).netteMensuelle)} net a month starts about two and a half months after the contract ends and lasts at most {v.rc55} days.</p>
+
+  <h2>Dates in the agreement</h2>
+  <p>The agreement sets the end date, which can only come after approval by the Dreets. A fifteen-calendar-day withdrawal period and a fifteen-working-day review period run first. The end date is now the only thing that decides which duration rule applies, and since every agreement signed today ends after 31 August 2026, all of them fall under the cap.</p>
+  <p>Two situations escape it: the end of a fixed-term or temporary contract, which a mutual termination cannot cover anyway, and a departure under a collective agreement. If you take another job after the mutual termination and it ends with a fixed-term contract expiring, the last contract end decides the rule for any recharged claim.</p>
+  <p class="encadre">For the exact amount with deductions and any degressivity, the <a href="/en/unemployment-benefit/">ARE calculator</a> asks how your job ended and when, and applies the cap when it bites. The French <a href="/guides/rupture-conventionnelle/">guide to the mutual termination payment</a> covers the payout itself.</p>
+</ChomagePage>

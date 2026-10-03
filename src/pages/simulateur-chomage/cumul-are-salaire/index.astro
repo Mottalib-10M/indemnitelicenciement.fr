@@ -1,0 +1,50 @@
+---
+import ChomagePage from '../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../lib/are-txt';
+import { cumul } from '../../../lib/are';
+const v = V.fr;
+const base = exemple(3000);
+const paliers = [500, 1000, 1500, 2000, 2500, 3000].map((n) => ({ n, c: cumul({ brute: base.brute, sjr: base.sjr, salaireActivite: n }) }));
+const faq = [
+  { q: 'Dois-je déclarer un petit job de quelques heures pendant le chômage ?', a: `Oui, toute activité se déclare lors de l’actualisation mensuelle, même quelques heures, avec le salaire brut perçu. France Travail retire ${v.cumulTaux} de ce brut de votre allocation mensuelle et convertit le reste en jours indemnisés. Une activité non déclarée expose à la restitution des sommes et à une radiation. Déclarée, elle ne fait rien perdre : les jours non versés prolongent vos droits.` },
+  { q: 'Le cumul ARE et salaire est-il limité dans le temps ?', a: `Non, plus depuis 2014 : le cumul est possible pendant toute la durée de vos droits, quel que soit le nombre d’heures travaillées et que le contrat soit un CDD ou un CDI à temps partiel. La seule limite est mensuelle : salaire et allocation réunis ne peuvent pas dépasser votre ancien salaire, calculé comme le salaire journalier de référence multiplié par ${v.cumulJours}.` },
+  { q: 'Les jours non indemnisés sont-ils vraiment récupérés plus tard ?', a: `Oui. Votre capital est exprimé en jours : chaque mois, seuls les jours effectivement payés sont décomptés. Si vous travaillez et ne recevez que dix jours d’allocation sur trente, les vingt autres restent dans le capital et repoussent la date de fin de droits. À l’épuisement, si vous avez travaillé au moins ${v.aff} jours depuis l’ouverture, un rechargement peut ouvrir un nouveau droit.` },
+  { q: 'Comment le cumul fonctionne-t-il pour un micro-entrepreneur ?', a: `France Travail retient le chiffre d’affaires déclaré, diminué de l’abattement forfaitaire pour frais : 71 % pour l’achat-revente, 50 % pour les autres activités commerciales et artisanales, 34 % pour les professions libérales, avec un minimum de 305 €. Il retire ${v.cumulTaux} du revenu ainsi obtenu de l’allocation mensuelle. Pour un créateur d’entreprise, le cumul s’arrête quand ${v.createur} du reliquat de droits existant à la création ont été consommés.` },
+  { q: 'Mon nouvel employeur me paie le mois suivant : comment s’actualiser ?', a: `Déclarez l’activité et le salaire attendu lors de l’actualisation, puis transmettez le bulletin dès réception. Si le salaire n’est pas encore justifié, France Travail verse une avance calculée sur ${v.n(0.8, 1)} fois les jours indemnisables, puis régularise à réception du justificatif. Pour une activité non salariée dont le revenu n’est pas connu, l’Unédic prévoit une allocation provisoire, régularisée chaque année sur les revenus déclarés.` },
+  { q: 'Reprendre un emploi à temps plein moins payé, est-ce rentable ?', a: `Souvent, oui. Avec une ancienne paie de ${v.eur0(3000)} et un nouvel emploi à ${v.eur0(2000)}, l’allocation versée tombe à ${v.eur0(paliers[3].c.verse)} par mois, mais le revenu total brut atteint ${v.eur0(paliers[3].c.total)}, contre ${v.eur0(base.bruteMensuelle)} sans travailler. Les ${paliers[3].c.joursReportes} jours non versés chaque mois s’ajoutent à la fin de vos droits, que vous retrouverez si le nouvel emploi s’arrête.` },
+];
+---
+<ChomagePage lang="fr" path="/simulateur-chomage/cumul-are-salaire/" alt="/en/unemployment-benefit/working-while-claiming/"
+  title="Cumul ARE et salaire 2026 : ARE versée et jours reportés"
+  description={`Cumul ARE et salaire en 2026 : l’allocation baisse de ${v.cumulTaux} du brut gagné, jamais au-delà de l’ancien salaire, et les jours non versés sont reportés. Simulateur.`}
+  h1="Cumul ARE et salaire : ce que vous touchez en reprenant un emploi"
+  lede="Travailler pendant le chômage ne fait pas perdre l’allocation : elle baisse, et ce qui n’est pas versé se reporte. Le calcul se fait chaque mois, au jour près."
+  crumb="Cumul ARE et salaire"
+  citable={`Quand un allocataire reprend une activité salariée, France Travail retire chaque mois ${v.cumulTaux} du salaire brut de cette activité à l’allocation mensuelle qu’il aurait touchée sans travailler, puis divise le reste par l’allocation journalière pour obtenir un nombre de jours indemnisés, arrondi à l’entier le plus proche. L’allocation versée est ce nombre de jours multiplié par l’allocation journalière. Le total du salaire et de l’allocation ne peut pas dépasser l’ancien salaire, égal au salaire journalier de référence multiplié par ${v.cumulJours}. L’exemple officiel de l’Unédic : une allocation de 57 € par jour, un nouveau salaire de 2 100 € brut, donnent 4 jours indemnisés et 228 € versés ; les 26 jours non payés sont reportés en fin de droits. Le cumul est possible pendant toute la durée des droits, en CDD comme en CDI, quel que soit le nombre d’heures.`}
+  faq={faq}
+  sources={['unedic_cumul', 'sp_are', 'unedic_are']}>
+  <MiniSimAutonome slot="sim" client:visible kind="cumul" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
+
+  <h2>Le calcul mois par mois</h2>
+  <p>La formule de l’Unédic tient en une ligne : jours indemnisables = (allocation mensuelle sans activité − {v.cumulTaux} du salaire brut) ÷ allocation journalière. L’allocation mensuelle sans activité est l’allocation journalière multipliée par {v.jpm}. Le résultat est arrondi à l’entier le plus proche, puis multiplié par l’allocation journalière. Il ne peut pas y avoir de report d’un mois sur l’autre, sauf cas particuliers : un salaire perçu en mars ne réduit que l’allocation de mars.</p>
+  <p>Vient ensuite la vérification du plafond. Le salaire et l’allocation versée, additionnés, ne doivent pas dépasser le salaire journalier de référence multiplié par {v.cumulJours}, ce qui correspond à l’ancien salaire mensuel moyen. Si le total le dépasse, c’est ce plafond qui fixe le nombre de jours. En pratique, il ne joue que lorsque le nouveau salaire approche l’ancien.</p>
+
+  <h2>Ce que devient une allocation de {v.eur0(base.bruteMensuelle)} selon le salaire repris</h2>
+  <p>Le tableau part d’une ancienne paie de {v.eur0(3000)} brut, soit une allocation de {v.eur0(base.brute)} par jour. Il est calculé par le moteur du site, avec la règle d’arrondi et le plafond de l’Unédic.</p>
+  <table>
+    <thead><tr><th scope="col" class="n">Salaire brut repris</th><th scope="col" class="n">Jours indemnisés</th><th scope="col" class="n">ARE versée</th><th scope="col" class="n">Total brut du mois</th><th scope="col" class="n">Jours reportés</th></tr></thead>
+    <tbody>
+      {paliers.map(({ n, c }) => <tr><td class="n">{v.eur0(n)}</td><td class="n">{c.jours}</td><td class="n">{v.eur0(c.verse)}</td><td class="n">{v.eur0(c.total)}</td><td class="n">{c.joursReportes}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Deux constats. Le revenu total augmente toujours avec le salaire repris : chaque euro gagné ne retire que {v.n(0.7)} euro d’allocation, si bien qu’il n’existe pas de piège où travailler ferait perdre de l’argent. Et à partir d’un salaire proche de l’allocation divisée par {v.n(0.7)}, plus aucun jour n’est versé : tout le capital est préservé pour plus tard. À {v.eur0(2500)} repris, l’allocataire ne touche plus d’allocation, mais ses droits restent entiers.</p>
+
+  <h2>Le report des jours, l’effet qu’on oublie</h2>
+  <p>Le cumul se juge sur deux horizons. Sur le mois, il complète un salaire plus faible que l’ancien. Sur la durée, il fait durer les droits : un allocataire qui reprend un mi-temps et ne consomme que la moitié de ses jours chaque mois verra sa fin de droits repoussée d’autant. Pour quelqu’un qui sort d’un licenciement avec {v.cap55} jours de droits, accepter un temps partiel pendant un an peut ainsi prolonger la couverture bien au-delà de dix-huit mois.</p>
+  <p>Le délai de déchéance protège ce capital : les droits restent mobilisables pendant trois ans augmentés de leur durée. Et lorsqu’ils s’épuisent enfin, les périodes travaillées pendant le cumul servent à recharger un nouveau droit, à condition d’atteindre {v.aff} jours. Le calcul de ce nouveau droit repart alors des salaires de la nouvelle période, pas de ceux de l’emploi perdu.</p>
+
+  <h2>Les cas où le cumul ne s’applique pas</h2>
+  <p>Le bénéficiaire du contrat de sécurisation professionnelle, après un licenciement économique, ne peut pas cumuler son allocation avec un salaire ; il dispose d’autres aides à la reprise. Les intermittents du spectacle relèvent de règles propres. L’allocataire qui a choisi l’<a href="/simulateur-chomage/arce-creation-entreprise/">ARCE</a> pour créer son entreprise a reçu ses droits en capital et ne peut plus cumuler. Enfin, l’emploi repris ne doit pas avoir été quitté par démission d’un poste conservé : c’est le dernier emploi perdu involontairement qui fonde le droit.</p>
+  <p class="encadre">Le montant de départ, celui que le cumul réduit, se calcule avec le <a href="/simulateur-chomage/">simulateur chômage</a> ; la <a href="/simulateur-chomage/droits-au-chomage/">durée de vos droits</a> dit combien de jours le report peut prolonger.</p>
+</ChomagePage>

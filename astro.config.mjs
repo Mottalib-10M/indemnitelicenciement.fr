@@ -36,10 +36,14 @@ export default defineConfig({
     '/indemnite-licenciement-18-ans/': '/',
     '/indemnite-licenciement-22-ans/': '/',
     '/indemnite-licenciement-28-ans/': '/',
+    // 2026-10-03 : le guide ARE devient le simulateur chômage complet.
+    '/guide-are/': '/simulateur-chomage/',
   },
 
   integrations: [
-    trustKit({ lang: 'fr', siteUrl: 'https://indemnitelicenciement.fr', siteName: 'Indemnité Licenciement', founded: '2026-06-27', about: '/a-propos/', method: '/methodologie/' }), react(),
+    trustKit({ lang: 'fr', siteUrl: 'https://indemnitelicenciement.fr', siteName: 'Indemnité Licenciement', founded: '2026-06-27', about: '/a-propos/', method: '/methodologie/',
+      // Pages anglaises (2026-10-03) : bandeau de date et pied en anglais ; la méthode du simulateur est sur la page elle-même.
+      i18n: [{ prefix: '/en/', lang: 'en', about: '/a-propos/', method: '/en/unemployment-benefit/#method' }] }), react(),
     // /embed/ : page d'iframe en noindex, hors sitemap
     sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/embed/') })],
   vite: {

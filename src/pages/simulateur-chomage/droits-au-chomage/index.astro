@@ -1,0 +1,52 @@
+---
+import ChomagePage from '../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
+import { V } from '../../../lib/are-txt';
+import { duree } from '../../../lib/are';
+const v = V.fr;
+const grille = [6, 9, 12, 18, 24].map((m) => ({ m, a: duree({ moisTravailles: m, age: 35 }), b: duree({ moisTravailles: m * 1.5, age: 56 }), c: duree({ moisTravailles: m * 1.5, age: 58 }) }));
+const faq = [
+  { q: 'Faut-il avoir travaillé six mois d’affilée pour avoir droit au chômage ?', a: `Non. Les ${v.aff} jours travaillés ou ${v.affH} heures peuvent être répartis sur plusieurs contrats et plusieurs employeurs, avec des interruptions, à condition de se situer dans les ${v.ref} mois précédant la fin du dernier contrat, ou ${v.refS} mois dès ${v.age55} ans. Une semaine de cinq à sept jours travaillés compte pour cinq jours. Seules les périodes qui ont déjà servi à ouvrir un droit sont exclues du décompte.` },
+  { q: 'Qui est primo-entrant, et que change ce statut ?', a: `Est primo-entrant le salarié qui n’a été admis à aucune allocation de retour à l’emploi dans les vingt ans précédant son inscription. Depuis le 1er avril 2026, pour une fin de contrat à partir de cette date, ${v.primoM} mois de travail suffisent, soit ${v.primoJ} jours ou ${v.primoH} heures. Les droits ouverts ainsi durent au moins ${v.minPrimo} jours au lieu de ${v.minDuree}. Le montant, les différés et le cumul suivent les règles ordinaires.` },
+  { q: 'Mes jours sans contrat entre deux missions comptent-ils dans la durée ?', a: `En partie. La durée part du premier jour du premier contrat de la période et va jusqu’au dernier jour du dernier contrat ; les jours non couverts par un contrat entre les deux sont comptés, mais dans la limite de 70 % des jours travaillés. L’Unédic donne l’exemple de 303 jours sous contrat sur 24 mois : 212 jours non travaillés sont retenus, et la durée vaut 515 jours multipliés par ${v.coef}.` },
+  { q: 'À quel âge les droits au chômage s’arrêtent-ils ?', a: `L’allocation cesse à l’âge légal de départ à la retraite si vous avez vos trimestres, soit 64 ans pour les générations nées à partir de 1969. Sans les trimestres requis, elle peut continuer jusqu’au taux plein, et au plus tard jusqu’à 67 ans. Un dispositif de maintien existe dès 62 ans et 9 mois pour certaines générations, sous conditions d’affiliation et d’indemnisation depuis au moins un an.` },
+  { q: 'Combien de temps ai-je pour m’inscrire après la fin du contrat ?', a: `${v.inscription} mois. Passé ce délai, les droits ouverts par ce contrat sont perdus, sauf allongement pour un arrêt maladie, un congé maternité ou paternité, et depuis le 1er juillet 2026 le congé supplémentaire de naissance. Il n’y a aucun intérêt à attendre : l’allocation n’est jamais versée pour la période antérieure à l’inscription, et le délai d’attente ne démarre qu’avec elle.` },
+  { q: 'Un abandon de poste ouvre-t-il des droits au chômage ?', a: `En principe non. Depuis 2023, le salarié qui abandonne volontairement son poste et ne reprend pas le travail après mise en demeure est présumé démissionnaire. Sans motif légitime reconnu, la condition de perte involontaire d’emploi n’est pas remplie. Il reste la possibilité, comme pour une démission, de demander un réexamen à l’instance paritaire après ${v.dem121} jours de chômage non indemnisé.` },
+];
+---
+<ChomagePage lang="fr" path="/simulateur-chomage/droits-au-chomage/" alt="/en/unemployment-benefit/eligibility/"
+  title="Droits au chômage 2026 : conditions, mois travaillés, durée"
+  description={`Droits au chômage 2026 : ${v.affM} mois de travail sur ${v.ref} (${v.primoM} pour un primo-entrant), durée égale aux jours travaillés × ${v.coef}, plafonds selon l’âge. Calculez la vôtre.`}
+  h1="Droits au chômage : qui y a droit, et combien de temps"
+  lede="Avez-vous assez travaillé pour ouvrir un droit, et combien de jours d’allocation cela vous donne-t-il ? Les deux réponses se calculent à partir de vos mois sous contrat."
+  crumb="Droits au chômage"
+  citable={`Pour avoir droit à l’allocation chômage en 2026, il faut avoir perdu son emploi involontairement (licenciement, rupture conventionnelle, fin de CDD, démission légitime), être inscrit à France Travail et justifier de ${v.aff} jours travaillés ou ${v.affH} heures, soit environ ${v.affM} mois, au cours des ${v.ref} mois précédant la fin du contrat, ou des ${v.refS} mois à partir de ${v.age55} ans. Depuis le 1er avril 2026, un primo-entrant, jamais indemnisé depuis vingt ans, ouvre un droit avec ${v.primoM} mois. La durée des droits est égale au nombre de jours calendaires entre le premier et le dernier contrat de la période, multiplié par ${v.coef}, avec un minimum de ${v.minDuree} jours. Elle ne peut dépasser ${v.cap55} jours avant ${v.age55} ans, ${v.cap5556} jours à ${v.age55} et 56 ans, et ${v.cap57} jours à partir de ${v.age57} ans. Vingt-quatre mois de travail continu donnent donc dix-huit mois d’allocation avant ${v.age55} ans.`}
+  faq={faq}
+  sources={['unedic_are', 'unedic_primo', 'sp_are', 'unedic_demission', 'insee_chomage']}>
+  <MiniSimAutonome slot="sim" client:visible kind="droits" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
+
+  <h2>Les sept conditions, et celles qui posent vraiment problème</h2>
+  <p>L’Unédic liste sept conditions : être inscrit comme demandeur d’emploi ; ne pas avoir atteint l’âge de la retraite à taux plein ; avoir assez travaillé ; avoir perdu son emploi involontairement ; être physiquement apte ; rechercher effectivement un emploi ; résider sur un territoire couvert par l’assurance chômage. Sur le papier, la plupart vont de soi. En pratique, deux d’entre elles concentrent les refus : la durée de travail, quand on sort d’une série de contrats courts, et le caractère involontaire de la perte d’emploi, quand le dernier départ ou l’un des précédents est une démission.</p>
+  <p>Sur ce second point, la règle est plus fine qu’on ne le croit : une démission ancienne ne bloque pas tout. Ce qui compte, c’est d’avoir travaillé au moins {v.dem65} jours, ou 455 heures, depuis le dernier départ volontaire. Un salarié qui démissionne, retrouve un emploi trois mois plus tard puis est licencié a donc droit à l’allocation, calculée sur l’ensemble de ses périodes de travail de la période de référence.</p>
+
+  <h2>Comment se compte la durée de travail</h2>
+  <p>France Travail compte les jours par semaine civile : cinq jours retenus pour toute semaine où l’on a travaillé cinq, six ou sept jours, et le nombre réel de jours en dessous. Les périodes où le contrat était suspendu, maladie, congé maternité, activité partielle, comptent pour un jour ou sept heures par jour de suspension, à l’exception des congés sans solde ou sabbatiques d’un mois ou plus. Les formations professionnelles peuvent s’ajouter, dans la limite des deux tiers des jours travaillés.</p>
+  <p>Le mini-simulateur raisonne en mois sous contrat, ce qui revient au même pour un emploi continu : vingt-quatre mois représentent 730 jours calendaires. Pour plusieurs contrats séparés de courtes interruptions, additionnez les mois couverts. Si les trous sont longs, la durée réelle sera un peu plus courte que celle affichée, parce que les jours sans contrat ne comptent que jusqu’à 70 % des jours travaillés.</p>
+
+  <h2>Durée des droits selon les mois travaillés et l’âge</h2>
+  <p>La grille suivante est calculée par le moteur du simulateur. Pour les plus de {v.age55} ans, la période de référence passe à {v.refS} mois : la colonne correspondante suppose une fois et demie plus de mois travaillés, pour couvrir la même proportion de la période.</p>
+  <table>
+    <thead><tr><th scope="col" class="n">Mois travaillés (avant 55 ans)</th><th scope="col" class="n">35 ans</th><th scope="col" class="n">56 ans (× 1,5 mois)</th><th scope="col" class="n">58 ans (× 1,5 mois)</th></tr></thead>
+    <tbody>
+      {grille.map(({ m, a, b, c }) => <tr><td class="n">{m}</td><td class="n">{a.jours} j</td><td class="n">{b.jours} j</td><td class="n">{c.jours} j</td></tr>)}
+    </tbody>
+  </table>
+  <p>Deux effets se lisent dans la grille. En bas, la durée minimale de {v.minDuree} jours relève les petits droits : six mois de travail donnent six mois d’allocation, et non quatre et demi comme le voudrait le coefficient. En haut, les plafonds d’âge coupent la progression. Entre les deux, chaque mois de travail supplémentaire ajoute environ trois semaines d’allocation.</p>
+
+  <h2>Pourquoi le coefficient de 0,75 s’applique en 2026</h2>
+  <p>Depuis février 2023, la durée des droits dépend de la conjoncture. Tant que le marché du travail est jugé favorable, la durée calculée est réduite d’un quart. Si le taux de chômage atteint {v.seuilCfd}, ou progresse de {v.hausseCfd} point en un trimestre, un arrêté déclenche un complément de fin de droits qui rend aux allocataires arrivant au terme la durée retirée, jusqu’à {v.cfd55} jours avant {v.age55} ans. Au deuxième trimestre 2026, l’Insee mesure un taux de {v.chomage}, en hausse de 0,2 point : le seuil n’est pas atteint, et toutes les notifications appliquent le coefficient.</p>
+  <p>Ce mécanisme mérite d’être surveillé si vous ouvrez un droit long. Le complément ne se demande pas à l’ouverture : il s’ajouterait en fin de droits, s’il vous reste moins de trente jours au moment où l’arrêté est publié. Le simulateur suit la mesure trimestrielle de l’Insee et sera mis à jour si elle franchit le seuil.</p>
+
+  <h2>Le droit ouvert ne se perd pas en retravaillant</h2>
+  <p>Un droit ouvert reste mobilisable pendant trois ans, augmentés de sa durée. Reprendre un emploi ne le consomme pas : les jours non indemnisés sont reportés, et à l’épuisement du droit, si vous avez de nouveau travaillé au moins {v.aff} jours, un rechargement ouvre un nouveau droit calculé sur ces périodes. C’est ce qui permet d’accepter un contrat court sans craindre de perdre l’allocation. La page <a href="/simulateur-chomage/cumul-are-salaire/">cumul ARE et salaire</a> montre ce que vous touchez chaque mois quand vous travaillez, et le <a href="/simulateur-chomage/">simulateur chômage</a> calcule le montant de votre allocation.</p>
+</ChomagePage>

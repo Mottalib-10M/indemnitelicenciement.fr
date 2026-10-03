@@ -5,7 +5,15 @@
 ## Pages
 
 - [Calculateur d'Indemnité de Licenciement](https://indemnitelicenciement.fr/): Simulez votre indemnité légale, préavis, congés payés et allocation chômage (ARE). Conforme au Code du travail.
-- [Guide ARE](https://indemnitelicenciement.fr/guide-are/): Guide complet sur l'Allocation de Retour à l'Emploi : conditions, calcul, durée, démarches France Travail.
+- [Simulateur chômage ARE 2026](https://indemnitelicenciement.fr/simulateur-chomage/): allocation nette après CSG, CRDS et retraite complémentaire, durée selon l'âge, plafond rupture conventionnelle du 1er septembre 2026, différé spécifique calculé depuis l'indemnité de licenciement, date du premier versement.
+- [Chômage après un licenciement](https://indemnitelicenciement.fr/simulateur-chomage/apres-licenciement/): différé spécifique (÷ 111,8), différé congés payés, délai d'attente de 7 jours.
+- [Chômage et rupture conventionnelle](https://indemnitelicenciement.fr/simulateur-chomage/rupture-conventionnelle/): durée plafonnée à 456 jours avant 55 ans et 624 jours ensuite depuis le 1er septembre 2026.
+- [Droits au chômage](https://indemnitelicenciement.fr/simulateur-chomage/droits-au-chomage/): conditions d'affiliation (6 mois, 5 pour un primo-entrant) et durée.
+- [Démission et chômage](https://indemnitelicenciement.fr/simulateur-chomage/demission/): démissions légitimes, projet de reconversion, réexamen après 121 jours.
+- [Cumul ARE et salaire](https://indemnitelicenciement.fr/simulateur-chomage/cumul-are-salaire/): allocation versée et jours reportés quand on reprend un emploi.
+- [ARCE](https://indemnitelicenciement.fr/simulateur-chomage/arce-creation-entreprise/): capital de création d'entreprise, 60 % des droits restants.
+- [Dégressivité de l'ARE](https://indemnitelicenciement.fr/simulateur-chomage/degressivite/): baisse de 30 % au 7e mois au-dessus de 92,57 € par jour.
+- [French unemployment benefit calculator (English)](https://indemnitelicenciement.fr/en/unemployment-benefit/): the same ARE calculator and guides in English, for people working in France.
 - [FAQ](https://indemnitelicenciement.fr/faq/): Questions fréquentes sur le licenciement, les indemnités et les droits du salarié.
 
 ## Fonctionnalités
@@ -20,5 +28,6 @@
 ## Sources juridiques
 
 - Code du travail : articles L1234-1, L1234-9, R1234-2
-- Convention d'assurance chômage (France Travail)
+- Règlement d'assurance chômage annexé à la convention du 15 novembre 2024, avenant n° 2 (Unédic), fiches France Travail et service-public.fr
+- Paramètres ARE relus le 2026-10-03 : allocation minimale 32,13 €, partie fixe 13,18 €, plancher de dégressivité 92,57 € (non revalorisés au 1er juillet 2026)
 - Barèmes SMIC et plafond Sécurité sociale 2026

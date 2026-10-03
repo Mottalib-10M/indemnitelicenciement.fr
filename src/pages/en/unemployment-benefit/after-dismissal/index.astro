@@ -1,0 +1,60 @@
+---
+import ChomagePage from '../../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../../lib/are-txt';
+import { calculateIndemniteLegale, calculateCongesPayes } from '../../../../lib/engine';
+const v = V.en;
+const profils = [
+  { nom: 'Warehouse worker, 4 years, statutory pay only', s: 2100, a: 4, ind: 0, cp: 12, eco: false },
+  { nom: 'Engineer, 9 years, €6,000 above statutory', s: 3200, a: 9, ind: calculateIndemniteLegale(3200, 9, 0) + 6000, cp: 8, eco: false },
+  { nom: 'Manager, 15 years, economic redundancy, €40,000', s: 5200, a: 15, ind: 40000, cp: 20, eco: true },
+].map((p) => {
+  const lg = calculateIndemniteLegale(p.s, p.a, 0); const supra = Math.max(0, (p.ind || lg) - lg); const iccp = calculateCongesPayes(p.s * 12, p.cp);
+  const r = exemple(p.s, 45, 24, { motif: p.eco ? 'economique' : 'licenciement', supraLegal: supra, iccp });
+  return { ...p, lg, supra, r };
+});
+const faq = [
+  { q: 'I have just been dismissed in France. What should I do first about unemployment benefit?', a: `Register with France Travail online the day after your contract ends, that is the last day of your notice period, worked or not. You have ${v.inscription} months to do it, but nothing is ever paid for the days before registration, and the ${v.attente}-day waiting period only starts once you are registered. Your employer sends the attestation employeur, the end-of-contract certificate, electronically; check that it is correct.` },
+  { q: 'My employer paid my notice instead of letting me work it. Does that delay benefit?', a: `Yes, indirectly. When you are excused from working your notice but paid for it, the contract only ends when the notice period would have ended. The payment in lieu of notice is not part of the specific deferral, but the end date of the contract, which starts every clock, moves one to three months later depending on your length of service and status.` },
+  { q: 'Does a settlement agreement signed after dismissal count towards the deferral?', a: `Yes. A transaction, the settlement signed after a dismissal to end a dispute, is part of the termination payments, and everything above the statutory severance is divided by ${v.div} to give the deferral, capped at ${v.dsMax} days. Only damages awarded by an employment tribunal for unfair dismissal are left out of the calculation, according to Unédic’s guidance on the specific deferral.` },
+  { q: 'I was dismissed for serious misconduct. Can I still claim?', a: `Yes. Dismissal for faute grave or faute lourde removes severance and notice pay, not unemployment benefit: any dismissal counts as an involuntary loss of work. With no severance there is no specific deferral, so only the holiday pay deferral and the ${v.attente}-day waiting period apply, and the first payment comes sooner than after a negotiated exit.` },
+  { q: 'If I find a job during the deferral, do I lose my entitlement?', a: `No. Deferrals do not use up any days of entitlement; they only push back the start. If you start a new job before the deferral ends, your rights remain available for three years plus their length, and you can draw on them if the new job ends. The waiting period applies only once in any twelve-month period.` },
+  { q: 'Does the CSP redundancy contract avoid these delays?', a: `For an economic redundancy, accepting the contrat de sécurisation professionnelle replaces ARE with a different allowance, the ASP, which is not subject to the holiday pay deferral or the specific deferral, according to Unédic. In exchange you give up your notice period. This site does not calculate the ASP, whose amount follows its own rules.` },
+];
+---
+<ChomagePage lang="en" path="/en/unemployment-benefit/after-dismissal/" alt="/simulateur-chomage/apres-licenciement/"
+  title="Benefit After Dismissal France 2026: First ARE Payment Date"
+  description="Unemployment benefit after a dismissal in France: deferral worked out from your severance, holiday pay deferral and 7-day wait. Your first ARE payment date."
+  h1="Unemployment benefit after a dismissal: when the first payment arrives"
+  lede="Your severance does not reduce French unemployment benefit, but it can push its start back by several months. Here is the exact timeline, day by day."
+  crumb="After a dismissal"
+  citable={`After a dismissal in France, unemployment benefit can start the day after your contract ends at the earliest, but three delays come in between and add up. The specific deferral equals the part of your severance above the legal minimum divided by ${v.div}: an extra €5,000 delays the first payment by 44 days, up to ${v.dsMax} days, or ${v.dsMaxEco} for an economic redundancy. The holiday pay deferral equals your payment for untaken leave divided by your daily reference wage, up to ${v.dcMax} days. Then comes a ${v.attente}-day waiting period, which starts when the deferrals end or on the day you register, whichever is later. None of these delays removes days from your entitlement: they shift the calendar, not the total. Statutory severance only, or a dismissal for serious misconduct with no severance at all, creates no specific deferral.`}
+  faq={faq}
+  sources={['unedic_differe', 'unedic_cp', 'unedic_are', 'sp_are', 'unedic_sjr']}>
+  <MiniSimAutonome slot="sim" client:visible kind="apresLicenciement" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+
+  <h2>The three delays, in the order they run</h2>
+  <p>Everything starts from the end of the employment contract: the last day of notice, whether you worked it or were paid in lieu. The next day, up to two clocks start one after the other. First the <strong>specific deferral</strong> (différé spécifique), if your severance exceeds the legal minimum. Then the <strong>holiday pay deferral</strong> (différé congés payés), if your employer paid you for leave you did not take. Finally the <strong>waiting period</strong> (délai d’attente) of {v.attente} days, which follows the deferrals if you are already registered, or starts on the day you register if you do it later.</p>
+  <p>Unédic’s official examples show it better than any rule. Nadia’s contract ends on 1 November; she receives €1,372 above the legal minimum, which gives a 12-day deferral, and registers on 10 November: she is paid from 20 November. Julien, in the same position, only registers on 1 December, after his deferral has expired: he waits until 8 December. His three weeks of delay gained him nothing; they simply postponed about twenty days of benefit.</p>
+
+  <h2>Working out the extra-statutory part</h2>
+  <p>The amount that triggers the specific deferral is not printed on your final pay slip, the solde de tout compte. It shows a single “indemnité de licenciement” or “indemnité transactionnelle”, and the legal minimum has to be subtracted. That minimum uses the better of your average pay over the last twelve months or the last three, at a quarter of a month per year of service up to ten years and a third beyond. This site’s <a href="/">severance calculator</a>, in French, does it from the same data, and the calculator above reuses it automatically.</p>
+  <p>Three payments are left out of the extra-statutory part: payment in lieu of notice, which replaces salary; holiday pay, which has its own deferral; and damages awarded by the employment tribunal (conseil de prud’hommes) for unfair dismissal. On the other hand, a settlement signed after the dismissal counts, and so does any collective agreement severance above the statutory amount. Many employees only discover this when the France Travail decision arrives.</p>
+
+  <h2>Three profiles, three timelines</h2>
+  <p>The table below comes from the site’s two engines, for a 45-year-old who worked the last 24 months and registers the day after the contract ends. Untaken leave days are converted to holiday pay with the one-tenth method.</p>
+  <table>
+    <thead><tr><th scope="col">Profile</th><th scope="col" class="n">Statutory severance</th><th scope="col" class="n">Extra-statutory</th><th scope="col" class="n">Specific deferral</th><th scope="col" class="n">Holiday deferral</th><th scope="col" class="n">First paid day</th></tr></thead>
+    <tbody>
+      {profils.map((p) => <tr><td>{p.nom}</td><td class="n">{v.eur0(p.lg)}</td><td class="n">{v.eur0(p.supra)}</td><td class="n">{p.r.differeSpecifique} d</td><td class="n">{p.r.differeConges} d</td><td class="n">Day {p.r.premierJour}</td></tr>)}
+    </tbody>
+  </table>
+  <p>The third profile shows the economic redundancy cap at work: with more than €25,000 above the minimum, the deferral would stop at {v.dsMax} days for a dismissal on personal grounds, but an economic redundancy limits it to {v.dsMaxEco}. It is one of the few cases where the reason for the dismissal changes the benefit timeline; it never changes the amount.</p>
+
+  <h2>Living through the deferral</h2>
+  <p>The deferral is not a penalty. The scheme considers that money paid above the legal minimum already covers part of the time out of work, so that money has to fund those weeks. On a salary of {v.eur0(3200)}, a hundred days of deferral means more than three months without benefit: plan for it before you sign, not after. Registering straight away still matters. It opens access to support and funded training, and it starts the waiting period as soon as the deferrals end. Not registering “because nothing is paid yet” is the most common and most expensive mistake.</p>
+
+  <h2>Reading the France Travail decision</h2>
+  <p>The decision letter gives the date of prise en charge, your first paid day, along with the gross daily amount and the length of the claim. Deferrals are not always listed. If the date seems far off, compare it with the calculator: a gap nearly always comes from the employer certificate, where a settlement may have been declared in full or paid notice has moved the end date. Errors on the certificate are corrected by the employer, who sends an amended one through the monthly payroll declaration.</p>
+  <p>Benefit is then paid monthly, after your declaration, on a {v.jpm}-day basis. The first month is usually partial, since only the days after your first paid day count. For the amount of each payment, the <a href="/en/unemployment-benefit/">full ARE calculator</a> gives gross, deductions and net, and the <a href="/en/unemployment-benefit/eligibility/">eligibility page</a> explains how long you will be paid.</p>
+</ChomagePage>

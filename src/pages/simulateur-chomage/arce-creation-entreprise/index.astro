@@ -1,0 +1,56 @@
+---
+import ChomagePage from '../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../lib/are-txt';
+import { arce } from '../../../lib/are';
+const v = V.fr;
+const cas = [2200, 3200, 4500].map((s) => { const r = exemple(s, 42); const a = arce({ brute: r.brute, joursRestants: r.duree.jours }); return { s, r, a }; });
+const rc = exemple(3200, 42, 24, { motif: 'rupture_conventionnelle' });
+const arceRc = arce({ brute: rc.brute, joursRestants: rc.duree.jours });
+const faq = [
+  { q: 'Faut-il avoir obtenu l’ACRE pour demander l’ARCE ?', a: `Oui. L’Unédic exige de justifier de l’aide à la création ou à la reprise d’entreprise (ACRE), l’exonération de début d’activité accordée par l’Urssaf. Les micro-entrepreneurs doivent la demander expressément, et transmettre l’attestation à France Travail. Il faut aussi produire un extrait Kbis, une synthèse INPI ou un document équivalent, et ne pas bénéficier déjà du cumul de l’allocation avec une rémunération.` },
+  { q: 'Puis-je toucher l’ARCE si j’ai créé ma société pendant mon préavis ?', a: `Oui, si vous avez seulement entamé les démarches pendant le préavis, le congé de reclassement ou de mobilité, et que la création intervient après la fin du contrat. En revanche, une entreprise déjà créée avant la fin du contrat de travail ferme l’accès à l’ARCE : il reste alors le cumul de l’allocation avec les revenus de l’activité non salariée, dans la limite de ${v.createur} du reliquat.` },
+  { q: 'Quand l’ARCE est-elle versée, et le second versement est-il garanti ?', a: `Le premier versement, la moitié du montant, intervient au début de l’activité, ou à l’ouverture des droits si elle est plus tardive, après les différés et le délai d’attente. Le second arrive ${v.arceDelai} mois plus tard, à condition d’exercer toujours l’activité et de ne pas occuper un CDI à temps plein. Depuis le 1er septembre 2026, les créateurs d’une Scop sont dispensés de cette dernière condition.` },
+  { q: 'Si mon entreprise échoue, puis-je retrouver mes allocations après l’ARCE ?', a: `Oui, en partie. Le capital correspond à ${v.arceTaux} du reliquat ; les 40 % restants ne sont pas perdus. Si l’activité cesse, vous pouvez reprendre le versement de l’allocation sur cette part, dans le délai de déchéance de vos droits, soit trois ans augmentés de leur durée. Vous retrouvez alors une allocation mensuelle calculée comme avant, mais sur un nombre de jours réduit.` },
+  { q: 'Un démissionnaire avec un projet de création validé peut-il demander l’ARCE ?', a: `Oui. Le salarié qui démissionne pour un projet de création ou de reprise d’entreprise reconnu réel et sérieux par la commission Transitions Pro est indemnisé dans les conditions de droit commun, ARCE comprise. Il doit donc lui aussi obtenir l’ACRE et justifier de l’immatriculation. Son reliquat se calcule sur la durée de droits ouverte par ses ${v.projetJours} jours de travail continu, souvent le plafond de ${v.cap55} jours avant ${v.age55} ans.` },
+  { q: 'Vaut-il mieux prendre l’ARCE ou garder l’allocation mensuelle ?', a: `Le maintien est plus avantageux en montant total : vous percevez jusqu’à l’intégralité du reliquat tant que les revenus de l’entreprise restent faibles, dans la limite de ${v.createur} du reliquat consommés. L’ARCE convient quand le projet a besoin de trésorerie au démarrage, ou quand l’entreprise versera vite des revenus qui auraient fortement réduit l’allocation mensuelle. Le mini-simulateur montre les deux montants pour votre reliquat.` },
+];
+---
+<ChomagePage lang="fr" path="/simulateur-chomage/arce-creation-entreprise/" alt="/en/unemployment-benefit/arce-starting-a-business/"
+  title={`ARCE 2026 : capital pour créer, ${v.arceTaux} des droits au chômage`}
+  description={`ARCE 2026 : ${v.arceTaux} de vos droits restants versés en deux fois pour créer une entreprise, moins ${v.arceRet} de retraite. Simulez le capital et comparez au maintien.`}
+  h1="ARCE : transformer ses droits au chômage en capital pour créer"
+  lede="Un demandeur d’emploi qui crée ou reprend une entreprise peut toucher une partie de ses droits en capital plutôt qu’en allocations mensuelles. Combien, quand, et à quel prix."
+  crumb="ARCE et création d’entreprise"
+  citable={`L’aide à la reprise ou à la création d’entreprise (ARCE) verse en capital ${v.arceTaux} des droits à l’allocation chômage qui restent dus à la date de début de l’activité, c’est-à-dire l’allocation journalière brute multipliée par le nombre de jours restants, puis multipliée par ${v.n(0.6)}. On retranche ensuite ${v.arceRet} au titre de la participation aux retraites complémentaires. Le montant est payé en deux moitiés : la première au démarrage de l’activité, la seconde ${v.arceDelai} mois plus tard si l’activité continue et que le créateur n’occupe pas de CDI à temps plein. L’exemple de l’Unédic : 518 jours restants à 40 € donnent 12 432 €, puis 12 059 € après la retenue, soit deux versements d’environ 6 030 €. Il faut avoir obtenu l’ACRE, justifier de la création et ne pas cumuler déjà l’allocation avec une rémunération. Opter pour l’ARCE ferme le cumul mensuel ; les ${v.n(40, 0)} % non versés restent mobilisables si l’activité s’arrête.`}
+  faq={faq}
+  sources={['unedic_arce', 'sp_arce', 'unedic_cumul', 'unedic_sept']}>
+  <MiniSimAutonome slot="sim" client:visible kind="arce" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
+
+  <h2>Ce que vaut l’ARCE pour trois salaires</h2>
+  <p>Le tableau suppose un créateur de 42 ans, licencié après deux ans de travail continu, qui lance son activité dès l’ouverture de ses droits, donc avec un reliquat complet de {v.cap55} jours. Il est calculé par le moteur du simulateur à partir de l’allocation journalière de chacun.</p>
+  <table>
+    <thead><tr><th scope="col" class="n">Ancien salaire brut</th><th scope="col" class="n">ARE brute / jour</th><th scope="col" class="n">Reliquat en euros</th><th scope="col" class="n">ARCE nette</th><th scope="col" class="n">Chaque versement</th></tr></thead>
+    <tbody>
+      {cas.map(({ s, r, a }) => <tr><td class="n">{v.eur0(s)}</td><td class="n">{v.eur0(r.brute)}</td><td class="n">{v.eur0(a.reliquat)}</td><td class="n">{v.eur0(a.net)}</td><td class="n">{v.eur0(a.versement)}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Chaque mois d’indemnisation consommé avant la création réduit le reliquat, donc le capital. Un créateur qui attend six mois avant d’immatriculer son entreprise perd ainsi environ un tiers de son ARCE potentielle. À l’inverse, créer dès le premier jour donne le capital maximal, mais seulement après les différés et le délai d’attente, qui conditionnent aussi le premier versement de l’ARCE.</p>
+
+  <h2>Après une rupture conventionnelle, un capital plus faible</h2>
+  <p>Beaucoup de projets de création naissent d’une rupture conventionnelle. Depuis le 1er septembre 2026, ce mode de rupture plafonne la durée des droits à {v.rc55} jours avant {v.age55} ans, et le reliquat sur lequel se calcule l’ARCE baisse d’autant. Pour un ancien salaire de {v.eur0(3200)}, l’ARCE nette passe de {v.eur0(cas[1].a.net)} après un licenciement à {v.eur0(arceRc.net)} après une rupture conventionnelle, toutes choses égales par ailleurs. Ce n’est pas une raison de renoncer à la rupture conventionnelle, mais c’est un chiffre à mettre dans le plan de financement, et un argument dans la négociation de l’indemnité. La page <a href="/simulateur-chomage/rupture-conventionnelle/">chômage et rupture conventionnelle</a> détaille le plafond.</p>
+
+  <h2>ARCE ou maintien de l’allocation : la vraie comparaison</h2>
+  <p>L’autre option consiste à garder l’allocation mensuelle et à la cumuler avec les revenus de l’entreprise. France Travail retire chaque mois {v.cumulTaux} des rémunérations déclarées aux assurances sociales ; pour un micro-entrepreneur, du chiffre d’affaires après abattement forfaitaire. Les premiers mois d’une entreprise dégagent rarement un revenu : l’allocation est alors versée presque entière. Le maintien cesse quand {v.createur} du reliquat existant à la création ont été consommés, avec une possibilité de prolongation exceptionnelle devant l’instance paritaire si l’activité ne dégage aucun revenu, dividendes compris.</p>
+  <p>Le maintien rapporte donc davantage en total, jusqu’à la totalité des droits restants. L’ARCE rapporte moins, ce qui reste de l’ancien régime d’allocation, mais tout de suite : c’est un apport en fonds propres qui peut débloquer un prêt bancaire, financer un stock ou un local. Le bon choix dépend du besoin de trésorerie au démarrage et du revenu que l’entreprise versera à son dirigeant dès la première année. Une SAS dont le président ne se rémunère pas laisse l’allocation intacte ; une entreprise individuelle rentable dès le départ la réduit fortement.</p>
+
+  <h2>Les démarches, dans l’ordre</h2>
+  <ol>
+    <li>S’inscrire à France Travail et faire ouvrir ses droits : l’ARCE se calcule sur un droit ouvert.</li>
+    <li>Demander l’ACRE à l’Urssaf lors de la création, et conserver l’attestation.</li>
+    <li>Immatriculer l’entreprise et obtenir l’extrait Kbis, la synthèse INPI ou le document du guichet unique.</li>
+    <li>Déposer la demande d’ARCE auprès de France Travail avec ces justificatifs ; le premier versement suit le début d’activité.</li>
+    <li>Six mois plus tard, attester sur l’honneur que l’activité continue et que vous n’occupez pas de CDI à temps plein, pour obtenir le second versement.</li>
+  </ol>
+  <p class="encadre">Pour connaître votre allocation journalière et la durée de vos droits, qui fixent le montant de l’ARCE, commencez par le <a href="/simulateur-chomage/">simulateur chômage</a>.</p>
+</ChomagePage>

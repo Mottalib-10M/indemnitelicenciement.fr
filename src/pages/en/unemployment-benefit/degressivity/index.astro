@@ -1,0 +1,50 @@
+---
+import ChomagePage from '../../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../../lib/are-txt';
+import { PA } from '../../../../lib/are';
+const v = V.en;
+const lignes = [4500, 5500, 6500, 8000, 12000, 16020].map((s) => ({ s, r: exemple(s, 45) }));
+const pleine = v.eur0(PA.are.degressivity.floor_daily / (1 - PA.are.degressivity.reduction));
+const faq = [
+  { q: 'At what salary does French unemployment benefit become degressive?', a: `Degressivity targets a gross daily benefit above ${v.degPlancher}, which corresponds to former pay of about ${v.seuilDeg} gross a month. Below that, nothing changes in month seven. Above it, benefit falls by ${v.degTaux} but never below ${v.degPlancher} a day, so salaries just above the threshold only lose a few euros a day.` },
+  { q: 'I will turn 55 during my claim. Am I exempt?', a: `No. Age is taken on the date your employment contract ends. Someone aged 54 when the contract ends is subject to degressivity even if they turn 55 in the third month of the claim. For contracts that ended, or dismissals started, before 1 April 2025, the exemption age was 57; it is ${v.degAge} for every later contract end.` },
+  { q: 'Can training postpone the month-seven cut?', a: `Yes. Training written into your engagement contract with France Travail, or paid at least partly from your personal training account (CPF), pauses the count. Unédic’s example: a one-month course taken between the third and fourth month moves the cut to month eight. Days paid as training benefit (ARE formation) do not count towards the six months.` },
+  { q: 'Does degressivity also shorten my claim?', a: `No. It lowers the daily amount from day ${v.degJour} of payment, but the number of days stays as notified. That is the difference with the mutual termination cap, which shortens the claim without touching the amount. The total you receive over the claim goes down, but you stay covered for as long.` },
+  { q: 'Do the social deductions fall when the benefit drops?', a: `Partly. CSG and CRDS are charged on the gross benefit, so they fall with it. The ${v.ret} supplementary pension contribution is based on the daily reference wage, which does not change, so it stays the same after the cut. The net loss is therefore slightly smaller than the gross loss, as the calculator shows.` },
+  { q: 'Does degressivity apply after a legitimate resignation or a fixed-term contract?', a: `Yes. It does not depend on how the job ended but on three tests: a daily benefit above ${v.degPlancher}, being under ${v.degAge} when the contract ends, and a claim of at least ${v.degJour} days. A shorter claim, after eight months of work for instance, ends before month seven and is never reduced, whatever the salary.` },
+];
+---
+<ChomagePage lang="en" path="/en/unemployment-benefit/degressivity/" alt="/simulateur-chomage/degressivite/"
+  title={`ARE Degressivity France 2026: ${v.degTaux} Cut From the Seventh Month`}
+  description={`French unemployment benefit degressivity in 2026: a ${v.degTaux} cut from month 7 above ${v.degPlancher} a day, never below that floor, no cut from age ${v.degAge}. Check yours here.`}
+  h1="ARE degressivity: what high earners lose from month seven"
+  lede={`Above roughly ${v.seuilDeg} of former gross pay, French unemployment benefit drops by ${v.degTaux} from the seventh month. How much, for whom, and how to delay it.`}
+  crumb="Degressivity"
+  citable={`Degressivity cuts the daily French unemployment benefit by ${v.degTaux} from the seventh month of payment, that is from day ${v.degJour}, for claimants whose gross benefit is above ${v.degPlancher} a day, which corresponds to former pay of about ${v.seuilDeg} gross a month. The reduced benefit can never fall below that floor of ${v.degPlancher}, unchanged on 1 July 2026. People aged ${v.degAge} or over on the day their contract ends are exempt. Training written into the engagement contract or funded by the personal training account pauses the six-month count. The claim length does not change, only the amount. On former pay of ${v.eur0(lignes[2].s)}, net benefit goes from ${v.eur0(lignes[2].r.netteMensuelle)} to ${v.eur0(lignes[2].r.netteMensuelleApres)} a month. For most claimants, whose benefit stays below the floor, the rule simply never applies.`}
+  faq={faq}
+  sources={['unedic_are', 'unedic_revalo', 'sp_are', 'unedic_retenues']}>
+  <MiniSimAutonome slot="sim" client:visible kind="degressivite" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+
+  <h2>How the cut works</h2>
+  <p>France Travail first works out the normal benefit: {v.flat} of the daily reference wage at these salary levels, since the {v.var} plus fixed-part formula stops being the better one above {v.bascule} a month. For the first {Number(v.degJour) - 1} paid days, that amount is paid in full. From day {v.degJour}, it is multiplied by {v.n(0.7)}, but raised back to the {v.degPlancher} floor if it falls below. There are three zones: under the floor, no cut; just above it, a cut limited to the gap with the floor; above about {pleine} a day, the full {v.degTaux} cut.</p>
+  <table>
+    <thead><tr><th scope="col" class="n">Former gross pay</th><th scope="col" class="n">Gross / day</th><th scope="col" class="n">From month 7</th><th scope="col" class="n">Net / month before</th><th scope="col" class="n">Net / month after</th></tr></thead>
+    <tbody>
+      {lignes.map(({ s, r }) => <tr><td class="n">{v.eur0(s)}</td><td class="n">{v.eur0(r.brute)}</td><td class="n">{r.degressif ? v.eur0(r.bruteApres) : 'unchanged'}</td><td class="n">{v.eur0(r.netteMensuelle)}</td><td class="n">{v.eur0(r.netteMensuelleApres)}</td></tr>)}
+    </tbody>
+  </table>
+  <p>The last row is the highest salary taken into account, four times the social security ceiling, {v.plafondSalaire} a month: above it, benefit stops rising. The table is computed for a 45-year-old with a full {v.cap55}-day claim.</p>
+
+  <h2>Who escapes it</h2>
+  <p>Three groups are never affected. Claimants aged {v.degAge} or over when the contract ends, under the agreement applied since 1 April 2025 (the age used to be 57). Those whose benefit does not exceed {v.degPlancher}, the vast majority of jobseekers. And those whose claim is too short to reach month seven. For a 54-year-old executive, the contract end date therefore matters: a few extra weeks of notice that take them to {v.degAge} spare them the cut for the whole claim, and lift the maximum length to {v.cap5556} days.</p>
+
+  <h2>Delaying the cut through training</h2>
+  <p>The six-month count stops during training written into the engagement contract signed with France Travail, or paid at least partly from the personal training account. One month of training pushes the cut back one month. On former pay of {v.eur0(8000)}, each month gained is worth the difference between the two net columns above, several hundred euros. It is a concrete reason to set up a training plan early, especially as experienced executives often have a well-funded training account.</p>
+
+  <h2>Degressivity and your severance</h2>
+  <p>High earners also tend to negotiate the largest payouts, and so the longest specific deferrals. The two effects add up: an executive who receives €30,000 above the legal minimum waits {v.dsMax} days before the first payment, then sees the benefit fall six months later. The <a href="/en/unemployment-benefit/">ARE calculator</a> shows both on one screen, and <a href="/en/unemployment-benefit/after-dismissal/">benefit after a dismissal</a> explains how the deferral is worked out from your severance.</p>
+  <h2>Checking the cut on your payment notices</h2>
+  <p>France Travail does not send a separate letter when degressivity starts. The change shows on the monthly payment statement in your online account: the gross daily amount drops on the first day of the seventh paid month, and the deductions are recalculated on the new figure. If the date seems early, count the paid days rather than calendar months: deferrals, the waiting period and any days not paid because you worked do not count, while training days pause the clock. A cut that starts before day {v.degJour} of payment, or that takes the gross benefit below {v.degPlancher}, is an error worth raising with your adviser, with the statement in hand.</p>
+  <p class="encadre">In short: degressivity only touches the amount, never the length, and only above {v.degPlancher} a day before age {v.degAge}. For most claimants it does not exist.</p>
+</ChomagePage>

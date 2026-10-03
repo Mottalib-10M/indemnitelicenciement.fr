@@ -1,0 +1,47 @@
+---
+import ChomagePage from '../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../lib/are-txt';
+import { PA } from '../../../lib/are';
+const v = V.fr;
+const lignes = [4500, 5500, 6500, 8000, 12000, 16020].map((s) => ({ s, r: exemple(s, 45) }));
+const faq = [
+  { q: 'À partir de quel salaire l’allocation chômage est-elle dégressive ?', a: `La dégressivité vise une allocation journalière supérieure à ${v.degPlancher}, ce qui correspond à un ancien salaire d’environ ${v.seuilDeg} brut par mois. En dessous, rien ne change au septième mois. Au-dessus, l’allocation baisse de ${v.degTaux} sans descendre sous ${v.degPlancher} par jour, si bien que les salaires juste au-dessus du seuil ne perdent que quelques euros par jour.` },
+  { q: 'J’aurai 55 ans pendant mon indemnisation : suis-je exonéré ?', a: `Non, l’âge s’apprécie à la date de fin du contrat de travail. Une personne qui a 54 ans à la fin de son contrat subit la dégressivité, même si elle fête ses 55 ans au troisième mois d’indemnisation. Pour une fin de contrat ou une procédure de licenciement engagée avant le 1er avril 2025, l’âge d’exonération était de 57 ans ; il est de ${v.degAge} ans pour toutes les fins de contrat postérieures.` },
+  { q: 'Une formation repousse-t-elle la baisse du septième mois ?', a: `Oui. Une formation inscrite dans le contrat d’engagement ou financée au moins en partie par le compte personnel de formation suspend le compteur. L’Unédic donne l’exemple d’une formation d’un mois suivie entre le troisième et le quatrième mois : la baisse s’applique au huitième mois au lieu du septième. Les jours de formation indemnisés en ARE formation ne comptent pas dans les six mois.` },
+  { q: 'La dégressivité réduit-elle aussi la durée de mes droits ?', a: `Non. Elle baisse le montant journalier à partir du ${v.degJour}e jour indemnisé, mais le nombre de jours de droits reste celui de la notification. C’est la différence avec le plafond de la rupture conventionnelle, qui raccourcit la durée sans toucher au montant. Le total perçu sur l’ensemble des droits baisse donc, mais vous restez couvert aussi longtemps.` },
+  { q: 'Les retenues sociales diminuent-elles quand l’allocation baisse ?', a: `En partie. La CSG et la CRDS se calculent sur l’allocation brute : elles baissent avec elle. La participation de ${v.ret} pour la retraite complémentaire, elle, reste calculée sur le salaire journalier de référence, qui ne change pas : elle reste identique après la baisse. La perte nette est donc un peu inférieure à la perte brute, comme le montre la ligne du mini-simulateur.` },
+  { q: 'La dégressivité s’applique-t-elle après une démission légitime ou une fin de CDD ?', a: `Oui. Elle ne dépend pas du motif de la fin du contrat mais de trois critères : une allocation supérieure à ${v.degPlancher}, un âge inférieur à ${v.degAge} ans à la fin du contrat, et un droit d’au moins ${v.degJour} jours. Un droit plus court, par exemple après huit mois de travail, s’arrête avant le septième mois et n’est jamais réduit, quel que soit le salaire.` },
+];
+---
+<ChomagePage lang="fr" path="/simulateur-chomage/degressivite/" alt="/en/unemployment-benefit/degressivity/"
+  title={`Dégressivité ARE 2026 : −${v.degTaux} au 7e mois, plancher ${v.degPlancher}`}
+  description={`Dégressivité de l’allocation chômage en 2026 : baisse de ${v.degTaux} au 7e mois au-dessus de ${v.degPlancher} par jour, sans passer sous ce plancher, exonération dès ${v.degAge} ans.`}
+  h1="Dégressivité de l’ARE : ce que perdent les hauts salaires au septième mois"
+  lede={`Au-delà d’environ ${v.seuilDeg} brut de salaire, l’allocation chômage baisse de ${v.degTaux} à partir du septième mois. Voici de combien, pour qui, et comment la repousser.`}
+  crumb="Dégressivité"
+  citable={`La dégressivité réduit de ${v.degTaux} l’allocation chômage journalière à partir du septième mois d’indemnisation, c’est-à-dire du ${v.degJour}e jour indemnisé, pour les allocataires dont l’allocation brute dépasse ${v.degPlancher} par jour, ce qui correspond à un ancien salaire d’environ ${v.seuilDeg} brut par mois. L’allocation réduite ne peut jamais descendre sous ce plancher de ${v.degPlancher}, inchangé au 1er juillet 2026. Les personnes âgées de ${v.degAge} ans ou plus à la date de fin du contrat de travail en sont exonérées. Une formation inscrite au contrat d’engagement ou financée par le compte personnel de formation suspend le compteur des six mois. La durée des droits ne change pas : seul le montant baisse. Pour un ancien salaire de ${v.eur0(lignes[2].s)}, l’allocation nette passe de ${v.eur0(lignes[2].r.netteMensuelle)} à ${v.eur0(lignes[2].r.netteMensuelleApres)} par mois.`}
+  faq={faq}
+  sources={['unedic_are', 'unedic_revalo', 'sp_are', 'unedic_retenues']}>
+  <MiniSimAutonome slot="sim" client:visible kind="degressivite" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
+
+  <h2>Le mécanisme exact</h2>
+  <p>France Travail calcule d’abord l’allocation normale : {v.flat} du salaire journalier de référence pour ces niveaux de salaire, puisque la formule à {v.var} plus la partie fixe n’est plus la plus favorable au-delà de {v.bascule} par mois. Pendant les {Number(v.degJour) - 1} premiers jours indemnisés, ce montant est versé en entier. À partir du {v.degJour}e jour, il est multiplié par {v.n(0.7)}, mais le résultat est relevé au plancher de {v.degPlancher} s’il tombe en dessous. Il y a donc trois zones : sous le plancher, aucune baisse ; juste au-dessus, une baisse limitée à l’écart avec le plancher ; au-delà d’environ {v.eur0(PA.are.degressivity.floor_daily / (1 - PA.are.degressivity.reduction))} par jour, la baisse pleine de {v.degTaux}.</p>
+  <table>
+    <thead><tr><th scope="col" class="n">Ancien salaire brut</th><th scope="col" class="n">ARE brute / jour</th><th scope="col" class="n">Dès le 7e mois</th><th scope="col" class="n">Nette / mois avant</th><th scope="col" class="n">Nette / mois après</th></tr></thead>
+    <tbody>
+      {lignes.map(({ s, r }) => <tr><td class="n">{v.eur0(s)}</td><td class="n">{v.eur0(r.brute)}</td><td class="n">{r.degressif ? v.eur0(r.bruteApres) : 'inchangée'}</td><td class="n">{v.eur0(r.netteMensuelle)}</td><td class="n">{v.eur0(r.netteMensuelleApres)}</td></tr>)}
+    </tbody>
+  </table>
+  <p>La dernière ligne correspond au salaire maximal pris en compte, quatre plafonds de la Sécurité sociale, soit {v.plafondSalaire} par mois : au-delà, l’allocation n’augmente plus. Le tableau est calculé par le moteur du simulateur pour un allocataire de 45 ans avec un droit complet de {v.cap55} jours.</p>
+
+  <h2>Qui y échappe</h2>
+  <p>Trois profils ne sont jamais concernés. Les allocataires de {v.degAge} ans et plus à la fin du contrat, depuis la convention appliquée au 1er avril 2025 (l’âge était de 57 ans auparavant). Ceux dont l’allocation ne dépasse pas {v.degPlancher}, c’est-à-dire la grande majorité des demandeurs d’emploi. Et ceux dont le droit est trop court pour atteindre le septième mois. Pour un cadre de 54 ans, la date de fin du contrat devient ainsi un enjeu : quelques semaines de préavis supplémentaires qui le font passer à {v.degAge} ans lui épargnent la baisse sur toute la durée de ses droits, en plus d’allonger sa durée maximale à {v.cap5556} jours.</p>
+
+  <h2>Repousser la baisse par la formation</h2>
+  <p>Le compteur des six mois est suspendu pendant les formations inscrites dans le contrat d’engagement signé avec France Travail, ou financées au moins en partie par le compte personnel de formation. Un mois de formation repousse donc la baisse d’un mois. Pour un ancien salaire de {v.eur0(8000)}, chaque mois gagné vaut la différence entre les deux colonnes nettes du tableau, soit plusieurs centaines d’euros. C’est un argument concret pour monter tôt un projet de formation, d’autant que le compte personnel de formation d’un cadre expérimenté est souvent bien garni.</p>
+
+  <h2>Dégressivité et indemnité de départ</h2>
+  <p>Les hauts salaires sont aussi ceux qui négocient les indemnités les plus élevées, et donc les plus longs différés spécifiques. Les deux effets s’additionnent : un cadre qui touche 30 000 € au-delà du minimum légal attend {v.dsMax} jours avant son premier versement, puis voit son allocation baisser six mois plus tard. Le <a href="/simulateur-chomage/">simulateur chômage</a> montre les deux sur le même écran, et la page <a href="/simulateur-chomage/apres-licenciement/">chômage après un licenciement</a> détaille le calcul du différé à partir de l’indemnité.</p>
+  <p class="encadre">À retenir : la dégressivité ne touche que le montant, jamais la durée, et ne joue qu’au-dessus de {v.degPlancher} par jour avant {v.degAge} ans. Pour la plupart des allocataires, elle n’existe pas.</p>
+</ChomagePage>

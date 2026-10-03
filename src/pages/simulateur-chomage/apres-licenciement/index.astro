@@ -1,0 +1,63 @@
+---
+import ChomagePage from '../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../lib/are-txt';
+import { calculateIndemniteLegale, calculateCongesPayes } from '../../../lib/engine';
+const v = V.fr;
+// Trois profils, calculés par les moteurs du site : indemnité légale, ICCP au dixième, différés.
+const profils = [
+  { nom: 'Ouvrière, 4 ans, indemnité légale seule', s: 2100, a: 4, ind: 0, cp: 12, eco: false },
+  { nom: 'Technicien, 9 ans, 6 000 € de plus que le légal', s: 3200, a: 9, ind: calculateIndemniteLegale(3200, 9, 0) + 6000, cp: 8, eco: false },
+  { nom: 'Cadre, 15 ans, licenciement économique, 40 000 €', s: 5200, a: 15, ind: 40000, cp: 20, eco: true },
+].map((p) => {
+  const lg = calculateIndemniteLegale(p.s, p.a, 0); const supra = Math.max(0, (p.ind || lg) - lg); const iccp = calculateCongesPayes(p.s * 12, p.cp);
+  const r = exemple(p.s, 45, 24, { motif: p.eco ? 'economique' : 'licenciement', supraLegal: supra, iccp });
+  return { ...p, lg, supra, iccp, r };
+});
+const faq = [
+  { q: 'Je suis licencié, à partir de quand puis-je m’inscrire à France Travail ?', a: `Dès le lendemain de la fin du contrat, c’est-à-dire du dernier jour de préavis, exécuté ou non. L’inscription en ligne prend une vingtaine de minutes, et vous avez ${v.inscription} mois pour la faire. Mais chaque jour de retard après l’expiration des différés décale d’autant le premier paiement, puisque le délai d’attente de ${v.attente} jours ne part qu’à compter de l’inscription. Rien n’est versé pour la période qui la précède.` },
+  { q: 'Le préavis non effectué mais payé retarde-t-il le chômage ?', a: `Oui, d’une autre façon que les différés : quand l’employeur vous dispense de préavis et vous le paie, le contrat ne prend fin qu’au terme de ce préavis. L’indemnité compensatrice de préavis n’entre pas dans le calcul du différé spécifique, mais la date de fin de contrat, et donc le point de départ de tous les délais, recule d’un ou deux mois selon votre ancienneté.` },
+  { q: 'Une indemnité conventionnelle plus élevée que l’indemnité légale crée-t-elle un différé ?', a: `Oui. Le différé spécifique porte sur tout ce qui dépasse le minimum fixé par la loi, y compris quand la convention collective prévoit davantage. Une indemnité conventionnelle de 15 000 € pour une indemnité légale de 9 000 € laisse 6 000 € à diviser par ${v.div}, soit 53 jours. Seules les sommes fixées par un juge, en cas de licenciement sans cause réelle et sérieuse, sont exclues du calcul.` },
+  { q: 'Combien de jours de différé pour mes congés payés non pris ?', a: `On divise l’indemnité compensatrice de congés payés par votre salaire journalier de référence et on garde l’entier inférieur, sans dépasser ${v.dcMax} jours. Dix jours ouvrables de congés pour un salaire de 2 500 € représentent environ 1 000 € par la méthode du dixième ; divisés par un SJR de 82 €, ils décalent le versement de 12 jours. Toutes les indemnités de congés des contrats terminés dans les six derniers mois s’additionnent.` },
+  { q: 'Licencié pour faute grave, ai-je quand même droit au chômage ?', a: `Oui. La faute grave ou lourde prive de l’indemnité de licenciement et du préavis, pas de l’allocation : le licenciement reste une perte involontaire d’emploi, quel qu’en soit le motif. Sans indemnité, il n’y a pas de différé spécifique ; seuls le différé congés payés et le délai d’attente de ${v.attente} jours s’appliquent. Le premier versement arrive donc plus tôt que pour un licenciement négocié.` },
+  { q: 'Si je retrouve un emploi pendant le différé, est-ce que je perds mes droits ?', a: `Non. Les différés ne consomment aucun jour de droits : ils repoussent le point de départ. Si vous reprenez un emploi avant la fin du différé, vos droits restent acquis pendant trois ans plus leur durée, et vous pourrez les reprendre à la fin du nouveau contrat. Le délai d’attente, lui, ne s’applique qu’une fois par période de douze mois.` },
+  { q: 'Le contrat de sécurisation professionnelle supprime-t-il ces délais ?', a: `Pour un licenciement économique, accepter le contrat de sécurisation professionnelle remplace l’ARE par l’allocation de sécurisation professionnelle, qui n’est soumise ni au différé congés payés ni au différé spécifique, selon les fiches de l’Unédic. Le salarié renonce en contrepartie à son préavis. Ce simulateur ne calcule pas cette allocation, dont le montant suit des règles distinctes de celles de l’ARE.` },
+];
+---
+<ChomagePage lang="fr" path="/simulateur-chomage/apres-licenciement/" alt="/en/unemployment-benefit/after-dismissal/"
+  title="Chômage après licenciement 2026 : date du 1er versement ARE"
+  description="Chômage après un licenciement : différé spécifique calculé depuis votre indemnité, différé congés payés et 7 jours d’attente. Votre premier versement ARE daté."
+  h1="Chômage après un licenciement : quand arrive le premier versement"
+  lede="Votre indemnité de licenciement ne réduit pas l’allocation, mais elle peut en repousser le début de plusieurs mois. Voici le calendrier exact, jour par jour."
+  crumb="Après un licenciement"
+  citable={`Après un licenciement, l’allocation chômage commence au plus tôt le lendemain de la fin du contrat, mais trois délais s’intercalent et se cumulent. Le différé spécifique correspond à la part de l’indemnité qui dépasse le minimum légal, divisée par ${v.div} : un supplément de 5 000 € décale le premier versement de 44 jours, dans la limite de ${v.dsMax} jours, ou ${v.dsMaxEco} en licenciement économique. Le différé congés payés vaut l’indemnité de congés non pris divisée par le salaire journalier de référence, plafonné à ${v.dcMax} jours. Le délai d’attente de ${v.attente} jours suit les deux, ou part de la date d’inscription si elle est plus tardive. Ces délais ne retirent aucun jour de droits : ils décalent le calendrier sans toucher au capital d’allocation. Une indemnité strictement légale, ou un licenciement pour faute grave sans indemnité, ne crée aucun différé spécifique.`}
+  faq={faq}
+  sources={['unedic_differe', 'unedic_cp', 'unedic_are', 'sp_are', 'unedic_sjr']}>
+  <MiniSimAutonome slot="sim" client:visible kind="apresLicenciement" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
+
+  <h2>Les trois délais, dans l’ordre où ils courent</h2>
+  <p>Le point de départ est la fin du contrat de travail, c’est-à-dire le dernier jour du préavis, qu’il ait été travaillé ou payé sans être effectué. Le lendemain, deux horloges peuvent démarrer à la suite l’une de l’autre. D’abord le <strong>différé spécifique</strong>, si votre indemnité dépasse le minimum légal. Ensuite le <strong>différé congés payés</strong>, si l’employeur vous a versé une indemnité pour des congés non pris. Enfin le <strong>délai d’attente</strong> de {v.attente} jours, qui commence à l’expiration des différés si vous êtes déjà inscrit, ou le jour de votre inscription si vous vous êtes inscrit après.</p>
+  <p>Les exemples officiels de l’Unédic montrent le mécanisme mieux qu’une règle. Nadia finit son contrat le 1er novembre, perçoit 1 372 € au-delà du minimum légal, soit 12 jours de différé, et s’inscrit le 10 novembre : elle est indemnisée à partir du 20 novembre. Julien, dans la même situation, ne s’inscrit que le 1er décembre, après l’expiration de son différé : il attend le 8 décembre. Les trois semaines de retard de Julien ne lui rapportent rien ; elles lui coûtent une vingtaine de jours d’allocation repoussés.</p>
+
+  <h2>Calculer la part supra-légale sans se tromper</h2>
+  <p>La part qui déclenche le différé spécifique n’est pas écrite sur le solde de tout compte. Celui-ci mentionne une « indemnité de licenciement » ou une « indemnité transactionnelle », et c’est à vous de retrancher le minimum légal. Ce minimum se calcule sur le salaire de référence le plus favorable entre la moyenne des douze derniers mois et celle des trois derniers, à raison d’un quart de mois par année d’ancienneté jusqu’à dix ans, puis d’un tiers au-delà. Le <a href="/">calculateur d’indemnité de licenciement</a> du site le fait à partir des mêmes données, et le mini-simulateur ci-dessus le reprend automatiquement.</p>
+  <p>Trois sommes ne comptent pas dans la part supra-légale : l’indemnité compensatrice de préavis, qui remplace un salaire ; l’indemnité de congés payés, qui a son propre différé ; et les dommages-intérêts fixés par le conseil de prud’hommes pour licenciement sans cause réelle et sérieuse. En revanche, une indemnité transactionnelle signée après le licenciement compte, comme l’excédent d’une indemnité conventionnelle sur l’indemnité légale. Beaucoup de salariés l’ignorent et découvrent le différé à la notification.</p>
+
+  <h2>Trois profils, trois calendriers</h2>
+  <p>Le tableau ci-dessous est produit par les moteurs du site, avec un salarié de 45 ans qui a travaillé les 24 derniers mois et qui s’inscrit le lendemain de la fin du contrat. Les congés payés non pris sont convertis en indemnité par la méthode du dixième.</p>
+  <table>
+    <thead><tr><th scope="col">Profil</th><th scope="col" class="n">Indemnité légale</th><th scope="col" class="n">Part supra-légale</th><th scope="col" class="n">Différé spécifique</th><th scope="col" class="n">Différé congés</th><th scope="col" class="n">Premier jour payé</th></tr></thead>
+    <tbody>
+      {profils.map((p) => <tr><td>{p.nom}</td><td class="n">{v.eur0(p.lg)}</td><td class="n">{v.eur0(p.supra)}</td><td class="n">{p.r.differeSpecifique} j</td><td class="n">{p.r.differeConges} j</td><td class="n">J + {p.r.premierJour}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Le troisième profil montre l’effet du plafond économique : avec plus de 25 000 € au-delà du légal, le différé s’arrêterait à {v.dsMax} jours pour un motif personnel ; le licenciement économique le borne à {v.dsMaxEco}. C’est l’un des rares cas où le motif du licenciement change le calendrier de l’allocation, alors qu’il ne change jamais son montant.</p>
+
+  <h2>Pendant le différé : de quoi vivre, et ce qu’il ne faut pas faire</h2>
+  <p>Le différé n’est pas une sanction : l’assurance chômage considère que l’indemnité supra-légale couvre déjà une partie de la période sans emploi. En pratique, cela veut dire que la somme touchée au départ doit financer ces semaines. Avec un salaire de {v.eur0(3200)}, cent jours de différé représentent plus de trois mois sans allocation : c’est une dépense à prévoir avant de signer, pas après.</p>
+  <p>Pendant ce temps, l’inscription reste utile. Elle ouvre l’accompagnement, la possibilité de construire un projet de formation financé, et elle fait courir le délai d’attente dès la fin des différés. Ne pas s’inscrire « puisqu’on ne touche rien » est la faute la plus fréquente : elle allonge l’attente de la date d’inscription jusqu’au premier paiement. Si vous retrouvez un emploi entre-temps, déclarez-le : vos droits ne sont pas consommés et restent mobilisables à la fin du nouveau contrat.</p>
+
+  <h2>Le calendrier dans le dossier de France Travail</h2>
+  <p>La notification d’ouverture de droits indique la date de « prise en charge », c’est-à-dire le premier jour indemnisé, ainsi que le montant journalier brut et la durée. Les différés n’y figurent pas toujours en clair. Si la date vous paraît lointaine, comparez-la au résultat du mini-simulateur : un écart vient presque toujours de l’attestation employeur, où une indemnité transactionnelle peut avoir été déclarée en entier, ou où un préavis payé a déplacé la date de fin du contrat. Une erreur de l’attestation se corrige par l’employeur, qui transmet une attestation rectificative par la déclaration sociale nominative.</p>
+  <p>L’allocation est ensuite versée chaque mois, après l’actualisation, sur une base de {v.jpm} jours. Le premier mois est donc souvent incomplet : seuls les jours postérieurs à la prise en charge sont payés. Pour le montant de chaque versement, le <a href="/simulateur-chomage/">simulateur chômage complet</a> donne le brut, les retenues et le net, et la page <a href="/simulateur-chomage/droits-au-chomage/">droits au chômage</a> détaille la durée selon votre âge et vos mois travaillés.</p>
+</ChomagePage>

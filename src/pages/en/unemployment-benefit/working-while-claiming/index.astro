@@ -1,0 +1,50 @@
+---
+import ChomagePage from '../../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../../components/calc/MiniSimAutonome';
+import { V, exemple } from '../../../../lib/are-txt';
+import { cumul } from '../../../../lib/are';
+const v = V.en;
+const base = exemple(3000);
+const paliers = [500, 1000, 1500, 2000, 2500, 3000].map((n) => ({ n, c: cumul({ brute: base.brute, sjr: base.sjr, salaireActivite: n }) }));
+const faq = [
+  { q: 'Do I have to declare a few hours of work while on ARE?', a: `Yes. Any work is declared in your monthly actualisation, even a few hours, with the gross pay received. France Travail takes ${v.cumulTaux} of that gross pay off your monthly benefit and turns the rest into paid days. Undeclared work can mean repaying benefit and being removed from the register. Declared work costs you nothing: the unpaid days extend your claim.` },
+  { q: 'Is there a time limit on combining benefit and a salary?', a: `No, not since 2014: you can combine them for the whole length of your claim, however many hours you work and whether the job is fixed-term or part-time permanent. The only limit is monthly: salary and benefit together cannot exceed your former salary, worked out as your daily reference wage times ${v.cumulJours}.` },
+  { q: 'Are the unpaid days really given back later?', a: `Yes. Your entitlement is counted in days, and each month only the days actually paid are deducted. If you work and receive ten days of benefit out of thirty, the other twenty stay in your total and move your end date back. When the claim runs out, a recharge can open a new one if you have worked at least ${v.aff} days since it began.` },
+  { q: 'How does it work for a micro-entrepreneur?', a: `France Travail takes your declared turnover minus the flat-rate allowance for expenses: 71% for buying and selling goods, 50% for other trade and craft activities, 34% for professional services, with a minimum of €305. It then deducts ${v.cumulTaux} of that income from your monthly benefit. For business creators, the combination stops once ${v.createur} of the entitlement left at the start of the business has been used.` },
+  { q: 'My new employer pays me the following month. What do I declare?', a: `Declare the work and the expected pay in your actualisation, then send the pay slip as soon as you receive it. If the pay is not yet documented, France Travail pays an advance based on ${v.n(0.8, 1)} times the payable days and settles the difference once the slip arrives. Self-employed claimants whose income is unknown receive a provisional amount settled each year on declared income.` },
+  { q: 'Is a lower-paid full-time job worth taking?', a: `Usually. With former pay of ${v.eur0(3000)} and a new job at ${v.eur0(2000)}, the benefit paid falls to ${v.eur0(paliers[3].c.verse)} a month, but total gross income reaches ${v.eur0(paliers[3].c.total)}, against ${v.eur0(base.bruteMensuelle)} without working. The ${paliers[3].c.joursReportes} unpaid days each month are added to the end of your claim, ready if the new job stops.` },
+];
+---
+<ChomagePage lang="en" path="/en/unemployment-benefit/working-while-claiming/" alt="/simulateur-chomage/cumul-are-salaire/"
+  title="Working While on ARE in France 2026: Benefit and Carry-Over"
+  description={`Working while on unemployment benefit in France: ARE falls by ${v.cumulTaux} of gross pay, never above your old salary, and unpaid days are carried over. Calculator.`}
+  h1="Working while claiming ARE: what you receive when you take a job"
+  lede="Taking work while unemployed in France does not cost you your benefit: it shrinks, and what is not paid is carried forward. The calculation is made each month, to the day."
+  crumb="Working while claiming"
+  citable={`When a claimant takes paid work in France, France Travail takes ${v.cumulTaux} of the gross pay from that work off the monthly benefit they would have received without working, then divides the remainder by the daily benefit to get a number of paid days, rounded to the nearest whole day. The benefit paid is that number of days times the daily amount. Pay and benefit together cannot exceed the former salary, equal to the daily reference wage times ${v.cumulJours}. Unédic’s official example: a daily benefit of €57 and a new gross salary of €2,100 give 4 paid days and €228 of benefit; the 26 unpaid days are carried to the end of the claim. Combining is allowed for the whole claim, on fixed-term or permanent contracts, whatever the hours. It is often the cheapest way to get back into work.`}
+  faq={faq}
+  sources={['unedic_cumul', 'sp_are', 'unedic_are']}>
+  <MiniSimAutonome slot="sim" client:visible kind="cumul" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+
+  <h2>The monthly calculation</h2>
+  <p>Unédic’s formula fits on one line: payable days = (monthly benefit without work − {v.cumulTaux} of gross pay) ÷ daily benefit. Monthly benefit without work is the daily benefit times {v.jpm}. The result is rounded to the nearest whole number, then multiplied by the daily benefit. There is normally no carry-over from one month to the next: pay received in March only reduces March’s benefit.</p>
+  <p>Next comes the ceiling check. Salary plus benefit paid must not exceed the daily reference wage times {v.cumulJours}, which matches your former average monthly salary. If the total is higher, the ceiling sets the number of days. In practice it only matters when the new salary gets close to the old one.</p>
+
+  <h2>What a benefit of {v.eur0(base.bruteMensuelle)} becomes, by pay taken</h2>
+  <p>The table starts from former pay of {v.eur0(3000)} gross, a daily benefit of {v.eur0(base.brute)}. It is produced by the site’s engine with Unédic’s rounding rule and ceiling.</p>
+  <table>
+    <thead><tr><th scope="col" class="n">New gross pay</th><th scope="col" class="n">Paid days</th><th scope="col" class="n">Benefit paid</th><th scope="col" class="n">Gross total</th><th scope="col" class="n">Days carried over</th></tr></thead>
+    <tbody>
+      {paliers.map(({ n, c }) => <tr><td class="n">{v.eur0(n)}</td><td class="n">{c.jours}</td><td class="n">{v.eur0(c.verse)}</td><td class="n">{v.eur0(c.total)}</td><td class="n">{c.joursReportes}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Two points stand out. Total income always rises with the pay you take: each euro earned only removes {v.n(0.7)} euro of benefit, so there is no trap where working loses money. And once the new pay reaches about the monthly benefit divided by {v.n(0.7)}, no days are paid at all and your whole entitlement is kept for later. At {v.eur0(2500)} of new pay, the claimant receives no benefit, but keeps every day of the claim.</p>
+
+  <h2>Carrying days forward, the effect people forget</h2>
+  <p>Combining work and benefit has two horizons. Month by month, it tops up a lower salary. Over time, it stretches the claim: someone who takes a half-time job and uses only half their days each month sees the end date move back accordingly. For a claimant who leaves a dismissal with {v.cap55} days of entitlement, a year of part-time work can keep them covered well beyond eighteen months.</p>
+  <p>The rights stay available for three years plus their length. When they finally run out, the work done while claiming counts towards a recharged claim, provided it reaches {v.aff} days. That new claim is calculated on the pay from the new work, not from the job you lost.</p>
+
+  <h2>When combining does not apply</h2>
+  <p>People on the CSP redundancy contract cannot combine their allowance with a salary; other back-to-work aids apply. Performing arts workers follow their own rules. A claimant who chose <a href="/en/unemployment-benefit/arce-starting-a-business/">ARCE</a> to start a business has already received their rights as a lump sum and can no longer combine. And the right itself still rests on the last job lost involuntarily.</p>
+  <p class="encadre">The starting amount, the one combining reduces, comes from the <a href="/en/unemployment-benefit/">ARE calculator</a>; the <a href="/en/unemployment-benefit/eligibility/">eligibility page</a> tells you how many days carrying over can extend.</p>
+</ChomagePage>

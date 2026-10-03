@@ -1,0 +1,71 @@
+---
+import ChomagePage from '../../../components/are/ChomagePage.astro';
+import AreSimulator from '../../../components/are/AreSimulator';
+import { V, exemple } from '../../../lib/are-txt';
+import { calculateIndemniteLegale } from '../../../lib/engine';
+const v = V.en;
+const ex = [1800, 2500, 3500, 5000, 8000].map((s) => ({ s, r: exemple(s) }));
+const legal8 = calculateIndemniteLegale(3000, 8, 0);
+const cas = exemple(3000, 40, 24, { supraLegal: Math.max(0, 12000 - legal8), iccp: 1400 });
+const faq = [
+  { q: 'Can a foreign national get French unemployment benefit?', a: `Yes. ARE is an insurance benefit, not a residence-based one: what counts is having worked in France under a French employment contract, paid unemployment contributions, and being registered with France Travail while living in mainland France or an overseas department other than Mayotte. A non-EU national must also hold a residence permit that allows work. Nationality itself plays no part in the amount or the length of the claim.` },
+  { q: 'Is French unemployment benefit taxed?', a: `Yes. ARE counts as taxable income, like a salary, and France Travail deducts income tax at source at the rate the tax office sends it. Before that, ${v.ret} of your daily reference wage goes to the supplementary pension scheme, and CSG at ${v.csg} plus CRDS at ${v.crds} are taken on ${v.assiette} of the gross benefit once it reaches ${v.seuilCsg} a day. The calculator shows these deductions but not income tax, which depends on your household.` },
+  { q: 'I worked in another EU country before France. Do those months count?', a: `They can. Under EU coordination rules, periods of insured work in another member state, the EEA, Switzerland or the UK can be added to your French months to reach the minimum, provided your last job was in France. You ask the previous country for a U1 form. The amount, however, is calculated only on your French salary. The calculator assumes all your months were worked in France.` },
+  { q: 'Can I move abroad and keep receiving ARE?', a: `Only for a short time. If you register as a jobseeker in another EU or EEA country, Switzerland or the UK, France Travail can keep paying your benefit for up to three months, using a U2 form issued before you leave. After that, payments stop unless you come back and register again in France. Moving outside Europe ends the payments altogether, although the remaining entitlement stays available for three years plus its length.` },
+  { q: 'What is the minimum amount of French unemployment benefit?', a: `The daily minimum is ${v.min} gross, unchanged since 1 July 2025 because Unédic decided not to uprate benefits on 1 July 2026. It cannot, however, exceed ${v.cap75} of your daily reference wage, so very low earners receive less than the minimum. The supplementary pension deduction is never allowed to push the benefit below ${v.min} a day.` },
+  { q: 'How is the benefit paid, weekly or monthly?', a: `Monthly. France Travail pays ${v.jpm} daily allowances every month, whatever the number of days in the month, after you complete your monthly declaration, the actualisation, between the 28th and the 15th of the following month. Payment usually reaches your account in the first days of the month. The first payment only covers the days after your waiting period and any deferral.` },
+  { q: 'Does the calculator handle part-time jobs or several employers?', a: `It assumes full-time, continuous work over the months you enter. With several back-to-back contracts, add up the months covered and the result stays close. Former part-time workers receive a benefit reduced in proportion to their hours, which the calculator does not apply, and periods of sick leave are rebuilt by France Travail at your usual salary. Your France Travail notification is always the reference.` },
+];
+---
+<ChomagePage simFirst lang="en" path="/en/unemployment-benefit/" alt="/simulateur-chomage/"
+  title="Unemployment Benefit France 2026: ARE Calculator, Net Pay"
+  description="French unemployment benefit (ARE) calculator for 2026: net amount after CSG, length by age, deferral from your severance pay and first payment date. In English."
+  h1="French unemployment benefit (ARE) calculator 2026"
+  lede="Built for English speakers working in France: it starts from your severance pay to date your first payment, then works out your net monthly benefit and how long it lasts, under the rules in force on 3 October 2026."
+  crumb="Unemployment benefit"
+  citable={`In France, unemployment benefit is called ARE, allocation d’aide au retour à l’emploi, and is paid by France Travail under rules set by Unédic. The daily amount is the higher of ${v.var} of your daily reference wage plus a fixed ${v.fixe}, or ${v.flat} of that wage, never below ${v.min} and never above ${v.cap75} of the daily wage. On a gross salary of ${v.eur0(ex[1].s)} a month, that comes to ${v.eur0(ex[1].r.bruteMensuelle)} gross and ${v.eur0(ex[1].r.netteMensuelle)} net for a 30-day month. You need ${v.affM} months of work in the last ${v.ref} (${v.refS} from age ${v.age55}). The claim lasts the number of calendar days you worked times ${v.coef}: at least ${v.minDuree} days, at most ${v.cap55} under ${v.age55}, ${v.cap5556} at ${v.age55} and 56, and ${v.cap57} from ${v.age57}. Since 1 September 2026, a mutual termination (rupture conventionnelle) caps it at ${v.rc55} days. Payments start after a ${v.attente}-day waiting period and any deferral for untaken leave or for severance above the legal minimum.`}
+  faq={faq}
+  sources={['unedic_are', 'unedic_revalo', 'unedic_sept', 'unedic_primo', 'unedic_differe', 'unedic_retenues', 'ft_retenues', 'sp_are', 'sp_sjr', 'insee_chomage']}>
+  <AreSimulator slot="sim" client:load lang="en" />
+
+  <h2>How the calculator works out your benefit</h2>
+  <p>Everything starts from your <strong>reference salary</strong>: all gross pay subject to unemployment contributions between the first and last day you worked in the reference period, which covers the {v.ref} months before your contract ended, or {v.refS} months if you were {v.age55} or older on that date. Bonuses and a 13th month count for the share that belongs to the period. Severance, payment in lieu of notice, holiday pay settled at the end and non-compete payments never count. Each month is capped at {v.plafondSalaire}, four times the monthly social security ceiling of {v.pass}.</p>
+  <p>That total is divided by the number of calendar days in the period, days off included. For someone in continuous work, the daily reference wage, the SJR (salaire journalier de référence), is therefore the monthly salary times twelve divided by 365. Several calculators still divide by thirty, which overstates the SJR, and the benefit, by about 1.4%. Unédic’s own salary table settles it: it places the switch between the {v.cap75} cap and the minimum benefit at 1,303.05 euros a month, exactly the salary that gives an SJR of 42.84 euros.</p>
+  <p>France Travail then applies two formulas and keeps the better one. Below roughly {v.bascule} gross a month, {v.var} of the SJR plus {v.fixe} wins; above it, {v.flat} of the SJR does. Two limits frame the result: the minimum of {v.min} a day, and the cap at {v.cap75} of the SJR, which is applied last. For low salaries the cap therefore decides, not the minimum. The result line in the calculator always names the rule that applied.</p>
+  <p>Last come the deductions. The supplementary pension contribution is {v.ret} of the SJR, but it cannot push the benefit below {v.min}. CSG ({v.csg}, or {v.csgR} at the reduced rate for modest tax incomes) and CRDS ({v.crds}) are charged on {v.assiette} of the gross benefit; neither is taken below {v.seuilCsg} a day, and neither may bring the benefit under that threshold. Alsace-Moselle residents pay an extra {v.alsace} for the local health scheme.</p>
+
+  <h2>Why starting from your severance pay changes the timeline</h2>
+  <p>Most ARE calculators ask for your “extra-statutory severance” as if you knew it. Nobody does: the final pay slip shows one lump sum, and the part above the legal minimum still has to be worked out. This site already calculates the French statutory severance from salary and length of service, a quarter of a month’s pay per year up to ten years and a third beyond. The unemployment calculator reuses it, subtracts it from what you actually received and turns the difference into the specific deferral, to the day.</p>
+  <p>Take an employee on {v.eur0(3000)} gross with eight years of service who negotiates a {v.eur0(12000)} payout and leaves with {v.eur0(1400)} of untaken holiday pay. The statutory minimum is {v.eur0(legal8)}; the extra {v.eur0(12000 - legal8)} produces {cas.differeSpecifique} days of specific deferral. Holiday pay adds {cas.differeConges} days, then the {v.attente}-day waiting period: the first paid day falls {cas.premierJour} days after the contract ends. The deferral shifts your benefit; it does not reduce the number of days you are entitled to.</p>
+  <p class="encadre">The whole path takes three pages: the <a href="/">severance calculator</a> (in French) for what your employer owes, <a href="/en/unemployment-benefit/after-dismissal/">benefit after a dismissal</a> for the first payment date, and this calculator for the amount and length.</p>
+
+  <h2>How long the benefit lasts in 2026</h2>
+  <p>The length is counted in calendar days between the first day of your first contract and the last day of your last one within the reference period. Days without a contract count, but no more than 70% of the days worked. The total is multiplied by {v.coef}, under the rule that links benefit length to the state of the labour market, then kept between a minimum of {v.minDuree} days and a cap that depends on your age when the contract ends.</p>
+  <table>
+    <thead><tr><th scope="col">Age when the contract ends</th><th scope="col">Reference period</th><th scope="col" class="n">Maximum length</th><th scope="col" class="n">If unemployment rises</th></tr></thead>
+    <tbody>
+      <tr><td>Under {v.age55}</td><td>{v.ref} months</td><td class="n">{v.cap55} days</td><td class="n">{v.cfd55} days</td></tr>
+      <tr><td>{v.age55} or 56</td><td>{v.refS} months</td><td class="n">{v.cap5556} days</td><td class="n">{v.cfd5556} days</td></tr>
+      <tr><td>{v.age57} and over</td><td>{v.refS} months</td><td class="n">{v.cap57} days</td><td class="n">{v.cfd57} days</td></tr>
+      <tr><td>Mutual termination, under {v.age55}</td><td>{v.ref} months</td><td class="n">{v.rc55} days</td><td class="n">—</td></tr>
+      <tr><td>Mutual termination, {v.age55} and over</td><td>{v.refS} months</td><td class="n">{v.rc55p} days</td><td class="n">—</td></tr>
+    </tbody>
+  </table>
+  <p>The last column is not in force. The end-of-claim top-up only starts by ministerial order when unemployment reaches {v.seuilCfd} or rises by {v.hausseCfd} points in a quarter. Insee put the rate at {v.chomage} for the second quarter of 2026, the highest since 2020 but still below the trigger, so claims opened today get the third column.</p>
+
+  <h2>What changed in 2026</h2>
+  <p>Three decisions this year move the result. Since <strong>1 April 2026</strong>, people who have not claimed ARE in the previous twenty years can qualify with {v.primoM} months of work instead of {v.affM}, with a minimum claim of {v.minPrimo} days. On <strong>30 June 2026</strong>, Unédic decided not to uprate benefits on 1 July. Since <strong>1 September 2026</strong>, an individual mutual termination whose end date falls on or after that day caps the claim at {v.rc55} days under {v.age55} and {v.rc55p} days from {v.age55}. All three are questions in the calculator.</p>
+
+  <h2>Worked examples, age 40, 24 months of work</h2>
+  <table>
+    <thead><tr><th scope="col" class="n">Gross salary</th><th scope="col" class="n">SJR</th><th scope="col" class="n">Gross / month</th><th scope="col" class="n">Net / month</th><th scope="col" class="n">From month 7</th></tr></thead>
+    <tbody>
+      {ex.map(({ s, r }) => <tr><td class="n">{v.eur0(s)}</td><td class="n">{v.eur0(r.sjr)}</td><td class="n">{v.eur0(r.bruteMensuelle)}</td><td class="n">{v.eur0(r.netteMensuelle)}</td><td class="n">{r.degressif ? v.eur0(r.netteMensuelleApres) : 'unchanged'}</td></tr>)}
+    </tbody>
+  </table>
+  <p>The gross replacement rate falls as pay rises: close to 75% near the minimum wage, about 57% above {v.bascule}. Above roughly {v.seuilDeg} a month, the daily benefit exceeds {v.degPlancher} and drops by {v.degTaux} from the seventh month, as explained on the <a href="/en/unemployment-benefit/degressivity/">degressivity page</a>.</p>
+
+  <h2 id="method">Method, validation and limits</h2>
+  <p>The engine is a set of functions that run in your browser: nothing you type is sent anywhere. Its parameters sit in one dated file, checked on 3 October 2026 against Unédic, France Travail, service-public.fr and Insee. Every worked example Unédic publishes is replayed at each build: a 30-euro SJR giving 22.50 euros, a 1,372-euro extra payment giving 12 days, the claimants paid from 20 November and 8 December, 2,100 euros of new pay leaving 228 euros of benefit, a 12,432-euro ARCE lump sum. The build fails if any of them drifts.</p>
+  <p>Two official sources disagree, and we say so. Service-public.fr gives a 70% cap; Unédic, which sets the rules, writes 75% in its guidance and salary table, and we follow Unédic. The calculator does not rebuild pay reduced by sick leave, apply the part-time coefficient, handle pensions, the arts workers’ schemes or the CSP redundancy contract. It does not replace your France Travail decision.</p>
+</ChomagePage>

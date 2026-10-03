@@ -1,0 +1,52 @@
+---
+import ChomagePage from '../../../../components/are/ChomagePage.astro';
+import MiniSimAutonome from '../../../../components/calc/MiniSimAutonome';
+import { V } from '../../../../lib/are-txt';
+import { duree } from '../../../../lib/are';
+const v = V.en;
+const grille = [6, 9, 12, 18, 24].map((m) => ({ m, a: duree({ moisTravailles: m, age: 35 }), b: duree({ moisTravailles: m * 1.5, age: 56 }), c: duree({ moisTravailles: m * 1.5, age: 58 }) }));
+const faq = [
+  { q: 'Do my six months have to be with the same employer?', a: `No. The ${v.aff} working days or ${v.affH} hours can be spread over several contracts and employers, with gaps, as long as they fall within the ${v.ref} months before your last contract ended, or ${v.refS} months from age ${v.age55}. A week with five to seven working days counts as five days. Only periods already used to open an earlier claim are excluded.` },
+  { q: 'What is a “primo-entrant”, and does it help newcomers to France?', a: `A primo-entrant is someone who has not been granted ARE in the twenty years before registering. Since 1 April 2026, for contracts ending from that date, ${v.primoM} months of work are enough, ${v.primoJ} days or ${v.primoH} hours, with a minimum claim of ${v.minPrimo} days. It helps people who arrived recently or started work late, but the months still have to be worked under French insurance.` },
+  { q: 'Do gaps between temp assignments count towards the length?', a: `Partly. The length runs from the first day of your first contract in the period to the last day of your last one, and days without a contract in between count, but only up to 70% of the days worked. Unédic’s example: 303 days under contract over 24 months, 212 non-working days kept, so 515 days multiplied by ${v.coef}.` },
+  { q: 'At what age does French unemployment benefit stop?', a: `It stops at the legal retirement age if you have enough pension quarters, 64 for people born from 1969 onwards. Without the required quarters it can carry on until you reach a full pension, and at the latest until 67. A separate scheme keeps benefit going until retirement for some older claimants who have been paid for at least a year and meet contribution conditions.` },
+  { q: 'How long do I have to register after my job ends?', a: `${v.inscription} months. After that, the rights from that contract are lost, unless the deadline is extended for sick leave, maternity or paternity leave, or since 1 July 2026 the new additional birth leave. There is no point in waiting: benefit is never paid for days before registration, and the waiting period only starts once you have registered.` },
+  { q: 'Does walking out of my job give me a right to benefit?', a: `Normally not. Since 2023, an employee who abandons their post and does not return after a formal notice is presumed to have resigned. Without a recognised legitimate reason, the involuntary job loss condition is not met. As with a resignation, you can ask a joint committee to review your case after ${v.dem121} days of unpaid unemployment.` },
+];
+---
+<ChomagePage lang="en" path="/en/unemployment-benefit/eligibility/" alt="/simulateur-chomage/droits-au-chomage/"
+  title="Unemployment Benefit Eligibility France 2026: Months, Length"
+  description="Who gets unemployment benefit in France in 2026: 6 months of work in 24 (5 for first-time claimants), length equal to days worked × 0.75, age caps. Check yours."
+  h1="Unemployment benefit eligibility in France: who qualifies, and for how long"
+  lede="Have you worked enough to claim, and how many days of benefit does that give you? Both answers follow from the months you spent under contract."
+  crumb="Eligibility"
+  citable={`To receive French unemployment benefit in 2026 you must have lost your job involuntarily (dismissal, mutual termination, end of a fixed-term contract, or resignation for a legitimate reason), register with France Travail, and show ${v.aff} working days or ${v.affH} hours, about ${v.affM} months, in the ${v.ref} months before your contract ended, or the ${v.refS} months from age ${v.age55}. Since 1 April 2026, first-time claimants, never paid ARE in the last twenty years, qualify with ${v.primoM} months. The claim lasts the number of calendar days between your first and last contract in that period, multiplied by ${v.coef}, with a minimum of ${v.minDuree} days. It cannot exceed ${v.cap55} days under ${v.age55}, ${v.cap5556} days at ${v.age55} and 56, or ${v.cap57} days from ${v.age57}. Twenty-four months of continuous work therefore give eighteen months of benefit under ${v.age55}. Nationality does not matter; work under French insurance does.`}
+  faq={faq}
+  sources={['unedic_are', 'unedic_primo', 'sp_are', 'unedic_demission', 'insee_chomage']}>
+  <MiniSimAutonome slot="sim" client:visible kind="droits" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+
+  <h2>The seven conditions, and the two that cause refusals</h2>
+  <p>Unédic lists seven conditions: being registered as a jobseeker; not having reached full-rate retirement age; having worked enough; having lost your job involuntarily; being fit for work; actively looking for work; and living in an area covered by French unemployment insurance, which means mainland France and the overseas departments other than Mayotte. Most go without saying. In practice, refusals come from two of them: the amount of work, for people coming out of a string of short contracts, and the involuntary nature of the job loss, when the last departure, or an earlier one, was a resignation.</p>
+  <p>The resignation rule is finer than many people think: an old resignation does not block everything. What matters is having worked at least {v.dem65} days, or 455 hours, since your last voluntary departure. Someone who resigns, finds a new job three months later and is then dismissed is entitled to benefit, calculated on all their work in the reference period.</p>
+
+  <h2>How working time is counted</h2>
+  <p>France Travail counts days by calendar week: five days for any week with five, six or seven days worked, and the actual number below that. Periods when the contract was suspended, such as sick leave, maternity leave or short-time working, count as one day or seven hours per day of suspension, except unpaid or sabbatical leave of a month or more. Vocational training can be added, up to two thirds of the days worked.</p>
+  <p>The calculator above works in months under contract, which comes to the same for continuous employment: twenty-four months are 730 calendar days. For several contracts with short gaps, add up the months covered. If the gaps are long, the real length will be slightly shorter than shown, because days without a contract only count up to 70% of the days worked.</p>
+
+  <h2>Claim length by months worked and age</h2>
+  <p>The grid is computed by the calculator’s engine. From age {v.age55} the reference period is {v.refS} months, so the older columns assume one and a half times as many months worked, to cover the same share of the period.</p>
+  <table>
+    <thead><tr><th scope="col" class="n">Months worked (under 55)</th><th scope="col" class="n">Age 35</th><th scope="col" class="n">Age 56 (× 1.5 months)</th><th scope="col" class="n">Age 58 (× 1.5 months)</th></tr></thead>
+    <tbody>
+      {grille.map(({ m, a, b, c }) => <tr><td class="n">{m}</td><td class="n">{a.jours} d</td><td class="n">{b.jours} d</td><td class="n">{c.jours} d</td></tr>)}
+    </tbody>
+  </table>
+  <p>At the bottom, the {v.minDuree}-day minimum lifts small claims: six months of work give six months of benefit, not four and a half as the coefficient alone would. At the top, the age caps stop the progression. In between, each extra month of work adds about three weeks of benefit.</p>
+
+  <h2>Why the 0.75 coefficient applies in 2026</h2>
+  <p>Since February 2023, the length of a claim depends on the labour market. While conditions are considered good, the calculated length is cut by a quarter. If unemployment reaches {v.seuilCfd}, or rises by {v.hausseCfd} points in a quarter, an order triggers an end-of-claim top-up that gives back the days removed, up to {v.cfd55} days under {v.age55}. For the second quarter of 2026, Insee measured {v.chomage}, up 0.2 points: below the trigger, so every claim applies the coefficient.</p>
+  <p>The top-up is not requested when you open a claim: it would be added at the end, if fewer than thirty days remain when the order is published. The calculator follows the quarterly Insee figure and will be updated if it crosses the threshold.</p>
+
+  <h2>An open claim is not lost by working again</h2>
+  <p>A claim remains available for three years plus its length. Taking a job does not use it up: unpaid days are carried forward, and when the claim runs out, if you have worked at least {v.aff} days again, a recharge opens a new claim based on that work. That is why accepting a short contract carries no risk to your benefit. The page on <a href="/en/unemployment-benefit/working-while-claiming/">working while claiming</a> shows what you receive each month when you work, and the <a href="/en/unemployment-benefit/">ARE calculator</a> gives the amount.</p>
+</ChomagePage>

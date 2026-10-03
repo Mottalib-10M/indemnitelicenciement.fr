@@ -274,3 +274,23 @@ footer a:hover { color: #ffffff; }
   header, footer, nav, .ne-pas-imprimer { display: none !important; }
   body { background: #fff; color: #000; }
 }
+
+/*
+ * Pages chômage (2026-10-03) : texte rédigé sur la largeur du conteneur (§10.2),
+ * titres serif, rythme vertical régulier (§10.3), tableaux de style journal.
+ */
+@layer components {
+  .chomage-prose h2 { font-family: "Source Serif 4", Georgia, "Times New Roman", serif; font-size: 1.6rem; line-height: 1.25; margin: 2.25rem 0 0.75rem; padding-top: 1.25rem; border-top: 1px solid var(--color-neutral-200); color: var(--color-neutral-900); }
+  .chomage-prose h3 { font-size: 1.15rem; margin: 1.5rem 0 0.5rem; color: var(--color-neutral-900); }
+  .chomage-prose p, .chomage-prose li { line-height: 1.7; color: var(--color-neutral-800); }
+  .chomage-prose p { margin: 0 0 1rem; }
+  .chomage-prose ul, .chomage-prose ol { margin: 0 0 1rem 1.25rem; }
+  .chomage-prose ul { list-style: disc; }
+  .chomage-prose ol { list-style: decimal; }
+  .chomage-prose table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.95rem; }
+  .chomage-prose th { text-align: left; font-variant: small-caps; letter-spacing: 0.02em; border-bottom: 1px solid var(--color-neutral-400); padding: 0.4rem 0.5rem; color: var(--color-neutral-900); }
+  .chomage-prose td { border-bottom: 1px solid var(--color-neutral-200); padding: 0.4rem 0.5rem; color: var(--color-neutral-800); }
+  .chomage-prose td.n, .chomage-prose th.n { text-align: right; }
+  .chomage-prose .encadre { border-left: 3px solid var(--color-primary-600); background: var(--color-primary-50); padding: 0.75rem 1rem; margin: 1.25rem 0; }
+  .chomage-prose h2, .chomage-prose h3 { hyphens: auto; overflow-wrap: break-word; }
+}

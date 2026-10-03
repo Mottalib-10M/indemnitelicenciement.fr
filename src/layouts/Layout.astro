@@ -6,9 +6,19 @@ interface Props {
   description: string;
   canonical?: string;
   schema?: object;
+  /** Langue de la page : le français à la racine, l'anglais sous /en/ (RECETTE §3). */
+  lang?: 'fr' | 'en';
+  /** Versions linguistiques de la page (hreflang réciproques, RECETTE §18) : chemins absolus du site. */
+  alternates?: { fr: string; en: string };
 }
 
-const { title, description, canonical, schema } = Astro.props;
+const { title, description, canonical, schema, lang = 'fr', alternates } = Astro.props;
+const en = lang === 'en';
+const FOOT_FR = [['/simulateur-chomage/', 'Simulateur chômage ARE'], ['/simulateur-chomage/apres-licenciement/', 'Chômage après un licenciement'], ['/simulateur-chomage/rupture-conventionnelle/', 'Chômage et rupture conventionnelle'], ['/simulateur-chomage/droits-au-chomage/', 'Droits au chômage et durée'], ['/simulateur-chomage/demission/', 'Démission et chômage'], ['/simulateur-chomage/cumul-are-salaire/', 'Cumul ARE et salaire'], ['/simulateur-chomage/arce-creation-entreprise/', 'ARCE et création d’entreprise'], ['/simulateur-chomage/degressivite/', 'Dégressivité de l’ARE']];
+const FOOT_EN = [['/en/unemployment-benefit/', 'ARE calculator'], ['/en/unemployment-benefit/after-dismissal/', 'Benefit after a dismissal'], ['/en/unemployment-benefit/rupture-conventionnelle/', 'Mutual termination and benefit'], ['/en/unemployment-benefit/eligibility/', 'Eligibility and duration'], ['/en/unemployment-benefit/resignation/', 'Resigning and benefit'], ['/en/unemployment-benefit/working-while-claiming/', 'Working while claiming'], ['/en/unemployment-benefit/arce-starting-a-business/', 'ARCE: starting a business'], ['/en/unemployment-benefit/degressivity/', 'Degressivity for high earners']];
+const nav = en
+  ? [{ href: '/en/unemployment-benefit/', label: 'Unemployment benefit' }, { href: '/en/unemployment-benefit/after-dismissal/', label: 'After a dismissal' }, { href: '/en/unemployment-benefit/rupture-conventionnelle/', label: 'Mutual termination' }]
+  : [{ href: '/', label: 'Calculateur' }, { href: '/simulateur-chomage/', label: 'Simulateur chômage' }, { href: '/faq/', label: 'FAQ' }, { href: '/guides/', label: 'Guides' }];
 const siteUrl = 'https://indemnitelicenciement.fr';
 // Sans prop `canonical`, l'adresse de la page elle-meme : retomber sur l'accueil
 // declarait la page comme un doublon de l'accueil.
@@ -21,7 +31,7 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,13 +41,18 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Radif Partners" />
+    {alternates && (<>
+      <link rel="alternate" hreflang="fr" href={`${siteUrl}${alternates.fr}`} />
+      <link rel="alternate" hreflang="en" href={`${siteUrl}${alternates.en}`} />
+      <link rel="alternate" hreflang="x-default" href={`${siteUrl}${alternates.fr}`} />
+    </>)}
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale" content={en ? "en_GB" : "fr_FR"} />
     <meta property="og:site_name" content="Indemnité Licenciement" />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
@@ -56,7 +71,7 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
       "name": "Calculateur d'Indemnité de Licenciement",
       "url": siteUrl,
       "description": "Calculez gratuitement votre indemnité de licenciement, préavis et allocation chômage (ARE) selon le Code du travail français.",
-      "inLanguage": "fr",
+      "inLanguage": lang,
       "publisher": {
         "@type": "Organization",
         "name": "indemnitelicenciement.fr"
@@ -85,7 +100,7 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
   <Consent part="head" lang="fr" moreHref="/confidentialite/" />
 </head>
   <body class="bg-gray-50 text-gray-900 antialiased">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-700 focus:rounded-lg focus:shadow-lg focus:ring-2 focus:ring-blue-500">Skip to content</a>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-700 focus:rounded-lg focus:shadow-lg focus:ring-2 focus:ring-blue-500">{en ? "Skip to content" : "Aller au contenu"}</a>
     <!-- Navigation -->
     <header class="sticky top-0 z-50">
       <!-- Filet tricolore : seule couleur permanente de l'en-tete. -->
@@ -100,10 +115,8 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
 
           <!-- Desktop nav -->
           <div class="hidden md:flex items-center gap-6 text-sm">
-            <a href="/" class="text-gray-600 hover:text-primary-700 transition-colors font-medium">Calculateur</a>
-            <a href="/guide-are/" class="text-gray-600 hover:text-primary-700 transition-colors font-medium">Guide ARE</a>
-            <a href="/faq/" class="text-gray-600 hover:text-primary-700 transition-colors font-medium">FAQ</a>
-            <a href="/guides/" class="text-gray-600 hover:text-primary-700 transition-colors font-medium">Guides</a>
+            {nav.map((n) => <a href={n.href} class="text-gray-600 hover:text-primary-700 transition-colors font-medium">{n.label}</a>)}
+            {alternates && <a href={en ? alternates.fr : alternates.en} hreflang={en ? 'fr' : 'en'} class="text-gray-600 hover:text-primary-700 transition-colors font-medium">{en ? 'Français' : 'English'}</a>}
           </div>
 
           <!-- Mobile hamburger button -->
@@ -113,7 +126,7 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
             class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-primary-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
             aria-expanded="false"
             aria-controls="mobile-menu"
-            aria-label="Ouvrir le menu de navigation"
+            aria-label={en ? "Open the navigation menu" : "Ouvrir le menu de navigation"}
           >
             <!-- Hamburger icon -->
             <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -130,10 +143,8 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
       <!-- Mobile menu (hidden by default) -->
       <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
         <div class="px-4 py-3 space-y-1">
-          <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">Calculateur</a>
-          <a href="/guide-are/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">Guide ARE</a>
-          <a href="/faq/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">FAQ</a>
-          <a href="/guides/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">Guides</a>
+          {nav.map((n) => <a href={n.href} class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">{n.label}</a>)}
+          {alternates && <a href={en ? alternates.fr : alternates.en} hreflang={en ? 'fr' : 'en'} class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition-colors">{en ? 'Version française' : 'English version'}</a>}
         </div>
       </div>
     </nav>
@@ -147,32 +158,41 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 mt-16">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <p class="text-white font-bold text-lg mb-2">§ Indemnité Licenciement</p>
             <p class="text-sm">
-              Calculateur gratuit d'indemnité de licenciement basé sur le Code du travail français. Barèmes 2026.
+              {en
+                ? 'Free calculators for French employees: severance pay under the Labour Code, then unemployment benefit (ARE) under the 2026 Unédic rules.'
+                : 'Calculateurs gratuits : indemnité de licenciement selon le Code du travail, puis allocation chômage (ARE) selon les règles Unédic 2026.'}
             </p>
           </div>
           <div>
-            <p class="text-white font-semibold mb-2">Ressources</p>
+            <p class="text-white font-semibold mb-2">{en ? 'Severance pay' : 'Licenciement'}</p>
             <ul class="space-y-1 text-sm">
-              <li><a href="/" class="text-primary-200 hover:text-white transition-colors">Calculateur</a></li>
-              <li><a href="/guide-are/" class="text-primary-200 hover:text-white transition-colors">Guide ARE</a></li>
-              <li><a href="/faq/" class="text-primary-200 hover:text-white transition-colors">Foire aux questions</a></li>
-              <li><a href="/guides/" class="text-primary-200 hover:text-white transition-colors">Tous les guides</a></li>
+              <li><a href="/" class="text-primary-200 hover:text-white transition-colors">{en ? 'Severance calculator (French)' : 'Calculateur d’indemnité'}</a></li>
+              <li><a href="/guides/" class="text-primary-200 hover:text-white transition-colors">{en ? 'Guides (French)' : 'Tous les guides'}</a></li>
+              <li><a href="/faq/" class="text-primary-200 hover:text-white transition-colors">{en ? 'FAQ (French)' : 'Foire aux questions'}</a></li>
             </ul>
           </div>
           <div>
-            <p class="text-white font-semibold mb-2">Informations légales</p>
+            <p class="text-white font-semibold mb-2">{en ? 'Unemployment benefit' : 'Chômage (ARE)'}</p>
             <ul class="space-y-1 text-sm">
-              <li><a href="/mentions-legales/" class="text-primary-200 hover:text-white transition-colors">Mentions légales</a></li>
-              <li><a href="/confidentialite/" class="text-primary-200 hover:text-white transition-colors">Politique de confidentialité</a></li>
+              {(en ? FOOT_EN : FOOT_FR).map((l) => <li><a href={l[0]} class="text-primary-200 hover:text-white transition-colors">{l[1]}</a></li>)}
+            </ul>
+          </div>
+          <div>
+            <p class="text-white font-semibold mb-2">{en ? 'Legal' : 'Informations légales'}</p>
+            <ul class="space-y-1 text-sm">
+              <li><a href="/mentions-legales/" class="text-primary-200 hover:text-white transition-colors">{en ? 'Legal notice (French)' : 'Mentions légales'}</a></li>
+              <li><a href="/confidentialite/" class="text-primary-200 hover:text-white transition-colors">{en ? 'Privacy policy (French)' : 'Politique de confidentialité'}</a></li>
+              <li><a href="/methodologie/" class="text-primary-200 hover:text-white transition-colors">{en ? 'Methodology (French)' : 'Méthodologie'}</a></li>
+              <li><a href="/widget/" class="text-primary-200 hover:text-white transition-colors">{en ? 'Embed the calculator' : 'Intégrer le calculateur'}</a></li>
             </ul>
           </div>
         </div>
         <div class="border-t border-gray-800 mt-8 pt-8 text-center text-xs">
-          <p>&copy; {new Date().getFullYear()} indemnitelicenciement.fr, Informations à caractère indicatif, ne constituant pas un conseil juridique.</p>
+          <p>&copy; {new Date().getFullYear()} indemnitelicenciement.fr, {en ? 'information for guidance only, not legal advice.' : 'informations à caractère indicatif, ne constituant pas un conseil juridique.'}</p>
         </div>
       </div>
     </footer>

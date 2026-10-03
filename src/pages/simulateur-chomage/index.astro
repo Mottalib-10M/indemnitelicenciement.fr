@@ -1,0 +1,84 @@
+---
+import ChomagePage from '../../components/are/ChomagePage.astro';
+import AreSimulator from '../../components/are/AreSimulator';
+import { V, exemple } from '../../lib/are-txt';
+import { calculateIndemniteLegale } from '../../lib/engine';
+const v = V.fr;
+const ex = [1800, 2500, 3500, 5000, 8000].map((s) => ({ s, r: exemple(s) }));
+const cas = exemple(3000, 40, 24, { supraLegal: Math.max(0, 12000 - calculateIndemniteLegale(3000, 8, 0)), iccp: 1400 });
+const legal8 = calculateIndemniteLegale(3000, 8, 0);
+const faq = [
+  { q: 'Le simulateur donne-t-il le montant net ou brut de l’allocation ?', a: `Les deux. Le chiffre en grand est l’allocation nette mensuelle, calculée sur trente jours après la participation de ${v.ret} du salaire journalier de référence pour la retraite complémentaire, puis la CSG à ${v.csg} et la CRDS à ${v.crds} sur ${v.assiette} de l’allocation brute. Ces deux contributions ne sont prélevées que si l’allocation atteint ${v.seuilCsg} par jour. L’impôt sur le revenu, prélevé à la source par France Travail selon votre taux, n’est pas déduit.` },
+  { q: 'Pourquoi le simulateur me demande-t-il l’indemnité de licenciement que j’ai touchée ?', a: `Parce qu’elle ne change pas le montant de l’allocation mais sa date de départ. La part qui dépasse l’indemnité légale, que le simulateur calcule lui-même à partir de votre salaire et de votre ancienneté, est divisée par ${v.div} : le résultat donne le nombre de jours de différé spécifique, plafonné à ${v.dsMax} jours, ou ${v.dsMaxEco} en licenciement économique.` },
+  { q: 'Mon salaire était de 9 000 € par mois, pourquoi le calcul en retient-il moins ?', a: `Les salaires ne comptent que dans la limite de quatre plafonds mensuels de la Sécurité sociale, soit ${v.plafondSalaire} par mois en 2026. Au-delà, rien n’entre dans le salaire de référence. À 9 000 € vous restez sous ce plafond ; il ne joue qu’au-dessus. En revanche, une allocation journalière supérieure à ${v.degPlancher} subit la dégressivité de ${v.degTaux} à partir du septième mois si vous avez moins de ${v.degAge} ans à la fin du contrat.` },
+  { q: 'Les allocations ont-elles été revalorisées au 1er juillet 2026 ?', a: `Non. Le conseil d’administration de l’Unédic n’a pas réuni de majorité le 30 juin 2026 : l’allocation minimale reste à ${v.min} par jour, la partie fixe à ${v.fixe} et le plancher de dégressivité à ${v.degPlancher}. Ce sont les montants fixés au 1er juillet 2025. Une absence de revalorisation était déjà arrivée en 2016. Le simulateur applique donc ces valeurs jusqu’à la prochaine décision.` },
+  { q: 'Combien de temps faut-il pour toucher le premier paiement après l’inscription ?', a: `Au minimum ${v.attente} jours de délai d’attente, qui ne s’appliquent qu’une fois par période de douze mois. S’y ajoutent, à compter du lendemain de la fin du contrat, le différé congés payés (au plus ${v.dcMax} jours) et le différé spécifique. Le versement est mensuel, sur la base de ${v.jpm} jours quel que soit le mois, et arrive en début de mois suivant après l’actualisation.` },
+  { q: 'La durée de mes droits est-elle réduite à cause de la conjoncture ?', a: `Oui, la modulation est en vigueur : la durée est multipliée par ${v.coef}. Elle ne serait complétée en fin de droits que si le taux de chômage atteignait ${v.seuilCfd} ou progressait de ${v.hausseCfd} point en un trimestre. Au deuxième trimestre 2026, l’Insee le mesure à ${v.chomage}, en hausse de 0,2 point : le complément de fin de droits n’est pas déclenché.` },
+  { q: 'Le simulateur tient-il compte d’un temps partiel ou de plusieurs employeurs ?', a: `Il suppose un emploi à temps plein et continu sur la période saisie. Pour plusieurs contrats successifs, additionnez les mois couverts par un contrat : le résultat reste juste tant que les interruptions sont courtes. Un temps partiel réduit l’allocation par un coefficient égal aux heures travaillées divisées par celles d’un temps plein ; ce coefficient n’est pas appliqué ici. La notification de France Travail fait foi.` },
+];
+---
+<ChomagePage simFirst lang="fr" path="/simulateur-chomage/" alt="/en/unemployment-benefit/"
+  title="Chômage 2026 : simulateur ARE après licenciement, net, durée"
+  description="Simulateur chômage 2026 : allocation ARE nette après CSG, durée selon l’âge, différé lié à votre indemnité de licenciement et date du premier versement."
+  h1="Simulateur chômage 2026 : votre ARE après un licenciement"
+  lede="Le seul simulateur qui part de votre indemnité de licenciement pour dater le premier versement, puis calcule l’allocation nette et la durée selon les règles au 3 octobre 2026."
+  crumb="Simulateur chômage"
+  citable={`L’allocation d’aide au retour à l’emploi (ARE) vaut le plus élevé de deux montants : ${v.var} du salaire journalier de référence plus une partie fixe de ${v.fixe}, ou ${v.flat} de ce salaire, sans descendre sous ${v.min} par jour ni dépasser ${v.cap75} du salaire journalier. Pour un salaire brut de ${v.eur0(ex[1].s)} par mois, cela donne ${v.eur0(ex[1].r.bruteMensuelle)} brut et ${v.eur0(ex[1].r.netteMensuelle)} net sur trente jours. La durée est égale aux jours de la période de travail multipliés par ${v.coef}, au moins ${v.minDuree} jours et au plus ${v.cap55} avant ${v.age55} ans, ${v.cap5556} à ${v.age55} et 56 ans, ${v.cap57} dès ${v.age57} ans ; une rupture conventionnelle finissant depuis le 1er septembre 2026 est plafonnée à ${v.rc55} jours. Le premier versement arrive après le délai d’attente de ${v.attente} jours et, le cas échéant, après les différés : congés payés non pris, et indemnité de rupture au-delà du minimum légal divisée par ${v.div}. Le simulateur ci-dessous applique ces règles une à une et nomme celle qui joue.`}
+  faq={faq}
+  sources={['unedic_are', 'unedic_revalo', 'unedic_sept', 'unedic_primo', 'unedic_differe', 'unedic_retenues', 'ft_retenues', 'sp_are', 'sp_sjr', 'insee_chomage']}>
+  <AreSimulator slot="sim" client:load lang="fr" />
+
+  <h2>Comment le simulateur calcule votre allocation</h2>
+  <p>Tout part du <strong>salaire de référence</strong> : la somme des salaires bruts soumis à cotisation chômage entre le premier et le dernier jour de travail de la période de référence, qui couvre les {v.ref} mois précédant la fin du contrat, ou {v.refS} mois si vous avez {v.age55} ans ou plus à cette date. Les primes et le treizième mois y entrent pour la part qui se rapporte à la période ; les indemnités de licenciement, de rupture conventionnelle, de préavis, de congés payés ou de non-concurrence n’y entrent jamais. Chaque mois est retenu dans la limite de {v.plafondSalaire}, soit quatre fois le plafond mensuel de la Sécurité sociale de {v.pass}.</p>
+  <p>Ce total est divisé par le nombre de jours calendaires de la période, jours non travaillés compris. Pour quelqu’un qui a travaillé sans interruption, le salaire journalier de référence (SJR) revient donc au salaire mensuel multiplié par douze et divisé par 365. Ce n’est pas un détail : diviser par trente, comme le font encore plusieurs calculateurs, surestime le SJR d’environ 1,4 % et l’allocation d’autant. La table publiée par l’Unédic le confirme, puisqu’elle place la bascule entre le plafond de {v.cap75} et l’allocation minimale à un salaire de 1 303,05 € par mois, exactement le montant qui donne un SJR de 42,84 €.</p>
+  <p>France Travail applique ensuite les deux formules et garde la plus favorable. En dessous d’environ {v.bascule} brut par mois, c’est la formule à {v.var} plus {v.fixe} qui l’emporte ; au-dessus, c’est {v.flat} du SJR. Deux bornes encadrent le résultat : l’allocation minimale de {v.min} par jour, et le plafond de {v.cap75} du SJR, qui s’applique en dernier. Pour les petits salaires, c’est donc le plafond qui décide, pas le minimum, ce que la circulaire Unédic illustre avec un SJR de 30 € qui donne 22,50 €. La ligne du résultat nomme toujours la règle retenue.</p>
+  <p>Viennent enfin les retenues. La participation au financement des retraites complémentaires vaut {v.ret} du SJR, sans pouvoir ramener l’allocation sous {v.min}. La CSG ({v.csg}, ou {v.csgR} au taux réduit) et la CRDS ({v.crds}) se calculent sur {v.assiette} de l’allocation brute, après un abattement pour frais de recherche d’emploi ; elles ne sont pas prélevées sous {v.seuilCsg} par jour et ne peuvent pas faire passer l’allocation sous ce seuil. En Alsace-Moselle, une cotisation de {v.alsace} s’y ajoute. L’allocation est versée chaque mois sur une base de {v.jpm} jours, que le mois en compte 28 ou 31.</p>
+
+  <h2>Pourquoi partir de l’indemnité de licenciement change le calendrier</h2>
+  <p>La plupart des simulateurs d’ARE demandent « l’indemnité supra-légale » comme si chacun la connaissait. Personne ne la connaît : le solde de tout compte indique une somme globale, et la part qui dépasse le minimum légal reste à calculer. Ce site calcule déjà l’indemnité légale de licenciement à partir du salaire et de l’ancienneté (un quart de mois par année jusqu’à dix ans, un tiers au-delà) ; le simulateur chômage la reprend, la soustrait de ce que vous avez réellement touché et en déduit le différé spécifique, au jour près.</p>
+  <p>Prenons un salarié à {v.eur0(3000)} brut, huit ans d’ancienneté, qui négocie {v.eur0(12000)} de départ et part avec {v.eur0(1400)} de congés payés non pris. L’indemnité légale vaut {v.eur0(legal8)} ; la part supra-légale, {v.eur0(12000 - legal8)}, produit {cas.differeSpecifique} jours de différé spécifique. Les congés payés en ajoutent {cas.differeConges}, puis viennent les {v.attente} jours d’attente : le premier jour indemnisé tombe {cas.premierJour} jours après la fin du contrat. Sur le solde de tout compte, ces {v.eur0(12000 - legal8)} sont perçus tout de suite ; l’allocation, elle, démarre plus tard. L’arbitrage se fait donc en trésorerie, pas en perte de droits : les jours de différé décalent le versement sans réduire le capital d’allocation.</p>
+  <p class="encadre">Le parcours complet tient en trois pages : le <a href="/">calculateur d’indemnité de licenciement</a> pour le montant dû, la page <a href="/simulateur-chomage/apres-licenciement/">chômage après un licenciement</a> pour la date du premier versement, et ce simulateur pour l’allocation et sa durée.</p>
+
+  <h2>La durée de vos droits en 2026</h2>
+  <p>La durée se calcule en jours calendaires : ceux qui séparent le premier jour du premier contrat et le dernier jour du dernier contrat dans la période de référence. Les jours sans contrat comptent, mais pas au-delà de 70 % des jours travaillés. Ce total est multiplié par {v.coef} depuis le 1er février 2023, au titre de la modulation selon la conjoncture, puis encadré par un minimum de {v.minDuree} jours et un plafond qui dépend de l’âge à la fin du contrat.</p>
+  <table>
+    <thead><tr><th scope="col">Âge à la fin du contrat</th><th scope="col">Période de référence</th><th scope="col" class="n">Durée maximale</th><th scope="col" class="n">Si la conjoncture se dégrade</th></tr></thead>
+    <tbody>
+      <tr><td>Moins de {v.age55} ans</td><td>{v.ref} mois</td><td class="n">{v.cap55} jours</td><td class="n">{v.cfd55} jours</td></tr>
+      <tr><td>{v.age55} et 56 ans</td><td>{v.refS} mois</td><td class="n">{v.cap5556} jours</td><td class="n">{v.cfd5556} jours</td></tr>
+      <tr><td>{v.age57} ans et plus</td><td>{v.refS} mois</td><td class="n">{v.cap57} jours</td><td class="n">{v.cfd57} jours</td></tr>
+      <tr><td>Rupture conventionnelle, moins de {v.age55} ans</td><td>{v.ref} mois</td><td class="n">{v.rc55} jours</td><td class="n">—</td></tr>
+      <tr><td>Rupture conventionnelle, {v.age55} ans et plus</td><td>{v.refS} mois</td><td class="n">{v.rc55p} jours</td><td class="n">—</td></tr>
+    </tbody>
+  </table>
+  <p>La dernière colonne n’est pas en vigueur. Le complément de fin de droits ne se déclenche que par arrêté, lorsque le taux de chômage atteint {v.seuilCfd} ou gagne {v.hausseCfd} point en un trimestre. L’Insee a publié le 7 août 2026 un taux de {v.chomage} pour le deuxième trimestre, le plus haut depuis 2020 mais encore sous le seuil : les droits notifiés aujourd’hui restent ceux de la troisième colonne. Le simulateur suit ce chiffre, et la page sera mise à jour à la prochaine publication trimestrielle.</p>
+
+  <h2>Ce qui a changé en 2026</h2>
+  <p>Trois décisions de l’année modifient le résultat. Depuis le <strong>1er avril 2026</strong>, un salarié qui n’a jamais été indemnisé dans les vingt années précédant son inscription peut ouvrir un droit avec {v.primoM} mois de travail ({v.primoJ} jours ou {v.primoH} heures) au lieu de {v.affM} ; sa durée minimale est alors de {v.minPrimo} jours. Le <strong>30 juin 2026</strong>, l’Unédic a renoncé à revaloriser les allocations au 1er juillet. Depuis le <strong>1er septembre 2026</strong>, une rupture conventionnelle individuelle dont la date de fin, fixée par la convention, tombe à cette date ou après, plafonne la durée à {v.rc55} jours avant {v.age55} ans et {v.rc55p} jours ensuite, {v.rcDrom} et {v.rcDromP} jours outre-mer. Les trois règles sont des questions du simulateur, pas des notes de bas de page.</p>
+
+  <h2>Exemples chiffrés, 40 ans, 24 mois travaillés</h2>
+  <table>
+    <thead><tr><th scope="col" class="n">Salaire brut</th><th scope="col" class="n">SJR</th><th scope="col" class="n">ARE brute / mois</th><th scope="col" class="n">ARE nette / mois</th><th scope="col">Règle</th><th scope="col" class="n">Dès le 7e mois</th></tr></thead>
+    <tbody>
+      {ex.map(({ s, r }) => (
+        <tr><td class="n">{v.eur0(s)}</td><td class="n">{v.eur0(r.sjr)}</td><td class="n">{v.eur0(r.bruteMensuelle)}</td><td class="n">{v.eur0(r.netteMensuelle)}</td>
+          <td>{({ variable: 'formule à 40,4 %', fixe57: 'formule à 57 %', minimum: 'minimum', plafond75: 'plafond 75 %' })[r.regle]}</td>
+          <td class="n">{r.degressif ? v.eur0(r.netteMensuelleApres) : 'inchangée'}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>Le taux de remplacement brut baisse quand le salaire monte : il frôle 75 % pour un salaire proche du SMIC et tombe autour de 57 % au-dessus de {v.bascule}. Le net perd encore 7 à 10 points selon que la CSG s’applique ou non. À partir d’environ {v.seuilDeg} brut par mois, l’allocation journalière dépasse le plancher de {v.degPlancher} et la dégressivité joue au septième mois.</p>
+
+  <h2 id="methode">Méthode, validation et limites</h2>
+  <p>Le moteur est un ensemble de fonctions sans accès réseau : rien de ce que vous saisissez ne quitte votre navigateur. Ses paramètres sont réunis dans un seul fichier daté, relu le 3 octobre 2026 sur les fiches de l’Unédic, les pages de France Travail et de service-public.fr, et la publication de l’Insee. Chaque exemple chiffré publié par l’Unédic est rejoué à chaque construction du site : le SJR de 30 € qui donne 22,50 €, le différé de 1 372 € qui donne 12 jours, l’indemnisation de Nadia au 20 novembre et celle de Julien au 8 décembre, le cumul de 2 100 € de salaire qui laisse 228 € d’allocation, le capital ARCE de 12 432 €. La construction échoue si l’un d’eux dévie.</p>
+  <p>Deux sources divergent et nous l’écrivons. Service-public.fr indique un plafond de 70 % du SJR ; l’Unédic, organisme qui fixe les règles, écrit 75 % dans sa fiche et dans sa table de salaires : nous suivons l’Unédic. Pour l’assiette de la CSG, France Travail l’applique à l’allocation brute alors qu’un exemple de l’Unédic part de l’allocation diminuée de la retraite complémentaire ; l’écart ne dépasse pas quelques centimes par jour.</p>
+  <p>Ce que le simulateur ne fait pas : il ne reconstitue pas un salaire réduit par un arrêt maladie (France Travail le fait d’office), n’applique pas le coefficient du temps partiel, ne traite ni le cumul avec une pension d’invalidité ou de vieillesse, ni les annexes des intermittents, ni le contrat de sécurisation professionnelle, dont l’allocation suit d’autres règles. Il ne remplace pas la notification de France Travail.</p>
+
+  <h2>Quatre gestes qui changent le résultat</h2>
+  <ol>
+    <li>Inscrivez-vous dès le lendemain de la fin du contrat : les différés courent même sans inscription, mais le délai d’attente ne part qu’à partir d’elle, et rien n’est rétroactif.</li>
+    <li>Vérifiez sur l’attestation employeur que les primes de la période y figurent : elles entrent dans le salaire de référence.</li>
+    <li>Avant de négocier une indemnité, mesurez le différé qu’elle crée : chaque tranche de {v.div} € au-delà du minimum légal repousse le premier versement d’un jour.</li>
+    <li>Si vous reprenez un emploi moins payé, déclarez-le : le <a href="/simulateur-chomage/cumul-are-salaire/">cumul ARE et salaire</a> garde une partie de l’allocation et reporte les jours non versés.</li>
+  </ol>
+</ChomagePage>

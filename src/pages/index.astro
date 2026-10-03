@@ -161,10 +161,13 @@ import SourcesOfficielles from '../components/SourcesOfficielles.astro';
         Après un licenciement, le salarié peut bénéficier de l'<strong>Allocation de Retour à l'Emploi (ARE)</strong>, versée par France Travail (ex-Pôle emploi). Pour y avoir droit, il doit avoir travaillé au moins <strong>130 jours</strong> (ou 910 heures) au cours des <strong>24 derniers mois</strong> (36 mois à partir de 55 ans) et être inscrit comme demandeur d'emploi.
       </p>
       <p>
-        Le montant de l'ARE est calculé à partir du <strong>Salaire Journalier de Référence (SJR)</strong>, qui correspond à la rémunération brute des 12 derniers mois divisée par 365. Deux formules sont appliquées, et France Travail retient la plus avantageuse : soit <strong>57 % du SJR</strong>, soit <strong>40,4 % du SJR + 13,18 €</strong> par jour. L'ARE ne peut pas être inférieure à 32,13 € par jour ni supérieure à 75 % du SJR.
+        Le montant de l'ARE est calculé à partir du <strong>Salaire Journalier de Référence (SJR)</strong>, qui correspond aux salaires bruts de la période de référence (24 mois, 36 dès 55 ans) divisés par le nombre de jours calendaires de cette période. Deux formules sont appliquées, et France Travail retient la plus avantageuse : soit <strong>57 % du SJR</strong>, soit <strong>40,4 % du SJR + 13,18 €</strong> par jour. L'ARE ne peut pas être inférieure à 32,13 € par jour ni supérieure à 75 % du SJR.
       </p>
       <p>
         La durée d'indemnisation dépend de la durée d'affiliation : elle correspond aux jours travaillés dans la période de référence, multipliés par 0,75, dans la limite de <strong>548 jours</strong> (18 mois) avant 55 ans, de 685 jours (22,5 mois) à 55 et 56 ans et de <strong>822 jours</strong> (27 mois) à partir de 57 ans. Un <strong>délai de carence</strong> de 7 jours incompressibles s'applique avant le premier versement, auquel peut s'ajouter un <em>différé spécifique</em> lié aux indemnités supra-légales perçues.
+      </p>
+      <p>
+        Pour le montant net, la durée exacte et la date du premier versement à partir de l’indemnité calculée ici, utilisez le <a href="/simulateur-chomage/">simulateur chômage ARE</a>, ou la page <a href="/simulateur-chomage/apres-licenciement/">chômage après un licenciement</a> pour le seul calendrier.
       </p>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4" id="fiscalite">
@@ -218,7 +221,7 @@ import SourcesOfficielles from '../components/SourcesOfficielles.astro';
             Quel est le montant de l'allocation chômage (ARE) ?
           </summary>
           <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
-            L'ARE est calculée selon deux formules : 57 % du SJR ou 40,4 % du SJR + 13,18 €/jour. France Travail retient la formule la plus avantageuse. Le SJR correspond à la rémunération brute des 12 derniers mois divisée par 365. L'ARE ne peut être inférieure à 32,13 €/jour.
+            L'ARE est calculée selon deux formules : 57 % du SJR ou 40,4 % du SJR + 13,18 €/jour. France Travail retient la formule la plus avantageuse. Le SJR correspond aux salaires bruts de la période de référence divisés par ses jours calendaires. L'ARE ne peut être inférieure à 32,13 €/jour.
           </div>
         </details>
 
