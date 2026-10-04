@@ -1,7 +1,9 @@
 """Favicon et logo aux couleurs du drapeau du pays — RECETTE §19.1 (règle du 2026-10-04).
 
 Usage : python3 gen-flag-icon.py <code-pays> <symbole> [dossier-site]
-        symbole : un texte court (€, zł, $, kr…) ou « maison » pour une icône de maison.
+        symbole : un texte court (€, zł, $, kr, ALG…) ou un pictogramme : « maison », « eclair ».
+Deux sites du même pays ne partagent jamais le même dessin : la devise va au site principal,
+les autres prennent le sigle ou le pictogramme de leur sujet (registre : _trame/icones-drapeau.txt).
 Écrit public/favicon.svg et public/logo.svg, puis lancer `node scripts/gen-icons.mjs`
 pour les PNG et l'ICO.
 
@@ -92,9 +94,14 @@ def bands(code):
     raise SystemExit(f'drapeau inconnu : {code}')
 
 
+BOLT = '<path d="M19.5 3 7 18h7.5L12 29 25 13.5h-7.5L20.5 3z" fill="#fff" stroke="#0B1F33" stroke-width="1.6" stroke-linejoin="round" paint-order="stroke"/>'
+
+
 def symbol(sym, code):
     if sym == 'maison':
         return HOUSE
+    if sym == 'eclair':
+        return BOLT
     size = 19 if len(sym) == 1 else 14 if len(sym) == 2 else 11
     y = 23 if len(sym) == 1 else 21.5
     # Texte blanc cerné de sombre : lisible sur les bandes claires comme foncées, jusqu'à 16 px.
