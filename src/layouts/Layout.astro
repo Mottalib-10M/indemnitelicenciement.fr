@@ -92,11 +92,7 @@ const ogImage = `${siteUrl}/og/${cheminOg || 'accueil'}.png`;
 
     <!-- Plausible Analytics -->
     <script defer data-domain="indemnitelicenciement.fr" src="https://plausible.io/js/script.js"></script>
-    <!--
-      Pas de GA4 : l'identifiant etait reste a l'etat de gabarit
-      (G-XXXXXXXXXX), donc deux requetes vers googletagmanager a chaque
-      page pour une mesure qui n'arrivait nulle part.
-    -->
+    <!-- GA4 (GA4_ID dans site-config) est charge par Consent.astro, comme Clarity. -->
   <Consent part="head" lang="fr" moreHref="/confidentialite/" />
 </head>
   <body class="bg-gray-50 text-gray-900 antialiased">
