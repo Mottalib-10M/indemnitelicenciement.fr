@@ -1,0 +1,63 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+import { CONTACT_EMAIL } from '../../../data/site-config';
+---
+
+<Layout
+  title="Privacy policy | French severance and ARE calculators"
+  description="Your salary, length of service and age never leave your browser. This site sets no cookies and its publisher keeps no personal data; only stability is checked."
+  canonical="/en/privacy/"
+  lang="en"
+  alternates={{ fr: '/confidentialite/', en: '/en/privacy/' }}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Privacy policy</h1>
+
+    <div class="prose prose-lg max-w-none">
+      <p>
+        This page describes what <strong>indemnitelicenciement.fr</strong> does with information about your visit, under the EU General Data Protection Regulation (GDPR) and the French Data Protection Act. The short answer: the site sets no cookies and its publisher, Radif Partners, keeps no personal data about you.
+      </p>
+
+      <h2>Figures typed into the calculators</h2>
+      <p>
+        The gross monthly salary, years of service, age, reason for the dismissal or months worked that you enter to estimate French severance pay or unemployment benefit (ARE) are processed <strong>only inside your browser</strong>. They are not sent to any server, not written to a database and not kept on your device either: closing the tab clears them.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        No cookie is set by this site, neither by the calculators nor by the measurement tool described below, and nothing is written to your browser’s local storage. That is why there is no banner: there is nothing for you to accept or decline. The site shows no advertising and uses no advertising trackers.
+      </p>
+
+      <h2>Anonymous stability monitoring</h2>
+      <p>
+        To catch problems such as JavaScript errors, slow page loads, buttons that do nothing when clicked or broken scrolling, the site runs <strong>Microsoft Clarity in cookieless mode</strong>. In that mode Clarity sets none of <code>_clck</code>, <code>_clsk</code>, <code>MUID</code> or <code>CLID</code>; each page view gets its own identifier, and page views and visits are never linked to one another. Page text and anything you type into a field are masked in your browser before anything is sent, so no salary or length of service ever reaches Microsoft.
+      </p>
+      <ul>
+        <li><strong>Controller for this processing</strong>: Microsoft Ireland Operations Limited, One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Ireland, which may process the data in the United States under the EU–US Data Privacy Framework and standard contractual clauses; see <a href="https://privacy.microsoft.com/privacystatement" rel="nofollow noopener" target="_blank">Microsoft’s privacy statement</a>.</li>
+        <li><strong>Purpose</strong>: a technical, anonymous check that the calculators display and compute correctly.</li>
+        <li><strong>Retention</strong>: 30 days for page-view recordings, 13 months for aggregated statistics.</li>
+        <li><strong>Legal basis</strong>: the publisher’s legitimate interest in offering a calculator that works (Article 6(1)(f) GDPR).</li>
+        <li><strong>How to object</strong>: block the domain <code>clarity.ms</code> in your browser or content blocker (the calculators keep working exactly the same), or write to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</li>
+      </ul>
+
+      <h2>Hosting logs</h2>
+      <p>
+        The site is hosted on GitHub Pages (GitHub, Inc.). Like any web server, it logs technical details of each request (IP address, time, page requested, browser) for security and to keep the service running. The publisher has no access to these logs and does not use them.
+      </p>
+
+      <h2>If you email us</h2>
+      <p>
+        A message sent to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> is read in order to answer it and is not used for anything else. Your address is not added to any mailing list or passed on.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        The GDPR gives you rights of access, rectification, erasure, restriction and objection. Since the publisher holds no data about you, these rights in practice cover any correspondence you have sent, and, for stability monitoring, can also be exercised with Microsoft. You may complain to the French data protection authority, the CNIL (Commission nationale de l’informatique et des libertés), at <a href="https://www.cnil.fr/fr/plaintes" rel="nofollow noopener" target="_blank">cnil.fr/fr/plaintes</a>.
+      </p>
+      <p>
+        The French version of this policy, <a href="/confidentialite/">Politique de confidentialité</a>, says the same thing. Last updated: 6 October 2026.
+      </p>
+    </div>
+  </section>
+</Layout>

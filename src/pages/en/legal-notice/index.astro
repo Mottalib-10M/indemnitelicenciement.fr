@@ -1,0 +1,51 @@
+---
+import LegalIdentity from '../../../components/LegalIdentity.astro';
+import { CONTACT_EMAIL } from '../../../data/site-config';
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+---
+
+<Layout
+  title="Legal notice | French severance and ARE calculators"
+  description="Who publishes indemnitelicenciement.fr, who hosts it, how far its severance and unemployment benefit estimates can be relied on, and how to reach the publisher."
+  canonical="/en/legal-notice/"
+  lang="en"
+  alternates={{ fr: '/mentions-legales/', en: '/en/legal-notice/' }}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Legal notice</h1>
+
+    <div class="prose prose-lg max-w-none">
+      <h2>Publisher</h2>
+      <LegalIdentity mode="publisher" lang="en" />
+
+      <h2>Hosting</h2>
+      <LegalIdentity mode="hosting" lang="en" />
+
+      <h2>What the site is</h2>
+      <p>
+        indemnitelicenciement.fr is an information site with calculators for employees in France: statutory severance pay under the French Labour Code, notice periods, and unemployment benefit (ARE) under the Unédic rules. Its results are estimates for guidance only. They are not legal advice and do not replace the text of your collective agreement, the decision of France Travail or the advice of an employment lawyer.
+      </p>
+
+      <h2>Personal data and cookies</h2>
+      <p>
+        The site sets no cookies and the publisher records no personal data: the amounts you enter stay in your browser. The only measurement is a technical, anonymous check of page stability with Microsoft Clarity, running cookieless with page content masked. The details are in the <a href="/en/privacy/">privacy policy</a>.
+      </p>
+
+      <h2>Intellectual property</h2>
+      <p>
+        The texts, calculators, graphics and code of the site are protected by French and international intellectual property law. Reproducing them, in whole or in part, requires the publisher’s prior permission, except for strictly private use. The embeddable calculator offered on the widget page may be used as described there.
+      </p>
+
+      <h2>Applicable law</h2>
+      <p>
+        This notice is governed by French law, and any dispute about the use of the site falls under the jurisdiction of the French courts. The French version, <a href="/mentions-legales/">Mentions légales</a>, prevails in case of difference.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about the site go to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+      </p>
+    </div>
+  </section>
+</Layout>

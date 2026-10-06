@@ -37,11 +37,9 @@ export const LEGAL: LegalIdentity = {
 };
 export const LEGAL_REQUIRED: Array<keyof LegalIdentity> = ['entityName', 'street', 'postalCode', 'city'];
 
-/** Projet Microsoft Clarity (compte amradif). Vide = aucun traceur ni bandeau. */
+/** Projet Microsoft Clarity (compte amradif), chargé sans cookie par Consent.astro. Vide = aucun traceur. */
 export const CLARITY_ID = 'yrbpl3tluo';
-/** Identifiant de mesure Google Analytics 4. Chargé par Consent.astro selon
- *  la même règle que Clarity ; vide = pas de GA4. */
-export const GA4_ID = 'G-D6F15N6VYM';
-/** Régime de consentement : 'opt-in' = rien avant l'accord ; 'notice' = mesure active
- *  avec information préalable et retrait possible. */
+/** Google Analytics 4 retiré le 2026-10-06 (RECETTE §15.6 : aucun traceur hors Clarity sans cookie). */
+export const GA4_ID = '';
+/** Régime 'none' (2026-10-06, RECETTE §15.6) : aucun bandeau, Clarity sans cookie, aucun autre traceur. */
 export const CONSENT_MODE: 'opt-in' | 'notice' | 'none' = 'none';

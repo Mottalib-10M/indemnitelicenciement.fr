@@ -2,69 +2,66 @@
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
 import SourcesOfficielles from '../../components/SourcesOfficielles.astro';
+import { CONTACT_EMAIL, LEGAL } from '../../data/site-config';
 ---
 
 <Layout
   title="Politique de Confidentialité | indemnitelicenciement.fr"
-  description="Aucune donnée saisie dans le calculateur ne quitte votre navigateur : voici ce qui est mesuré, ce qui ne l’est pas, et comment exercer vos droits en pratique."
+  description="Salaire, ancienneté, âge : vos saisies ne quittent jamais votre navigateur. Aucun cookie, aucune donnée personnelle gardée ; seule la stabilité est mesurée."
   canonical="/confidentialite/"
+  alternates={{ fr: '/confidentialite/', en: '/en/privacy/' }}
 >
   <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Politique de Confidentialité</h1>
 
     <div class="prose prose-lg max-w-none">
       <p>
-        La présente politique de confidentialité décrit la manière dont le site <strong>indemnitelicenciement.fr</strong> collecte, utilise et protège les informations des utilisateurs, conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés.
+        Cette page explique ce que le site <strong>indemnitelicenciement.fr</strong> fait, et surtout ne fait pas, des informations liées à votre visite, au regard du Règlement général sur la protection des données (RGPD) et de la loi Informatique et Libertés. En une phrase : l’éditeur n’enregistre aucune donnée personnelle et le site ne dépose aucun cookie.
       </p>
 
-      <h2>Données collectées</h2>
-      <p>Le site indemnitelicenciement.fr est conçu pour respecter au maximum la vie privée de ses utilisateurs. Les calculs de simulation sont effectués <strong>entièrement côté client</strong> (dans votre navigateur) et aucune donnée saisie dans le calculateur n'est transmise à nos serveurs ni stockée.</p>
-      <p>Les seules données collectées sont :</p>
-      <ul>
-        <li><strong>Données de navigation anonymes</strong> : via Plausible Analytics, un outil d'analyse respectueux de la vie privée qui ne dépose aucun cookie et ne collecte aucune donnée personnelle. Les données collectées sont limitées aux pages visitées, au référent, au pays d'origine et au type d'appareil.</li>
-        <li><strong>Données d'usage</strong> : via Microsoft Clarity, chargé dès l'ouverture de la page sans bandeau de consentement, qui enregistre les clics, le défilement, les pages vues et leur adresse, le type d'appareil et de navigateur, et une localisation approximative déduite de l'adresse IP, sous forme de sessions anonymes et de cartes de chaleur. Ce que vous saisissez dans les champs est masqué dans votre navigateur et n'est pas envoyé. Base juridique : l'intérêt légitime de l'éditeur à comprendre l'usage du site (art. 6-1 f du RGPD). Les sessions enregistrées sont conservées 30 jours et les données agrégées jusqu'à 13 mois.</li>
-        <li><strong>Données de mesure d'audience</strong> : via Google Analytics 4 (Google Ireland Limited ; Google LLC pour les transferts), chargé de la même façon dès l'ouverture de la page, sans bandeau de consentement, qui enregistre les pages consultées, la provenance de la visite, la durée et l'engagement, le type d'appareil et de navigateur, et une localisation approximative (pays, ville) déduite de l'adresse IP, qui n'est pas conservée par Google Analytics 4. Finalité : mesure d'audience. Base juridique : l'intérêt légitime de l'éditeur à comprendre l'usage du site (art. 6-1 f du RGPD). Les données sont conservées 14 mois (durée réglée sur la propriété).</li>
-      </ul>
+      <h2>Ce que vous saisissez dans les simulateurs</h2>
+      <p>
+        Le salaire de référence, l’ancienneté, l’âge, le motif de la rupture ou les mois travaillés que vous indiquez pour estimer une indemnité de licenciement ou une allocation chômage sont traités <strong>uniquement dans votre navigateur</strong>, par du code JavaScript exécuté sur votre appareil. Ces chiffres ne sont envoyés à aucun serveur, ne sont conservés dans aucune base de données et ne sont pas gardés non plus sur votre appareil : fermer l’onglet les efface.
+      </p>
 
       <h2>Cookies</h2>
-      <p>Le calculateur ne dépose aucun cookie et le site n'affiche aucune publicité. L'outil d'analyse Plausible fonctionne sans cookie et est conforme au RGPD sans nécessiter de consentement préalable (conformément aux lignes directrices de la CNIL sur les solutions exemptées).</p>
-      <p>Microsoft Clarity dépose les cookies <code>_clck</code> (un an) et <code>_clsk</code> (un jour), et Microsoft peut déposer <code>MUID</code> et <code>CLID</code> sur ses propres domaines. Le site n'affiche pas de bandeau de consentement. Pour refuser ces cookies, bloquez les cookies tiers ou le domaine clarity.ms dans votre navigateur, et effacez les données de site pour supprimer ceux qui sont déjà déposés ; le calculateur fonctionne sans eux.</p>
-      <p>Google Analytics 4 dépose les cookies <code>_ga</code> (deux ans) et <code>_ga_&lt;identifiant&gt;</code> (deux ans). Pour les refuser, bloquez les cookies tiers ou le domaine google-analytics.com dans votre navigateur, ou installez le <a href="https://tools.google.com/dlpage/gaoptout?hl=fr" rel="nofollow noopener" target="_blank">module officiel de désactivation de Google Analytics</a> ; le site reste utilisable.</p>
-
-      <h2>Traitement des données de simulation</h2>
       <p>
-        Toutes les données saisies dans le calculateur (salaire, ancienneté, âge, etc.) sont traitées <strong>exclusivement dans votre navigateur</strong> grâce à du code JavaScript exécuté localement. Ces données ne sont jamais envoyées, stockées ou traitées sur nos serveurs. Aucune base de données ne conserve vos informations de simulation.
+        Aucun cookie n’est déposé par ce site, ni par le calculateur, ni par l’outil de mesure décrit plus bas, et rien n’est écrit dans le stockage local de votre navigateur. Il n’y a donc pas de bandeau : vous n’avez rien à accepter ni à refuser. Le site n’affiche aucune publicité et n’utilise aucun traceur publicitaire.
       </p>
 
-      <h2>Partage des données</h2>
-      <p>Nous ne vendons ni ne louons aucune donnée personnelle. Les données de navigation anonymes collectées par Plausible sont hébergées au sein de l'Union européenne et ne sont pas partagées avec des tiers. Les données de mesure d'audience décrites ci-dessus sont traitées par Microsoft (Microsoft Ireland Operations Limited et Microsoft Corporation), ce qui peut impliquer un transfert vers les États-Unis, encadré par le cadre de protection des données UE–États-Unis et par les clauses contractuelles types de la Commission européenne ; voir la <a href="https://privacy.microsoft.com/privacystatement" rel="nofollow noopener" target="_blank">déclaration de confidentialité de Microsoft</a>. Les données de Google Analytics 4 sont traitées par Google Ireland Limited et transférées à Google LLC, aux États-Unis, certifiée dans le cadre du Data Privacy Framework UE–États-Unis.</p>
-
-      <h2>Vos droits (RGPD)</h2>
+      <h2>Mesure anonyme de la stabilité du site</h2>
       <p>
-        Conformément au RGPD, vous disposez des droits suivants :
+        Pour repérer ce qui ne fonctionne pas (erreurs JavaScript, pages lentes à charger, boutons sur lesquels on clique sans effet, défilement anormal), le site utilise <strong>Microsoft Clarity en mode sans cookie</strong>. Dans ce mode, Clarity ne dépose ni <code>_clck</code>, ni <code>_clsk</code>, ni <code>MUID</code>, ni <code>CLID</code> : chaque page vue reçoit un identifiant qui lui est propre, et deux pages vues ne sont pas reliées entre elles, pas plus que deux visites. Le texte des pages et tout ce que vous tapez dans les champs sont masqués dans votre navigateur avant tout envoi : aucun montant de salaire ni aucune ancienneté ne parvient à Microsoft.
       </p>
       <ul>
-        <li><strong>Droit d'accès</strong> : vous pouvez demander l'accès aux données vous concernant.</li>
-        <li><strong>Droit de rectification</strong> : vous pouvez demander la correction de données inexactes.</li>
-        <li><strong>Droit à l'effacement</strong> : vous pouvez demander la suppression de vos données.</li>
-        <li><strong>Droit à la portabilité</strong> : vous pouvez demander à recevoir vos données dans un format structuré.</li>
-        <li><strong>Droit d'opposition</strong> : vous pouvez vous opposer au traitement de vos données.</li>
+        <li><strong>Responsable de ce traitement</strong> : Microsoft Ireland Operations Limited, One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Irlande, qui peut traiter ces données aux États-Unis dans le cadre du Data Privacy Framework UE–États-Unis et des clauses contractuelles types ; voir la <a href="https://privacy.microsoft.com/privacystatement" rel="nofollow noopener" target="_blank">déclaration de confidentialité de Microsoft</a>.</li>
+        <li><strong>Finalité</strong> : vérifier de façon technique et anonyme que les simulateurs s’affichent et calculent correctement.</li>
+        <li><strong>Durée de conservation</strong> : 30 jours pour les enregistrements de pages vues, 13 mois pour les statistiques agrégées.</li>
+        <li><strong>Base juridique</strong> : l’intérêt légitime de l’éditeur à proposer un outil qui fonctionne (article 6, paragraphe 1, point f du RGPD).</li>
+        <li><strong>Vous opposer</strong> : bloquez le domaine <code>clarity.ms</code> dans votre navigateur ou votre bloqueur de contenus (les simulateurs fonctionnent alors à l’identique), ou écrivez à <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</li>
       </ul>
+
+      <h2>Journaux de l’hébergeur</h2>
       <p>
-        Vous pouvez aussi vous opposer à la mesure d'audience en bloquant les domaines clarity.ms et google-analytics.com dans votre navigateur, ou avec le module officiel de désactivation de Google Analytics. Le calculateur lui-même ne collecte aucune donnée personnelle. Pour toute demande, vous pouvez nous contacter via les coordonnées indiquées dans les mentions légales.
+        Le site est hébergé par GitHub Pages (GitHub, Inc.). Comme tout serveur web, celui-ci consigne des informations techniques sur les requêtes reçues (adresse IP, date, page demandée, navigateur) pour assurer la sécurité et le bon fonctionnement du service ; l’éditeur n’a pas accès à ces journaux et ne les exploite pas.
       </p>
 
-      <h2>Sécurité</h2>
+      <h2>Si vous nous écrivez</h2>
       <p>
-        Le site est servi via une connexion sécurisée HTTPS. Nous mettons en œuvre les mesures techniques et organisationnelles appropriées pour protéger les données contre tout accès non autorisé, altération ou destruction.
+        Un message envoyé à <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> est lu pour y répondre, puis n’est pas réutilisé. Votre adresse électronique n’est ni ajoutée à une liste de diffusion, ni transmise à quiconque.
+      </p>
+
+      <h2>Vos droits</h2>
+      <p>
+        Le RGPD vous donne un droit d’accès, de rectification, d’effacement, de limitation et d’opposition. Comme l’éditeur ne conserve aucune donnée sur vous, ces droits portent en pratique sur la correspondance que vous lui auriez adressée, et, pour la mesure de stabilité, s’exercent aussi auprès de Microsoft. Vous pouvez saisir la {LEGAL.supervisoryAuthority} : <a href={LEGAL.supervisoryAuthorityUrl} rel="nofollow noopener" target="_blank">{LEGAL.supervisoryAuthorityUrl}</a>.
       </p>
 
       <h2>Modifications</h2>
       <p>
-        La présente politique de confidentialité peut être modifiée à tout moment. Les modifications prennent effet dès leur publication sur cette page. La date de dernière mise à jour est indiquée ci-dessous.
+        Si le fonctionnement du site change, cette page est mise à jour avant le changement et la date ci-dessous avance.
       </p>
       <p>
-        <strong>Dernière mise à jour :</strong> Octobre 2026.
+        <strong>Dernière mise à jour :</strong> 6 octobre 2026.
       </p>
     </div>
   </section>
