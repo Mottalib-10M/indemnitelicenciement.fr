@@ -131,6 +131,16 @@ export default function AreSimulator({ lang = 'fr' }: { lang?: Lang }) {
   const resume = r.eligible
     ? `${t.head} : ${eur(r.netteMensuelle)} · ${t.dureeT} : ${num(r.duree.jours)} ${t.jours} · ${t.calT} : ${t.calJ(r.premierJour)}`
     : t.nonEligible;
+  // Téléphone : tant que le résultat est sous l'écran, une barre collante en bas montre le chiffre clé (RECETTE §5, 2026-10-11).
+  const carte = useRef<HTMLDivElement>(null);
+  const [dessous, setDessous] = useState(false);
+  useEffect(() => {
+    const el = carte.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(([e]) => setDessous(!e.isIntersecting && e.boundingClientRect.top > 0));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const copy = async (what: 'r' | 'l') => {
     try { await navigator.clipboard.writeText(what === 'r' ? resume : window.location.href); setCopied(what); setTimeout(() => setCopied(''), 1500); } catch { /* presse-papiers refusé */ }
   };
@@ -160,7 +170,7 @@ export default function AreSimulator({ lang = 'fr' }: { lang?: Lang }) {
         </details>
       </form>
 
-      <div aria-live="polite" className="border-t border-gray-200 bg-primary-50/60 p-5 md:p-6">
+      <div ref={carte} aria-live="polite" data-resultat className="scroll-mt-20 border-t border-gray-200 bg-primary-50/60 p-5 md:p-6">
         {!r.eligible ? (
           <div>
             <p className="text-sm font-semibold text-gray-700">{t.nonEligible}</p>
@@ -214,6 +224,13 @@ export default function AreSimulator({ lang = 'fr' }: { lang?: Lang }) {
           <p className="mt-1">{t.hyp} <a href={t.methodeHref} className="text-primary-700 underline">{t.methode}</a></p>
         </details>
       </div>
+      {dessous && (
+        <button type="button" aria-hidden="true" tabIndex={-1} onClick={() => carte.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          className="fixed inset-x-0 bottom-0 z-40 flex items-baseline justify-between gap-3 border-t border-primary-200 bg-primary-50 px-4 py-3 text-left shadow-lg lg:hidden">
+          <span className="text-sm font-medium text-gray-700">{r.eligible ? t.head : t.nonEligible}</span>
+          {r.eligible && <span className="tabular-nums text-xl font-bold text-primary-700">{eur(r.netteMensuelle)}</span>}
+        </button>
+      )}
     </div>
   );
 }

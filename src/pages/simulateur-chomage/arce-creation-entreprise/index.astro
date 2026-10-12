@@ -25,7 +25,7 @@ const faq = [
   citable={`L’aide à la reprise ou à la création d’entreprise (ARCE) verse en capital ${v.arceTaux} des droits à l’allocation chômage qui restent dus à la date de début de l’activité, c’est-à-dire l’allocation journalière brute multipliée par le nombre de jours restants, puis multipliée par ${v.n(0.6)}. On retranche ensuite ${v.arceRet} au titre de la participation aux retraites complémentaires. Le montant est payé en deux moitiés : la première au démarrage de l’activité, la seconde ${v.arceDelai} mois plus tard si l’activité continue et que le créateur n’occupe pas de CDI à temps plein. L’exemple de l’Unédic : 518 jours restants à 40 € donnent 12 432 €, puis 12 059 € après la retenue, soit deux versements d’environ 6 030 €. Il faut avoir obtenu l’ACRE, justifier de la création et ne pas cumuler déjà l’allocation avec une rémunération. Opter pour l’ARCE ferme le cumul mensuel ; les ${v.n(40, 0)} % non versés restent mobilisables si l’activité s’arrête.`}
   faq={faq}
   sources={['unedic_arce', 'sp_arce', 'unedic_cumul', 'unedic_sept']}>
-  <MiniSimAutonome slot="sim" client:visible kind="arce" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
+  <MiniSimAutonome slot="sim" spacing="my-0" client:visible kind="arce" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
 
   <h2>Ce que vaut l’ARCE pour trois salaires</h2>
   <p>Le tableau suppose un créateur de 42 ans, licencié après deux ans de travail continu, qui lance son activité dès l’ouverture de ses droits, donc avec un reliquat complet de {v.cap55} jours. Il est calculé par le moteur du simulateur à partir de l’allocation journalière de chacun.</p>

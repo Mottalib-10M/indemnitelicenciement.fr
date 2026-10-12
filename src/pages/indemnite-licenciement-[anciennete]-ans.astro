@@ -146,14 +146,28 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
   </nav>
 
   <!-- Hero -->
-  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-10 md:py-16">
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-4 md:py-6">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-3xl md:text-4xl font-extrabold leading-tight text-white">
+      <h1 class="text-[1.7rem] md:text-4xl font-extrabold leading-tight text-white">
         Indemnité de licenciement après {entry.annees} ans
       </h1>
-      <p class="mt-4 text-lg text-primary-100 max-w-2xl mx-auto">
+      <p class="mt-2 text-base md:text-lg text-primary-100 max-w-3xl mx-auto">
         Calcul 2026 - Montant légal, préavis, exemples chiffrés et droits du salarié
         après {entry.annees} {entry.annees > 1 ? 'années' : 'an'} d'ancienneté.
+      </p>
+    </div>
+  </section>
+
+  <!-- Calculator : juste sous le titre (RECETTE §5, premier écran, 2026-10-11) ; bloc citable et exemples en dessous -->
+  <section data-chrome class="pt-4 pb-10 px-4 sm:px-6 lg:px-8 bg-gray-100">
+    <div class="max-w-6xl mx-auto">
+      <LicenciementCalculator client:idle />
+      <h2 class="mt-8 text-2xl font-bold text-gray-900 mb-3 text-center">
+        Simulez votre indemnité après {entry.annees} ans
+      </h2>
+      <p class="text-gray-600 text-center max-w-2xl mx-auto">
+        Utilisez notre calculateur pour obtenir une estimation personnalisée de vos indemnités
+        de licenciement, incluant le préavis, les congés payés et l'allocation chômage (ARE).
       </p>
     </div>
   </section>
@@ -204,20 +218,6 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       * Indemnité légale + indemnité compensatrice de préavis (non-cadre). Hors congés payés et indemnité supra-légale.
       Barème 2026, article R1234-2 du Code du travail.
     </p>
-  </section>
-
-  <!-- Calculator -->
-  <section data-chrome class="py-10 px-4 sm:px-6 lg:px-8 bg-gray-100">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
-        Simulez votre indemnité après {entry.annees} ans
-      </h2>
-      <p class="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
-        Utilisez notre calculateur pour obtenir une estimation personnalisée de vos indemnités
-        de licenciement, incluant le préavis, les congés payés et l'allocation chômage (ARE).
-      </p>
-      <LicenciementCalculator client:idle />
-    </div>
   </section>
 
   <!-- Contextual Content -->

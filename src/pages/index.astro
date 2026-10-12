@@ -67,18 +67,18 @@ import SourcesOfficielles from '../components/SourcesOfficielles.astro';
   schema={faqSchema}
 >
   <!-- Hero -->
-  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-12 md:py-20">
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-5 md:py-6">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-white">
+      <h1 class="text-[1.7rem] md:text-4xl font-extrabold leading-tight text-white">
         Calculateur d'Indemnité de Licenciement 2026
       </h1>
-      <p class="mt-4 text-lg md:text-xl text-primary-100 max-w-2xl mx-auto">
+      <p class="mt-2 text-base md:text-lg text-primary-100 max-w-3xl mx-auto">
         Estimez gratuitement vos droits en cas de licenciement : indemnité légale, préavis,
         congés payés et allocation chômage (ARE). Conforme au Code du travail.
       </p>
       <a
         href="#calculateur"
-        class="inline-block mt-8 bg-white text-primary-700 font-bold px-8 py-3.5 rounded-xl hover:bg-primary-50 transition-colors shadow-lg text-lg"
+        class="inline-block mt-3 bg-white text-primary-700 font-bold px-6 py-2 rounded-xl hover:bg-primary-50 transition-colors shadow-lg text-base"
       >
         Calculer mes indemnités
       </a>
@@ -86,7 +86,7 @@ import SourcesOfficielles from '../components/SourcesOfficielles.astro';
   </section>
 
   <!-- Calculator -->
-  <section class="py-12 px-4 sm:px-6 lg:px-8 -mt-8">
+  <section class="pt-4 pb-12 px-4 sm:px-6 lg:px-8">
     <LicenciementCalculator client:idle />
   </section>
 

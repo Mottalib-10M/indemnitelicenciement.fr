@@ -21,10 +21,11 @@ interface Props {
   faq: QA[];
   crumb: string;
   sources: Array<keyof typeof P.sources>;
-  /** Page outil : le simulateur passe avant le bloc citable, pour être visible sans défiler sur mobile (§5). */
+  /** Ancien réglage : depuis la règle du 2026-10-11 (RECETTE §5, premier écran), le simulateur passe
+   *  toujours avant le bloc citable, sur toutes les pages. Gardé pour ne pas casser les appels. */
   simFirst?: boolean;
 }
-const { lang, path, alt, title, description, h1, lede, citable, faq, crumb, sources, simFirst = false } = Astro.props;
+const { lang, path, alt, title, description, h1, lede, citable, faq, crumb, sources } = Astro.props;
 const en = lang === 'en';
 const site = 'https://indemnitelicenciement.fr';
 const PAGES_FR = [
@@ -64,17 +65,16 @@ const schema = {
 };
 ---
 <Layout title={title} description={description} canonical={path} lang={lang} alternates={en ? { fr: alt, en: path } : { fr: path, en: alt }} schema={schema}>
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
     <nav data-chrome aria-label={en ? 'Breadcrumb' : 'Fil d’Ariane'} class="text-sm text-gray-600">
       {ariane.map(([h, n], i) => (
         <span>{i > 0 && <span aria-hidden="true"> › </span>}{i < ariane.length - 1 ? <a href={h} class="text-primary-700 hover:underline">{n}</a> : <span aria-current="page">{n}</span>}</span>
       ))}
     </nav>
-    <h1 class="mt-4 text-3xl md:text-4xl font-extrabold text-gray-900">{h1}</h1>
-    <p class="mt-3 text-lg text-gray-700">{lede}</p>
-    {simFirst && <div class="mt-6"><slot name="sim" /></div>}
+    <h1 class="mt-3 text-[1.7rem] leading-tight md:text-4xl font-extrabold text-gray-900">{h1}</h1>
+    <p class="mt-2 text-base md:text-lg text-gray-700">{lede}</p>
+    <div class="mt-4"><slot name="sim" /></div>
     <p class="mt-6 leading-relaxed text-gray-800">{citable}</p>
-    {!simFirst && <div class="mt-6"><slot name="sim" /></div>}
   </div>
 
   <article class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 chomage-prose">

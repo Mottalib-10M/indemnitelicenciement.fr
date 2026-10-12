@@ -24,7 +24,7 @@ const faq = [
   citable={`Quand un allocataire reprend une activité salariée, France Travail retire chaque mois ${v.cumulTaux} du salaire brut de cette activité à l’allocation mensuelle qu’il aurait touchée sans travailler, puis divise le reste par l’allocation journalière pour obtenir un nombre de jours indemnisés, arrondi à l’entier le plus proche. L’allocation versée est ce nombre de jours multiplié par l’allocation journalière. Le total du salaire et de l’allocation ne peut pas dépasser l’ancien salaire, égal au salaire journalier de référence multiplié par ${v.cumulJours}. L’exemple officiel de l’Unédic : une allocation de 57 € par jour, un nouveau salaire de 2 100 € brut, donnent 4 jours indemnisés et 228 € versés ; les 26 jours non payés sont reportés en fin de droits. Le cumul est possible pendant toute la durée des droits, en CDD comme en CDI, quel que soit le nombre d’heures.`}
   faq={faq}
   sources={['unedic_cumul', 'sp_are', 'unedic_are']}>
-  <MiniSimAutonome slot="sim" client:visible kind="cumul" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
+  <MiniSimAutonome slot="sim" spacing="my-0" client:visible kind="cumul" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
 
   <h2>Le calcul mois par mois</h2>
   <p>La formule de l’Unédic tient en une ligne : jours indemnisables = (allocation mensuelle sans activité − {v.cumulTaux} du salaire brut) ÷ allocation journalière. L’allocation mensuelle sans activité est l’allocation journalière multipliée par {v.jpm}. Le résultat est arrondi à l’entier le plus proche, puis multiplié par l’allocation journalière. Il ne peut pas y avoir de report d’un mois sur l’autre, sauf cas particuliers : un salaire perçu en mars ne réduit que l’allocation de mars.</p>

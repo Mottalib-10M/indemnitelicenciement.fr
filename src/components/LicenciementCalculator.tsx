@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { simulerLicenciement, type LicenciementInput, type LicenciementResult } from '../lib/engine';
 
 function formatEuros(amount: number): string {
@@ -113,10 +113,9 @@ export default function LicenciementCalculator() {
   const [age, setAge] = useState('35');
   const [supraLegale, setSupraLegale] = useState('0');
   const [joursConges, setJoursConges] = useState('0');
-  const [result, setResult] = useState<LicenciementResult | null>(null);
-  const [showResults, setShowResults] = useState(false);
-
-  const handleCalcul = useCallback(() => {
+  // Le résultat se calcule à chaque saisie et se voit à côté des champs, sans défiler
+  // (RECETTE §5, règle du 2026-10-11) ; le bouton amène au résultat sur téléphone.
+  const result: LicenciementResult = useMemo(() => {
     const input: LicenciementInput = {
       salaireBrutMensuel: parseFloat(salaireBrut) || 0,
       salaireBrut3DerniersMois: salaire3Mois ? parseFloat(salaire3Mois) : undefined,
@@ -128,27 +127,40 @@ export default function LicenciementCalculator() {
       joursCongesAcquis: parseInt(joursConges) || 0,
     };
 
-    const res = simulerLicenciement(input);
-    setResult(res);
-    setShowResults(true);
+    return simulerLicenciement(input);
   }, [salaireBrut, salaire3Mois, ancienneteAnnees, ancienneteMois, cadre, age, supraLegale, joursConges]);
+  const showResults = true;
+  const resultat = useRef<HTMLDivElement>(null);
+  const handleCalcul = useCallback(() => {
+    resultat.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
+  // Téléphone : tant que le résultat est sous l'écran, une barre collante en bas montre le total.
+  const [dessous, setDessous] = useState(false);
+  useEffect(() => {
+    const el = resultat.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(([e]) => setDessous(!e.isIntersecting && e.boundingClientRect.top > 0));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto" id="calculateur">
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-primary-700 to-primary-600 px-6 py-8 text-white">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">
+        <div className="bg-gradient-to-r from-primary-700 to-primary-600 px-5 py-3 md:px-6 md:py-4 text-white">
+          <h2 className="text-xl md:text-2xl font-bold text-white">
             Calculateur d'indemnité de licenciement 2026
           </h2>
-          <p className="mt-2 text-primary-100 text-sm md:text-base">
+          <p className="mt-1 text-primary-100 text-sm">
             Estimez vos droits : indemnité légale, préavis, congés payés et allocation chomage (ARE)
           </p>
         </div>
 
+        <div className="lg:grid lg:grid-cols-2 lg:items-start">
         {/* Form */}
-        <div className="p-6 md:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+        <form className="p-5 md:p-6" onSubmit={(e) => { e.preventDefault(); handleCalcul(); }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5">
             <InputField
               label="Salaire brut mensuel"
               id="salaire-brut"
@@ -250,16 +262,16 @@ export default function LicenciementCalculator() {
 
           {/* Calculate Button */}
           <button
-            onClick={handleCalcul}
-            className="w-full mt-4 bg-primary-700 hover:bg-primary-800 text-white font-bold py-3.5 px-6 rounded-xl transition-colors text-lg shadow-lg hover:shadow-xl cursor-pointer"
+            type="submit"
+            className="w-full mt-2 bg-primary-700 hover:bg-primary-800 text-white font-bold py-3.5 px-6 rounded-xl transition-colors text-lg shadow-lg hover:shadow-xl cursor-pointer"
           >
             Calculer mes indemnités
           </button>
-        </div>
+        </form>
 
         {/* Results */}
         {showResults && result && (
-          <div className="border-t border-gray-100 bg-gray-50 p-6 md:p-8">
+          <div ref={resultat} data-resultat aria-live="polite" className="scroll-mt-20 border-t border-gray-100 bg-gray-50 p-5 md:p-6 lg:border-l lg:border-t-0">
             {!result.eligible ? (
               <div className="bg-accent-50 border-2 border-accent-400 rounded-xl p-6 text-center">
                 <p className="text-accent-800 font-semibold text-lg">
@@ -271,12 +283,12 @@ export default function LicenciementCalculator() {
               </div>
             ) : (
               <>
-                <h3 className="text-xl font-bold text-gray-900 mb-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
                   Resultat de votre simulation
                 </h3>
 
                 {/* Summary Card */}
-                <div className="bg-gradient-to-r from-primary-700 to-primary-600 rounded-xl p-6 text-white mb-6 shadow-lg">
+                <div className="bg-gradient-to-r from-primary-700 to-primary-600 rounded-xl p-5 text-white mb-5 shadow-lg">
                   <p className="text-primary-100 text-sm font-medium">
                     Total estimatif des indemnités
                   </p>
@@ -290,7 +302,7 @@ export default function LicenciementCalculator() {
                 </div>
 
                 {/* Detailed Results */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                   <ResultCard
                     title="Indemnité légale de licenciement"
                     amount={result.indemniteLegale}
@@ -321,7 +333,7 @@ export default function LicenciementCalculator() {
                   <h4 className="text-lg font-bold text-gray-900 mb-4">
                     Allocation chomage (ARE)
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                     <div>
                       <p className="text-sm text-gray-500">Montant journalier</p>
                       <p className="text-xl font-bold text-gray-900">
@@ -401,7 +413,15 @@ export default function LicenciementCalculator() {
             )}
           </div>
         )}
+        </div>
       </div>
+      {dessous && (
+        <button type="button" aria-hidden="true" tabIndex={-1} onClick={handleCalcul}
+          className="fixed inset-x-0 bottom-0 z-40 flex items-baseline justify-between gap-3 border-t border-primary-200 bg-primary-50 px-4 py-3 text-left shadow-lg lg:hidden">
+          <span className="text-sm font-medium text-gray-700">{result.eligible ? 'Total estimatif des indemnités' : 'Non eligible a l\'indemnité légale'}</span>
+          {result.eligible && <span className="tabular-nums text-xl font-bold text-primary-700">{formatEuros(result.totalIndemnites)}</span>}
+        </button>
+      )}
     </div>
   );
 }

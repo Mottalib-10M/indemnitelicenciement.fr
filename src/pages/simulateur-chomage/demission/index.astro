@@ -21,7 +21,7 @@ const faq = [
   citable={`Un salarié qui démissionne n’a pas droit à l’allocation chômage, parce que l’assurance ne couvre que la perte involontaire d’emploi. Trois voies permettent pourtant d’être indemnisé. La démission légitime, d’abord : suivre un conjoint qui change de résidence pour son travail, quitter un employeur qui ne paie plus les salaires sur décision du conseil de prud’hommes, partir après des violences au travail ou conjugales avec dépôt de plainte, ou quitter un emploi repris depuis moins de ${v.dem65} jours. La démission pour un projet de reconversion ou de création d’entreprise, ensuite, reconnu réel et sérieux par la commission Transitions Pro, après ${v.projetJours} jours de travail continu sur ${v.projetMois} mois et un conseil en évolution professionnelle pris avant la démission. Le réexamen, enfin : après ${v.dem121} jours de chômage non indemnisé, l’instance paritaire régionale peut accorder l’allocation à partir du ${v.dem122}e jour au vu des recherches d’emploi. Dans tous ces cas, le montant se calcule comme après un licenciement.`}
   faq={faq}
   sources={['unedic_demission', 'unedic_projet', 'sp_demission', 'unedic_are']}>
-  <MiniSimAutonome slot="sim" client:visible kind="demission" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
+  <MiniSimAutonome slot="sim" spacing="my-0" client:visible kind="demission" lang="fr" locale="fr-FR" href="/simulateur-chomage/" />
 
   <h2>Les démissions légitimes, regroupées par situation</h2>
   <p>L’article 2 du règlement d’assurance chômage énumère les cas. Ils se lisent mieux par famille que dans l’ordre du texte.</p>

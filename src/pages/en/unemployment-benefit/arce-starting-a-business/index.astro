@@ -25,7 +25,7 @@ const faq = [
   citable={`ARCE, the aide à la reprise ou à la création d’entreprise, pays as a lump sum ${v.arceTaux} of the unemployment benefit still due on the day your business starts: your gross daily benefit times the days left, times ${v.n(0.6)}. ${v.arceRet} is then deducted for the supplementary pension scheme. The money comes in two halves: the first when the business starts, the second ${v.arceDelai} months later if the business is still running and you do not hold a full-time permanent job. Unédic’s example: 518 days left at €40 give €12,432, then €12,059 after the deduction, so two payments of about €6,030. You need ACRE, proof that the business exists, and you must not already be combining benefit with pay. Choosing ARCE ends the monthly combination of benefit and income; the 40% not paid out remains available if the business stops.`}
   faq={faq}
   sources={['unedic_arce', 'sp_arce', 'unedic_cumul', 'unedic_sept']}>
-  <MiniSimAutonome slot="sim" client:visible kind="arce" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+  <MiniSimAutonome slot="sim" spacing="my-0" client:visible kind="arce" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
 
   <h2>What ARCE is worth on three salaries</h2>
   <p>The table assumes a 42-year-old founder, dismissed after two years of continuous work, who starts the business as soon as the claim opens, so with the full {v.cap55} days left. It is computed by the calculator’s engine from each daily benefit.</p>

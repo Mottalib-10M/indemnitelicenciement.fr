@@ -24,7 +24,7 @@ const faq = [
   citable={`When a claimant takes paid work in France, France Travail takes ${v.cumulTaux} of the gross pay from that work off the monthly benefit they would have received without working, then divides the remainder by the daily benefit to get a number of paid days, rounded to the nearest whole day. The benefit paid is that number of days times the daily amount. Pay and benefit together cannot exceed the former salary, equal to the daily reference wage times ${v.cumulJours}. Unédic’s official example: a daily benefit of €57 and a new gross salary of €2,100 give 4 paid days and €228 of benefit; the 26 unpaid days are carried to the end of the claim. Combining is allowed for the whole claim, on fixed-term or permanent contracts, whatever the hours. It is often the cheapest way to get back into work.`}
   faq={faq}
   sources={['unedic_cumul', 'sp_are', 'unedic_are']}>
-  <MiniSimAutonome slot="sim" client:visible kind="cumul" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
+  <MiniSimAutonome slot="sim" spacing="my-0" client:visible kind="cumul" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
 
   <h2>The monthly calculation</h2>
   <p>Unédic’s formula fits on one line: payable days = (monthly benefit without work − {v.cumulTaux} of gross pay) ÷ daily benefit. Monthly benefit without work is the daily benefit times {v.jpm}. The result is rounded to the nearest whole number, then multiplied by the daily benefit. There is normally no carry-over from one month to the next: pay received in March only reduces March’s benefit.</p>
