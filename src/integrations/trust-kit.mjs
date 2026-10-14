@@ -192,7 +192,22 @@ export default function trustKit(opts) {
               let at = h1;
               const open = html.lastIndexOf('<astro-island', h1);
               if (open >= 0 && html.lastIndexOf('</astro-island>', h1) < open) at = open;
-              html = html.slice(0, at) + top + html.slice(at);
+              // Fil d'Ariane juste avant le titre : la date va à droite sur sa ligne fine,
+              // plutôt que seule sur une ligne de plus (RECETTE §10.3, 2026-10-14).
+              const navEnd = html.lastIndexOf('</nav>', at);
+              const navStart = navEnd >= 0 ? html.lastIndexOf('<nav', navEnd) : -1;
+              const between = navEnd >= 0 ? html.slice(navEnd + 6, at) : 'x';
+              const onlyOpening = !between.replace(/<[^>]*>/g, '').trim() && !/<\/(div|section|article|header)>/.test(between);
+              const flexRow = 'display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;column-gap:1.5rem';
+              const aside = top.replace('style="margin:0 0 0.5rem;', 'style="margin:0 0 0 auto;');
+              const nav = navStart > html.indexOf('</header>') ? html.slice(navStart, navEnd + 6) : '';
+              const bar = nav.match(/^(<nav[^>]*>\s*<div class="[^"]*")(>\s*<ol[\s\S]*?<\/ol>)(\s*<\/div>\s*<\/nav>)$/);
+              if (nav && onlyOpening && bar) {
+                // Barre de fil d'Ariane pleine largeur : la date se place dans sa rangée intérieure.
+                html = html.slice(0, navStart) + bar[1] + ` style="${flexRow}"` + bar[2] + aside + bar[3] + html.slice(navEnd + 6);
+              } else if (nav && onlyOpening && !/<section/.test(between)) {
+                html = html.slice(0, navStart) + `<div data-trust-kit-row style="${flexRow}">` + nav + aside + '</div>' + html.slice(navEnd + 6);
+              } else html = html.slice(0, at) + top + html.slice(at);
             } else html = html.includes('</header>') ? html.replace('</header>', `</header>${top}`)
                  : html.replace(/<body[^>]*>/, (m) => m + top);
             const i = html.lastIndexOf('</footer>');
