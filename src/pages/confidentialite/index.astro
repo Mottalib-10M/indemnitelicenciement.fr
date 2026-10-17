@@ -2,12 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
 import SourcesOfficielles from '../../components/SourcesOfficielles.astro';
-import { CONTACT_EMAIL, LEGAL } from '../../data/site-config';
+import { CONTACT_EMAIL, GA4_ID, LEGAL } from '../../data/site-config';
 ---
 
 <Layout
   title="Politique de Confidentialité | indemnitelicenciement.fr"
-  description="Salaire, ancienneté, âge : vos saisies ne quittent jamais votre navigateur. Aucun cookie, aucune donnée personnelle gardée ; seule la stabilité est mesurée."
+  description="Salaire, ancienneté, âge : vos saisies ne quittent jamais votre navigateur. Audience mesurée avec Google Analytics (cookies, aucune publicité)."
   canonical="/confidentialite/"
   alternates={{ fr: '/confidentialite/', en: '/en/privacy/' }}
 >
@@ -16,7 +16,7 @@ import { CONTACT_EMAIL, LEGAL } from '../../data/site-config';
 
     <div class="prose prose-lg max-w-none">
       <p>
-        Cette page explique ce que le site <strong>indemnitelicenciement.fr</strong> fait, et surtout ne fait pas, des informations liées à votre visite, au regard du Règlement général sur la protection des données (RGPD) et de la loi Informatique et Libertés. En une phrase : l’éditeur n’enregistre aucune donnée personnelle et le site ne dépose aucun cookie.
+        Cette page explique ce que le site <strong>indemnitelicenciement.fr</strong> fait, et surtout ne fait pas, des informations liées à votre visite, au regard du Règlement général sur la protection des données (RGPD) et de la loi Informatique et Libertés. En une phrase : l’éditeur ne conserve aucune donnée personnelle ; le site mesure son audience avec Google Analytics, qui dépose des cookies de mesure, sans publicité.
       </p>
 
       <h2>Ce que vous saisissez dans les simulateurs</h2>
@@ -24,10 +24,17 @@ import { CONTACT_EMAIL, LEGAL } from '../../data/site-config';
         Le salaire de référence, l’ancienneté, l’âge, le motif de la rupture ou les mois travaillés que vous indiquez pour estimer une indemnité de licenciement ou une allocation chômage sont traités <strong>uniquement dans votre navigateur</strong>, par du code JavaScript exécuté sur votre appareil. Ces chiffres ne sont envoyés à aucun serveur, ne sont conservés dans aucune base de données et ne sont pas gardés non plus sur votre appareil : fermer l’onglet les efface.
       </p>
 
-      <h2>Cookies</h2>
+      <h2>Cookies et mesure d’audience (Google Analytics)</h2>
       <p>
-        Aucun cookie n’est déposé par ce site, ni par le calculateur, ni par l’outil de mesure décrit plus bas, et rien n’est écrit dans le stockage local de votre navigateur. Il n’y a donc pas de bandeau : vous n’avez rien à accepter ni à refuser. Le site n’affiche aucune publicité et n’utilise aucun traceur publicitaire.
+        Le site utilise <strong>Google Analytics 4</strong> pour compter les visites et savoir quels simulateurs et guides servent : pages vues, page de provenance, durée de la visite, type d’appareil et de navigateur, pays et ville approximatifs. Google Analytics dépose pour cela deux cookies sur votre appareil : <code>_ga</code>, qui distingue les visiteurs par un identifiant aléatoire, et <code>_ga_{GA4_ID.replace('G-', '')}</code>, qui garde l’état de la visite. Leur durée est réglée à 13 mois au plus (390 jours), sans prolongation à chaque visite ; celle de Google par défaut est de 2 ans. Ce sont les deux seuls cookies du site ; le stockage local de votre navigateur reste vide.
       </p>
+      <ul>
+        <li><strong>Ce que Google reçoit</strong> : l’adresse IP est anonymisée (Google Analytics 4 ne l’enregistre ni ne la conserve). L’adresse de la page est envoyée sans ses paramètres : les montants saisis ne parviennent jamais à Google. Le site n’affiche aucune publicité : stockage publicitaire, personnalisation des annonces et signaux Google sont désactivés, et rien n’est partagé avec un annonceur.</li>
+        <li><strong>Sous-traitant</strong> : Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irlande (article 28 du RGPD). Les données peuvent être transférées à Google LLC aux États-Unis, dans le cadre du Data Privacy Framework UE–États-Unis et des clauses contractuelles types de la Commission européenne.</li>
+        <li><strong>Durée de conservation</strong> : 14 mois chez Google pour les données liées aux visites et aux identifiants, puis suppression.</li>
+        <li><strong>Base juridique</strong> : l’intérêt légitime de l’éditeur à mesurer l’audience de ses pages (article 6, paragraphe 1, point f du RGPD). Il n’y a pas de bandeau.</li>
+        <li><strong>Vous opposer</strong> : bloquez ou supprimez les cookies dans les réglages de votre navigateur, ou installez le <a href="https://tools.google.com/dlpage/gaoptout" rel="nofollow noopener" target="_blank">module de désactivation de Google Analytics</a>. Les simulateurs fonctionnent alors à l’identique.</li>
+      </ul>
 
       <h2>Mesure anonyme de la stabilité du site</h2>
       <p>
@@ -53,7 +60,7 @@ import { CONTACT_EMAIL, LEGAL } from '../../data/site-config';
 
       <h2>Vos droits</h2>
       <p>
-        Le RGPD vous donne un droit d’accès, de rectification, d’effacement, de limitation et d’opposition. Comme l’éditeur ne conserve aucune donnée sur vous, ces droits portent en pratique sur la correspondance que vous lui auriez adressée, et, pour la mesure de stabilité, s’exercent aussi auprès de Microsoft. Vous pouvez saisir la {LEGAL.supervisoryAuthority} : <a href={LEGAL.supervisoryAuthorityUrl} rel="nofollow noopener" target="_blank">{LEGAL.supervisoryAuthorityUrl}</a>.
+        Le RGPD vous donne un droit d’accès, de rectification, d’effacement, de limitation et d’opposition. Comme l’éditeur ne conserve aucune donnée sur vous, ces droits portent en pratique sur la correspondance que vous lui auriez adressée, et s’exercent aussi auprès de Google pour la mesure d’audience et de Microsoft pour la mesure de stabilité. Vous pouvez saisir la {LEGAL.supervisoryAuthority} : <a href={LEGAL.supervisoryAuthorityUrl} rel="nofollow noopener" target="_blank">{LEGAL.supervisoryAuthorityUrl}</a>.
       </p>
 
       <h2>Modifications</h2>
@@ -61,7 +68,7 @@ import { CONTACT_EMAIL, LEGAL } from '../../data/site-config';
         Si le fonctionnement du site change, cette page est mise à jour avant le changement et la date ci-dessous avance.
       </p>
       <p>
-        <strong>Dernière mise à jour :</strong> 6 octobre 2026.
+        <strong>Dernière mise à jour :</strong> 17 octobre 2026.
       </p>
     </div>
   </section>

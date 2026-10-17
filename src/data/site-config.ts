@@ -39,7 +39,7 @@ export const LEGAL_REQUIRED: Array<keyof LegalIdentity> = ['entityName', 'street
 
 /** Projet Microsoft Clarity (compte amradif), chargé sans cookie par Consent.astro. Vide = aucun traceur. */
 export const CLARITY_ID = 'yrbpl3tluo';
-/** Google Analytics 4 retiré le 2026-10-06 (RECETTE §15.6 : aucun traceur hors Clarity sans cookie). */
-export const GA4_ID = '';
-/** Régime 'none' (2026-10-06, RECETTE §15.6) : aucun bandeau, Clarity sans cookie, aucun autre traceur. */
+/** Google Analytics 4, avec cookies et sans bandeau (décision de l'éditeur du 2026-10-17, RECETTE §15.6). */
+export const GA4_ID = 'G-D6F15N6VYM';
+/** Régime 'none' (RECETTE §15.6) : aucun bandeau, Clarity sans cookie, GA4 avec cookies (2026-10-17), aucun autre traceur. */
 export const CONSENT_MODE: 'opt-in' | 'notice' | 'none' = 'none';

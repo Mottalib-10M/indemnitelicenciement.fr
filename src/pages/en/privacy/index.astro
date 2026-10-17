@@ -1,12 +1,12 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import '../../../styles/global.css';
-import { CONTACT_EMAIL } from '../../../data/site-config';
+import { CONTACT_EMAIL, GA4_ID } from '../../../data/site-config';
 ---
 
 <Layout
   title="Privacy policy | French severance and ARE calculators"
-  description="Your salary, length of service and age never leave your browser. This site sets no cookies and its publisher keeps no personal data; only stability is checked."
+  description="Your salary, length of service and age never leave your browser. Visits are measured with Google Analytics (cookies, no advertising)."
   canonical="/en/privacy/"
   lang="en"
   alternates={{ fr: '/confidentialite/', en: '/en/privacy/' }}
@@ -16,7 +16,7 @@ import { CONTACT_EMAIL } from '../../../data/site-config';
 
     <div class="prose prose-lg max-w-none">
       <p>
-        This page describes what <strong>indemnitelicenciement.fr</strong> does with information about your visit, under the EU General Data Protection Regulation (GDPR) and the French Data Protection Act. The short answer: the site sets no cookies and its publisher, Radif Partners, keeps no personal data about you.
+        This page describes what <strong>indemnitelicenciement.fr</strong> does with information about your visit, under the EU General Data Protection Regulation (GDPR) and the French Data Protection Act. The short answer: the publisher, Radif Partners, keeps no personal data about you; the site measures visits with Google Analytics, which sets audience measurement cookies, with no advertising.
       </p>
 
       <h2>Figures typed into the calculators</h2>
@@ -24,10 +24,17 @@ import { CONTACT_EMAIL } from '../../../data/site-config';
         The gross monthly salary, years of service, age, reason for the dismissal or months worked that you enter to estimate French severance pay or unemployment benefit (ARE) are processed <strong>only inside your browser</strong>. They are not sent to any server, not written to a database and not kept on your device either: closing the tab clears them.
       </p>
 
-      <h2>Cookies</h2>
+      <h2>Cookies and audience measurement (Google Analytics)</h2>
       <p>
-        No cookie is set by this site, neither by the calculators nor by the measurement tool described below, and nothing is written to your browser’s local storage. That is why there is no banner: there is nothing for you to accept or decline. The site shows no advertising and uses no advertising trackers.
+        The site uses <strong>Google Analytics 4</strong> to count visits and see which calculators and guides are useful: pages viewed, referring page, visit length, device and browser type, approximate country and city. To do so Google Analytics sets two cookies on your device: <code>_ga</code>, which tells visitors apart with a random identifier, and <code>_ga_{GA4_ID.replace('G-', '')}</code>, which keeps the state of the visit. Their lifetime is set to 13 months at most (390 days) and is not extended on each visit; Google’s default is 2 years. These two are the only cookies the site uses; your browser’s local storage stays empty.
       </p>
+      <ul>
+        <li><strong>What Google receives</strong>: the IP address is anonymised (Google Analytics 4 neither logs nor stores it). The page address is sent without its parameters, so the amounts you type never reach Google. The site shows no advertising: ad storage, ad personalisation and Google signals are switched off, and nothing is shared with any advertiser.</li>
+        <li><strong>Processor</strong>: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland (Article 28 GDPR). Data may be transferred to Google LLC in the United States under the EU–U.S. Data Privacy Framework and the European Commission’s standard contractual clauses.</li>
+        <li><strong>Retention</strong>: 14 months at Google for visit-level and identifier-level data, then deletion.</li>
+        <li><strong>Legal basis</strong>: the publisher’s legitimate interest in measuring how its pages are used (Article 6(1)(f) GDPR). There is no banner to click through.</li>
+        <li><strong>Objecting</strong>: block or delete cookies in your browser settings, or install the <a href="https://tools.google.com/dlpage/gaoptout" rel="nofollow noopener" target="_blank">Google Analytics opt-out browser add-on</a>. The calculators work the same way.</li>
+      </ul>
 
       <h2>Anonymous stability monitoring</h2>
       <p>
@@ -53,10 +60,10 @@ import { CONTACT_EMAIL } from '../../../data/site-config';
 
       <h2>Your rights</h2>
       <p>
-        The GDPR gives you rights of access, rectification, erasure, restriction and objection. Since the publisher holds no data about you, these rights in practice cover any correspondence you have sent, and, for stability monitoring, can also be exercised with Microsoft. You may complain to the French data protection authority, the CNIL (Commission nationale de l’informatique et des libertés), at <a href="https://www.cnil.fr/fr/plaintes" rel="nofollow noopener" target="_blank">cnil.fr/fr/plaintes</a>.
+        The GDPR gives you rights of access, rectification, erasure, restriction and objection. Since the publisher holds no data about you, these rights in practice cover any correspondence you have sent, and can also be exercised with Google for audience measurement and with Microsoft for stability monitoring. You may complain to the French data protection authority, the CNIL (Commission nationale de l’informatique et des libertés), at <a href="https://www.cnil.fr/fr/plaintes" rel="nofollow noopener" target="_blank">cnil.fr/fr/plaintes</a>.
       </p>
       <p>
-        The French version of this policy, <a href="/confidentialite/">Politique de confidentialité</a>, says the same thing. Last updated: 6 October 2026.
+        The French version of this policy, <a href="/confidentialite/">Politique de confidentialité</a>, says the same thing. Last updated: 17 October 2026.
       </p>
     </div>
   </section>
