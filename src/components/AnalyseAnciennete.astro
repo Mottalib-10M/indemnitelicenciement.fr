@@ -22,6 +22,8 @@ interface Props {
   annees: number;
 }
 const { annees } = Astro.props;
+// « 1 an », « 5 ans »
+const ans = annees > 1 ? 'ans' : 'an';
 
 const euros = (v: number) =>
   Math.round(v).toLocaleString('fr-FR') + ' €';
@@ -39,7 +41,7 @@ const preavisMois = annees < 2 ? 1 : 2;
 const exemple = 2500;
 
 const fmtMois = (v: number) =>
-  v.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  v.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 ---
 
 <!-- §6.4 : ce bloc est le meme sur les sept pages a un nombre pres, et
@@ -47,22 +49,22 @@ const fmtMois = (v: number) =>
      ne fait pas l'unicite de la page : celle-ci vient de ANGLES. -->
 <section data-chrome class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
   <h2 class="text-2xl font-bold text-gray-900 mb-4">
-    Ce que {annees} ans d’ancienneté changent concrètement
+    Ce que {annees} {ans} d’ancienneté {annees > 1 ? 'changent' : 'change'} concrètement
   </h2>
 
   <p class="text-gray-700 leading-relaxed">
     L’ancienneté n’agit pas de façon linéaire sur le montant dû. Elle intervient à trois
-    endroits distincts du calcul, et {annees} ans se situent de part et d’autre de deux
+    endroits distincts du calcul, et {annees} {ans} {annees > 1 ? 'se situent' : 'se situe'} de part et d’autre de deux
     seuils qui pèsent lourd&nbsp;: les huit mois qui ouvrent le droit, et les dix ans à
     partir desquels chaque année vaut un tiers de mois au lieu d’un quart.
   </p>
 
-  <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">Le barème appliqué à {annees} ans</h3>
+  <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">Le barème appliqué à {annees} {ans}</h3>
   <p class="text-gray-700 leading-relaxed">
     {auDela
       ? `Au-delà de dix ans, la formule se dédouble. Les dix premières années restent rémunérées à un quart de mois de salaire chacune, soit 2,50 mois au total, et les ${annees - 10} années suivantes à un tiers de mois. L’indemnité représente donc ${fmtMois(moisIndemnite)} mois de salaire de référence.`
-      : `Jusqu’à dix ans d’ancienneté, chaque année vaut un quart de mois de salaire de référence. Après ${annees} ans, l’indemnité représente donc ${fmtMois(moisIndemnite)} mois de salaire, sans qu’aucun palier ne soit encore franchi.`}
-    {' '}Les mois incomplets comptent au prorata&nbsp;: une ancienneté de {annees} ans et six mois
+      : `Jusqu’à dix ans d’ancienneté, chaque année vaut un quart de mois de salaire de référence. Après ${annees} ${ans}, l’indemnité représente donc ${fmtMois(moisIndemnite)} mois de salaire, sans qu’aucun palier ne soit encore franchi.`}
+    {' '}Les mois incomplets comptent au prorata&nbsp;: une ancienneté de {annees} {ans} et six mois
     donne droit à la moitié d’une année supplémentaire, et non à un arrondi à l’année
     inférieure, ce que beaucoup de soldes de tout compte oublient.
   </p>
@@ -87,7 +89,7 @@ const fmtMois = (v: number) =>
         </tr>
         <tr class="border-b border-gray-200">
           <td class="py-2 pr-3 text-gray-700">
-            Indemnité légale après {annees} ans
+            Indemnité légale après {annees} {ans}
             <span class="block text-xs text-gray-500">{fmtMois(moisIndemnite)} mois de salaire</span>
           </td>
           <td class="py-2 text-right font-semibold tabular-nums whitespace-nowrap">{euros(indemnite(exemple))}</td>
@@ -118,14 +120,14 @@ const fmtMois = (v: number) =>
   <p class="text-gray-700 leading-relaxed mb-4">
     À ancienneté constante, l’indemnité est strictement proportionnelle au salaire de
     référence&nbsp;: il n’existe ni plancher ni plafond légal sur ce montant. Voici ce que
-    donnent {annees} ans d’ancienneté à différents niveaux de rémunération.
+    donnent {annees} {ans} d’ancienneté à différents niveaux de rémunération.
   </p>
   <div class="overflow-x-auto">
     <table class="w-full text-sm">
       <thead>
         <tr class="border-b-2 border-gray-300">
           <th class="py-2 pr-3 text-left font-semibold text-gray-900">Salaire de référence</th>
-          <th class="py-2 text-right font-semibold text-gray-900">Indemnité après {annees} ans</th>
+          <th class="py-2 text-right font-semibold text-gray-900">Indemnité après {annees} {ans}</th>
         </tr>
       </thead>
       <tbody>
@@ -145,7 +147,7 @@ const fmtMois = (v: number) =>
   <p class="text-gray-700 leading-relaxed">
     Le barème légal est un plancher. Des centaines de conventions collectives prévoient
     davantage, souvent sous la forme d’un nombre de mois par année d’ancienneté plus
-    élevé, parfois d’une majoration liée à l’âge. À {annees} ans de présence, l’écart entre
+    élevé, parfois d’une majoration liée à l’âge. À {annees} {ans} de présence, l’écart entre
     le minimum légal et une convention favorable se chiffre couramment en milliers
     d’euros. Le numéro IDCC figurant sur le bulletin de paie permet de retrouver le texte
     applicable&nbsp;; quand les deux régimes se recoupent, c’est le plus favorable au
@@ -153,7 +155,7 @@ const fmtMois = (v: number) =>
   </p>
 
   <h3 class="text-xl font-bold text-gray-900 mt-8 mb-3">
-    Les erreurs fréquentes à {annees} ans d’ancienneté
+    Les erreurs fréquentes à {annees} {ans} d’ancienneté
   </h3>
   <ul class="space-y-2 text-gray-700 leading-relaxed list-disc pl-6">
     <li>
@@ -163,7 +165,7 @@ const fmtMois = (v: number) =>
     <li>
       {auDela
         ? `Appliquer le taux d’un tiers à la totalité des ${annees} années. Il ne vaut que pour les ${annees - 10} années au-delà de dix ans ; les dix premières restent au quart de mois.`
-        : `Croire que le taux d’un tiers de mois s’applique déjà. À ${annees} ans, on reste au quart de mois pour chaque année.`}
+        : `Croire que le taux d’un tiers de mois s’applique déjà. À ${annees} ${ans}, on reste au quart de mois pour chaque année.`}
     </li>
     <li>
       Retenir le seul salaire de base. Les primes, les heures supplémentaires et les

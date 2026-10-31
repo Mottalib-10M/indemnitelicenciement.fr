@@ -20,13 +20,13 @@ const SPECS: Record<string, MiniSpec> = {
     const r = S(s, a); return { head: ['ARE brute par mois', eur(r.are.allocationMensuelle)], rows: [['Allocation journalière', eur(r.are.allocationJournaliere)], ['Délai avant le premier versement', `${r.carenceTotaleJours} jours`]] };
   } },
   preavis: { title: 'Votre préavis de licenciement', cta: 'Simulateur complet', inputs: [salaire(), annees(), { id: 'c', label: 'Statut', def: 0, options: [{ value: '0', label: 'Non-cadre' }, { value: '1', label: 'Cadre' }] }], run: ({ s, a, c }) => {
-    const m = calculatePreavis(Math.floor(a), c === 1); return { head: ['Durée du préavis légal', `${dec(m)} mois`], rows: [['Indemnité compensatrice si dispense', eur(m * s)], ['Minimum légal, sauf convention plus favorable', 'Code du travail, art. L1234-1']] };
+    const m = calculatePreavis(Math.floor(a), c === 1, Math.round((a % 1) * 12)); return { head: ['Durée du préavis légal', `${dec(m)} mois`], rows: [['Indemnité compensatrice si dispense', eur(m * s)], ['Minimum légal, sauf convention plus favorable', 'Code du travail, art. L1234-1']] };
   } },
   fauteGrave: { title: 'Ce qui reste dû en cas de faute grave', cta: 'Simulateur complet', inputs: [salaire(), { id: 'j', label: 'Jours de congés acquis non pris', def: 10, unit: 'jours', max: 60, decimals: 1 }], run: ({ s, j }) => {
     const cp = calculateCongesPayes(s * 12, j); return { head: ['Indemnité de congés payés', eur(cp)], rows: [['Indemnité légale de licenciement', '0 € (faute grave)'], ['Préavis', 'non dû']] };
   } },
   inaptitude: { title: 'Indemnité en cas d’inaptitude', cta: 'Simulateur complet', inputs: [salaire(), annees(), { id: 'o', label: 'Origine de l’inaptitude', def: 0, options: [{ value: '0', label: 'Non professionnelle' }, { value: '1', label: 'Accident du travail ou maladie professionnelle' }] }], run: ({ s, a, o }) => {
-    const leg = calculateIndemniteLegale(s, Math.floor(a), Math.round((a % 1) * 12)); const pro = o === 1; const pr = calculatePreavis(Math.floor(a), false);
+    const leg = calculateIndemniteLegale(s, Math.floor(a), Math.round((a % 1) * 12)); const pro = o === 1; const pr = calculatePreavis(Math.floor(a), false, Math.round((a % 1) * 12));
     return { head: [pro ? 'Indemnité spéciale (double)' : 'Indemnité légale', eur(pro ? 2 * leg : leg)], rows: [['Indemnité égale au préavis', pro ? eur(pr * s) : 'non due'], ['Base : indemnité légale', eur(leg)]] };
   } },
   rupture: { title: 'Le minimum de votre rupture conventionnelle', cta: 'Simulateur complet', inputs: [salaire(), annees()], run: ({ s, a }) => {

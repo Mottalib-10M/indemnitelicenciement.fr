@@ -194,6 +194,47 @@ describe('simulerLicenciement', () => {
     expect(result.motifNonEligible).toContain('Ancienneté insuffisante');
   });
 
+  // Art. L1234-1 du Code du travail (code.travail.gouv.fr, fiche « Préavis de
+  // licenciement », relevée le 2026-10-31) : 1 mois de préavis entre 6 mois et
+  // 2 ans d'ancienneté. Les mois au-delà des années complètes comptent.
+  it('compte 1 mois de préavis à 0 an et 11 mois (audit du 2026-10-28)', () => {
+    const result = simulerLicenciement({
+      salaireBrutMensuel: 2000,
+      ancienneteAnnees: 0,
+      ancienneteMois: 11,
+      cadre: false,
+      age: 30,
+    });
+    expect(result.eligible).toBe(true);
+    expect(result.preavisMois).toBe(1);
+    expect(result.indemniteCompensatricePreavis).toBe(2000);
+    expect(result.indemniteLegale).toBeCloseTo(458.33, 2);
+    expect(result.totalIndemnites).toBeCloseTo(2458.33, 2);
+  });
+
+  it('garde préavis et congés sous 8 mois, sans indemnité légale', () => {
+    const result = simulerLicenciement({
+      salaireBrutMensuel: 2000,
+      ancienneteAnnees: 0,
+      ancienneteMois: 6,
+      cadre: false,
+      age: 30,
+      joursCongesAcquis: 15,
+    });
+    expect(result.eligible).toBe(false);
+    expect(result.indemniteLegale).toBe(0);
+    expect(result.preavisMois).toBe(1);
+    expect(result.indemniteCompensatricePreavis).toBe(2000);
+    expect(result.indemniteCongesPayes).toBe(1200);
+    expect(result.totalIndemnites).toBe(3200);
+  });
+
+  it('compte 2 mois de préavis à 1 an et 12 mois cumulés = 24 mois', () => {
+    expect(calculatePreavis(1, false, 11)).toBe(1);
+    expect(calculatePreavis(2, false, 0)).toBe(2);
+    expect(calculatePreavis(0, false, 5)).toBe(0);
+  });
+
   it('utilise le salaire de référence le plus favorable', () => {
     const result = simulerLicenciement({
       salaireBrutMensuel: 3000,

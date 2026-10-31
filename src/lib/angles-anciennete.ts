@@ -97,7 +97,7 @@ export const ANGLES: Record<number, Angle[]> = {
     {
       titre: "Le seuil où la fiscalité de la part négociée commence à compter",
       paragraphes: [
-        "À quinze ans, l'indemnité légale approche quatre mois de salaire, et une indemnité négociée au-delà devient significative. Cette part supra-légale n'est exonérée d'impôt sur le revenu que dans la limite du plus élevé de trois plafonds : deux fois la rémunération annuelle brute de l'année civile précédente, la moitié de l'indemnité totale, ou six fois le plafond annuel de la Sécurité sociale. Le plafond retenu est celui qui vous est le plus favorable, sans démarche à accomplir.",
+        "À quinze ans, l'indemnité légale approche quatre mois de salaire, et une indemnité négociée au-delà devient significative. Cette part supra-légale n'est exonérée d'impôt sur le revenu que dans la limite du plus élevé de deux montants, deux fois la rémunération annuelle brute de l'année civile précédente ou la moitié de l'indemnité totale, sans pouvoir dépasser six fois le plafond annuel de la Sécurité sociale. Le plafond retenu est celui qui vous est le plus favorable, sans démarche à accomplir.",
         "Les cotisations sociales suivent une règle plus stricte, avec une exonération limitée à deux fois le plafond annuel de la Sécurité sociale, et la CSG-CRDS s'applique dès le premier euro versé au-delà du montant légal. Une indemnité transactionnelle conclue après la rupture suit le même régime, à condition que son objet soit bien la réparation d'un préjudice et non le paiement d'un salaire ou d'un préavis déguisé.",
       ],
     },

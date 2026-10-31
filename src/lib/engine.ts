@@ -133,21 +133,24 @@ export function calculateIndemniteLegale(
 
 /**
  * Calcule la durée du préavis de licenciement en mois.
- * Art. L1234-1 du Code du travail.
+ * Art. L1234-1 du Code du travail : 1 mois de 6 mois à moins de 2 ans
+ * d'ancienneté, 2 mois à partir de 2 ans. Les mois au-delà des années complètes
+ * comptent : 0 an et 11 mois ouvrent droit à 1 mois de préavis.
  */
 export function calculatePreavis(
   ancienneteAnnees: number,
-  cadre: boolean = false
+  cadre: boolean = false,
+  ancienneteMoisSupp: number = 0
 ): number {
   if (cadre) {
     return PREAVIS.cadre;
   }
 
-  const ancienneteMois = ancienneteAnnees * 12;
+  const ancienneteMois = ancienneteAnnees * 12 + ancienneteMoisSupp;
 
   if (ancienneteMois < 6) {
     return PREAVIS.moinsde6Mois;
-  } else if (ancienneteAnnees < 2) {
+  } else if (ancienneteMois < 24) {
     return PREAVIS.de6MoisA2Ans;
   } else {
     return PREAVIS.deuxAnsEtPlus;
@@ -276,35 +279,9 @@ export function simulerLicenciement(
   const ancienneteTotaleMois =
     input.ancienneteAnnees * 12 + input.ancienneteMois;
 
-  // Éligibilité
-  if (ancienneteTotaleMois < INDEMNITE_LEGALE.ancienneteMinimumMois) {
-    const salaireRef = calculateSalaireReference(
-      input.salaireBrutMensuel,
-      input.salaireBrut3DerniersMois
-    );
-
-    return {
-      eligible: false,
-      motifNonEligible: `Ancienneté insuffisante : ${ancienneteTotaleMois} mois (minimum requis : ${INDEMNITE_LEGALE.ancienneteMinimumMois} mois)`,
-      salaireReference: salaireRef,
-      indemniteLegale: 0,
-      preavisMois: 0,
-      indemniteCompensatricePreavis: 0,
-      indemniteCongesPayes: 0,
-      indemniteSupraLegale: input.indemniteSupraLegale ?? 0,
-      totalIndemnites: input.indemniteSupraLegale ?? 0,
-      are: calculateARE(
-        input.salaireBrutMensuel,
-        Math.round(ancienneteTotale * 365.25),
-        input.age
-      ),
-      differeSpecifiqueJours: calculateDiffereSpecifique(
-        input.indemniteSupraLegale ?? 0
-      ),
-      carenceTotaleJours: ARE.carenceIncompressible,
-      ancienneteTotale,
-    };
-  }
+  // Éligibilité : moins de 8 mois d'ancienneté, pas d'indemnité légale ; le
+  // préavis (dès 6 mois), les congés payés et l'ARE restent dus et se calculent.
+  const eligible = ancienneteTotaleMois >= INDEMNITE_LEGALE.ancienneteMinimumMois;
 
   // Salaire de référence
   const salaireReference = calculateSalaireReference(
@@ -320,7 +297,7 @@ export function simulerLicenciement(
   );
 
   // PREAVIS
-  const preavisMois = calculatePreavis(input.ancienneteAnnees, input.cadre);
+  const preavisMois = calculatePreavis(input.ancienneteAnnees, input.cadre, input.ancienneteMois);
   const indemniteCompensatricePreavis =
     Math.round(salaireReference * preavisMois * 100) / 100;
 
@@ -358,7 +335,12 @@ export function simulerLicenciement(
   const carenceTotaleJours = ARE.carenceIncompressible + differeSpecifiqueJours;
 
   return {
-    eligible: true,
+    eligible,
+    ...(eligible
+      ? {}
+      : {
+          motifNonEligible: `Ancienneté insuffisante : ${ancienneteTotaleMois} mois (minimum requis : ${INDEMNITE_LEGALE.ancienneteMinimumMois} mois)`,
+        }),
     salaireReference,
     indemniteLegale,
     preavisMois,

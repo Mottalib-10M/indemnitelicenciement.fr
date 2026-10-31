@@ -1,12 +1,28 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { simulerLicenciement, type LicenciementInput, type LicenciementResult } from '../lib/engine';
 
+// Montant rond : sans décimales ; sinon deux décimales (« 1 686,60 € », pas « 1 686,6 € »).
 function formatEuros(amount: number): string {
+  const centimes = Math.round(amount * 100) / 100;
+  const decimales = Number.isInteger(centimes) ? 0 : 2;
   return new Intl.NumberFormat('fr-FR', {
     style: 'currency',
     currency: 'EUR',
-    minimumFractionDigits: 0,
-  }).format(amount);
+    minimumFractionDigits: decimales,
+    maximumFractionDigits: decimales,
+  }).format(centimes);
+}
+
+const formatNombre = (n: number) => n.toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+
+// « 8 mois », « 1 an », « 12 ans et 6 mois »
+function formatAnciennete(annees: number, mois: number): string {
+  const total = annees * 12 + mois;
+  const a = Math.floor(total / 12);
+  const m = total % 12;
+  const partA = a > 0 ? `${a} ${a > 1 ? 'ans' : 'an'}` : '';
+  const partM = m > 0 ? `${m} mois` : '';
+  return [partA, partM].filter(Boolean).join(' et ') || '0 mois';
 }
 
 function InputField({
@@ -153,7 +169,7 @@ export default function LicenciementCalculator() {
             Calculateur d'indemnité de licenciement 2026
           </h2>
           <p className="mt-1 text-primary-100 text-sm">
-            Estimez vos droits : indemnité légale, préavis, congés payés et allocation chomage (ARE)
+            Estimez vos droits : indemnité légale, préavis, congés payés et allocation chômage (ARE)
           </p>
         </div>
 
@@ -179,7 +195,7 @@ export default function LicenciementCalculator() {
               min={0}
               step="any"
               suffix="EUR/mois"
-              help="Si different de la moyenne 12 mois"
+              help="Si différente de la moyenne sur 12 mois"
             />
             <InputField
               label="Ancienneté (années)"
@@ -192,7 +208,7 @@ export default function LicenciementCalculator() {
               suffix="ans"
             />
             <InputField
-              label="Ancienneté (mois supplementaires)"
+              label="Ancienneté (mois supplémentaires)"
               id="anciennete-mois"
               value={ancienneteMois}
               onChange={setAncienneteMois}
@@ -202,7 +218,7 @@ export default function LicenciementCalculator() {
               suffix="mois"
             />
             <InputField
-              label="Age"
+              label="Âge"
               id="age"
               value={age}
               onChange={setAge}
@@ -222,14 +238,14 @@ export default function LicenciementCalculator() {
               suffix="jours"
             />
             <InputField
-              label="Indemnité supra-legale (optionnel)"
+              label="Indemnité supra-légale (optionnel)"
               id="supra-legale"
               value={supraLegale}
               onChange={setSupraLegale}
               min={0}
               step="any"
               suffix="EUR"
-              help="Montant negocie au-dela du legal"
+              help="Montant négocié au-delà du légal"
             />
 
             {/* Cadre toggle */}
@@ -272,19 +288,19 @@ export default function LicenciementCalculator() {
         {/* Results */}
         {showResults && result && (
           <div ref={resultat} data-resultat aria-live="polite" className="scroll-mt-20 border-t border-gray-100 bg-gray-50 p-5 md:p-6 lg:border-l lg:border-t-0">
-            {!result.eligible ? (
-              <div className="bg-accent-50 border-2 border-accent-400 rounded-xl p-6 text-center">
-                <p className="text-accent-800 font-semibold text-lg">
-                  Non eligible a l'indemnité légale
-                </p>
-                <p className="text-accent-700 mt-2 text-sm">
-                  {result.motifNonEligible}
-                </p>
-              </div>
-            ) : (
-              <>
+            <>
+                {!result.eligible && (
+                  <div className="bg-accent-50 border-2 border-accent-400 rounded-xl p-4 mb-5 text-center">
+                    <p className="text-accent-800 font-semibold">
+                      Non éligible à l'indemnité légale
+                    </p>
+                    <p className="text-accent-700 mt-1 text-sm">
+                      {result.motifNonEligible}. Le préavis, les congés payés et le chômage restent dus.
+                    </p>
+                  </div>
+                )}
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
-                  Resultat de votre simulation
+                  Résultat de votre simulation
                 </h3>
 
                 {/* Summary Card */}
@@ -297,7 +313,7 @@ export default function LicenciementCalculator() {
                   </p>
                   <p className="text-primary-200 text-sm mt-2">
                     Salaire de référence retenu : {formatEuros(result.salaireReference)}/mois
-                    {' · '}Ancienneté : {result.ancienneteTotale.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ans
+                    {' · '}Ancienneté : {formatAnciennete(parseInt(ancienneteAnnees) || 0, parseInt(ancienneteMois) || 0)}
                   </p>
                 </div>
 
@@ -312,7 +328,7 @@ export default function LicenciementCalculator() {
                   <ResultCard
                     title="Indemnité compensatrice de préavis"
                     amount={result.indemniteCompensatricePreavis}
-                    subtitle={`${result.preavisMois} mois de préavis`}
+                    subtitle={result.preavisMois > 0 ? `${result.preavisMois} mois de préavis` : 'Pas de préavis légal avant 6 mois'}
                   />
                   <ResultCard
                     title="Indemnité de congés payés"
@@ -321,9 +337,9 @@ export default function LicenciementCalculator() {
                   />
                   {result.indemniteSupraLegale > 0 && (
                     <ResultCard
-                      title="Indemnité supra-legale"
+                      title="Indemnité supra-légale"
                       amount={result.indemniteSupraLegale}
-                      subtitle="Montant negocie"
+                      subtitle="Montant négocié"
                     />
                   )}
                 </div>
@@ -331,7 +347,7 @@ export default function LicenciementCalculator() {
                 {/* ARE Section */}
                 <div className="bg-white rounded-xl border-2 border-gray-200 p-6 mb-6">
                   <h4 className="text-lg font-bold text-gray-900 mb-4">
-                    Allocation chomage (ARE)
+                    Allocation chômage (ARE)
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                     <div>
@@ -341,7 +357,7 @@ export default function LicenciementCalculator() {
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Montant mensuel estime</p>
+                      <p className="text-sm text-gray-500">Montant mensuel estimé</p>
                       <p className="text-xl font-bold text-primary-700">
                         {formatEuros(result.are.allocationMensuelle)}
                       </p>
@@ -349,7 +365,7 @@ export default function LicenciementCalculator() {
                     <div>
                       <p className="text-sm text-gray-500">Durée d'indemnisation</p>
                       <p className="text-xl font-bold text-gray-900">
-                        {result.are.dureeJours} jours ({result.are.dureeMois} mois)
+                        {result.are.dureeJours} jours ({formatNombre(result.are.dureeMois)} mois)
                       </p>
                     </div>
                   </div>
@@ -363,7 +379,7 @@ export default function LicenciementCalculator() {
                 {/* Timeline */}
                 <div className="bg-white rounded-xl border-2 border-gray-200 p-6">
                   <h4 className="text-lg font-bold text-gray-900 mb-4">
-                    Calendrier previsionnel
+                    Calendrier prévisionnel
                   </h4>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
@@ -372,12 +388,14 @@ export default function LicenciementCalculator() {
                         <strong>Jour 0 :</strong> Notification du licenciement
                       </p>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 rounded-full bg-accent-500 shrink-0" />
-                      <p className="text-sm text-gray-700">
-                        <strong>Mois 1-{result.preavisMois} :</strong> PREAVIS ({result.preavisMois} mois)
-                      </p>
-                    </div>
+                    {result.preavisMois > 0 && (
+                      <div className="flex items-center gap-3">
+                        <div className="w-3 h-3 rounded-full bg-accent-500 shrink-0" />
+                        <p className="text-sm text-gray-700">
+                          <strong>{result.preavisMois > 1 ? `Mois 1 à ${result.preavisMois}` : 'Mois 1'} :</strong> préavis ({result.preavisMois} mois)
+                        </p>
+                      </div>
+                    )}
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 rounded-full bg-gray-400 shrink-0" />
                       <p className="text-sm text-gray-700">
@@ -388,14 +406,14 @@ export default function LicenciementCalculator() {
                       <div className="flex items-center gap-3">
                         <div className="w-3 h-3 rounded-full bg-accent-600 shrink-0" />
                         <p className="text-sm text-gray-700">
-                          <strong>+{result.differeSpecifiqueJours} jours :</strong> Differe specifique (indemnité supra-legale)
+                          <strong>+{result.differeSpecifiqueJours} jours :</strong> Différé spécifique (indemnité supra-légale)
                         </p>
                       </div>
                     )}
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 rounded-full bg-primary-500 shrink-0" />
                       <p className="text-sm text-gray-700">
-                        <strong>Apres carence :</strong> Debut du versement ARE ({formatEuros(result.are.allocationMensuelle)}/mois pendant {result.are.dureeMois} mois)
+                        <strong>Après carence :</strong> début du versement de l'ARE ({formatEuros(result.are.allocationMensuelle)}/mois pendant {formatNombre(result.are.dureeMois)} mois)
                       </p>
                     </div>
                   </div>
@@ -404,13 +422,12 @@ export default function LicenciementCalculator() {
                 {/* Disclaimer */}
                 <div className="mt-6 bg-accent-50 border border-accent-200 rounded-lg p-4">
                   <p className="text-xs text-accent-800">
-                    <strong>Avertissement :</strong> Cette simulation est indicative et basee sur les baremes legaux 2026.
-                    Votre convention collective peut prevoir des dispositions plus favorables.
-                    Pour un calcul precis, consultez un avocat en droit du travail ou votre representant syndical.
+                    <strong>Avertissement :</strong> Cette simulation est indicative et basée sur les barèmes légaux 2026.
+                    Votre convention collective peut prévoir des dispositions plus favorables.
+                    Pour un calcul précis, consultez un avocat en droit du travail ou votre représentant syndical.
                   </p>
                 </div>
-              </>
-            )}
+            </>
           </div>
         )}
         </div>
@@ -418,8 +435,8 @@ export default function LicenciementCalculator() {
       {dessous && (
         <button type="button" aria-hidden="true" tabIndex={-1} onClick={handleCalcul}
           className="fixed inset-x-0 bottom-0 z-40 flex items-baseline justify-between gap-3 border-t border-primary-200 bg-primary-50 px-4 py-3 text-left shadow-lg lg:hidden">
-          <span className="text-sm font-medium text-gray-700">{result.eligible ? 'Total estimatif des indemnités' : 'Non eligible a l\'indemnité légale'}</span>
-          {result.eligible && <span className="tabular-nums text-xl font-bold text-primary-700">{formatEuros(result.totalIndemnites)}</span>}
+          <span className="text-sm font-medium text-gray-700">Total estimatif des indemnités</span>
+          <span className="tabular-nums text-xl font-bold text-primary-700">{formatEuros(result.totalIndemnites)}</span>
         </button>
       )}
     </div>

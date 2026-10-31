@@ -30,6 +30,8 @@ const { entry } = Astro.props;
 const exemples = getExemplesCalcul(entry.annees);
 const { precedent, suivant } = getPagesAdjacentes(entry.annees);
 const jalons = getPagesJalons(entry.annees);
+// « 1 an », « 5 ans » : la page d'un an ne doit pas écrire « 1 ans »
+const ans = entry.annees > 1 ? 'ans' : 'an';
 
 // Calcul du taux applicable
 const tauxInfo = entry.annees <= 10
@@ -37,29 +39,29 @@ const tauxInfo = entry.annees <= 10
   : `1/4 de mois pour les 10 premières années + 1/3 de mois au-delà`;
 
 // FAQ spécifique à l'ancienneté
-const faq1Question = `Combien touche-t-on d'indemnité de licenciement après ${entry.annees} ans ?`;
+const faq1Question = `Combien touche-t-on d'indemnité de licenciement après ${entry.annees} ${ans} ?`;
 const faq1Answer = entry.annees <= 10
-  ? `Après ${entry.annees} ans d'ancienneté, l'indemnité légale de licenciement est de ${entry.annees}/4 = ${(entry.annees / 4).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} mois de salaire brut de référence. Par exemple, pour un salaire de 2 500 € brut, l'indemnité s'élève à ${formatEuros(2500 * entry.annees / 4)}. Ce montant est le minimum légal prévu par l'article R1234-2 du Code du travail. Votre convention collective peut prévoir un montant plus favorable.`
-  : `Après ${entry.annees} ans d'ancienneté, l'indemnité légale de licenciement se décompose ainsi : 1/4 de mois de salaire × 10 premières années + 1/3 de mois de salaire × ${entry.annees - 10} années au-delà. Pour un salaire de 2 500 €, cela donne ${formatEuros(2500 * 10 / 4 + 2500 * (entry.annees - 10) / 3)}. Ce montant est le minimum légal (article R1234-2 du Code du travail). Votre convention collective peut prévoir un montant plus élevé.`;
+  ? `Après ${entry.annees} ${ans} d'ancienneté, l'indemnité légale de licenciement est de ${entry.annees}/4 = ${(entry.annees / 4).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} mois de salaire brut de référence. Par exemple, pour un salaire de 2 500 € brut, l'indemnité s'élève à ${formatEuros(2500 * entry.annees / 4)}. Ce montant est le minimum légal prévu par l'article R1234-2 du Code du travail. Votre convention collective peut prévoir un montant plus favorable.`
+  : `Après ${entry.annees} ${ans} d'ancienneté, l'indemnité légale de licenciement se décompose ainsi : 1/4 de mois de salaire × 10 premières années + 1/3 de mois de salaire × ${entry.annees - 10} années au-delà. Pour un salaire de 2 500 €, cela donne ${formatEuros(2500 * 10 / 4 + 2500 * (entry.annees - 10) / 3)}. Ce montant est le minimum légal (article R1234-2 du Code du travail). Votre convention collective peut prévoir un montant plus élevé.`;
 
-const faq2Question = `Quelle est la durée du préavis après ${entry.annees} ans d'ancienneté ?`;
+const faq2Question = `Quelle est la durée du préavis après ${entry.annees} ${ans} d'ancienneté ?`;
 const faq2Answer = entry.annees < 2
   ? `Avec ${entry.annees} an(s) d'ancienneté, le préavis de licenciement est de 1 mois pour les salariés non-cadres (article L1234-1 du Code du travail). Les cadres bénéficient généralement d'un préavis de 3 mois selon leur convention collective. L'employeur peut dispenser le salarié d'exécuter le préavis moyennant le versement d'une indemnité compensatrice égale au salaire brut.`
-  : `Avec ${entry.annees} ans d'ancienneté, le préavis de licenciement est de 2 mois pour les salariés non-cadres et de 3 mois pour les cadres (article L1234-1 du Code du travail). L'indemnité compensatrice de préavis représente donc 2 à 3 mois de salaire brut supplémentaires, qui s'ajoutent à l'indemnité légale de licenciement.`;
+  : `Avec ${entry.annees} ${ans} d'ancienneté, le préavis de licenciement est de 2 mois pour les salariés non-cadres et de 3 mois pour les cadres (article L1234-1 du Code du travail). L'indemnité compensatrice de préavis représente donc 2 à 3 mois de salaire brut supplémentaires, qui s'ajoutent à l'indemnité légale de licenciement.`;
 
-const faq3Question = `L'indemnité de licenciement après ${entry.annees} ans est-elle imposable ?`;
-const faq3Answer = `L'indemnité légale de licenciement après ${entry.annees} ans est intégralement exonérée d'impôt sur le revenu et de cotisations sociales. Seule la part supra-légale (montant négocié au-delà du minimum légal) peut être soumise à l'impôt, dans la limite du plus élevé entre : 2 fois la rémunération brute annuelle, 50 % de l'indemnité totale, ou 6 fois le plafond annuel de la Sécurité sociale (environ 288 360 € en 2026). L'indemnité compensatrice de préavis est en revanche imposable comme un salaire.`;
+const faq3Question = `L'indemnité de licenciement après ${entry.annees} ${ans} est-elle imposable ?`;
+const faq3Answer = `L'indemnité légale de licenciement après ${entry.annees} ${ans} est intégralement exonérée d'impôt sur le revenu et de cotisations sociales. Seule la part supra-légale (montant négocié au-delà du minimum légal) peut être soumise à l'impôt, dans la limite du plus élevé entre 2 fois la rémunération brute annuelle et 50 % de l'indemnité totale, sans pouvoir dépasser 6 fois le plafond annuel de la Sécurité sociale (288 360 € en 2026). L'indemnité compensatrice de préavis est en revanche imposable comme un salaire.`;
 
-const faq4Question = `Le solde de tout compte après ${entry.annees} ans comprend-il autre chose ?`;
-const faq4Answer = `Au-delà de l'indemnité légale, le solde de tout compte réunit le salaire du mois en cours au prorata, l'indemnité compensatrice de congés payés pour les jours non pris, l'indemnité compensatrice de préavis si l'employeur en dispense le salarié, et le cas échéant la contrepartie financière d'une clause de non-concurrence. Après ${entry.annees} ans, la part de congés payés est souvent le deuxième poste après l'indemnité elle-même.`;
+const faq4Question = `Le solde de tout compte après ${entry.annees} ${ans} comprend-il autre chose ?`;
+const faq4Answer = `Au-delà de l'indemnité légale, le solde de tout compte réunit le salaire du mois en cours au prorata, l'indemnité compensatrice de congés payés pour les jours non pris, l'indemnité compensatrice de préavis si l'employeur en dispense le salarié, et le cas échéant la contrepartie financière d'une clause de non-concurrence. Après ${entry.annees} ${ans}, la part de congés payés est souvent le deuxième poste après l'indemnité elle-même.`;
 
-const faq5Question = `Faut-il ${entry.annees} ans d'ancienneté continue pour y avoir droit ?`;
+const faq5Question = `Faut-il ${entry.annees} ${ans} d'ancienneté continue pour y avoir droit ?`;
 const faq5Answer = `L'ancienneté se compte à partir de l'entrée dans l'entreprise, sans exiger une présence sans interruption. Les congés payés, les arrêts maladie liés à un accident du travail et les congés maternité comptent intégralement. Un congé parental ne compte que pour moitié, et un congé sans solde ne compte pas. Une reprise par un nouvel employeur avec transfert du contrat conserve l'ancienneté acquise.`;
 
-const faq6Question = `L'indemnité après ${entry.annees} ans est-elle la même en rupture conventionnelle ?`;
-const faq6Answer = `L'indemnité de rupture conventionnelle ne peut pas être inférieure à l'indemnité légale de licenciement : après ${entry.annees} ans, le plancher est donc identique. La différence tient à la négociation, puisque rien n'empêche de convenir d'un montant supérieur, et au régime social, la rupture conventionnelle étant soumise à une contribution patronale de 40 % sur la part exonérée de cotisations.`;
+const faq6Question = `L'indemnité après ${entry.annees} ${ans} est-elle la même en rupture conventionnelle ?`;
+const faq6Answer = `L'indemnité de rupture conventionnelle ne peut pas être inférieure à l'indemnité légale de licenciement : après ${entry.annees} ${ans}, le plancher est donc identique. La différence tient à la négociation, puisque rien n'empêche de convenir d'un montant supérieur, et au régime social, la rupture conventionnelle étant soumise à une contribution patronale de 40 % sur la part exonérée de cotisations.`;
 
-const faq7Question = `Quand l'indemnité est-elle versée après ${entry.annees} ans de présence ?`;
+const faq7Question = `Quand l'indemnité est-elle versée après ${entry.annees} ${ans} de présence ?`;
 const faq7Answer = `Le versement intervient au terme du contrat, en même temps que le solde de tout compte, que le préavis soit exécuté ou non. L'employeur remet alors le certificat de travail et l'attestation destinée à France Travail. Un retard de paiement ouvre droit à des intérêts et peut être porté devant le conseil de prud'hommes, qui apprécie aussi le préjudice subi.`;
 
 const faqSchema = {
@@ -117,7 +119,7 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       "position": 2,
-      "name": `Indemnité après ${entry.annees} ans`,
+      "name": `Indemnité après ${entry.annees} ${ans}`,
       "item": `https://indemnitelicenciement.fr/indemnite-licenciement-${entry.slug}-ans/`,
     },
   ],
@@ -129,8 +131,8 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
 ---
 
 <Layout
-  title={`Indemnité de licenciement après ${entry.annees} ans : le calcul 2026`}
-  description={`Calcul de l'indemnité légale de licenciement après ${entry.annees} ans d'ancienneté : le barème applicable, le préavis, les congés payés et des exemples chiffrés pour 2026.`}
+  title={`Indemnité de licenciement après ${entry.annees} ${ans} : le calcul 2026`}
+  description={`Calcul de l'indemnité légale de licenciement après ${entry.annees} ${ans} d'ancienneté : le barème applicable, le préavis, les congés payés et des exemples chiffrés pour 2026.`}
   canonical={`/indemnite-licenciement-${entry.slug}-ans/`}
   schema={combinedSchema}
 >
@@ -140,7 +142,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       <ol class="flex items-center gap-2 text-sm text-gray-500">
         <li><a href="/" class="hover:text-primary-700 transition-colors">Calculateur</a></li>
         <li class="text-gray-300">/</li>
-        <li class="text-gray-900 font-medium">Indemnité après {entry.annees} ans</li>
+        <li class="text-gray-900 font-medium">Indemnité après {entry.annees} {ans}</li>
       </ol>
     </div>
   </nav>
@@ -149,7 +151,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
   <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white py-4 md:py-6">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h1 class="text-[1.7rem] md:text-4xl font-extrabold leading-tight text-white">
-        Indemnité de licenciement après {entry.annees} ans
+        Indemnité de licenciement après {entry.annees} {ans}
       </h1>
       <p class="mt-2 text-base md:text-lg text-primary-100 max-w-3xl mx-auto">
         Calcul 2026 - Montant légal, préavis, exemples chiffrés et droits du salarié
@@ -163,7 +165,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
     <div class="max-w-6xl mx-auto">
       <LicenciementCalculator client:idle />
       <h2 class="mt-8 text-2xl font-bold text-gray-900 mb-3 text-center">
-        Simulez votre indemnité après {entry.annees} ans
+        Simulez votre indemnité après {entry.annees} {ans}
       </h2>
       <p class="text-gray-600 text-center max-w-2xl mx-auto">
         Utilisez notre calculateur pour obtenir une estimation personnalisée de vos indemnités
@@ -182,7 +184,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
   <!-- Calculation Examples Table -->
   <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <h2 class="text-2xl font-bold text-gray-900 mb-6">
-      Exemples de calcul - {entry.annees} ans d'ancienneté
+      Exemples de calcul - {entry.annees} {ans} d'ancienneté
     </h2>
     <p class="text-gray-600 mb-6">
       Le tableau ci-dessous présente le montant de l'indemnité légale de licenciement après
@@ -237,7 +239,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
     <div data-chrome class="prose prose-lg max-w-none">
 
       <h2 class="text-2xl font-bold text-gray-900 mb-4">
-        Comment est calculée l'indemnité de licenciement après {entry.annees} ans ?
+        Comment est calculée l'indemnité de licenciement après {entry.annees} {ans} ?
       </h2>
       <p>
         L'indemnité légale de licenciement après {entry.annees} {entry.annees > 1 ? 'années' : 'an'} d'ancienneté
@@ -249,14 +251,14 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       {entry.annees <= 10 ? (
         <p>
           Pour une ancienneté de {entry.annees} {entry.annees > 1 ? 'ans' : 'an'}, le taux applicable est de
-          <strong>1/4 de mois de salaire par année</strong>, soit {(entry.annees / 4).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} mois de salaire brut.
+          <strong>1/4 de mois de salaire par année</strong>, soit {(entry.annees / 4).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} mois de salaire brut.
           Ce taux unique s'applique à toutes les années d'ancienneté jusqu'à 10 ans. Par exemple, un salarié percevant
           3 000 € brut par mois avec {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} d'ancienneté recevra une indemnité
           légale de 3 000 × 1/4 × {entry.annees} = <strong>{formatEuros(3000 * entry.annees / 4)}</strong>.
         </p>
       ) : (
         <p>
-          Pour une ancienneté de {entry.annees} ans, le calcul se décompose en deux tranches.
+          Pour une ancienneté de {entry.annees} {ans}, le calcul se décompose en deux tranches.
           Les <strong>10 premières années</strong> sont indemnisées au taux de 1/4 de mois de salaire par année,
           et les <strong>{entry.annees - 10} années au-delà</strong> bénéficient du taux majoré de 1/3 de mois par année.
           Concrètement, pour un salaire de 3 000 € brut : (3 000 × 1/4 × 10) + (3 000 × 1/3 × {entry.annees - 10}) =
@@ -265,7 +267,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       )}
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
-        Profil type du salarié avec {entry.annees} ans d'ancienneté
+        Profil type du salarié avec {entry.annees} {ans} d'ancienneté
       </h2>
       <p>
         {entry.profilType} Cette ancienneté de {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} reflète
@@ -278,7 +280,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       </p>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
-        Le préavis de licenciement après {entry.annees} ans
+        Le préavis de licenciement après {entry.annees} {ans}
       </h2>
       <p>
         {entry.annees < 2 ? (
@@ -287,7 +289,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
           en application de la convention collective. L'indemnité compensatrice de préavis, versée en cas de dispense
           d'exécution, correspond au salaire brut que le salarié aurait perçu pendant la durée du préavis.`
         ) : (
-          `Avec ${entry.annees} ans d'ancienneté, le préavis légal de licenciement est de 2 mois pour les salariés non-cadres
+          `Avec ${entry.annees} ${ans} d'ancienneté, le préavis légal de licenciement est de 2 mois pour les salariés non-cadres
           et de 3 mois pour les cadres (article L1234-1 du Code du travail). Cette indemnité compensatrice de préavis,
           versée en cas de dispense d'exécution par l'employeur, s'ajoute à l'indemnité légale de licenciement et
           constitue souvent un complément financier significatif. Elle est soumise aux cotisations sociales et à
@@ -296,7 +298,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       </p>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
-        Conseils pratiques pour un licenciement après {entry.annees} ans
+        Conseils pratiques pour un licenciement après {entry.annees} {ans}
       </h2>
       <ul class="list-disc pl-6 space-y-3">
         {entry.conseils.map((conseil) => (
@@ -305,7 +307,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       </ul>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
-        Allocation chômage (ARE) après {entry.annees} ans de travail
+        Allocation chômage (ARE) après {entry.annees} {ans} de travail
       </h2>
       <p>
         Après un licenciement avec {entry.annees} {entry.annees > 1 ? 'ans' : 'an'} d'ancienneté, le salarié
@@ -324,7 +326,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
       </p>
 
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">
-        Convention collective et indemnité après {entry.annees} ans
+        Convention collective et indemnité après {entry.annees} {ans}
       </h2>
       <p>
         L'indemnité légale de licenciement constitue le <strong>minimum garanti</strong> par le Code du travail.
@@ -345,7 +347,7 @@ import AnalyseAnciennete from '../components/AnalyseAnciennete.astro';
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- FAQ -->
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6" id="faq">
-        Questions fréquentes - Licenciement après {entry.annees} ans
+        Questions fréquentes - Licenciement après {entry.annees} {ans}
       </h2>
     </div>
 

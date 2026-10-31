@@ -35,7 +35,7 @@ const faqSchema = {
       "name": "Quelle partie de mon solde de tout compte sera imposée ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "L' indemnité légale ou conventionnelle est intégralement exonérée d'impôt sur le revenu, quelle que soit son montant. La part supra-légale est exonérée dans la limite du montant le plus élevé entre : 2 fois la rémunération brute annuelle de l'année précédente 50 % de l'indemnité totale perçue 6 fois le plafond annuel de la Sécurité sociale (≈ 288 360 € en 2026) Au-delà de ces limites, la part excédentaire est soumise à l'impôt sur le revenu et aux cotisations sociales."
+        "text": "L' indemnité légale ou conventionnelle est intégralement exonérée d'impôt sur le revenu, quelle que soit son montant. La part supra-légale est exonérée dans la limite du montant le plus élevé entre : 2 fois la rémunération brute annuelle de l'année précédente, 50 % de l'indemnité totale perçue ; ce montant ne peut dépasser 6 fois le plafond annuel de la Sécurité sociale (288 360 € en 2026). Au-delà de ces limites, la part excédentaire est soumise à l'impôt sur le revenu et aux cotisations sociales."
       }
     },
     {
@@ -177,8 +177,10 @@ import MiniSimAutonome from '../../components/calc/MiniSimAutonome';
           <ul class="list-disc pl-6 mt-2 space-y-1">
             <li>2 fois la rémunération brute annuelle de l'année précédente</li>
             <li>50 % de l'indemnité totale perçue</li>
-            <li>6 fois le plafond annuel de la Sécurité sociale (≈ 288 360 € en 2026)</li>
           </ul>
+          <p class="mt-2">
+            Ce montant ne peut pas dépasser 6 fois le plafond annuel de la Sécurité sociale (288 360 € en 2026).
+          </p>
           <p class="mt-2">
             Au-delà de ces limites, la part excédentaire est soumise à l'impôt sur le revenu et aux cotisations sociales.
           </p>
