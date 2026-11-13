@@ -26,7 +26,7 @@ const faq = [
   sources={['unedic_cumul', 'sp_are', 'unedic_are']}>
   <MiniSimAutonome slot="sim" spacing="my-0" client:visible kind="cumul" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
 
-  <h2>The monthly calculation</h2>
+  <h2>Working while on ARE: the monthly calculation</h2>
   <p>Unédic’s formula fits on one line: payable days = (monthly benefit without work − {v.cumulTaux} of gross pay) ÷ daily benefit. Monthly benefit without work is the daily benefit times {v.jpm}. The result is rounded to the nearest whole number, then multiplied by the daily benefit. There is normally no carry-over from one month to the next: pay received in March only reduces March’s benefit.</p>
   <p>Next comes the ceiling check. Salary plus benefit paid must not exceed the daily reference wage times {v.cumulJours}, which matches your former average monthly salary. If the total is higher, the ceiling sets the number of days. In practice it only matters when the new salary gets close to the old one.</p>
 

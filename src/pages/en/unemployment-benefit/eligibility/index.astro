@@ -18,14 +18,14 @@ const faq = [
   title="Unemployment Benefit Eligibility France 2026: Months, Length"
   description="Who gets unemployment benefit in France in 2026: 6 months of work in 24 (5 for first-time claimants), length equal to days worked × 0.75, age caps. Check yours."
   h1="Unemployment benefit eligibility in France: who qualifies, and for how long"
-  lede="Have you worked enough to claim, and how many days of benefit does that give you? Both answers follow from the months you spent under contract."
+  lede="Unemployment benefit eligibility in France comes down to two questions: have you worked enough to claim, and how many days of benefit does that give you? Both answers follow from the months you spent under contract."
   crumb="Eligibility"
   citable={`To receive French unemployment benefit in 2026 you must have lost your job involuntarily (dismissal, mutual termination, end of a fixed-term contract, or resignation for a legitimate reason), register with France Travail, and show ${v.aff} working days or ${v.affH} hours, about ${v.affM} months, in the ${v.ref} months before your contract ended, or the ${v.refS} months from age ${v.age55}. Since 1 April 2026, first-time claimants, never paid ARE in the last twenty years, qualify with ${v.primoM} months. The claim lasts the number of calendar days between your first and last contract in that period, multiplied by ${v.coef}, with a minimum of ${v.minDuree} days. It cannot exceed ${v.cap55} days under ${v.age55}, ${v.cap5556} days at ${v.age55} and 56, or ${v.cap57} days from ${v.age57}. Twenty-four months of continuous work therefore give eighteen months of benefit under ${v.age55}. Nationality does not matter; work under French insurance does.`}
   faq={faq}
   sources={['unedic_are', 'unedic_primo', 'sp_are', 'unedic_demission', 'insee_chomage']}>
   <MiniSimAutonome slot="sim" spacing="my-0" client:visible kind="droits" lang="en" locale="en-GB" href="/en/unemployment-benefit/" />
 
-  <h2>The seven conditions, and the two that cause refusals</h2>
+  <h2>The seven eligibility conditions for unemployment benefit, and the two that cause refusals</h2>
   <p>Unédic lists seven conditions: being registered as a jobseeker; not having reached full-rate retirement age; having worked enough; having lost your job involuntarily; being fit for work; actively looking for work; and living in an area covered by French unemployment insurance, which means mainland France and the overseas departments other than Mayotte. Most go without saying. In practice, refusals come from two of them: the amount of work, for people coming out of a string of short contracts, and the involuntary nature of the job loss, when the last departure, or an earlier one, was a resignation.</p>
   <p>The resignation rule is finer than many people think: an old resignation does not block everything. What matters is having worked at least {v.dem65} days, or 455 hours, since your last voluntary departure. Someone who resigns, finds a new job three months later and is then dismissed is entitled to benefit, calculated on all their work in the reference period.</p>
 
