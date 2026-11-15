@@ -304,3 +304,8 @@ select:not([multiple]):not([size]), select[size="1"] {
   background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1rem 1rem;
   text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
 }
+
+/* Champs en subgrid : quand le formulaire est étiré à la hauteur du résultat voisin, ses rangées ne doivent pas s'étirer (trous entre libellé, case et aide). */
+:where(form, div, fieldset):has(> .grid-rows-subgrid) { align-content: start; }
+/* Dans une grille, le cadre du formulaire s'arrête sous ses champs au lieu de s'étirer à la hauteur du résultat. */
+.grid > form:has(> .grid-rows-subgrid) { align-self: start; }
