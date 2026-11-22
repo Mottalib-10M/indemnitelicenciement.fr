@@ -1,0 +1,177 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+import SourcesOfficielles from '../../../components/SourcesOfficielles.astro';
+import MiniSimAutonome from '../../../components/calc/MiniSimAutonome';
+import { PLAFOND_SS_ANNUEL, PLAFOND_SS_MENSUEL } from '../../../lib/baremes-2026';
+import { PLAFOND_SS_ANNUEL_2027, PLAFOND_SS_MENSUEL_2027 } from '../../../lib/baremes-2027';
+import { calculateIndemniteLegale } from '../../../lib/engine';
+
+const eur = (n: number) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+const eur2 = (n: number) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
+const P26 = PLAFOND_SS_ANNUEL, P27 = PLAFOND_SS_ANNUEL_2027;
+const plafonds = [
+  ['Exonération de cotisations sociales (2 PASS)', 2],
+  ["Plafond d'exonération d'impôt sur le revenu (6 PASS)", 6],
+  ['Seuil au-delà duquel tout est soumis à cotisations (10 PASS)', 10],
+] as const;
+const cas = [[2500, 4], [3000, 12], [4500, 20]] as const;
+
+const faq = [
+  {
+    q: "Le calcul de l'indemnité légale de licenciement change-t-il en 2027 ?",
+    a: "Non. La formule de l'article R1234-2 du Code du travail reste la même : un quart de mois de salaire par année d'ancienneté jusqu'à dix ans, puis un tiers de mois par année au-delà, à partir de huit mois d'ancienneté. Aucun texte publié au 22 novembre 2026 ne la modifie. Une indemnité versée en janvier 2027 se calcule donc exactement comme en 2026, sur le salaire de référence du salarié.",
+  },
+  {
+    q: 'Quel est le plafond de la Sécurité sociale en 2027 ?',
+    a: `${eur(PLAFOND_SS_MENSUEL_2027)} par mois et ${eur(P27)} par an, contre ${eur(PLAFOND_SS_MENSUEL)} et ${eur(P26)} en 2026, selon le montant annoncé et repris par service-public.gouv.fr le 19 octobre 2026. L'arrêté qui le fixe officiellement n'était pas encore paru au Journal officiel le 22 novembre 2026. Ce plafond sert à calculer les limites d'exonération de l'indemnité, pas son montant.`,
+  },
+  {
+    q: 'Une indemnité versée en janvier 2027 profite-t-elle des plafonds 2027 ?',
+    a: `Pour les cotisations sociales, la limite de deux plafonds s'apprécie avec le plafond de l'année du versement, soit ${eur(2 * P27)} pour un versement en 2027 contre ${eur(2 * P26)} en 2026. Pour l'impôt sur le revenu, la limite de six plafonds se calcule avec le plafond en vigueur à la date du versement. Seule la part supra-légale importante est concernée : l'indemnité légale reste exonérée quel que soit son montant.`,
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://indemnitelicenciement.fr/' },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://indemnitelicenciement.fr/guides/' },
+    { '@type': 'ListItem', position: 3, name: 'Indemnité de licenciement 2027', item: 'https://indemnitelicenciement.fr/guides/indemnite-licenciement-2027/' },
+  ],
+};
+---
+
+<Layout
+  title="Indemnité de licenciement 2027 : calcul et plafonds PASS"
+  description={`Indemnité de licenciement en 2027 : même formule qu'en 2026, plafond de la Sécurité sociale annoncé à ${eur(P27)}, exonération sociale portée à ${eur(2 * P27)}.`}
+  canonical="/guides/indemnite-licenciement-2027/"
+  schema={schema}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="bg-gradient-to-b from-primary-700 to-primary-800 text-white pt-8 pb-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-primary-200 text-sm mb-4">
+        <a href="/" class="text-primary-200 hover:text-white transition-colors">Accueil</a>
+        <span class="mx-2">›</span>
+        <a href="/guides/" class="text-primary-200 hover:text-white transition-colors">Guides</a>
+        <span class="mx-2">›</span>
+        <span class="text-white">2027</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">Indemnité de licenciement 2027 : la formule et les plafonds</h1>
+      <p class="mt-4 text-primary-100 text-lg">L'indemnité de licenciement se calcule en 2027 comme en 2026 ; seuls les plafonds d'exonération suivent le nouveau plafond de la Sécurité sociale.</p>
+      <MiniSimAutonome client:visible kind="legale" lang="fr" locale="fr-FR" href="/" />
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <p class="text-gray-700 leading-relaxed">
+      Pour un licenciement notifié en 2027, l'indemnité légale reste fixée par l'article R1234-2 du Code du travail : un quart de mois de salaire par année d'ancienneté jusqu'à dix ans, un tiers de mois par année au-delà, dès huit mois d'ancienneté ininterrompue. Aucun texte publié au 22 novembre 2026 ne change cette formule, ni le salaire de référence, qui reste la moyenne la plus favorable entre les douze et les trois derniers mois. Ce qui bouge au 1er janvier 2027, c'est le plafond annuel de la Sécurité sociale, annoncé à {eur(P27)} contre {eur(P26)} en 2026. Il fixe les limites d'exonération de la part supra-légale : {eur(2 * P27)} pour les cotisations sociales, {eur(6 * P27)} pour l'impôt sur le revenu, et {eur(10 * P27)} au-delà desquels toute l'indemnité est soumise à cotisations. L'arrêté qui fixe ce plafond n'était pas encore paru au Journal officiel à cette date.
+    </p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-slate max-w-none">
+      <h2 class="text-2xl font-bold text-gray-900 mt-4 mb-4">Indemnité de licenciement : les plafonds 2026 et 2027</h2>
+      <p>
+        Le plafond de la Sécurité sociale sert de mesure à trois limites qui ne touchent que les indemnités supérieures au minimum légal ou conventionnel. Le tableau les calcule avec le plafond de 2026, fixé par arrêté, et avec celui de 2027, tel qu'il a été annoncé et repris par service-public.gouv.fr.
+      </p>
+      <div class="overflow-x-auto my-6">
+        <table class="w-full border-collapse not-prose">
+          <thead>
+            <tr class="bg-primary-700 text-white">
+              <th class="p-3 text-left font-semibold text-white">Limite</th>
+              <th class="p-3 text-right font-semibold text-white">2026</th>
+              <th class="p-3 text-right font-semibold text-white">2027 (annoncé)</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">Plafond mensuel de la Sécurité sociale</td>
+              <td class="p-3 text-right">{eur(PLAFOND_SS_MENSUEL)}</td>
+              <td class="p-3 text-right">{eur(PLAFOND_SS_MENSUEL_2027)}</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="p-3 font-medium text-gray-900">Plafond annuel (PASS)</td>
+              <td class="p-3 text-right">{eur(P26)}</td>
+              <td class="p-3 text-right">{eur(P27)}</td>
+            </tr>
+            {plafonds.map(([l, k]) => (
+              <tr class="border-b border-gray-200">
+                <td class="p-3 font-medium text-gray-900">{l}</td>
+                <td class="p-3 text-right">{eur(k * P26)}</td>
+                <td class="p-3 text-right">{eur(k * P27)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Pour une indemnité négociée de 100 000 € au-dessus d'une indemnité légale bien plus faible, la part soumise à cotisations passe ainsi de {eur(100000 - 2 * P26)} en 2026 à {eur(100000 - 2 * P27)} en 2027, à condition que la totalité soit exonérée d'impôt. Les règles elles-mêmes, détaillées dans le guide de la <a href="/guides/fiscalite-indemnites/">fiscalité des indemnités</a>, ne changent pas.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Trois exemples de calcul pour 2027</h2>
+      <p>
+        L'indemnité légale ne dépend que du salaire de référence et de l'ancienneté. À salaire égal, elle est la même en 2027 qu'en 2026 ; elle augmente seulement si le salaire a été revalorisé. Le SMIC de 2027, qui sert de plancher aux plus bas salaires, n'est pas encore connu : sa revalorisation du 1er janvier est décidée en décembre.
+      </p>
+      <div class="overflow-x-auto my-6">
+        <table class="w-full border-collapse not-prose">
+          <thead>
+            <tr class="bg-primary-700 text-white">
+              <th class="p-3 text-left font-semibold text-white">Salaire de référence brut</th>
+              <th class="p-3 text-right font-semibold text-white">Ancienneté</th>
+              <th class="p-3 text-right font-semibold text-white">Indemnité légale</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            {cas.map(([s, a]) => (
+              <tr class="border-b border-gray-200">
+                <td class="p-3">{eur(s)} par mois</td>
+                <td class="p-3 text-right">{a} ans</td>
+                <td class="p-3 text-right font-semibold">{eur2(calculateIndemniteLegale(s, a))}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Au-delà de dix ans, chaque année compte un tiers de mois au lieu d'un quart : c'est ce qui fait grimper le troisième cas. La convention collective peut prévoir mieux, et c'est alors le montant conventionnel qui est dû ; le <a href="/">calculateur de l'accueil</a> compare les deux. Si vous êtes licencié fin 2026 et que votre préavis court jusqu'en 2027, l'ancienneté se compte jusqu'à la fin du préavis, même lorsque vous êtes dispensé de l'exécuter.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Ce qui reste à confirmer</h2>
+      <p>
+        Deux chiffres de 2027 manquent au 22 novembre 2026 : l'arrêté qui fixe le plafond de la Sécurité sociale, attendu avant la fin de l'année, et le SMIC du 1er janvier 2027. Cette page sera mise à jour dès leur parution au Journal officiel. Les indemnités de chômage relèvent d'un autre calendrier, celui de l'assurance chômage, dont le <a href="/simulateur-chomage/">simulateur</a> suit les montants en vigueur.
+      </p>
+    </div>
+
+    <div class="mt-10 border-t border-gray-200 pt-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-3">Sources</h2>
+      <ul class="space-y-1 text-sm text-gray-600">
+        <li>Article R1234-2 du Code du travail, calcul de l'indemnité légale de licenciement</li>
+        <li>Article 80 duodecies du Code général des impôts, exonération fiscale des indemnités de rupture</li>
+        <li>Service-public.gouv.fr, <a href="https://www.service-public.gouv.fr/particuliers/actualites/A15386" class="text-primary-600 hover:underline" target="_blank" rel="noopener">plafond de la Sécurité sociale pour 2027</a> (19 octobre 2026)</li>
+        <li>BOSS (Bulletin officiel de la Sécurité sociale), <a href="https://boss.gouv.fr" class="text-primary-600 hover:underline" target="_blank" rel="noopener">boss.gouv.fr</a></li>
+      </ul>
+    </div>
+
+    <div class="mt-12 border-t border-gray-200 pt-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6" id="faq">Questions fréquentes</h2>
+      <div class="space-y-4">
+        {faq.map((f) => (
+          <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+            <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">{f.q}</summary>
+            <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  <SourcesOfficielles />
+</Layout>
