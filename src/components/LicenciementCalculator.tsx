@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
+import { useState, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { simulerLicenciement, type LicenciementInput, type LicenciementResult } from '../lib/engine';
 
 // Montant rond : sans décimales ; sinon deux décimales (« 1 686,60 € », pas « 1 686,6 € »).
@@ -51,6 +51,26 @@ function InputField({
   // Le champ qu'on remplit garde son texte brut ; sinon on montre les milliers
   // separes. Mettre en forme pendant la frappe reecrirait la saisie.
   const [actif, setActif] = useState(false);
+  // Au focus, tout le texte est sélectionné juste après le rendu, avant la première frappe, et le
+  // relâchement du clic n'annule pas la sélection : taper « 12 » donne « 12 », pas « 012 » (§17.7).
+  const input = useRef<HTMLInputElement>(null);
+  const selectPending = useRef(false);
+  const guardMouseUp = useRef(false);
+  useLayoutEffect(() => { if (selectPending.current) { selectPending.current = false; input.current?.select(); } });
+  const [over, setOver] = useState(false);
+  // Texte trop grand gardé à l'écran pendant la frappe (« 12 » dans un champ borné à 11 reste « 12 »
+  // jusqu'à la sortie du champ) ; le calcul reçoit déjà le maximum, l'affichage y revient au blur.
+  const [brut, setBrut] = useState<string | null>(null);
+  const saisir = (brut: string) => {
+    if (type !== "number") return onChange(brut);
+    const v = brut.replace(/[^\d.,]/g, "");
+    const n = parseFloat(v.replace(",", "."));
+    // Valeur trop grande : ramenée au maximum et signalée, jamais ignorée en silence.
+    const trop = max !== undefined && Number.isFinite(n) && n > max;
+    setOver(trop);
+    setBrut(trop ? v : null);
+    onChange(trop ? String(max) : v);
+  };
   const formateFr = (v: string | number) => {
     const s = String(v ?? "");
     if (s === "") return s;
@@ -64,15 +84,15 @@ function InputField({
       </label>
       <div className="relative">
         <input
+          ref={input}
           type={type === "number" ? "text" : type}
           inputMode={type === "number" ? "decimal" : undefined}
           id={id}
-          value={type === "number" && !actif ? formateFr(value) : value}
-          onChange={(e) => onChange(
-            type === "number" ? e.target.value.replace(/[^\d.,]/g, "") : e.target.value
-          )}
-          onFocus={() => setActif(true)}
-          onBlur={() => setActif(false)}
+          value={type === "number" && !actif ? formateFr(value) : (brut ?? value)}
+          onChange={(e) => saisir(e.target.value)}
+          onFocus={() => { setActif(true); selectPending.current = true; guardMouseUp.current = true; }}
+          onMouseUp={(e) => { if (guardMouseUp.current) { guardMouseUp.current = false; e.preventDefault(); } }}
+          onBlur={() => { setActif(false); setBrut(null); guardMouseUp.current = false; }}
           min={min}
           max={max}
           className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-gray-900 bg-white"
@@ -83,7 +103,9 @@ function InputField({
           </span>
         )}
       </div>
-      {help && <p className="mt-1 text-xs text-gray-500">{help}</p>}
+      {over
+        ? <p role="status" className="mt-1 text-xs font-medium text-amber-700">Maximum : {formateFr(max ?? 0)}{suffix ? ` ${suffix}` : ""}</p>
+        : help && <p className="mt-1 text-xs text-gray-500">{help}</p>}
     </div>
   );
 }
@@ -183,6 +205,7 @@ export default function LicenciementCalculator() {
               value={salaireBrut}
               onChange={setSalaireBrut}
               min={0}
+              max={1000000}
               step="any"
               suffix="EUR/mois"
               help="Moyenne des 12 derniers mois"
@@ -193,6 +216,7 @@ export default function LicenciementCalculator() {
               value={salaire3Mois}
               onChange={setSalaire3Mois}
               min={0}
+              max={1000000}
               step="any"
               suffix="EUR/mois"
               help="Si différente de la moyenne sur 12 mois"
@@ -243,6 +267,7 @@ export default function LicenciementCalculator() {
               value={supraLegale}
               onChange={setSupraLegale}
               min={0}
+              max={10000000}
               step="any"
               suffix="EUR"
               help="Montant négocié au-delà du légal"
