@@ -9,6 +9,14 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "Quels seront les chiffres de l'indemnité de licenciement en 2027 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La formule légale ne change pas en 2027 (article R1234-2 du Code du travail). Ce qui bouge, ce sont les plafonds d'exonération, calculés sur le plafond annuel de la Sécurité sociale : 48 900 € annoncés en octobre 2026 (service-public.gouv.fr), à confirmer par l'arrêté du ministre attendu au Journal officiel avant le 31 décembre 2026 (celui de 2026 est paru le 23 décembre 2025). Le SMIC du 1er janvier 2027 sera fixé par décret en décembre 2026. Le simulateur appliquera ces valeurs dès leur parution."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Comment calculer l'indemnité de licenciement en 2026 ?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -183,12 +191,35 @@ import SourcesOfficielles from '../components/SourcesOfficielles.astro';
         L'<strong>indemnité compensatrice de préavis</strong> est soumise à l'impôt sur le revenu et aux cotisations sociales, car elle est considérée comme un salaire. L'<strong>indemnité de congés payés</strong> est également imposable. Quant à l'allocation chômage (ARE), elle est soumise à l'impôt sur le revenu mais exonérée de cotisations sociales (une participation CSG/CRDS réduite s'applique).
       </p>
 
+      <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4" id="2027">
+        Indemnité de licenciement 2027 : ce qui est fixé et ce qui reste à publier
+      </h2>
+      <p>
+        Le calcul de l'indemnité légale ne change pas au 1er janvier 2027 : même formule (article R1234-2 du Code du travail), même ancienneté minimale de 8 mois. Deux valeurs annuelles servent pourtant au calcul du net, et aucune n'est encore fixée par un texte publié :
+      </p>
+      <ul>
+        <li><strong>Le plafond annuel de la Sécurité sociale (PASS)</strong>, qui fixe les limites d'exonération (2, 6 et 10 PASS) : 48 900 € annoncés pour 2027 en octobre 2026 (<a href="https://entreprendre.service-public.gouv.fr/actualites/A15386" rel="nofollow">service-public.gouv.fr</a>). Il devient officiel avec l'arrêté du ministre chargé de la Sécurité sociale, attendu au Journal officiel avant le 31 décembre 2026 ; celui de 2026 est paru le 23 décembre 2025.</li>
+        <li><strong>Le SMIC du 1er janvier 2027</strong>, plancher des plus bas salaires de référence : fixé par décret en décembre 2026.</li>
+      </ul>
+      <p>
+        Le simulateur reste sur les valeurs de 2026 et passera à celles de 2027 le jour de leur publication. Le détail est sur la page <a href="/guides/indemnite-licenciement-2027/">indemnité de licenciement 2027</a>.
+      </p>
+
       <!-- FAQ Section -->
       <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6" id="faq">
         Questions fréquentes sur le licenciement
       </h2>
 
       <div class="space-y-6 not-prose">
+        <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
+            Quels seront les chiffres de l'indemnité de licenciement en 2027 ?
+          </summary>
+          <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+            La formule légale ne change pas en 2027 (article R1234-2 du Code du travail). Ce qui bouge, ce sont les plafonds d'exonération, calculés sur le plafond annuel de la Sécurité sociale : 48 900 € annoncés en octobre 2026 (service-public.gouv.fr), à confirmer par l'arrêté du ministre attendu au Journal officiel avant le 31 décembre 2026 (celui de 2026 est paru le 23 décembre 2025). Le SMIC du 1er janvier 2027 sera fixé par décret en décembre 2026. Le simulateur appliquera ces valeurs dès leur parution.
+          </div>
+        </details>
+
         <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:text-primary-700 transition-colors">
             Comment calculer l'indemnité de licenciement en 2026 ?
