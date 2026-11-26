@@ -220,55 +220,10 @@ footer a:hover { color: #ffffff; }
 
 
 /*
- * Mode sombre.
- *
- * La version precedente empilait des `!important` sur des classes Tailwind et
- * repassait les liens en bleu ciel generique. On redefinit ici les memes
- * jetons de gris, eclaircis, et les liens passent a l'or, seule couleur de la
- * charte qui reste lisible sur fond sombre : le bleu France y devient noir.
+ * Mode sombre retiré le 2026-11-26 : il n'était fait qu'à moitié (gris et cartes du simulateur
+ * restés clairs, libellés et titres illisibles). La page reste claire, seul rendu dessiné.
  */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-neutral-50: #14171d;
-    --color-neutral-100: #1c2027;
-    --color-neutral-200: #2a2f38;
-    --color-neutral-300: #3b414c;
-    --color-neutral-400: #69707e;
-    --color-neutral-500: #98a0af;
-    --color-neutral-600: #bcc3d0;
-    --color-neutral-700: #d8dde6;
-    --color-neutral-800: #eceff4;
-    --color-neutral-900: #f7f9fc;
-  }
-
-  body {
-    background-color: #111419;
-    color: #d8dde6;
-  }
-
-  a { color: var(--color-accent-300); }
-  a:hover { color: var(--color-accent-200); }
-
-  .bg-white { background-color: #1c2027; }
-
-  /* Blocs deja sombres en mode clair : ils se rattachent au fond, en plus profond. */
-  footer.bg-neutral-900,
-  .bloc-code { background-color: #0b0d11; }
-
-  footer .text-neutral-400 { color: #98a0af; }
-
-  input, select, textarea {
-    background-color: #1c2027;
-    color: #eceff4;
-    border-color: #3b414c;
-  }
-
-  :where(.prose) a { color: var(--color-accent-300); }
-  :where(.prose) li::marker { color: var(--color-accent-400); }
-  :where(.prose) blockquote { border-left-color: var(--color-accent-400); }
-
-  :focus-visible { outline-color: var(--color-accent-300); }
-}
+:root { color-scheme: light; }
 
 @media print {
   header, footer, nav, .ne-pas-imprimer { display: none !important; }
